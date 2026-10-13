@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" fill="none">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@800&amp;display=swap');
+    .odia-text {
+      font-family: 'Noto Sans Odia', 'Noto Sans Oriya', sans-serif;
+      font-weight: 800;
+      fill: #B91520;
+    }
+  </style>
+  <text x="0" y="52" font-size="52" class="odia-text">ବାର ମାସ</text>
+  <text x="0" y="108" font-size="52" class="odia-text">ତେର ପର୍ବ</text>
+</svg>

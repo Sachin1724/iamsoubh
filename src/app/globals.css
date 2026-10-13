@@ -1,0 +1,624 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-chandua-red: #C8221A;
+    --color-deep-red: #8A1717;
+    --color-red-line: #A2271F;
+    --color-turmeric: #E0A526;
+    --color-parrot: #3E9B47;
+    --color-rice: #F6EFE2;
+    --color-paper: #FFFAF0;
+    --color-ink: #1B1B1B;
+    --c-ink: #1B1B1B;
+    --color-muted: #4A4642;
+    --color-line: #D8C9B9;
+    --color-white: #FFFFFF;
+  }
+}
+
+/* Custom font utilities */
+@font-face {
+  font-family: 'DiskoPhonic';
+  src: url('/fonts/DiskoPhonic-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OdiaJaya';
+  src: url('/fonts/jaya.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AksharUnicode';
+  src: url('/fonts/akshar.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-disko,
+.font-display {
+  font-family: var(--font-disko), 'DiskoPhonic', sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: -0.01em;
+}
+
+/* Disko Phonic has no rupee glyph; set it in Inter so it sits beside the numerals */
+.rupee {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 0.82em;
+  margin-right: 0.04em;
+}
+
+.font-odia-display {
+  font-family: var(--font-odia-display), 'OdiaJaya', var(--font-odia), "Noto Sans Oriya", sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.font-odia {
+  font-family: var(--font-odia-display), 'OdiaJaya', var(--font-odia), 'AksharUnicode', "Noto Sans Oriya", sans-serif;
+}
+
+.font-sans {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+/* 3D Card Flip styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d,
+.transform-3d {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Hide scrollbar for tabs/carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom subtle paper texture */
+.bg-grain {
+  background-image: radial-gradient(rgba(36, 26, 24, 0.04) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+/* Sticker peel shadow */
+.shadow-sticker {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-card-elevated {
+  box-shadow: 0 16px 32px -8px rgba(36, 26, 24, 0.15), 0 4px 12px rgba(36, 26, 24, 0.08);
+}
+
+/* Very slow rotating mandala keyframe */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 200s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-float-slow {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Neo-brutalist motion system
+   Hard offset shadows, no blur. Press moves the element into
+   its own shadow — the signature interaction.
+   ============================================================ */
+
+:root {
+  --shadow-c: #1B1B1B;
+  --sh-sm: 3px 3px 0 0 var(--shadow-c);
+  --sh-md: 5px 5px 0 0 var(--shadow-c);
+  --sh-lg: 8px 8px 0 0 var(--shadow-c);
+  --d-press: 120ms;
+  --d-fast: 200ms;
+  --d-base: 320ms;
+  --d-slow: 600ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Shadow colour flips to turmeric on ink grounds */
+.surface-ink {
+  --shadow-c: #E0A526;
+}
+
+.tile {
+  border: 2px solid var(--color-ink);
+  box-shadow: var(--sh-md);
+  transition: transform var(--d-press) var(--ease),
+    box-shadow var(--d-press) var(--ease);
+}
+
+.tile-lg {
+  box-shadow: var(--sh-lg);
+}
+
+/* Press: the element travels into its shadow by the shadow's own offset */
+.press {
+  transition: transform var(--d-press) var(--ease),
+    box-shadow var(--d-press) var(--ease);
+  will-change: transform;
+}
+
+.press:active {
+  transform: translate(3px, 3px);
+  box-shadow: var(--sh-sm);
+}
+
+.press-lg:active {
+  transform: translate(5px, 5px);
+  box-shadow: var(--sh-sm);
+}
+
+/* Hover lift — desktop pointers only, never on touch */
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0 0 var(--shadow-c);
+  }
+  .lift-lg:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0 0 var(--shadow-c);
+  }
+}
+
+/* 3D depth — used on the hero box tile and card faces */
+.scene {
+  perspective: 1000px;
+  perspective-origin: 50% 40%;
+}
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform var(--d-base) var(--ease);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scene:hover .card-3d-tilt {
+    transform: rotateX(4deg) rotateY(-6deg) translateZ(12px);
+  }
+}
+
+/* Hero box: drops in with a rotation settle, once */
+@keyframes boxDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px) rotate(-7deg) scale(0.96);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) rotate(1.5deg) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+}
+
+.animate-box-drop {
+  animation: boxDrop var(--d-slow) var(--ease) both;
+}
+
+/* Hero chips pop in one after another */
+@keyframes chipPop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-chip-pop {
+  animation: chipPop var(--d-fast) var(--ease) both;
+}
+
+/* Section 02: the four lines land one at a time */
+@keyframes lineLand {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-line-land {
+  animation: lineLand var(--d-base) var(--ease) both;
+}
+
+/* Hand-drawn tick: strokes itself on */
+@keyframes tickDraw {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-tick-draw path {
+  stroke-dasharray: 24;
+  animation: tickDraw var(--d-base) var(--ease) forwards;
+}
+
+/* Sticker settle — a small wobble as it lands */
+@keyframes stickerSettle {
+  0% {
+    opacity: 0;
+    transform: rotate(12deg) scale(0.8);
+  }
+  70% {
+    transform: rotate(-6deg) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(5deg) scale(1);
+  }
+}
+
+.animate-sticker-settle {
+  animation: stickerSettle 420ms var(--ease) both;
+}
+
+/* Counter digit roll */
+@keyframes digitRoll {
+  from {
+    transform: translateY(0.5em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-digit-roll {
+  animation: digitRoll var(--d-fast) var(--ease) both;
+}
+
+/* Marquee for the moving story wall */
+@keyframes marqueeLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeRight {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marqueeLeft 48s linear infinite;
+}
+
+/* Creator video row — slower, since each card is worth stopping on */
+.animate-marquee-creators {
+  animation: marqueeLeft 70s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marqueeRight 48s linear infinite;
+}
+
+.marquee-pause:hover .animate-marquee-left,
+.marquee-pause:hover .animate-marquee-right,
+.marquee-pause:hover .animate-marquee-creators,
+.marquee-pause:focus-within .animate-marquee-left,
+.marquee-pause:focus-within .animate-marquee-right,
+.marquee-pause:focus-within .animate-marquee-creators {
+  animation-play-state: paused;
+}
+
+/* Moving wall specifications per feedback */
+.wall {
+  display: grid;
+  gap: 24px;
+  margin-block: 48px 64px;
+}
+
+.wall-row {
+  display: flex;
+  gap: 20px;
+  padding: 12px 0;
+  width: max-content;
+}
+
+.wall-tile {
+  width: 180px;
+  aspect-ratio: 9/16;
+  border: 2px solid var(--c-ink, #1B1B1B);
+  border-radius: 18px;
+  box-shadow: 3px 3px 0 var(--c-ink, #1B1B1B);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  background-color: var(--color-paper, #FFFAF0);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wall-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ensure all numbered sections never get covered by sticky nav */
+section[id],
+#hero,
+#sound-familiar,
+#festivals,
+#whats-inside,
+#stories,
+#creators,
+#preorder,
+#bulk,
+#faq {
+  scroll-margin-top: 96px;
+}
+
+/* Everything above degrades to a still page */
+@media (prefers-reduced-motion: reduce) {
+  .animate-box-drop,
+  .animate-chip-pop,
+  .animate-line-land,
+  .animate-sticker-settle,
+  .animate-digit-roll,
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-marquee-creators,
+  .animate-tick-draw path {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+
+  .press,
+  .tile,
+  .card-3d {
+    transition: none;
+  }
+
+  .scene:hover .card-3d-tilt,
+  .lift:hover,
+  .lift-lg:hover {
+    transform: none;
+  }
+}
+
+/* Paper grain over the whole page, so nothing reads as a flat template.
+   Fixed at z-1: section content sits under it, chrome above z-40 stays clear. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Border strips wherever the surface changes */
+.strip {
+  height: 24px;
+  background-repeat: repeat-x;
+  background-size: auto 24px;
+}
+.strip-pattachitra {
+  background-image: url("/patterns/border-pattachitra.svg");
+}
+.strip-ikat {
+  background-image: url("/patterns/border-ikat.svg");
+}
+
+/* Display Odia for the hero title; Akshar stays for running Odia text */
+.font-odia-display {
+  font-family: var(--font-odia-display), var(--font-odia), "Noto Sans Oriya", sans-serif;
+}
+
+/* ============================================================
+   Deal-in: tiles enter like cards pulled from the box.
+   Scroll-driven, so it runs on the compositor with no observers.
+   Browsers without scroll-driven animations simply show the tile.
+   ============================================================ */
+@keyframes dealIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px) rotate(-1.8deg) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .deal-in,
+    .deal-stagger > * {
+      animation: dealIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    /* Each tile in a row lands a beat after the one before it */
+    .deal-stagger > *:nth-child(2) {
+      animation-range: entry 4% entry 59%;
+    }
+    .deal-stagger > *:nth-child(3) {
+      animation-range: entry 8% entry 63%;
+    }
+    .deal-stagger > *:nth-child(4) {
+      animation-range: entry 12% entry 67%;
+    }
+    .deal-stagger > *:nth-child(n + 5) {
+      animation-range: entry 16% entry 71%;
+    }
+  }
+}
+
+/* Mobile safeguards */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* The sticky order bar floats over the footer; keep the last rows reachable */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  footer {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+}
+
+.safe-area-pb {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
+/* Scroll reveal: opt in with `reveal`, stagger children with `reveal-stagger`. */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 320ms ease-out, transform 320ms ease-out;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 320ms ease-out, transform 320ms ease-out;
+}
+.reveal-stagger.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+.reveal-stagger.is-in > *:nth-child(2) { transition-delay: 70ms; }
+.reveal-stagger.is-in > *:nth-child(3) { transition-delay: 140ms; }
+.reveal-stagger.is-in > *:nth-child(4) { transition-delay: 210ms; }
+.reveal-stagger.is-in > *:nth-child(n + 5) { transition-delay: 280ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Ambient drifting leaves / dots (see components/Ambient.tsx). */
+@keyframes ambientDrift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(18px, -22px, 0) rotate(8deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+.ambient {
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+  transition: transform 600ms ease-out;
+}
+.ambient-item {
+  position: absolute;
+  display: block;
+  opacity: 0.45;
+  will-change: transform;
+}
+.ambient-item > * {
+  display: block;
+  animation: ambientDrift linear infinite;
+  animation-duration: inherit;
+  animation-delay: inherit;
+}
+.ambient-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: currentColor;
+}
+.ambient-leaf {
+  width: 44px;
+  height: 44px;
+  background: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient { transition: none; transform: none; }
+  .ambient-item > * { animation: none; }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 27" width="26" height="27">
+<g transform="translate(0,27) scale(0.1,-0.1)">
+<path d="M109 173 c-13 -17 -13 -17 6 -3 11 8 22 16 24 17 2 2 0 3 -6 3 -6 0
+-17 -8 -24 -17z" fill="#971d12" fill-rule="evenodd"/>
+<path d="M104 158 l-19 -23 23 19 c21 18 27 26 19 26 -2 0 -12 -10 -23 -22z" fill="#9d1410" fill-rule="evenodd"/>
+<path d="M37 53 c-4 -3 -7 -13 -7 -21 0 -18 13 -7 16 13 2 17 1 18 -9 8z" fill="#9d1410" fill-rule="evenodd"/>
+<path d="M125 170 c-3 -6 1 -13 9 -16 16 -6 23 -25 9 -23 -5 1 -15 1 -23 0
+-13 -1 -13 -2 0 -11 21 -13 23 -13 38 11 10 16 10 24 1 35 -14 17 -25 18 -34
+4z" fill="#a40c0e" fill-rule="evenodd"/>
+<path d="M107 153 c-13 -12 -7 -24 11 -21 9 1 22 -1 29 -5 6 -4 15 -2 19 5 4
+7 4 10 -1 6 -4 -4 -14 -1 -22 7 -16 16 -26 19 -36 8z" fill="#a10c0e" fill-rule="evenodd"/>
+</g></svg>
