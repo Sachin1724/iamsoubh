@@ -45,7 +45,7 @@ const float COLOUR_CYCLE = 0.195440903;
 const float THETA = 2.14558268;
 const float SHEAR = 0.960383713;
 const float SHRINK = 0.959056616;
-const float LAYERS = 92.0;
+const float LAYERS = 48.0;
 const float WARP_FREQ_X = 0.502511561;
 const float WARP_FREQ_Y = 2.10127497;
 const float WARP_AMP_X = 0.148543179;
@@ -297,7 +297,8 @@ export function GokulpShader({ theme = "dark", background, pointer, time, onErro
   return <canvas ref={canvas} className={className} style={{ display: "block", width: "100%", height: "100%", ...style }} aria-hidden="true" />;
 }
 
-const MAX_PIXELS = 2400000;
+// Half-resolution is plenty behind a masked, blurred background.
+const MAX_PIXELS = 900000;
 const THEME_EASE = 7;
 
 function parseHex(hex: string): [number, number, number] {
@@ -326,7 +327,7 @@ function animate(options: ShaderOptions, draw: (time: number, theme: number, pix
   }
 
   function fitCanvas() {
-    const scale = Math.min(deviceRatio, 2, Math.sqrt(MAX_PIXELS / (width * height)), maxDimension / width, maxDimension / height);
+    const scale = Math.min(deviceRatio, 1.25, Math.sqrt(MAX_PIXELS / (width * height)), maxDimension / width, maxDimension / height);
     const w = Math.max(1, Math.floor(width * scale)), h = Math.max(1, Math.floor(height * scale));
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w;

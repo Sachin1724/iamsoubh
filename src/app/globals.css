@@ -181,6 +181,7 @@
 
 .animate-spin-slow {
   animation: spinSlow 200s linear infinite;
+  will-change: transform;
 }
 
 /* Organic foliage sway in coastal Odia breeze */

@@ -87,11 +87,20 @@ export function BuyerStories() {
     }
   }, [activeStories]);
 
-  // Continuous buttery-smooth horizontal auto-scroll
+  // Continuous horizontal auto-scroll (paused when off-screen to save CPU/battery)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let isVisible = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { rootMargin: "150px" }
+    );
+    observer.observe(el);
 
     let rafId = 0;
     let lastTime = performance.now();
@@ -101,8 +110,8 @@ export function BuyerStories() {
       const dt = (now - lastTime) / 1000;
       lastTime = now;
 
-      // Only scroll when not hovered, not actively dragging, and story modal is not open
-      if (!isPaused.current && !isDragging.current && !viewer) {
+      // Only scroll when visible, not hovered, not actively dragging, and story modal is not open
+      if (isVisible && !isPaused.current && !isDragging.current && !viewer) {
         if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 4) {
           el.scrollLeft = 0;
         } else {
@@ -114,7 +123,10 @@ export function BuyerStories() {
     };
 
     rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
+    return () => {
+      cancelAnimationFrame(rafId);
+      observer.disconnect();
+    };
   }, [viewer, activeStories]);
 
   // Smooth scroll left/right on chevron click

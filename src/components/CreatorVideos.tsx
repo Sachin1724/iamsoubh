@@ -22,19 +22,31 @@ export function CreatorVideos() {
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    let isVisible = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { rootMargin: "150px" }
+    );
+    observer.observe(el);
+
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
       const dt = now - last;
       last = now;
-      if (!paused.current) {
+      if (isVisible && !paused.current) {
         const half = el.scrollWidth / 2;
         el.scrollLeft = (el.scrollLeft + (dt * SPEED_PX_PER_SEC) / 1000) % half;
       }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
   }, []);
 
   const scroll = (direction: "left" | "right") => {
@@ -234,9 +246,8 @@ function CreatorCard({
             poster={creator.poster}
             muted
             loop
-            autoPlay
             playsInline
-            preload="metadata"
+            preload="none"
             className="w-full h-full object-cover"
           />
         ) : (

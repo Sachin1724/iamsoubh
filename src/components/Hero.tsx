@@ -22,25 +22,12 @@ interface HeroProps {
 }
 
 export function Hero({ onOrderClick }: HeroProps) {
-  // Where the spotlight sits, in percent of the hero. Centre-right until the
-  // pointer takes over, so touch devices still see the product lit.
   const [hovered, setHovered] = React.useState<number | null>(null);
   const tilt = useTilt(9);
-  const [light, setLight] = React.useState({ x: 70, y: 45 });
-
-  const onPointerMove = (e: React.PointerEvent<HTMLElement>) => {
-    if (e.pointerType !== "mouse") return;
-    const r = e.currentTarget.getBoundingClientRect();
-    setLight({
-      x: ((e.clientX - r.left) / r.width) * 100,
-      y: ((e.clientY - r.top) / r.height) * 100,
-    });
-  };
 
   return (
     <section
       id="hero"
-      onPointerMove={onPointerMove}
       className="relative pt-28 sm:pt-32 pb-0 bg-gradient-to-b from-[#8C1510] via-[#6E131A] to-[#631012] text-[#F6EFE2] overflow-hidden"
     >
       {/* Animated ASCII field, tinted to the brand red, under everything */}
@@ -56,15 +43,11 @@ export function Hero({ onOrderClick }: HeroProps) {
         <GokulpShader theme="dark" background={{ dark: "#5E0F12" }} />
       </div>
 
-      {/* Ambient glow that follows the pointer */}
+      {/* Static ambient warmth - zero runtime cost */}
       <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none transition-all duration-300 ease-out z-0"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
-          left: `${light.x}%`,
-          top: `${light.y}%`,
-          transform: "translate(-50%, -50%)",
-          background:
-            "radial-gradient(circle, rgba(224, 165, 38, 0.22) 0%, rgba(200, 34, 26, 0.08) 50%, transparent 75%)",
+          background: "radial-gradient(circle at 55% 40%, rgba(224, 165, 38, 0.14) 0%, rgba(200, 34, 26, 0.05) 50%, transparent 75%)",
         }}
         aria-hidden="true"
       />
@@ -85,7 +68,7 @@ export function Hero({ onOrderClick }: HeroProps) {
           alt=""
           fill
           sizes="(max-width: 640px) 40vw, 320px"
-          priority
+          loading="lazy"
           className="object-contain animate-spin-slow"
         />
       </div>
@@ -167,7 +150,7 @@ export function Hero({ onOrderClick }: HeroProps) {
                       alt="Jagannath sticker"
                       width={68}
                       height={82}
-                      priority
+                      loading="lazy"
                       unoptimized
                       className="w-12 h-14 md:w-14 md:h-16 object-contain select-none"
                     />
@@ -260,7 +243,7 @@ export function Hero({ onOrderClick }: HeroProps) {
                   width={420}
                   height={560}
                   sizes="(max-width: 640px) 22vw, 180px"
-                  priority={i < 3}
+                  priority={i < 2}
                   className="w-full h-auto rounded-xl border-2 border-[#1B1B1B] bg-[#F6EFE2] object-cover transition-shadow duration-500 group-hover:shadow-[0_18px_30px_rgba(27,27,27,.45)]"
                 />
                 </div>

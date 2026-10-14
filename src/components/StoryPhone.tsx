@@ -18,39 +18,39 @@ interface StoryPhoneProps {
  *  Give it a `key` tied to the set so swapping sets restarts playback. */
 export function StoryPhone({ stories, onProgress }: StoryPhoneProps) {
   const [index, setIndex] = React.useState(0);
-  const [elapsed, setElapsed] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
+  // Progress is written straight to the bars; a 60fps setState here re-rendered
+  // the whole phone every frame.
+  const barsRef = React.useRef<HTMLDivElement>(null);
+  const elapsedRef = React.useRef(0);
 
   React.useEffect(() => {
     if (paused || stories.length === 0) return;
-    const start = performance.now() - elapsed;
+    const start = performance.now() - elapsedRef.current;
     let raf = 0;
     const tick = (now: number) => {
       const e = now - start;
       if (e >= STORY_MS) {
+        elapsedRef.current = 0;
         setIndex((i) => (i + 1) % stories.length);
-        setElapsed(0);
         return;
       }
-      setElapsed(e);
+      elapsedRef.current = e;
+      const bar = barsRef.current?.children[index] as HTMLElement | undefined;
+      const fill = bar?.firstElementChild as HTMLElement | undefined;
+      if (fill) fill.style.width = `${(e / STORY_MS) * 100}%`;
+      onProgress?.((index + e / STORY_MS) / stories.length);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-    // `elapsed` is the loop's own output; re-subscribing on it would restart the clock.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, paused, stories]);
-
-  React.useEffect(() => {
-    if (stories.length === 0) return;
-    onProgress?.((index + elapsed / STORY_MS) / stories.length);
-  }, [index, elapsed, stories, onProgress]);
+  }, [index, paused, stories, onProgress]);
 
   if (stories.length === 0) return null;
   const story = stories[index];
   const go = (step: number) => {
+    elapsedRef.current = 0;
     setIndex((i) => (i + step + stories.length) % stories.length);
-    setElapsed(0);
   };
 
   return (
@@ -70,13 +70,13 @@ export function StoryPhone({ stories, onProgress }: StoryPhoneProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
 
         {/* Segmented progress bars */}
-        <div className="absolute inset-x-3 top-7 z-20 flex gap-1">
+        <div ref={barsRef} className="absolute inset-x-3 top-7 z-20 flex gap-1">
           {stories.map((s, i) => (
             <span key={s.id} className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/30">
               <span
                 className="block h-full rounded-full bg-white"
                 style={{
-                  width: i < index ? "100%" : i === index ? `${(elapsed / STORY_MS) * 100}%` : "0%",
+                  width: i < index ? "100%" : "0%",
                 }}
               />
             </span>
