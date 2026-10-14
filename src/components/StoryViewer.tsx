@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { StoryItem, cityCodeMap } from "@/data/testimonials";
@@ -22,7 +23,12 @@ export function StoryViewer({
   const [index, setIndex] = useState(startIndex);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const reduced = useRef(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -82,20 +88,40 @@ export function StoryViewer({
     };
   }, [onClose, next, prev]);
 
-  if (!current) return null;
+  if (!current || !mounted) return null;
 
   const hasSharpImage = Boolean(current.image && !current.image.includes("story-"));
   const cityCode = cityCodeMap[current.city] || current.city.slice(0, 4).toUpperCase();
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
       aria-label={`Story from ${current.handle}`}
-      className="fixed inset-0 z-[60] bg-[#1B1B1B] flex flex-col justify-between py-2 sm:py-4 px-3 sm:px-6"
+      className="fixed inset-0 z-[9999] bg-[#1B1B1B]/95 backdrop-blur-md flex flex-col justify-between py-2 sm:py-4 px-3 sm:px-6 cursor-pointer select-none"
+      onClick={onClose}
     >
-      {/* Top progress bars */}
-      <div className="max-w-md w-full mx-auto">
+      {/* Prominent Desktop Close / Back to Website Button */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        aria-label="Back to website"
+        className="fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-[#8A1717] text-[#F6EFE2] border border-white/20 shadow-xl text-xs sm:text-sm font-bold transition-all cursor-pointer group"
+      >
+        <span className="hidden sm:inline">Back to website</span>
+        <X className="w-4 h-4 stroke-[2.5] group-hover:rotate-90 transition-transform" />
+        <span className="hidden sm:inline-block text-[10px] text-white/60 bg-black/40 px-1.5 py-0.5 rounded font-mono">
+          ESC
+        </span>
+      </button>
+
+      {/* Top progress bars and story meta */}
+      <div
+        className="max-w-md w-full mx-auto relative z-10 cursor-default"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex gap-1 p-2 shrink-0">
           {stories.map((s, i) => (
             <div key={s.id} className="h-1 flex-1 rounded-full bg-[#F6EFE2]/25 overflow-hidden">
@@ -121,6 +147,7 @@ export function StoryViewer({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-bold text-[#F6EFE2] hover:underline hover:text-[#E0A526] transition-colors"
+                onClick={(e) => e.stopPropagation()}
               >
                 {current.handle}
               </a>
@@ -128,7 +155,10 @@ export function StoryViewer({
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
             aria-label="Close stories"
             className="w-10 h-10 rounded-full bg-[#F6EFE2] text-[#1B1B1B] border-2 border-[#1B1B1B] flex items-center justify-center press cursor-pointer hover:bg-white"
           >
@@ -139,7 +169,8 @@ export function StoryViewer({
 
       {/* Main 9:16 frame */}
       <div
-        className="relative flex-1 min-h-0 max-w-sm w-full mx-auto flex items-center justify-center my-auto"
+        className="relative flex-1 min-h-0 max-w-sm w-full mx-auto flex items-center justify-center my-auto z-10 cursor-default"
+        onClick={(e) => e.stopPropagation()}
         onPointerDown={() => setPaused(true)}
         onPointerUp={() => setPaused(false)}
         onPointerLeave={() => setPaused(false)}
@@ -154,6 +185,17 @@ export function StoryViewer({
               className="object-cover"
               priority
             />
+            {current.quote && (
+              <div className="absolute bottom-3 left-3 right-3 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl p-3 text-white z-20 pointer-events-none shadow-lg">
+                <p className="text-xs sm:text-sm font-medium leading-snug line-clamp-2">
+                  &ldquo;{current.quote}&rdquo;
+                </p>
+                <div className="flex items-center justify-between mt-1.5 text-[11px] text-[#E0A526] font-bold">
+                  <span>{current.handle}</span>
+                  <span className="text-white/80">{current.city} · {current.stateOrCountry}</span>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           /* Clean 9:16 Placeholder card */
@@ -215,24 +257,33 @@ export function StoryViewer({
         />
       </div>
 
-      {/* Desktop navigation chevrons */}
-      <div className="hidden sm:flex justify-between max-w-lg w-full mx-auto px-4 pb-2 shrink-0">
-        <button
-          onClick={prev}
-          className="px-4 py-2 rounded-full bg-[#2A2A2A] text-[#F6EFE2] text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
-        >
-          <ChevronLeft className="w-4 h-4" /> Previous
-        </button>
-        <span className="text-xs text-[#F6EFE2]/60 self-center">
-          {index + 1} of {stories.length}
-        </span>
-        <button
-          onClick={next}
-          className="px-4 py-2 rounded-full bg-[#2A2A2A] text-[#F6EFE2] text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
-        >
-          Next <ChevronRight className="w-4 h-4" />
-        </button>
+      {/* Desktop navigation chevrons and instructions */}
+      <div
+        className="relative z-10 max-w-lg w-full mx-auto cursor-default shrink-0 pb-1"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="hidden sm:flex justify-between items-center px-4 pb-2">
+          <button
+            onClick={prev}
+            className="px-4 py-2 rounded-full bg-[#2A2A2A] text-[#F6EFE2] text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
+          >
+            <ChevronLeft className="w-4 h-4" /> Previous
+          </button>
+          <span className="text-xs text-[#F6EFE2]/60">
+            {index + 1} of {stories.length}
+          </span>
+          <button
+            onClick={next}
+            className="px-4 py-2 rounded-full bg-[#2A2A2A] text-[#F6EFE2] text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
+          >
+            Next <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+        <p className="text-[11px] text-[#F6EFE2]/50 text-center hidden sm:block pointer-events-none select-none">
+          Click anywhere outside or press ESC to return to main page
+        </p>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

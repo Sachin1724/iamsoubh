@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { sendOrderEmail } from "@/server/email";
 import { getSupabase, alert } from "@/server/clients";
 import { syncOrderToShiprocket } from "@/server/shiprocket";
+import { pullMagicAddress } from "@/server/magic-address";
 
 export async function POST(req: NextRequest) {
   // The signature is over the raw body, so read text and parse by hand.
@@ -44,6 +45,10 @@ export async function POST(req: NextRequest) {
         `OVERFLOW: payment ${entity.id} (order ${entity.order_id}) landed after the last box went. Refund in full.`
       );
     } else {
+      // Magic Checkout holds the delivery address on the Razorpay order; copy it
+      // across before the mail and the shipment read the row.
+      await pullMagicAddress(entity.order_id);
+
       // The webhook is the one place every paid order passes through, so the
       // confirmation mail is sent here rather than from the browser.
       const { data: order } = await getSupabase()

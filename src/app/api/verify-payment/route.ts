@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { getSupabase, alert } from "@/server/clients";
 import { syncOrderToShiprocket } from "@/server/shiprocket";
+import { pullMagicAddress } from "@/server/magic-address";
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
@@ -42,9 +43,10 @@ export async function POST(req: NextRequest) {
       `OVERFLOW: payment ${razorpay_payment_id} (order ${razorpay_order_id}) landed after the last box went. Refund in full.`
     );
   } else if (data!.status === "paid") {
-    syncOrderToShiprocket({ razorpayOrderId: razorpay_order_id }).catch((err: unknown) =>
-      console.error("[verify-payment] Shiprocket sync error:", err)
-    );
+    // The address lives on the Razorpay order, so fetch it before shipping.
+    pullMagicAddress(razorpay_order_id)
+      .then(() => syncOrderToShiprocket({ razorpayOrderId: razorpay_order_id }))
+      .catch((err: unknown) => console.error("[verify-payment] Shiprocket sync error:", err));
   }
 
   return NextResponse.json({ status: data!.status, orderNumber: data!.order_number });

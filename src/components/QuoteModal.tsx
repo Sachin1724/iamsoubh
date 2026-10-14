@@ -84,10 +84,10 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
         aria-modal="true"
         aria-label="Request a bulk quote"
         onClick={(e) => e.stopPropagation()}
-        className="w-full sm:max-w-[480px] max-h-[92dvh] overflow-y-auto bg-[#F6EFE2] rounded-t-3xl sm:rounded-3xl border-2 border-[#1B1B1B]"
+        className="flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[92dvh] bg-[#F6EFE2] rounded-t-3xl sm:rounded-3xl border-2 border-[#1B1B1B]"
         style={{ boxShadow: "8px 8px 0 0 #1B1B1B" }}
       >
-        <div className="sticky top-0 bg-[#F6EFE2] flex items-start justify-between gap-4 p-5 border-b-2 border-[#1B1B1B]">
+        <div className="shrink-0 bg-[#F6EFE2] flex items-start justify-between gap-4 p-5 border-b-2 border-[#1B1B1B]">
           <div>
             <h3 className="font-disko text-2xl text-[#1B1B1B]">Let&apos;s talk numbers.</h3>
             <p className="text-sm text-[#4A4642] mt-0.5">
@@ -111,7 +111,8 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
             </p>
           </div>
         ) : (
-          <form onSubmit={submit} className="p-5 space-y-4">
+          <form onSubmit={submit} className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar p-5 space-y-4">
             <L label="Your name *">
               <input required value={name} onChange={(e) => setName(e.target.value)} className={inp} />
             </L>
@@ -194,6 +195,10 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
               </p>
             )}
 
+            </div>
+
+            {/* Action bar stays put, so the submit is never scrolled out of reach */}
+            <div className="shrink-0 border-t-2 border-[#1B1B1B] bg-[#F6EFE2] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
             <button
               type="submit"
               disabled={status === "sending"}
@@ -209,6 +214,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
                 </>
               )}
             </button>
+            </div>
           </form>
         )}
       </div>

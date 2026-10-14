@@ -45,3 +45,14 @@ next-env.d.ts
 VIDEOPROFILE/
 *.zip
 
+
+.vercel
+.env*
+
+.agents/
+Review/
+Gazpacho-Font/
+/calogo.png
+scripts/
+src/app/sample/
+src/scrape_iamsoubh.js

@@ -19,6 +19,46 @@
 
 /* Custom font utilities */
 @font-face {
+  font-family: 'Gazpacho';
+  src: url('/fonts/gazpacho/Gazpacho-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gazpacho';
+  src: url('/fonts/gazpacho/Gazpacho-Heavy.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gazpacho';
+  src: url('/fonts/gazpacho/Gazpacho-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gazpacho';
+  src: url('/fonts/gazpacho/Gazpacho-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gazpacho';
+  src: url('/fonts/gazpacho/Gazpacho Bold Italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'DiskoPhonic';
   src: url('/fonts/DiskoPhonic-Regular.woff2') format('woff2');
   font-weight: normal;
@@ -42,12 +82,12 @@
   font-display: swap;
 }
 
+.font-gazpacho,
 .font-disko,
 .font-display {
-  font-family: var(--font-disko), 'DiskoPhonic', sans-serif;
-  font-weight: 400;
-  font-synthesis: none;
-  letter-spacing: -0.01em;
+  font-family: var(--font-gazpacho), 'Gazpacho', serif;
+  font-feature-settings: "kern", "liga", "clig";
+  letter-spacing: -0.02em;
 }
 
 /* Disko Phonic has no rupee glyph; set it in Inter so it sits beside the numerals */
@@ -143,9 +183,149 @@
   animation: spinSlow 200s linear infinite;
 }
 
+/* Organic foliage sway in coastal Odia breeze */
+@keyframes swaySoft {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  30% {
+    transform: rotate(3.6deg) translateY(-5px) scale(1.015);
+  }
+  68% {
+    transform: rotate(-2.4deg) translateY(-2px);
+  }
+}
+
+.animate-sway-soft {
+  animation: swaySoft 5.5s ease-in-out infinite;
+  transform-origin: bottom left;
+  will-change: transform;
+}
+
+@keyframes swaySoftRight {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  30% {
+    transform: rotate(-3.6deg) translateY(-5px) scale(1.015);
+  }
+  68% {
+    transform: rotate(2.4deg) translateY(-2px);
+  }
+}
+
+.animate-sway-soft-right {
+  animation: swaySoftRight 5.5s ease-in-out infinite;
+  transform-origin: bottom right;
+  will-change: transform;
+}
+
+/* Gentle floating note animation */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3.5deg);
+  }
+}
+
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Slow majestic Konark wheel spin */
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-wheel-spin {
+  animation: wheelSpin 140s linear infinite;
+  will-change: transform;
+}
+
+/* Subtle Jhoti shimmer */
+@keyframes jhotiShimmer {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.24;
+    transform: scale(1.04);
+  }
+}
+
+.animate-jhoti-shimmer {
+  animation: jhotiShimmer 6s ease-in-out infinite;
+}
+
+/* Jhoti mandala breathing glow */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.18;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 7s ease-in-out infinite;
+}
+
+/* Large background palm tree gentle wind breeze */
+@keyframes palmBreeze {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(1.8deg) scale(1.015);
+  }
+}
+
+.animate-palm-breeze {
+  animation: palmBreeze 8.5s ease-in-out infinite;
+  transform-origin: bottom left;
+  will-change: transform;
+}
+
+/* Konark temple watermark breathing float */
+@keyframes templeBreathe {
+  0%, 100% {
+    opacity: 0.18;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.25;
+    transform: translateY(-6px);
+  }
+}
+
+.animate-temple-breathe {
+  animation: templeBreathe 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-spin-slow,
-  .animate-float-slow {
+  .animate-float-slow,
+  .animate-sway-soft,
+  .animate-sway-soft-right,
+  .animate-float-gentle,
+  .animate-wheel-spin,
+  .animate-jhoti-shimmer,
+  .animate-pulse-glow,
+  .animate-palm-breeze,
+  .animate-temple-breathe {
     animation: none;
   }
 }
@@ -546,6 +726,14 @@ body {
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 /* Scroll reveal: opt in with `reveal`, stagger children with `reveal-stagger`. */
 .reveal {
   opacity: 0;
@@ -585,6 +773,38 @@ body {
   50% { transform: translate3d(18px, -22px, 0) rotate(8deg); }
   100% { transform: translate3d(0, 0, 0) rotate(0deg); }
 }
+
+@keyframes birdsGliding {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-18px, -8px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes flowerFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(-1.5deg); }
+}
+
+.animate-birds-glide {
+  animation: birdsGliding 9s ease-in-out infinite;
+}
+
+.animate-wheel-spin {
+  animation: wheelSpinSlow 180s linear infinite;
+}
+
+.animate-jhoti-shimmer {
+  animation: jhotiShimmer 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 7s ease-in-out infinite;
+}
+
+.animate-flower-float {
+  animation: flowerFloat 5s ease-in-out infinite;
+}
+
 .ambient {
   transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
   transition: transform 600ms ease-out;
@@ -621,4 +841,53 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ambient { transition: none; transform: none; }
   .ambient-item > * { animation: none; }
+}
+
+/* Card tilt + gold foil sheen. The pointer writes --rx/--ry/--mx/--my/--foil
+   (see use-tilt.ts); everything here is GPU work only. */
+.tilt-card {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.foil {
+  position: relative;
+}
+
+/* Specular sweep that follows the pointer across the gold detail. */
+.foil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: calc(var(--foil, 0) * 0.85);
+  transition: opacity 260ms ease-out;
+  mix-blend-mode: overlay;
+  background:
+    radial-gradient(
+      60% 55% at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 250, 230, 0.95) 0%,
+      rgba(224, 165, 38, 0.55) 28%,
+      rgba(224, 165, 38, 0) 62%
+    ),
+    linear-gradient(
+      105deg,
+      transparent 38%,
+      rgba(255, 238, 190, 0.5) 47%,
+      rgba(224, 165, 38, 0.35) 52%,
+      transparent 61%
+    );
+  background-size: 100% 100%, 240% 240%;
+  background-position: 0 0, calc(var(--mx, 50%) * -1.4 + 120%) 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transform: none;
+  }
+  .foil::after {
+    display: none;
+  }
 }

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Sparkles, Calendar, HelpCircle, Heart, Tag, FileText } from "lucide-react";
+import { WaxSeal } from "./WaxSeal";
 
 export function WhatsInside() {
   const [active, setActive] = useState("cards");
@@ -160,16 +161,20 @@ export function WhatsInside() {
                   }`}
                   aria-hidden={active !== item.id}
                 >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 1024px) 90vw, 520px"
-                    className="object-contain"
-                    onError={(e) => {
-                      e.currentTarget.src = "/assets/product-box-concept.png";
-                    }}
-                  />
+                  {item.id === "mystery" ? (
+                    <WaxSeal image={item.image} />
+                  ) : (
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 1024px) 90vw, 520px"
+                      className="object-contain"
+                      onError={(e) => {
+                        e.currentTarget.src = "/assets/product-box-concept.png";
+                      }}
+                    />
+                  )}
                 </div>
               ))}
 

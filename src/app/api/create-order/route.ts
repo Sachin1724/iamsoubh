@@ -40,8 +40,11 @@ export async function POST(req: NextRequest) {
   const quantity = qty as number;
   const c = customer ?? {};
 
-  if (!c.name?.trim() || !/^\d{10}$/.test(c.phone ?? "") || !/^\d{6}$/.test(c.pincode ?? "") || !c.address?.trim()) {
-    return NextResponse.json({ code: "BAD_CUSTOMER" }, { status: 400 });
+  // Magic Checkout collects the delivery address itself, so the phone number is
+  // the only thing we need up front. Anything else the form sends is a bonus
+  // prefill; the authoritative address is read back off the paid order.
+  if (!/^\d{10}$/.test(c.phone ?? "")) {
+    return NextResponse.json({ code: "BAD_PHONE" }, { status: 400 });
   }
 
   // Price and box count come from server config only.
@@ -74,25 +77,52 @@ export async function POST(req: NextRequest) {
   const dbOrderId = reserved!.order_id;
 
   try {
-    const rzpOrder = await getRazorpay().orders.create({
+    const site = process.env.NEXT_PUBLIC_SITE_URL || "https://iamsoubh.com";
+    const label =
+      product === "family"
+        ? "Odia Viral Calendar 2027 · Family Pack (3 boxes)"
+        : "Odia Viral Calendar 2027 · Single Box";
+
+    // The SDK's types predate Magic Checkout's line_items, so the payload is
+    // built loosely and cast back to what orders.create accepts.
+    const orderPayload = {
       amount,
       currency: "INR",
       receipt: dbOrderId,
+      // line_items_total is what marks this as a Magic Checkout order; drop it
+      // and Razorpay silently falls back to Standard Checkout.
+      line_items_total: amount,
+      line_items: [
+        {
+          sku: product,
+          variant_id: product,
+          price: rules.price * 100,
+          offer_price: rules.price * 100,
+          quantity,
+          name: label,
+          description: `${boxes} box${boxes > 1 ? "es" : ""} · 12 festival cards, a sealed 13th parba, stickers and a note.`,
+          image_url: `${site}/assets/product/box-open.webp`,
+        },
+      ],
       notes: {
         db_order_id: dbOrderId,
         product,
         qty: String(quantity),
         boxes: String(boxes),
-        name: c.name!,
+        name: c.name?.trim() ?? "",
         phone: c.phone!,
-        pincode: c.pincode!,
+        pincode: c.pincode ?? "",
         city: c.city ?? "",
         state: c.state ?? "",
         address: (c.address ?? "").slice(0, 250),
         landmark: (c.landmark ?? "").slice(0, 120),
         gift_note: (c.giftNote ?? "").slice(0, 200),
       },
-    });
+    };
+
+    const rzpOrder = await getRazorpay().orders.create(
+      orderPayload as unknown as Parameters<ReturnType<typeof getRazorpay>["orders"]["create"]>[0]
+    );
 
     await getSupabase()
       .from("orders")

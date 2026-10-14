@@ -107,12 +107,17 @@ const Navbar1 = ({
     if (href.startsWith("#")) {
       e.preventDefault();
       const id = href.slice(1);
-      const element = document.getElementById(id);
-      if (element) {
-        const yOffset = -96;
-        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
+      if (id === "hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
         setActiveHref(href);
+      } else {
+        const element = document.getElementById(id);
+        if (element) {
+          const yOffset = -96;
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+          setActiveHref(href);
+        }
       }
     }
     if (isOpen) {
@@ -160,7 +165,7 @@ const Navbar1 = ({
         </div>
 
         {/* Desktop Navigation with animated active highlight */}
-        <nav className="hidden md:flex items-center space-x-1 sm:space-x-2 lg:space-x-3 xl:space-x-4" aria-label="Main Navigation">
+        <nav className="hidden md:flex items-center space-x-0.5 sm:space-x-1 lg:space-x-2 xl:space-x-3" aria-label="Main Navigation">
           {items.map((item) => {
             const isActive = activeHref === item.href;
             return (
@@ -168,7 +173,7 @@ const Navbar1 = ({
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className={`relative px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-all select-none cursor-pointer flex items-center gap-1.5 ${
+                className={`relative px-3 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 rounded-full text-xs lg:text-sm font-medium transition-all select-none cursor-pointer flex items-center gap-1.5 ${
                   isActive
                     ? "text-[#E0A526] font-bold"
                     : "text-[#F6EFE2]/85 hover:text-[#F6EFE2] hover:bg-[#F6EFE2]/10"

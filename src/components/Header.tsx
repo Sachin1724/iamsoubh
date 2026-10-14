@@ -9,11 +9,11 @@ interface HeaderProps {
 }
 
 const navItems: NavItem[] = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#sound-familiar" },
+  { name: "Hero", href: "#hero" },
+  { name: "What's inside", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
-  { name: "What's Inside", href: "#whats-inside" },
-  { name: "FAQ", href: "#faq" },
+  { name: "Creators", href: "#creators" },
+  { name: "Questions", href: "#faq" },
 ];
 
 export function Header({ onOrderClick }: HeaderProps) {
@@ -34,10 +34,10 @@ export function Header({ onOrderClick }: HeaderProps) {
         ctaHref="#preorder"
         onCtaClick={onOrderClick}
         containerClassName="pointer-events-none py-3 px-3 sm:px-6 md:px-8 w-full max-w-7xl mx-auto"
-        className={`pointer-events-auto border-2 transition-colors duration-300 ${
+        className={`pointer-events-auto border-2 transition-all duration-300 ${
           scrolled
-            ? "bg-[#8A1717] border-[#1B1B1B] text-[#F6EFE2]"
-            : "bg-[#8A1717]/80 backdrop-blur-md border-[#F6EFE2]/25 text-[#F6EFE2]"
+            ? "bg-[#8A1717] border-[#1B1B1B] text-[#F6EFE2] shadow-md"
+            : "bg-[#8A1717]/85 backdrop-blur-md border-[#F6EFE2]/25 text-[#F6EFE2]"
         }`}
         brandLogo={
           <a
@@ -50,13 +50,12 @@ export function Header({ onOrderClick }: HeaderProps) {
             }}
           >
             <Image
-              src="/assets/brand/logo-official.webp"
+              src="/assets/brand/calogo.png"
               alt="IAMSOUBH"
-              width={160}
-              height={40}
+              width={180}
+              height={50}
               priority
-              className="h-10 sm:h-12 w-auto object-contain group-hover:opacity-85 transition-opacity"
-              // The logo ships dark; knock it to flat white for the red bar.
+              className="h-8 sm:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </a>

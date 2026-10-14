@@ -1,116 +1,105 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, MessageCircle } from "lucide-react";
-import { Ambient } from "@/components/Ambient";
+import Image from "next/image";
+import { Plus } from "lucide-react";
 import { faqs } from "@/data/faq";
-import { siteConfig } from "@/config/site-config";
 
 export function FaqSection() {
-  const [openId, setOpenId] = useState<string | null>("faq-1");
+  const [openId, setOpenId] = useState<string | null>(null);
 
   const toggle = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
 
+
   return (
     <section
       id="faq"
       className="py-16 sm:py-24 bg-[#F6EFE2] text-[#1B1B1B] relative overflow-hidden scroll-mt-24"
-      style={{ scrollMarginTop: "96px" }}
     >
-      <Ambient variant="dots" count={10} className="text-[#C8221A]" />
+      {/* 1. Folk Background Pattern Texture */}
+      <div
+        className="absolute inset-0 opacity-15 pointer-events-none bg-repeat z-0"
+        style={{
+          backgroundImage: "url('/assets/folk-pattern-tile.png')",
+          backgroundSize: "200px",
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* 2. Left Faint Temple Spire Sketch with Gentle Breathing Motion */}
+      <div
+        className="absolute top-12 -left-10 sm:left-4 w-[280px] sm:w-[360px] h-[480px] pointer-events-none select-none opacity-15 mix-blend-multiply z-0 animate-temple-breathe"
+        aria-hidden="true"
+      >
+        <Image
+          src="/assets/scene/temple-konark.webp"
+          alt=""
+          fill
+          className="object-contain object-top"
+        />
+      </div>
+
+      {/* 3. Right Red Hibiscus Floral Cluster with Soft Wind-Sway */}
+      <div
+        className="absolute top-16 -right-12 sm:-right-16 w-[220px] sm:w-[300px] h-[340px] sm:h-[440px] pointer-events-none select-none z-10 animate-sway-soft-right"
+        aria-hidden="true"
+      >
+        <Image
+          src="/assets/scene/foliage-right-corner.webp"
+          alt=""
+          fill
+          className="object-contain object-right-top drop-shadow-xl"
+        />
+      </div>
+
+      {/* 4. Main Section Container */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 relative z-20">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          
-          {/* Left Column: Heading and Question Illustration */}
-          <div className="lg:col-span-4 flex flex-col items-start lg:sticky lg:top-28 self-start">
-            <span className="font-disko block text-[64px] sm:text-[96px] leading-none text-[#C4A882]/75 select-none">
-              08
-            </span>
-            <p className="text-sm font-semibold -mt-2 sm:-mt-3 mb-2 text-[#8A1717]">
-              08 · Questions
-            </p>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#C8221A] leading-none">
-              Got questions?
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#4A4642] leading-relaxed">
-              Everything you need to know about pre-ordering, shipping dates, and fulfillment.
-            </p>
+        {/* Header Block */}
+        <div className="max-w-2xl mb-12 sm:mb-16">
+          <span className="font-gazpacho text-[#C4A882] text-xl sm:text-2xl font-bold block mb-1">
+            08
+          </span>
+          <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-[#8A1717] leading-none">
+            QUESTIONS
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-[#1B1B1B]/80 font-medium">
+            The short answers to the long ones.
+          </p>
+        </div>
 
-            {/* Cute Illustration Badge */}
-            <div className="reveal mt-8 relative p-6 rounded-3xl bg-[#FEF3C7] border-2 border-[#E0A526] shadow-sm max-w-sm">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#3E9B47] text-[#1B1B1B] flex items-center justify-center font-black text-2xl shadow-xs shrink-0">
-                  ?
-                </div>
-                <div>
-                  <span className="font-bold text-sm text-[#1B1B1B] block leading-snug">
-                    Still have questions?
-                  </span>
-                  <a
-                    href={siteConfig.whatsappWaitlistUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C8221A] hover:underline mt-1"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5" />
-                    <span>Chat with Soubh on WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Accordion Rows */}
-          <div className="lg:col-span-8 space-y-3 deal-stagger">
-            {faqs.map((faq) => {
-              const isOpen = openId === faq.id;
-
-              return (
-                <div
-                  key={faq.id}
-                  className="rounded-2xl border-2 border-[#1B1B1B] bg-white overflow-hidden press"
-                  style={{ boxShadow: isOpen ? "3px 3px 0 0 #1B1B1B" : "5px 5px 0 0 #1B1B1B" }}
+        {/* One row-wise grid, so the two columns stay on the same baselines */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 items-start">
+          {faqs.map((faq) => {
+            const isOpen = openId === faq.id;
+            return (
+              <div key={faq.id} className="self-start border-b border-[#D5C7B3]">
+                <button
+                  onClick={() => toggle(faq.id)}
+                  aria-expanded={isOpen}
+                  className="w-full py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[#1B1B1B] hover:text-[#8A1717] cursor-pointer transition-colors"
                 >
-                  <button
-                    onClick={() => toggle(faq.id)}
-                    aria-expanded={isOpen}
-                    aria-controls={`${faq.id}-panel`}
-                    id={`${faq.id}-trigger`}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#1B1B1B] cursor-pointer hover:bg-[#FFFAF0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#C8221A]"
-                  >
-                    <span>{faq.question}</span>
-                    <span className="w-8 h-8 rounded-full bg-[#F6EFE2] border-2 border-[#1B1B1B] flex items-center justify-center shrink-0 text-[#1B1B1B]">
-                      <Plus
-                        className="w-4 h-4 transition-transform duration-200 motion-reduce:transition-none"
-                        style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
-                      />
-                    </span>
-                  </button>
-
-                  <div
-                    id={`${faq.id}-panel`}
-                    role="region"
-                    aria-labelledby={`${faq.id}-trigger`}
-                    // Collapsed panels keep their links out of the tab order.
-                    inert={!isOpen}
-                    className="grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none"
-                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="px-5 pb-5 text-sm sm:text-base text-[#4A4642] leading-relaxed border-t-2 border-[#D8C9B9] pt-3">
-                        {faq.answer}
-                      </div>
-                    </div>
+                  <span>{faq.question}</span>
+                  <Plus
+                    className="w-4 h-4 text-[#8A1717] shrink-0 transition-transform duration-300"
+                    style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
+                  />
+                </button>
+                {/* 0fr → 1fr animates the height without measuring it */}
+                <div
+                  className="grid transition-[grid-template-rows] duration-300 ease-out"
+                  style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                >
+                  <div className="overflow-hidden">
+                    <p className="pb-4 text-xs sm:text-sm text-[#1B1B1B]/80 leading-relaxed font-medium">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-
+              </div>
+            );
+          })}
         </div>
 
       </div>

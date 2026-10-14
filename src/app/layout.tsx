@@ -28,9 +28,50 @@ const jaya = localFont({
   preload: true,
 });
 
-const diskoPhonic = localFont({
-  src: "./fonts/DiskoPhonic-Regular.woff2",
-  variable: "--font-disko",
+const gazpacho = localFont({
+  src: [
+    {
+      path: "./fonts/gazpacho/Gazpacho-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho-Heavy.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho Regular  Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho Bold Italic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho Black Italic.woff2",
+      weight: "900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-gazpacho",
   display: "swap",
   preload: true,
 });
@@ -55,7 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${diskoPhonic.variable} scroll-smooth`}
+      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} scroll-smooth`}
     >
       <body className="min-h-screen overflow-x-hidden bg-[#F6EFE2] text-[#1B1B1B] font-sans antialiased selection:bg-[#E0A526] selection:text-[#1B1B1B]">
         {children}

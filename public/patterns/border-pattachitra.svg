@@ -1,12 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="120" height="24" viewBox="0 0 120 24">
-  <rect width="120" height="24" fill="#8A1717"/>
-  <path d="M0 2h120M0 22h120" stroke="#1B1B1B" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="24" viewBox="0 0 160 24">
+  <defs>
+    <!-- Seamless Pattachitra Border Pattern Tile -->
+  </defs>
+  <!-- Crimson Base -->
+  <rect width="160" height="24" fill="#8A1717"/>
+  <!-- Top & Bottom Edge Rules -->
+  <line x1="0" y1="1.5" x2="160" y2="1.5" stroke="#E0A526" stroke-width="1.5"/>
+  <line x1="0" y1="22.5" x2="160" y2="22.5" stroke="#E0A526" stroke-width="1.5"/>
+  <line x1="0" y1="3" x2="160" y2="3" stroke="#1B1B1B" stroke-width="1"/>
+  <line x1="0" y1="21" x2="160" y2="21" stroke="#1B1B1B" stroke-width="1"/>
+  
+  <!-- Sacred Temple Kumbha Triangles along top and bottom -->
   <g fill="#E0A526">
-    <path d="M10 12 15 6 20 12 15 18Z"/><path d="M40 12 45 6 50 12 45 18Z"/>
-    <path d="M70 12 75 6 80 12 75 18Z"/><path d="M100 12 105 6 110 12 105 18Z"/>
+    <!-- Top row teeth -->
+    <polygon points="0,3 5,8 10,3"/>
+    <polygon points="10,3 15,8 20,3"/>
+    <polygon points="20,3 25,8 30,3"/>
+    <polygon points="30,3 35,8 40,3"/>
+    <polygon points="40,3 45,8 50,3"/>
+    <polygon points="50,3 55,8 60,3"/>
+    <polygon points="60,3 65,8 70,3"/>
+    <polygon points="70,3 75,8 80,3"/>
+    <polygon points="80,3 85,8 90,3"/>
+    <polygon points="90,3 95,8 100,3"/>
+    <polygon points="100,3 105,8 110,3"/>
+    <polygon points="110,3 115,8 120,3"/>
+    <polygon points="120,3 125,8 130,3"/>
+    <polygon points="130,3 135,8 140,3"/>
+    <polygon points="140,3 145,8 150,3"/>
+    <polygon points="150,3 155,8 160,3"/>
+
+    <!-- Bottom row teeth -->
+    <polygon points="0,21 5,16 10,21"/>
+    <polygon points="10,21 15,16 20,21"/>
+    <polygon points="20,21 25,16 30,21"/>
+    <polygon points="30,21 35,16 40,21"/>
+    <polygon points="40,21 45,16 50,21"/>
+    <polygon points="50,21 55,16 60,21"/>
+    <polygon points="60,21 65,16 70,21"/>
+    <polygon points="70,21 75,16 80,21"/>
+    <polygon points="80,21 85,16 90,21"/>
+    <polygon points="90,21 95,16 100,21"/>
+    <polygon points="100,21 105,16 110,21"/>
+    <polygon points="110,21 115,16 120,21"/>
+    <polygon points="120,21 125,16 130,21"/>
+    <polygon points="130,21 135,16 140,21"/>
+    <polygon points="140,21 145,16 150,21"/>
+    <polygon points="150,21 155,16 160,21"/>
   </g>
-  <g fill="#F6EFE2">
-    <circle cx="30" cy="12" r="3"/><circle cx="60" cy="12" r="3"/>
-    <circle cx="90" cy="12" r="3"/><circle cx="120" cy="12" r="3"/><circle cx="0" cy="12" r="3"/>
+
+  <!-- Pattachitra Floral Medallions in Center (Repeated every 40px) -->
+  <g fill="#FFFDF7">
+    <!-- Rosette 1 at x=20 -->
+    <circle cx="20" cy="12" r="2.5" fill="#E0A526"/>
+    <circle cx="20" cy="7.5" r="1.8"/>
+    <circle cx="20" cy="16.5" r="1.8"/>
+    <circle cx="15.5" cy="12" r="1.8"/>
+    <circle cx="24.5" cy="12" r="1.8"/>
+    <!-- Rice grain dots -->
+    <circle cx="10" cy="12" r="1.5" fill="#E0A526"/>
+    <circle cx="30" cy="12" r="1.5" fill="#E0A526"/>
+
+    <!-- Rosette 2 at x=60 -->
+    <circle cx="60" cy="12" r="2.5" fill="#E0A526"/>
+    <circle cx="60" cy="7.5" r="1.8"/>
+    <circle cx="60" cy="16.5" r="1.8"/>
+    <circle cx="55.5" cy="12" r="1.8"/>
+    <circle cx="64.5" cy="12" r="1.8"/>
+    <!-- Rice grain dots -->
+    <circle cx="50" cy="12" r="1.5" fill="#E0A526"/>
+    <circle cx="70" cy="12" r="1.5" fill="#E0A526"/>
+
+    <!-- Rosette 3 at x=100 -->
+    <circle cx="100" cy="12" r="2.5" fill="#E0A526"/>
+    <circle cx="100" cy="7.5" r="1.8"/>
+    <circle cx="100" cy="16.5" r="1.8"/>
+    <circle cx="95.5" cy="12" r="1.8"/>
+    <circle cx="104.5" cy="12" r="1.8"/>
+    <!-- Rice grain dots -->
+    <circle cx="90" cy="12" r="1.5" fill="#E0A526"/>
+    <circle cx="110" cy="12" r="1.5" fill="#E0A526"/>
+
+    <!-- Rosette 4 at x=140 -->
+    <circle cx="140" cy="12" r="2.5" fill="#E0A526"/>
+    <circle cx="140" cy="7.5" r="1.8"/>
+    <circle cx="140" cy="16.5" r="1.8"/>
+    <circle cx="135.5" cy="12" r="1.8"/>
+    <circle cx="144.5" cy="12" r="1.8"/>
+    <!-- Rice grain dots -->
+    <circle cx="130" cy="12" r="1.5" fill="#E0A526"/>
+    <circle cx="150" cy="12" r="1.5" fill="#E0A526"/>
   </g>
 </svg>
