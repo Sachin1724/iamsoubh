@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Navbar1, NavItem } from "@/components/ui/navbar-1";
 
 interface HeaderProps {
-  onOrderClick: () => void;
+  onOrderClick?: () => void;
 }
 
 const navItems: NavItem[] = [
@@ -26,13 +26,21 @@ export function Header({ onOrderClick }: HeaderProps) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleCtaClick = () => {
+    if (onOrderClick) {
+      onOrderClick();
+    } else {
+      document.getElementById("preorder")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       <Navbar1
         navItems={navItems}
         ctaText="Pre-order"
         ctaHref="#preorder"
-        onCtaClick={onOrderClick}
+        onCtaClick={handleCtaClick}
         containerClassName="pointer-events-none py-2 sm:py-3 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto"
         className={`pointer-events-auto border-2 transition-all duration-300 ${
           scrolled

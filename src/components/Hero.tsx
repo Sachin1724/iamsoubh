@@ -17,12 +17,29 @@ const HERO_CARDS = [
 ];
 
 interface HeroProps {
-  onOrderClick: () => void;
+  onOrderClick?: () => void;
 }
 
 export function Hero({ onOrderClick }: HeroProps) {
   const [hovered, setHovered] = React.useState<number | null>(null);
+  const [shaderReady, setShaderReady] = React.useState(false);
   const tilt = useTilt(9);
+
+  React.useEffect(() => {
+    // Defer WebGL compilation until after initial paint to prevent blocking LCP
+    if (typeof window !== "undefined") {
+      const timer = setTimeout(() => setShaderReady(true), 150);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleOrder = () => {
+    if (onOrderClick) {
+      onOrderClick();
+    } else {
+      document.getElementById("preorder")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section
@@ -31,14 +48,16 @@ export function Hero({ onOrderClick }: HeroProps) {
     >
       {/* Animated ASCII shader with softened brightness (no harsh glare) */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none opacity-45 mix-blend-screen brightness-75"
+        className={`absolute inset-0 z-0 pointer-events-none mix-blend-screen brightness-75 transition-opacity duration-700 ${
+          shaderReady ? "opacity-45" : "opacity-0"
+        }`}
         style={{
           maskImage: "radial-gradient(62% 40% at 50% 56%, transparent 0%, rgba(0,0,0,.5) 55%, #000 85%)",
           WebkitMaskImage: "radial-gradient(62% 40% at 50% 56%, transparent 0%, rgba(0,0,0,.5) 55%, #000 85%)",
         }}
         aria-hidden="true"
       >
-        <GokulpShader theme="dark" background={{ dark: "#8A1717" }} />
+        {shaderReady && <GokulpShader theme="dark" background={{ dark: "#8A1717" }} />}
       </div>
       {/* Background folk pattern matching Section 07 */}
       <div
@@ -145,7 +164,7 @@ export function Hero({ onOrderClick }: HeroProps) {
             <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto relative z-10">
               <button
                 type="button"
-                onClick={onOrderClick}
+                onClick={handleOrder}
                 className="group relative inline-flex items-center justify-center gap-3 bg-[#E0A526] hover:bg-[#EBB538] text-[#1B1B1B] font-gazpacho text-lg sm:text-xl font-bold px-8 min-h-[52px] rounded-full border-2 border-[#1B1B1B] press lift cursor-pointer shrink-0 transition-all active:translate-x-[2px] active:translate-y-[2px]"
                 style={{ boxShadow: "5px 5px 0 0 #1B1B1B" }}
               >

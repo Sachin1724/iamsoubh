@@ -50,26 +50,6 @@ const gazpacho = localFont({
       weight: "800",
       style: "normal",
     },
-    {
-      path: "./fonts/gazpacho/Gazpacho-Black.woff2",
-      weight: "900",
-      style: "normal",
-    },
-    {
-      path: "./fonts/gazpacho/Gazpacho Regular  Italic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "./fonts/gazpacho/Gazpacho Bold Italic.woff2",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "./fonts/gazpacho/Gazpacho Black Italic.woff2",
-      weight: "900",
-      style: "italic",
-    },
   ],
   variable: "--font-gazpacho",
   display: "swap",

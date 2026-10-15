@@ -163,7 +163,7 @@ export function CreatorVideos() {
               isDragging.current = false;
               paused.current = false;
             }}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 no-scrollbar px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none relative z-20"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 no-scrollbar px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none relative z-20 [mask-image:linear-gradient(to_right,transparent_0,black_40px,black_calc(100%-40px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_40px,black_calc(100%-40px),transparent_100%)]"
             style={{
               WebkitOverflowScrolling: "touch",
               touchAction: "pan-x pan-y",

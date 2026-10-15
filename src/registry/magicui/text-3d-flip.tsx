@@ -112,6 +112,11 @@ export function Text3DFlip({
     return () => clearInterval(timer);
   }, [autoCycle, wordList, interval, triggerFlip]);
 
+  const longestPhrase = useMemo(
+    () => wordList.reduce((a, b) => (b.length > a.length ? b : a), ""),
+    [wordList]
+  );
+
   const activePhrase = wordList[currentIndex] || "";
   const targetPhrase = animatingTargetIndex !== null ? wordList[animatingTargetIndex] || "" : "";
 
@@ -178,7 +183,7 @@ export function Text3DFlip({
   return (
     <ElementTag
       className={cn(
-        "relative inline-flex items-center h-8 sm:h-9 overflow-hidden select-none cursor-pointer",
+        "relative inline-flex items-center min-h-8 sm:min-h-9 py-1 leading-none overflow-hidden select-none cursor-pointer",
         className
       )}
       style={{ perspective: "1000px" }}
@@ -186,11 +191,16 @@ export function Text3DFlip({
       title="Click to roll"
       {...props}
     >
+      {/* Width reservation: keeps the box at the longest phrase so flips never reflow */}
+      <span className="invisible whitespace-nowrap" aria-hidden="true">
+        {longestPhrase}
+      </span>
+
       {/* Front Face (Current Phrase) - 3D rotates up and away */}
       <div
         className={cn(
-          "inline-flex flex-wrap items-center whitespace-nowrap",
-          isFlipping ? "pointer-events-none" : "relative"
+          "absolute inset-0 flex items-center whitespace-nowrap",
+          isFlipping && "pointer-events-none"
         )}
       >
         {activeWords.map((wordObj, wordIndex) => (
@@ -201,7 +211,7 @@ export function Text3DFlip({
               return (
                 <motion.span
                   key={index}
-                  className="inline-block"
+                  className="inline-block leading-none"
                   style={{
                     transformStyle: "preserve-3d",
                     backfaceVisibility: "hidden",
@@ -254,7 +264,7 @@ export function Text3DFlip({
                 return (
                   <motion.span
                     key={index}
-                    className="inline-block"
+                    className="inline-block leading-none"
                     style={{
                       transformStyle: "preserve-3d",
                       backfaceVisibility: "hidden",

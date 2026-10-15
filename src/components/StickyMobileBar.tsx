@@ -6,12 +6,20 @@ import { products } from "@/config/site-config";
 import { useStock } from "@/lib/useStock";
 
 interface StickyMobileBarProps {
-  onOrderClick: () => void;
+  onOrderClick?: () => void;
 }
 
 export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
   const [visible, setVisible] = useState(false);
   const { stock, soldOut, showCounter } = useStock();
+
+  const handleOrder = () => {
+    if (onOrderClick) {
+      onOrderClick();
+    } else {
+      document.getElementById("preorder")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const target = document.getElementById("preorder");
@@ -77,7 +85,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         {/* Smart Responsive Action Button: Guaranteed single-line, auto-scales padding */}
         <button
           type="button"
-          onClick={onOrderClick}
+          onClick={handleOrder}
           className="shrink-0 whitespace-nowrap bg-[#C8221A] hover:bg-[#A31812] active:scale-95 text-[#F6EFE2] font-gazpacho text-sm sm:text-base font-bold px-5 py-2.5 rounded-full border-2 border-[#F6EFE2] shadow-[2px_2px_0_0_#E0A526] transition-all duration-200 flex items-center gap-1.5 cursor-pointer"
         >
           <span>{soldOut ? "Join Batch 2" : "Pre-order"}</span>

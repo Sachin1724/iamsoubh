@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -37,10 +35,6 @@ export function Footer() {
               href="#hero"
               className="inline-flex items-center group cursor-pointer"
               aria-label="IAMSOUBH Home"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
             >
               <Image
                 src="/assets/brand/calogo.png"

@@ -35,8 +35,6 @@ export function BuyerStories() {
   const [viewer, setViewer] = useState<{ stories: StoryItem[]; index: number } | null>(null);
   // Ring on the active bubble, driven straight from the phone's rAF loop —
   // per-frame React state here cascaded into "maximum update depth".
-  const ringRef = useRef<SVGCircleElement>(null);
-  const RING_LEN = 2 * Math.PI * 48;
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -242,8 +240,11 @@ export function BuyerStories() {
       {/* 4. Main Section Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
+        {/* Header + pinned callouts: two-column on desktop */}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-10 mb-5 sm:mb-6">
+
         {/* Header Block */}
-        <div className="reveal max-w-3xl mb-5 sm:mb-6">
+        <div className="reveal max-w-3xl lg:flex-1">
           <div className="flex items-baseline gap-3 mb-2">
             <span className="font-gazpacho text-[#8A1717] font-bold text-xl sm:text-2xl">
               04
@@ -261,93 +262,8 @@ export function BuyerStories() {
           </p>
         </div>
 
-        {/* 5. Highlights Circles Horizontal Track */}
-        <div className="mb-5 sm:mb-6">
-          <div className="w-full min-w-0 overflow-x-auto no-scrollbar pb-3 pt-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 scroll-pl-4 sm:scroll-pl-6">
-            <div className="flex items-center gap-4 sm:gap-6 min-w-max">
-              {STORY_HIGHLIGHTS.map((hl) => {
-                const isSelected = activeHighlightId === hl.id;
-                return (
-                  <div
-                    key={hl.id}
-                    className="flex flex-col items-center gap-2 cursor-pointer group"
-                    onClick={() => handleSelectHighlight(hl.id)}
-                  >
-                    {/* Circle Avatar with Instagram Story Ring */}
-                    <div
-                      className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-full p-[3px] transition-all duration-300 group-hover:scale-105 shadow-md ${
-                        isSelected
-                          ? "bg-gradient-to-tr from-[#8A1717] via-[#E0A526] to-[#C8221A] ring-4 ring-[#E0A526]/50 scale-105"
-                          : "bg-gradient-to-tr from-[#8A1717]/80 via-[#E0A526]/70 to-[#C8221A]/80 opacity-85 group-hover:opacity-100"
-                      }`}
-                    >
-                      {/* Inner border spacing */}
-                      <div className="w-full h-full rounded-full bg-[#FFFDF7] p-[2px] overflow-hidden">
-                        <div className="w-full h-full rounded-full relative overflow-hidden bg-[#2A2522]">
-                          <Image
-                            src={hl.cover}
-                            alt={hl.name}
-                            fill
-                            sizes="80px"
-                            className="object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                        </div>
-                      </div>
-
-                      {/* Ring accent on the active bubble */}
-                      {isSelected && (
-                        <svg className="absolute inset-0 -rotate-90 pointer-events-none" viewBox="0 0 100 100">
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r="48"
-                            fill="none"
-                            stroke="#FFFDF7"
-                            strokeWidth="4"
-                            strokeLinecap="round"
-                            ref={ringRef}
-                            strokeDasharray={RING_LEN}
-                          />
-                        </svg>
-                      )}
-
-                      {/* Mini Play Badge */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleOpenHighlightStories(hl);
-                        }}
-                        title={`Watch ${hl.name} stories`}
-                        className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#8A1717] text-white border-2 border-[#FFFDF7] flex items-center justify-center shadow-md hover:bg-[#E0A526] hover:text-[#1B1B1B] hover:scale-110 transition-all cursor-pointer"
-                      >
-                        <Play className="w-2.5 h-2.5 fill-current ml-0.5" />
-                      </button>
-                    </div>
-
-                    {/* Highlight Title & Subtitle */}
-                    <div className="text-center">
-                      <span
-                        className={`block text-xs sm:text-sm font-bold leading-tight transition-colors ${
-                          isSelected ? "text-[#8A1717]" : "text-[#1B1B1B]"
-                        }`}
-                      >
-                        {hl.name}
-                      </span>
-                      <span className="text-[10px] sm:text-[11px] font-semibold text-[#8A1717]/80">
-                        {hl.tag}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-              <div className="w-2 sm:w-4 shrink-0" aria-hidden="true" />
-            </div>
-          </div>
-        </div>
-
         {/* Pinned Callout Cards Row: Placed Left & Right, using horizontal empty space, NOT stacked */}
-        <div className="flex flex-row items-center justify-between gap-3 sm:gap-6 my-4 sm:my-6 w-full">
+        <div className="flex flex-row lg:flex-col items-center lg:items-end justify-between lg:justify-start gap-3 lg:gap-5 w-full lg:w-auto lg:shrink-0 lg:pt-10">
           {/* Card 1 on the LEFT: Yellow sticky note, pinned with up-down motion */}
           <div className="relative animate-pin-left shrink-0 max-w-[48%] sm:max-w-[280px]">
             <div
@@ -404,6 +320,8 @@ export function BuyerStories() {
               </div>
             </a>
           </div>
+        </div>
+
         </div>
 
         {/* 6. Carousel Controls & Filter Tabs Bar */}
@@ -486,7 +404,7 @@ export function BuyerStories() {
             }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className="reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-8 sm:pb-6 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8"
+            className="reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-8 sm:pb-6 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 [mask-image:linear-gradient(to_right,transparent_0,black_40px,black_calc(100%-40px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_40px,black_calc(100%-40px),transparent_100%)]"
           >
             {activeStories.map((story, idx) => (
               <div

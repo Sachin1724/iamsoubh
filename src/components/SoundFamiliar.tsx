@@ -1,30 +1,6 @@
-"use client";
-
-import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export function SoundFamiliar() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [landed, setLanded] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLanded(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
     <section
       id="sound-familiar"
@@ -80,12 +56,7 @@ export function SoundFamiliar() {
         </div>
 
         {/* 4 Cards Bento Grid Layout */}
-        <div
-          ref={ref}
-          className={`grid grid-cols-2 gap-2 sm:gap-3.5 md:gap-4 transition-all duration-700 ${
-            landed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
+        <div className="grid grid-cols-2 gap-2 sm:gap-3.5 md:gap-4">
           {/* CARD 1: Raja Festival (Wide Banner spanning 2 columns) */}
           <div className="col-span-2 relative transition-all duration-300 hover:scale-[1.008] drop-shadow-md hover:drop-shadow-[0_8px_25px_rgba(224,165,38,0.25)]">
             <span className="sr-only">
