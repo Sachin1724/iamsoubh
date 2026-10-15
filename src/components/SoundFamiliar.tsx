@@ -62,13 +62,19 @@ export function SoundFamiliar() {
         {/* Odia Gold Floral Divider */}
         <div className="flex items-center justify-center my-6 sm:my-8 pointer-events-none select-none" aria-hidden="true">
           <div className="h-px w-14 sm:w-28 bg-gradient-to-r from-transparent to-[#E0A526]/60" />
-          <div className="mx-3.5 relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center">
-            <Image
-              src="/assets/bento/odia-floral-divider-clean.png"
-              alt=""
-              fill
-              className="object-contain drop-shadow-[0_0_8px_rgba(224,165,38,0.4)]"
-            />
+          <div className="mx-3 relative flex items-center justify-center">
+            <svg
+              viewBox="0 0 32 32"
+              className="w-6 h-6 sm:w-7 sm:h-7 fill-[#E0A526] drop-shadow-[0_0_8px_rgba(224,165,38,0.5)]"
+            >
+              <circle cx="16" cy="16" r="3" fill="#FFFDF7" />
+              <path d="M16 4c1 3.5 3.5 6 7 7-3.5 1-6 3.5-7 7-1-3.5-3.5-6-7-7 3.5-1 6-3.5 7-7z" fill="#E0A526" />
+              <path d="M16 8c.7 2.5 2.5 4.3 5 5-2.5.7-4.3 2.5-5 5-.7-2.5-2.5-4.3-5-5 2.5-.7 4.3-2.5 5-5z" fill="#FFE066" opacity="0.8" />
+              <circle cx="16" cy="6" r="1" fill="#E0A526" />
+              <circle cx="26" cy="16" r="1" fill="#E0A526" />
+              <circle cx="16" cy="26" r="1" fill="#E0A526" />
+              <circle cx="6" cy="16" r="1" fill="#E0A526" />
+            </svg>
           </div>
           <div className="h-px w-14 sm:w-28 bg-gradient-to-l from-transparent to-[#E0A526]/60" />
         </div>
