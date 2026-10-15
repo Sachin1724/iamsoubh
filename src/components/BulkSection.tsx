@@ -9,7 +9,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
   return (
     <section
       id="bulk"
-      className="relative py-16 sm:py-24 bg-[#8A1717] text-[#F6EFE2] scroll-mt-24 overflow-x-clip"
+      className="relative py-16 sm:py-24 bg-[#8A1717] text-[#F6EFE2] scroll-mt-24 overflow-clip"
     >
       {/* 1. Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
@@ -20,7 +20,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
         }}
       />
 
-      {/* 2. Top-Right Subtle Jhoti Motif */}
+      {/* 2. Top-Right Subtle Jhoti Motif, slowly turning */}
       <div
         className="absolute -top-16 -right-16 w-72 sm:w-96 h-72 sm:h-96 pointer-events-none select-none opacity-[0.14] animate-jhoti-shimmer"
         aria-hidden="true"
@@ -29,12 +29,12 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
           src="/assets/motifs/odia-jhoti-mandala.svg"
           alt=""
           fill
-          className="object-contain"
+          className="object-contain animate-spin-slow"
         />
       </div>
 
       {/* 3. Main Content Container */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Text & CTA Column (8 Cols) */}

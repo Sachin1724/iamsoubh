@@ -1,21 +1,8 @@
 import "server-only";
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import Razorpay from "razorpay";
 
 // Built on first use, not at import time, so a build without secrets still succeeds.
-let _supabase: SupabaseClient | null = null;
 let _razorpay: Razorpay | null = null;
-
-export function getSupabase(): SupabaseClient {
-  if (!_supabase) {
-    _supabase = createClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      { auth: { persistSession: false } }
-    );
-  }
-  return _supabase;
-}
 
 export function getRazorpay(): Razorpay {
   if (!_razorpay) {

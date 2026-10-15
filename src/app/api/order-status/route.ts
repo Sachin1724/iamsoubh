@@ -1,26 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabase } from "@/server/clients";
+import { getRazorpay } from "@/server/clients";
 
+/**
+ * Razorpay is the order store, so the thank-you screen reads its status
+ * straight off the order. No personal data leaves this endpoint — the page
+ * polls it unauthenticated.
+ */
 export async function GET(req: NextRequest) {
   const orderId = req.nextUrl.searchParams.get("o");
   if (!orderId) return NextResponse.json({ code: "BAD_REQUEST" }, { status: 400 });
 
-  // No personal data leaves this endpoint — the thank-you page polls it unauthenticated.
-  const { data, error } = await getSupabase()
-    .from("orders")
-    .select("status, order_number, boxes, product, amount_paise")
-    .eq("razorpay_order_id", orderId)
-    .single();
+  try {
+    const order = (await getRazorpay().orders.fetch(orderId)) as unknown as {
+      status: string;
+      amount: number;
+      amount_paid: number;
+      notes?: Record<string, unknown>;
+    };
 
-  if (error || !data) {
+    const n = order.notes ?? {};
+
+    return NextResponse.json({
+      // Razorpay says "paid" / "attempted" / "created"; the page only waits on "held".
+      status: order.status === "paid" || order.amount_paid > 0 ? "paid" : "held",
+      orderNumber: null,
+      boxes: Number(typeof n.boxes === "string" ? n.boxes : "") || 1,
+      product: typeof n.product === "string" ? n.product : "single",
+      amountInr: order.amount / 100,
+    });
+  } catch {
     return NextResponse.json({ code: "NOT_FOUND" }, { status: 404 });
   }
-
-  return NextResponse.json({
-    status: data.status,
-    orderNumber: data.order_number,
-    boxes: data.boxes,
-    product: data.product,
-    amountInr: data.amount_paise / 100,
-  });
 }

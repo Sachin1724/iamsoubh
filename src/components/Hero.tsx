@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Text3DFlip from "@/registry/magicui/text-3d-flip";
-import { siteConfig } from "@/config/site-config";
 import { useTilt } from "@/components/ui/use-tilt";
 import { GokulpShader } from "@/components/ui/GokulpShader.webgl";
 
@@ -28,39 +27,42 @@ export function Hero({ onOrderClick }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative pt-28 sm:pt-32 pb-0 bg-gradient-to-b from-[#8C1510] via-[#6E131A] to-[#631012] text-[#F6EFE2] overflow-hidden"
+      className="relative pt-24 sm:pt-32 pb-0 bg-[#8A1717] text-[#F6EFE2] overflow-hidden"
     >
-      {/* Animated ASCII field, tinted to the brand red, under everything */}
+      {/* Animated ASCII shader with softened brightness (no harsh glare) */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none opacity-95 mix-blend-screen contrast-150 saturate-150"
+        className="absolute inset-0 z-0 pointer-events-none opacity-45 mix-blend-screen brightness-75"
         style={{
-          // Strongest at the edges, faded behind the headline so the copy stays readable.
           maskImage: "radial-gradient(62% 40% at 50% 56%, transparent 0%, rgba(0,0,0,.5) 55%, #000 85%)",
           WebkitMaskImage: "radial-gradient(62% 40% at 50% 56%, transparent 0%, rgba(0,0,0,.5) 55%, #000 85%)",
         }}
         aria-hidden="true"
       >
-        <GokulpShader theme="dark" background={{ dark: "#5E0F12" }} />
+        <GokulpShader theme="dark" background={{ dark: "#8A1717" }} />
       </div>
-
-      {/* Static ambient warmth - zero runtime cost */}
+      {/* Background folk pattern matching Section 07 */}
       <div
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          background: "radial-gradient(circle at 55% 40%, rgba(224, 165, 38, 0.14) 0%, rgba(200, 34, 26, 0.05) 50%, transparent 75%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Background folk pattern */}
-      <div
-        className="absolute inset-0 opacity-10 pointer-events-none bg-repeat"
+        className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"
         style={{ backgroundImage: "url('/assets/folk-pattern-tile.png')", backgroundSize: "180px" }}
       />
 
-      {/* Decorative White Mandala Art (Top Right) */}
+      {/* Konark line-art backdrop */}
       <div
-        className="absolute -top-24 sm:-top-32 md:-top-40 -right-24 sm:-right-32 md:-right-40 w-[380px] sm:w-[520px] md:w-[660px] lg:w-[780px] aspect-square pointer-events-none select-none z-0 opacity-25 md:opacity-30"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[min(1100px,120vw)] aspect-[720/360] pointer-events-none select-none z-0 opacity-15"
+        aria-hidden="true"
+      >
+        <Image
+          src="/assets/scene/konark-lineart.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-contain object-bottom"
+        />
+      </div>
+
+      {/* Decorative White Mandala Art (Top Right) — subtle watermark tone */}
+      <div
+        className="absolute -top-24 sm:-top-32 md:-top-40 -right-24 sm:-right-32 md:-right-40 w-[380px] sm:w-[520px] md:w-[660px] lg:w-[780px] aspect-square pointer-events-none select-none z-0 opacity-10 md:opacity-12"
         aria-hidden="true"
       >
         <Image
@@ -73,9 +75,9 @@ export function Hero({ onOrderClick }: HeroProps) {
         />
       </div>
 
-      {/* Decorative White Mandala Art (Bottom Left) - Contained strictly within red hero */}
+      {/* Decorative White Mandala Art (Bottom Left) — subtle watermark tone */}
       <div
-        className="absolute -bottom-24 sm:-bottom-32 md:-bottom-40 -left-24 sm:-left-32 md:-left-40 w-[340px] sm:w-[460px] md:w-[580px] lg:w-[680px] aspect-square pointer-events-none select-none z-0 opacity-20 md:opacity-25"
+        className="absolute -bottom-24 sm:-bottom-32 md:-bottom-40 -left-24 sm:-left-32 md:-left-40 w-[340px] sm:w-[460px] md:w-[580px] lg:w-[680px] aspect-square pointer-events-none select-none z-0 opacity-8 md:opacity-10"
         aria-hidden="true"
       >
         <Image
@@ -100,16 +102,9 @@ export function Hero({ onOrderClick }: HeroProps) {
                 <span>2027 EDITION · PRE-ORDERS OPEN</span>
               </div>
 
-              {/* Mobile-only unified Odia Heart pill with Jagannath sacred motif */}
+              {/* Mobile-only unified Odia Heart pill */}
               <div className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#3E9B47] text-[#1B1B1B] border border-[#1B1B1B] font-black text-[10px] tracking-wide uppercase shadow-[2px_2px_0_0_#1B1B1B]">
-                <Image
-                  src="/assets/brand/extracted/extracted_svg/nature-temple/nature-temple_040.svg"
-                  alt="Jagannath motif"
-                  width={20}
-                  height={24}
-                  unoptimized
-                  className="w-3.5 h-4 object-contain shrink-0"
-                />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1B1B1B]" />
                 <span>SAME ODIA HEART · NEW STORIES</span>
               </div>
             </div>
@@ -125,7 +120,7 @@ export function Hero({ onOrderClick }: HeroProps) {
                 </span>
               </h1>
 
-              {/* Desktop Angled Stickers: "SAME ODIA HEART" + Jagannath sticker with continuous gentle float (desktop only) */}
+              {/* Desktop Angled Sticker: "SAME ODIA HEART" with continuous gentle float (desktop only) */}
               <div className="hidden sm:flex flex-col items-center gap-2.5 absolute -top-8 -right-16 md:-right-20 lg:-right-24 pointer-events-none z-20 animate-float-gentle">
                 {/* Same Odia Heart badge */}
                 <div className="animate-sticker-settle">
@@ -138,42 +133,8 @@ export function Hero({ onOrderClick }: HeroProps) {
                     <span className="tracking-wide text-[9px]">NEW STORIES</span>
                   </div>
                 </div>
-
-                {/* Jagannath sticker below the Same Odia Heart badge */}
-                <div className="animate-sticker-settle" style={{ animationDelay: "150ms" }}>
-                  <div
-                    className="bg-[#F6EFE2] p-1.5 rounded-md border-2 border-[#1B1B1B] flex flex-col items-center justify-center -rotate-3 hover:rotate-0 transition-transform"
-                    style={{ boxShadow: "3px 3px 0 0 #1B1B1B" }}
-                  >
-                    <Image
-                      src="/assets/brand/extracted/extracted_svg/nature-temple/nature-temple_040.svg"
-                      alt="Jagannath sticker"
-                      width={68}
-                      height={82}
-                      loading="lazy"
-                      unoptimized
-                      className="w-12 h-14 md:w-14 md:h-16 object-contain select-none"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
-
-            {/* Live Odia calligraphy text */}
-            <p
-              lang="or"
-              className="font-odia-display mt-2 sm:mt-3 text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.1] text-[#F6EFE2] relative z-10"
-            >
-              {(() => {
-                const w = siteConfig.odiaTitle.split(" ");
-                return (
-                  <>
-                    <span className="block">{w.slice(0, 2).join(" ")}</span>
-                    <span className="block">{w.slice(2).join(" ")}</span>
-                  </>
-                );
-              })()}
-            </p>
 
             {/* Body paragraph */}
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg md:text-xl text-[#F6EFE2]/90 max-w-xl mx-auto font-normal leading-relaxed relative z-10">

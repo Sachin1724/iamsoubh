@@ -1,19 +1,7 @@
 import "server-only";
-import { getSupabase } from "@/server/clients";
 import { siteConfig } from "@/config/site-config";
 
-export type EmailKind = "confirmed" | "shipped";
-
-type Order = {
-  id: string;
-  name: string | null;
-  email: string | null;
-  order_number: number | null;
-  boxes: number;
-  courier?: string | null;
-  tracking_number?: string | null;
-  tracking_url?: string | null;
-};
+import type { PaidOrder } from "@/server/magic-address";
 
 const FROM = process.env.EMAIL_FROM || "Soubh <orders@iamsoubh.com>";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://iamsoubh.com";
@@ -73,72 +61,88 @@ const factRow = (label: string, value: string) =>
 const facts = (rows: string) =>
   `<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;background:${CREAM};border-radius:12px;padding:8px 16px;margin:4px 0 8px 0;">${rows}</table>`;
 
-export function renderOrderEmail(kind: EmailKind, o: Order) {
+export function renderOrderEmail(o: PaidOrder) {
   const who = esc(o.name?.split(" ")[0] || "there");
-  const no = o.order_number ? `#${o.order_number}` : "your order";
   const boxes = `${o.boxes} box${o.boxes > 1 ? "es" : ""}`;
 
-  if (kind === "confirmed") {
-    return {
-      subject: `Order ${no} confirmed — Odia Viral Calendar 2027`,
-      html: layout({
-        preheader: `${boxes} reserved. Ships first week of November.`,
-        heading: "Your box is booked.",
-        body:
-          p(`Namaskar ${who}, the payment went through and ${boxes} of the 2027 Odia Viral Calendar ${o.boxes > 1 ? "are" : "is"} reserved in your name.`) +
-          facts(factRow("Order", no) + factRow("Boxes", String(o.boxes))) +
-          p("Boxes ship in the first week of November. The moment yours leaves, you get a second email with the courier and tracking number — there is nothing to track yet today.") +
-          button(`${SITE}/invoice/${o.id}`, "View invoice") +
-          p("— Soubhagya Ranjan"),
-      }),
-    };
-  }
-
-  const trackLine = o.tracking_url ? button(o.tracking_url, "Track your box") : "";
   return {
-    subject: `Order ${no} shipped — tracking inside`,
+    subject: `Order confirmed — Odia Viral Calendar 2027`,
     html: layout({
-      preheader: `${esc(o.courier ?? "Courier")} · ${esc(o.tracking_number ?? "")}`,
-      heading: "It's on the way.",
+      preheader: `${boxes} reserved. Ships first week of November.`,
+      heading: "Your box is booked.",
       body:
-        p(`Namaskar ${who}, ${no} is packed and handed to the courier.`) +
+        p(`Namaskar ${who}, the payment went through and ${boxes} of the 2027 Odia Viral Calendar ${o.boxes > 1 ? "are" : "is"} reserved in your name.`) +
         facts(
-          factRow("Order", no) +
-            factRow("Courier", o.courier || "—") +
-            factRow("Tracking", o.tracking_number || "—")
+          factRow("Order", o.razorpayOrderId) +
+            factRow("Boxes", String(o.boxes)) +
+            factRow("Paid", `Rs ${o.amountInr}`)
         ) +
-        trackLine +
-        p(`<a href="${SITE}/invoice/${esc(o.id)}" style="color:${RED};">View your invoice</a>`) +
-        p("Tracking can take a few hours to show its first scan. If the box arrives damaged, reply to this email with a photo and we will sort it.") +
+        p("Boxes ship in the first week of November. The moment yours leaves, you get an email with the courier and tracking number — there is nothing to track yet today.") +
+        p("Delivering to:") +
+        facts(
+          factRow("Address", [o.address, o.landmark, o.city, o.state, o.pincode].filter(Boolean).join(", ")) +
+            factRow("Phone", o.phone)
+        ) +
+        p("Wrong address? Reply to this email today and we will fix it before dispatch.") +
         p("— Soubhagya Ranjan"),
     }),
   };
 }
 
-/**
- * Sends once per order per kind. The `email_log` primary key is the lock, so a
- * webhook retry or a double click cannot mail the same person twice.
- */
-export async function sendOrderEmail(kind: EmailKind, o: Order) {
+/** The operator's copy: everything needed to pack and ship, in one mail. */
+export function renderAdminEmail(o: PaidOrder) {
+  return {
+    subject: `NEW ORDER · ${o.boxes} box${o.boxes > 1 ? "es" : ""} · ${o.name || o.phone}`,
+    html: layout({
+      preheader: `Rs ${o.amountInr} · ${o.city || ""} ${o.pincode || ""}`,
+      heading: "New order paid.",
+      body: facts(
+        factRow("Name", o.name || "—") +
+          factRow("Phone", o.phone || "—") +
+          factRow("Email", o.email || "—") +
+          factRow("Address", [o.address, o.landmark].filter(Boolean).join(", ") || "—") +
+          factRow("City", `${o.city || "—"}, ${o.state || "—"} ${o.pincode || ""}`) +
+          factRow("Product", `${o.product} x${o.qty} (${o.boxes} boxes)`) +
+          factRow("Paid", `Rs ${o.amountInr}`) +
+          factRow("Gift note", o.giftNote || "—") +
+          factRow("Razorpay", `${o.razorpayOrderId}${o.paymentId ? ` / ${o.paymentId}` : ""}`) +
+          factRow("Source", o.utm || "—")
+      ),
+    }),
+  };
+}
+
+async function send(to: string, subject: string, html: string) {
   const key = process.env.RESEND_API_KEY;
-  if (!key || !o.email) return { sent: false, reason: "unconfigured" };
+  if (!key || !to) return { sent: false, reason: "unconfigured" };
 
-  const db = getSupabase();
-  const { error: claimError } = await db.from("email_log").insert({ order_id: o.id, kind });
-  if (claimError) return { sent: false, reason: "already_sent" };
-
-  const { subject, html } = renderOrderEmail(kind, o);
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
-      body: JSON.stringify({ from: FROM, to: o.email, subject, html, reply_to: siteConfig.supportEmail || undefined }),
+      body: JSON.stringify({ from: FROM, to, subject, html, reply_to: siteConfig.supportEmail || undefined }),
     });
     if (!res.ok) throw new Error(await res.text());
     return { sent: true };
   } catch (e) {
-    // Release the claim so a later attempt can retry rather than silently skipping.
-    await db.from("email_log").delete().eq("order_id", o.id).eq("kind", kind);
     return { sent: false, reason: String(e) };
   }
+}
+
+/**
+ * ponytail: Razorpay's own event dedupe (one 200 ends the retries) is the only
+ * guard against a double mail now that there is no database. Worst case a buyer
+ * gets the same confirmation twice; add a store if that ever actually bites.
+ */
+export async function sendOrderEmails(o: PaidOrder) {
+  const customer = renderOrderEmail(o);
+  const admin = renderAdminEmail(o);
+  const adminTo = process.env.ADMIN_EMAIL || "";
+
+  const [buyer, operator] = await Promise.all([
+    send(o.email, customer.subject, customer.html),
+    send(adminTo, admin.subject, admin.html),
+  ]);
+
+  return { buyer, operator };
 }

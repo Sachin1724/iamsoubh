@@ -9,6 +9,7 @@ import {
   Eye,
   CheckCircle2,
   MapPin,
+  Pin,
   Sparkles,
 } from "lucide-react";
 
@@ -28,7 +29,6 @@ import {
   StoryHighlight,
 } from "@/data/customer-reviews";
 import { StoryViewer } from "./StoryViewer";
-import { StoryPhone } from "./StoryPhone";
 
 export function BuyerStories() {
   const [activeHighlightId, setActiveHighlightId] = useState<string>("hl-all");
@@ -37,14 +37,6 @@ export function BuyerStories() {
   // per-frame React state here cascaded into "maximum update depth".
   const ringRef = useRef<SVGCircleElement>(null);
   const RING_LEN = 2 * Math.PI * 48;
-  const setRing = React.useCallback(
-    (fraction: number) => {
-      if (ringRef.current) {
-        ringRef.current.style.strokeDashoffset = String(RING_LEN * (1 - fraction));
-      }
-    },
-    [RING_LEN]
-  );
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -54,6 +46,7 @@ export function BuyerStories() {
   const startX = useRef(0);
   const scrollLeftPos = useRef(0);
   const hasDragged = useRef(false);
+  const touchTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Active highlight object
   const activeHighlight =
@@ -104,19 +97,28 @@ export function BuyerStories() {
 
     let rafId = 0;
     let lastTime = performance.now();
+    let accumulatedScroll = el.scrollLeft;
     const SPEED_PX_PER_SEC = 38; // Gentle, elegant reading pace
 
+    // Sync accumulated scroll when user scrolls manually (drag, touch, or chevrons)
+    const onManualScroll = () => {
+      if (isPaused.current || isDragging.current) {
+        accumulatedScroll = el.scrollLeft;
+      }
+    };
+    el.addEventListener("scroll", onManualScroll, { passive: true });
+
     const tick = (now: number) => {
-      const dt = (now - lastTime) / 1000;
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
       lastTime = now;
 
       // Only scroll when visible, not hovered, not actively dragging, and story modal is not open
       if (isVisible && !isPaused.current && !isDragging.current && !viewer) {
-        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 4) {
-          el.scrollLeft = 0;
-        } else {
-          el.scrollLeft += SPEED_PX_PER_SEC * dt;
+        accumulatedScroll += SPEED_PX_PER_SEC * dt;
+        if (accumulatedScroll >= el.scrollWidth - el.clientWidth - 4) {
+          accumulatedScroll = 0;
         }
+        el.scrollLeft = accumulatedScroll;
       }
 
       rafId = requestAnimationFrame(tick);
@@ -126,14 +128,20 @@ export function BuyerStories() {
     return () => {
       cancelAnimationFrame(rafId);
       observer.disconnect();
+      el.removeEventListener("scroll", onManualScroll);
     };
   }, [viewer, activeStories]);
 
   // Smooth scroll left/right on chevron click
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
-    const scrollAmount = direction === "left" ? -360 : 360;
+    isPaused.current = true;
+    const scrollAmount = direction === "left" ? -320 : 320;
     scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    if (touchTimeout.current) clearTimeout(touchTimeout.current);
+    touchTimeout.current = setTimeout(() => {
+      isPaused.current = false;
+    }, 2000);
   };
 
   // Switch highlight and reset scroll
@@ -177,6 +185,24 @@ export function BuyerStories() {
     isPaused.current = false;
   };
 
+  const handleTouchStart = () => {
+    isPaused.current = true;
+    if (touchTimeout.current) clearTimeout(touchTimeout.current);
+    if (scrollRef.current) {
+      scrollRef.current.style.scrollSnapType = "x mandatory";
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchTimeout.current) clearTimeout(touchTimeout.current);
+    touchTimeout.current = setTimeout(() => {
+      isPaused.current = false;
+      if (scrollRef.current) {
+        scrollRef.current.style.scrollSnapType = "none";
+      }
+    }, 1800);
+  };
+
   const handleCardClick = (index: number) => {
     if (hasDragged.current) return;
     setViewer({
@@ -188,7 +214,7 @@ export function BuyerStories() {
   return (
     <section
       id="stories"
-      className="relative pt-20 sm:pt-28 pb-14 sm:pb-20 bg-[#F6EFE2] text-[#1B1B1B] z-10 scroll-mt-24 overflow-x-clip"
+      className="relative pt-20 sm:pt-28 pb-14 sm:pb-20 bg-[#F6EFE2] text-[#1B1B1B] z-10 scroll-mt-28 overflow-x-clip"
     >
       {/* 1. Folk Background Pattern Texture */}
       <div
@@ -199,18 +225,6 @@ export function BuyerStories() {
         }}
       />
 
-      {/* 2. 2nd Tropical Hibiscus & Palm Accent - Moved to the opposite (right) edge over the seam */}
-      <div
-        className="absolute -top-[95px] sm:-top-[115px] md:-top-[135px] -right-2 sm:-right-4 md:-right-6 w-[140px] sm:w-[170px] md:w-[200px] h-[160px] sm:h-[190px] md:h-[220px] pointer-events-none select-none z-40 animate-sway-soft-right"
-        aria-hidden="true"
-      >
-        <Image
-          src="/assets/scene/foliage-right-cluster.webp"
-          alt=""
-          fill
-          className="object-contain object-right-top drop-shadow-[0_8px_18px_rgba(27,27,27,0.22)]"
-        />
-      </div>
 
       {/* 3. Subtle Odia Jhoti Mandala Accent in Background */}
       <div
@@ -228,59 +242,28 @@ export function BuyerStories() {
       {/* 4. Main Section Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        <div className="order-2 lg:order-1 lg:col-span-7 xl:col-span-8">
-
-        {/* Header Block & Sticky Note */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-5 sm:mb-6">
-          <div className="max-w-3xl">
-            <div className="flex items-baseline gap-3 mb-2">
-              <span className="font-gazpacho text-[#8A1717] font-bold text-xl sm:text-2xl">
-                04
-              </span>
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8A1717]">
-                CUSTOMER STORIES & REVIEWS
-              </span>
-            </div>
-
-            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#1B1B1B]">
-              2,000+ of you put it on your story.
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-[#1B1B1B]/80 font-medium">
-              Real screenshots from 45 buyers across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
-            </p>
+        {/* Header Block */}
+        <div className="reveal max-w-3xl mb-5 sm:mb-6">
+          <div className="flex items-baseline gap-3 mb-2">
+            <span className="font-gazpacho text-[#8A1717] font-bold text-xl sm:text-2xl">
+              04
+            </span>
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8A1717]">
+              CUSTOMER STORIES & REVIEWS
+            </span>
           </div>
 
-          {/* Yellow Sticky Note Callout */}
-          <div className="self-start lg:self-auto rotate-2 hover:rotate-0 transition-transform duration-300 select-none shrink-0">
-            <div className="bg-[#FFE066] text-[#1B1B1B] px-4 py-3 rounded-xl shadow-[4px_4px_0_0_#1B1B1B] border-2 border-[#1B1B1B] max-w-[240px] text-xs font-serif leading-snug">
-              <div className="flex items-center gap-1.5 font-bold mb-1 text-[#8A1717]">
-                <InstagramIcon className="w-3.5 h-3.5" />
-                <span>Got your box?</span>
-              </div>
-              Tag <span className="font-bold underline decoration-[#8A1717]">@iamsoubh</span> in your story or reel to be featured in the 2027 hall of fame!
-            </div>
-          </div>
+          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#1B1B1B]">
+            2,000+ of you put it on your story.
+          </h2>
+          <p className="mt-3 text-base sm:text-lg text-[#1B1B1B]/80 font-medium">
+            Real screenshots from 45 buyers across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
+          </p>
         </div>
 
-        {/* 5. Instagram Highlights Row */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8A1717]">
-                Instagram Highlights
-              </span>
-              <span className="text-xs bg-[#E0A526]/30 text-[#8A1717] font-bold px-2 py-0.5 rounded-full border border-[#8A1717]/20">
-                45 Stories
-              </span>
-            </div>
-            <p className="text-xs text-[#1B1B1B]/60 hidden sm:block">
-              Click bubble to filter · Tap play to watch story
-            </p>
-          </div>
-
-          {/* Highlights Circles Horizontal Track */}
-          <div className="overflow-x-auto no-scrollbar pb-3 pt-1">
+        {/* 5. Highlights Circles Horizontal Track */}
+        <div className="mb-5 sm:mb-6">
+          <div className="w-full min-w-0 overflow-x-auto no-scrollbar pb-3 pt-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 scroll-pl-4 sm:scroll-pl-6">
             <div className="flex items-center gap-4 sm:gap-6 min-w-max">
               {STORY_HIGHLIGHTS.map((hl) => {
                 const isSelected = activeHighlightId === hl.id;
@@ -312,7 +295,7 @@ export function BuyerStories() {
                         </div>
                       </div>
 
-                      {/* Progress ring, synced to the phone */}
+                      {/* Ring accent on the active bubble */}
                       {isSelected && (
                         <svg className="absolute inset-0 -rotate-90 pointer-events-none" viewBox="0 0 100 100">
                           <circle
@@ -358,35 +341,85 @@ export function BuyerStories() {
                   </div>
                 );
               })}
+              <div className="w-2 sm:w-4 shrink-0" aria-hidden="true" />
             </div>
           </div>
         </div>
 
-        </div>
+        {/* Pinned Callout Cards Row: Placed Left & Right, using horizontal empty space, NOT stacked */}
+        <div className="flex flex-row items-center justify-between gap-3 sm:gap-6 my-4 sm:my-6 w-full">
+          {/* Card 1 on the LEFT: Yellow sticky note, pinned with up-down motion */}
+          <div className="relative animate-pin-left shrink-0 max-w-[48%] sm:max-w-[280px]">
+            <div
+              className="absolute -top-2.5 -left-2.5 z-20 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#8A1717] border-2 border-[#1B1B1B] shadow-[1.5px_1.5px_0_0_#1B1B1B] flex items-center justify-center pointer-events-none"
+              aria-hidden="true"
+            >
+              <Pin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FFE066] fill-[#FFE066]" />
+            </div>
+            <div className="-rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 bg-[#FFE066] text-[#1B1B1B] px-3 py-2 sm:px-4 sm:py-3 rounded-xl shadow-[3px_3px_0_0_#1B1B1B] sm:shadow-[4px_4px_0_0_#1B1B1B] border-2 border-[#1B1B1B] text-[11px] sm:text-xs font-serif leading-tight sm:leading-snug select-none">
+              <div className="flex items-center gap-1.5 font-bold mb-0.5 sm:mb-1 text-[#8A1717]">
+                <InstagramIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                <span className="font-sans font-bold text-xs sm:text-sm">Got your box?</span>
+              </div>
+              <p className="line-clamp-3 sm:line-clamp-none">
+                Tag <span className="font-bold underline decoration-[#8A1717]">@iamsoubh</span> in your story or reel to be featured in the 2027 hall of fame!
+              </p>
+            </div>
+          </div>
 
-        {/* Live phone: plays the highlight you picked */}
-        <div className="order-1 lg:order-2 lg:col-span-5 xl:col-span-4 lg:sticky lg:top-28 mb-8 lg:mb-0">
-          <StoryPhone key={activeHighlightId} stories={activeStories} onProgress={setRing} />
-          <p className="mt-4 text-center text-xs font-semibold text-[#1B1B1B]/60">
-            Playing <span className="text-[#8A1717]">{activeHighlight.name}</span> · tap the phone to skip, hold to pause
-          </p>
-        </div>
+          {/* Card 2 on the RIGHT: @iamsoubh profile card, pinned with up-down motion */}
+          <div className="relative animate-pin-right shrink-0 max-w-[48%] sm:max-w-[250px]">
+            <div
+              className="absolute -top-2.5 -left-2.5 z-20 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#8A1717] border-2 border-[#1B1B1B] shadow-[1.5px_1.5px_0_0_#1B1B1B] flex items-center justify-center pointer-events-none"
+              aria-hidden="true"
+            >
+              <Pin className="w-3.5 h-3.5 text-[#FFE066] fill-[#FFE066]" />
+            </div>
+            <a
+              href="https://www.instagram.com/iamsoubh/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open @iamsoubh on Instagram"
+              className="rotate-1 sm:rotate-2 hover:rotate-0 transition-transform duration-300 block select-none"
+            >
+              <div className="bg-[#FFFDF7] text-[#1B1B1B] rounded-xl border-2 border-[#1B1B1B] shadow-[3px_3px_0_0_#1B1B1B] sm:shadow-[4px_4px_0_0_#1B1B1B] px-2.5 py-2 sm:px-3.5 sm:py-2.5 flex items-center gap-2 sm:gap-2.5 hover:shadow-[5px_5px_0_0_#8A1717] transition-all">
+                <Image
+                  src="/assets/brand/soubh-avatar.png"
+                  alt="Soubh"
+                  width={40}
+                  height={40}
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#1B1B1B] object-cover shrink-0"
+                />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1 font-bold text-xs sm:text-sm leading-tight">
+                    <span className="truncate">iamsoubh</span>
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-[#1D9BF0] shrink-0" aria-hidden="true">
+                      <path d="M12 1.5l2.4 2.1 3.2-.3.9 3.1 2.8 1.6-1.2 3 1.2 3-2.8 1.6-.9 3.1-3.2-.3L12 22.5l-2.4-2.1-3.2.3-.9-3.1L2.7 16l1.2-3-1.2-3 2.8-1.6.9-3.1 3.2.3L12 1.5zm-1.1 13.6l5.2-5.2-1.4-1.4-3.8 3.8-1.8-1.8-1.4 1.4 3.2 3.2z" />
+                    </svg>
+                  </div>
+                  <div className="text-[10px] sm:text-[11px] font-semibold text-[#1B1B1B]/70 leading-tight whitespace-nowrap">
+                    10K followers
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* 6. Carousel Controls & Filter Tabs Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-2 border-b border-[#1B1B1B]/10">
+        <div className="flex items-center justify-between gap-4 mb-4 pb-2 border-b border-[#1B1B1B]/10 w-full min-w-0">
           
-          {/* Quick Filter Pill Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          {/* Quick Filter Pill Chips: Desktop and tablet */}
+          <div className="hidden sm:flex items-center gap-2 overflow-x-auto no-scrollbar py-1 min-w-0 scroll-pl-4 sm:scroll-pl-6">
             {STORY_HIGHLIGHTS.map((hl) => {
               const isSelected = activeHighlightId === hl.id;
               return (
                 <button
                   key={hl.id}
                   onClick={() => handleSelectHighlight(hl.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                     isSelected
-                      ? "bg-[#1B382B] text-white shadow-md border border-[#1B382B]"
+                      ? "bg-[#1B1B1B] text-white shadow-md border border-[#1B1B1B]"
                       : "bg-[#FFFDF7] text-[#1B1B1B]/80 hover:text-[#1B1B1B] border border-[#1B1B1B]/20 hover:border-[#1B1B1B]/50"
                   }`}
                 >
@@ -396,8 +429,8 @@ export function BuyerStories() {
             })}
           </div>
 
-          {/* Action & Navigation Chevrons */}
-          <div className="flex items-center justify-between sm:justify-end gap-3">
+          {/* Action & Navigation Chevrons: Perfectly aligned on mobile and desktop */}
+          <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto shrink-0">
             {/* Watch Highlight Button */}
             <button
               onClick={() => handleOpenHighlightStories(activeHighlight)}
@@ -437,34 +470,29 @@ export function BuyerStories() {
           </div>
         </div>
 
-        {/* 7. Smooth Scrolling Stories Carousel Track — full-bleed, runs past both page edges */}
-        <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-[100vw]">
+        {/* 7. Smooth Scrolling Stories Carousel Track — full-bleed rail aligned to container */}
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
           <div
             ref={scrollRef}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
             onMouseEnter={() => {
               isPaused.current = true;
             }}
-            onTouchStart={() => {
-              isPaused.current = true;
-            }}
-            onTouchEnd={() => {
+            onMouseLeave={() => {
               isPaused.current = false;
+              handleMouseUp();
             }}
-            style={{
-              // First card lines up with the container; the rail still bleeds off both edges.
-              paddingInline: "max(1rem, calc((100vw - 80rem) / 2 + 2rem))",
-            }}
-            className="reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-6 pt-2 cursor-grab active:cursor-grabbing select-none"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className="reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-8 sm:pb-6 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8"
           >
             {activeStories.map((story, idx) => (
               <div
                 key={story.id}
                 onClick={() => handleCardClick(idx)}
-                className="relative w-[240px] sm:w-[280px] md:w-[310px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#1B1B1B] border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] hover:shadow-[8px_8px_0_0_#8A1717] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start"
+                className="relative w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#1B1B1B] border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] hover:shadow-[8px_8px_0_0_#8A1717] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start"
               >
                 {/* Phone Speaker Notch */}
                 <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-1.5 bg-black/60 rounded-full z-20 pointer-events-none" />
@@ -474,7 +502,7 @@ export function BuyerStories() {
                   src={story.image}
                   alt={story.quote || `Story from ${story.handle}`}
                   fill
-                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 310px"
+                  sizes="(max-width: 640px) 80vw, (max-width: 1024px) 280px, 310px"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   priority={idx < 4}
                 />
@@ -486,19 +514,19 @@ export function BuyerStories() {
                 <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/95 via-black/60 to-transparent pointer-events-none z-10" />
 
                 {/* Top Story Header Bar */}
-                <div className="absolute top-4 left-3 right-3 flex items-center justify-between text-white text-xs z-15">
-                  <div className="flex items-center gap-2 min-w-0">
+                <div className="absolute top-4 left-3 right-3 flex items-center justify-between text-white text-xs z-15 gap-2">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
                     <div className="w-7 h-7 rounded-full bg-[#E0A526] text-[#1B1B1B] font-bold text-[10px] flex items-center justify-center shrink-0 border border-[#1B1B1B]">
                       {story.city.slice(0, 3).toUpperCase()}
                     </div>
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1">
-                        <span className="font-bold text-xs truncate max-w-[120px]">
+                        <span className="font-bold text-xs truncate max-w-[110px] sm:max-w-[130px]">
                           {story.handle}
                         </span>
                         <CheckCircle2 className="w-3 h-3 text-[#E0A526] shrink-0 fill-[#E0A526]/20" />
                       </div>
-                      <span className="text-[10px] text-white/70 block leading-none">
+                      <span className="text-[10px] text-white/70 block leading-none truncate">
                         {story.city}
                       </span>
                     </div>
@@ -532,6 +560,7 @@ export function BuyerStories() {
                 </div>
               </div>
             ))}
+            <div className="w-2 sm:w-4 shrink-0" aria-hidden="true" />
           </div>
 
           {/* Subtitle / Interaction Guide */}

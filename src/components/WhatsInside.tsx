@@ -69,7 +69,7 @@ export function WhatsInside() {
         >
 
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+        <div className="reveal text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1B1B1B] mb-2">
             <span className="font-odia text-base">କ&apos;ଣ ଅଛି?</span>
             <span>· Complete 2027 Contents</span>

@@ -27,37 +27,42 @@ export function FaqSection() {
         }}
       />
 
-      {/* 2. Left Faint Temple Spire Sketch with Gentle Breathing Motion */}
-      <div
-        className="absolute top-12 -left-10 sm:left-4 w-[280px] sm:w-[360px] h-[480px] pointer-events-none select-none opacity-15 mix-blend-multiply z-0 animate-temple-breathe"
-        aria-hidden="true"
-      >
-        <Image
-          src="/assets/scene/temple-konark.webp"
-          alt=""
-          fill
-          className="object-contain object-top"
+
+      {/* Mandala, centred on the page's top-right corner, red mask, slow spin */}
+      <div className="absolute top-0 right-0 w-[320px] sm:w-[460px] aspect-square translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
+        <div
+          className="w-full h-full opacity-40 bg-[#8A1717] animate-spin-slow"
+          style={{
+            maskImage: "url('/assets/motifs/mandala-laser-1200.png')",
+            WebkitMaskImage: "url('/assets/motifs/mandala-laser-1200.png')",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+          }}
+          aria-hidden="true"
         />
       </div>
 
-      {/* 3. Right Red Hibiscus Floral Cluster with Soft Wind-Sway */}
+      {/* Konark temple, red mask */}
       <div
-        className="absolute top-16 -right-12 sm:-right-16 w-[220px] sm:w-[300px] h-[340px] sm:h-[440px] pointer-events-none select-none z-10 animate-sway-soft-right"
+        className="absolute bottom-0 right-0 w-[min(760px,90vw)] aspect-[720/360] pointer-events-none select-none z-0 opacity-40 bg-[#8A1717]"
+        style={{
+          maskImage: "url('/assets/scene/konark-lineart.png')",
+          WebkitMaskImage: "url('/assets/scene/konark-lineart.png')",
+          maskSize: "contain",
+          WebkitMaskSize: "contain",
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+        }}
         aria-hidden="true"
-      >
-        <Image
-          src="/assets/scene/foliage-right-corner.webp"
-          alt=""
-          fill
-          className="object-contain object-right-top drop-shadow-xl"
-        />
-      </div>
+      />
 
       {/* 4. Main Section Container */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Header Block */}
-        <div className="max-w-2xl mb-12 sm:mb-16">
+        <div className="reveal max-w-2xl mb-12 sm:mb-16">
           <span className="font-gazpacho text-[#C4A882] text-xl sm:text-2xl font-bold block mb-1">
             08
           </span>
@@ -70,7 +75,7 @@ export function FaqSection() {
         </div>
 
         {/* One row-wise grid, so the two columns stay on the same baselines */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 items-start">
+        <div className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-x-12 items-start">
           {faqs.map((faq) => {
             const isOpen = openId === faq.id;
             return (

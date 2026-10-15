@@ -2,14 +2,16 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight } from "lucide-react";
 import { creators } from "@/data/creators";
 import { trackGA } from "@/lib/track";
+import { CreatorGiftModal } from "@/components/CreatorGiftModal";
 
 const SPEED_PX_PER_SEC = 25;
 
 export function CreatorVideos() {
   const [unmuted, setUnmuted] = useState<string | null>(null);
+  const [creatorModalOpen, setCreatorModalOpen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const isDragging = useRef(false);
@@ -80,7 +82,7 @@ export function CreatorVideos() {
   return (
     <section
       id="creators"
-      className="relative py-16 sm:py-24 bg-[#0D3B2E] text-[#F6EFE2] scroll-mt-24 overflow-hidden"
+      className="relative py-16 sm:py-24 bg-[#141414] text-[#F6EFE2] scroll-mt-24 overflow-hidden"
     >
       {/* 1. Odia Folk Pattern Texture with Deep Forest Green Tint */}
       <div
@@ -91,18 +93,6 @@ export function CreatorVideos() {
         }}
       />
 
-      {/* 2. Right Tropical Foliage & Red Hibiscus (Mandara) Cluster */}
-      <div
-        className="absolute -top-12 -right-12 sm:-right-16 md:-right-20 w-[240px] sm:w-[320px] md:w-[400px] h-[340px] sm:h-[440px] md:h-[500px] pointer-events-none select-none z-10 animate-sway-soft-right"
-        aria-hidden="true"
-      >
-        <Image
-          src="/assets/scene/foliage-right-corner.webp"
-          alt=""
-          fill
-          className="object-contain object-right-top drop-shadow-2xl"
-        />
-      </div>
 
       {/* 3. Top Left Subtle Jhoti Motif */}
       <div
@@ -118,7 +108,7 @@ export function CreatorVideos() {
       </div>
 
       {/* 4. Main Section Content */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
             <div className="flex items-baseline gap-3 mb-2">
@@ -134,7 +124,7 @@ export function CreatorVideos() {
               Ask them, not me.
             </h2>
             <p className="mt-3 text-base sm:text-lg text-[#F6EFE2]/85 max-w-xl">
-              Six creators got the 2026 calendar. Here&apos;s what happened when it landed.
+              What happened when six creators unboxed the calendar on camera.
             </p>
           </div>
 
@@ -145,52 +135,74 @@ export function CreatorVideos() {
             </span>
             <button
               onClick={() => scroll("left")}
-              className="w-11 h-11 rounded-full bg-[#092D23] text-[#E0A526] border-2 border-[#E0A526]/40 hover:border-[#E0A526] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
+              className="w-11 h-11 rounded-full bg-[#1B1B1B] text-[#E0A526] border-2 border-[#E0A526]/40 hover:border-[#E0A526] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
               aria-label="Previous creators"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-11 h-11 rounded-full bg-[#092D23] text-[#E0A526] border-2 border-[#E0A526]/40 hover:border-[#E0A526] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
+              className="w-11 h-11 rounded-full bg-[#1B1B1B] text-[#E0A526] border-2 border-[#E0A526]/40 hover:border-[#E0A526] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
               aria-label="Next creators"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.5]" />
             </button>
           </div>
         </div>
+
+        {/* Video Carousel — aligned with edge bleed */}
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+          <div
+            ref={scrollContainerRef}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerUp}
+            onMouseEnter={() => (paused.current = true)}
+            onMouseLeave={() => {
+              isDragging.current = false;
+              paused.current = false;
+            }}
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 no-scrollbar px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none relative z-20"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              touchAction: "pan-x pan-y",
+            }}
+          >
+            {[...creators, ...creators].map((c, i) => (
+              <div key={`${c.postId}-${i}`} className="shrink-0">
+                <CreatorCard
+                  creator={c}
+                  unmuted={unmuted === c.postId}
+                  onToggleSound={() =>
+                    setUnmuted((cur) => (cur === c.postId ? null : c.postId))
+                  }
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Short clickable line for creators */}
+        <div className="mt-5 sm:mt-7 text-center">
+          <button
+            type="button"
+            onClick={() => setCreatorModalOpen(true)}
+            className="inline-flex items-center gap-2 text-sm sm:text-base text-[#F6EFE2] hover:text-white transition-colors cursor-pointer group"
+          >
+            <span className="font-medium">Are you a creator?</span>
+            <span className="font-bold text-[#1B1B1B] bg-[#E0A526] px-2.5 py-0.5 rounded-md underline underline-offset-4 decoration-2 decoration-[#1B1B1B] group-hover:bg-[#f5b833] active:scale-95 transition-all shadow-xs">
+              Get 1 free →
+            </span>
+          </button>
+        </div>
       </div>
 
-      {/* Video Carousel */}
-      <div
-        ref={scrollContainerRef}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-        onMouseEnter={() => (paused.current = true)}
-        onMouseLeave={() => {
-          isDragging.current = false;
-          paused.current = false;
-        }}
-        className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 no-scrollbar px-5 sm:px-8 cursor-grab active:cursor-grabbing select-none relative z-20"
-        style={{
-          WebkitOverflowScrolling: "touch",
-          touchAction: "pan-x pan-y",
-        }}
-      >
-        {[...creators, ...creators].map((c, i) => (
-          <div key={`${c.postId}-${i}`} className="shrink-0">
-            <CreatorCard
-              creator={c}
-              unmuted={unmuted === c.postId}
-              onToggleSound={() =>
-                setUnmuted((cur) => (cur === c.postId ? null : c.postId))
-              }
-            />
-          </div>
-        ))}
-      </div>
+      {/* Creator Gifting Application Modal */}
+      <CreatorGiftModal
+        open={creatorModalOpen}
+        onClose={() => setCreatorModalOpen(false)}
+      />
     </section>
   );
 }
@@ -236,9 +248,9 @@ function CreatorCard({
   return (
     <div
       ref={cardRef}
-      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-[#092D23] border border-[#E0A526]/40 hover:border-[#E0A526] transition-all duration-300 group hover:-translate-y-1 shadow-xl"
+      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-[#1B1B1B] border border-[#E0A526]/40 hover:border-[#E0A526] transition-all duration-300 group hover:-translate-y-1 shadow-xl"
     >
-      <div className="relative aspect-[9/16] bg-[#07241C]">
+      <div className="relative aspect-[9/16] bg-[#0F0F0F]">
         {creator.video ? (
           <video
             ref={videoRef}
@@ -255,7 +267,7 @@ function CreatorCard({
             href={postUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute inset-0 flex items-center justify-center bg-[#07241C] group"
+            className="absolute inset-0 flex items-center justify-center bg-[#0F0F0F] group"
             aria-label="Watch on Instagram"
           >
             <div className="relative w-full h-full">

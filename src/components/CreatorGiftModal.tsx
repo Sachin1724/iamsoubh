@@ -1,0 +1,514 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { X, ArrowRight, Loader2, Plus, Trash2, Sparkles, CheckCircle2 } from "lucide-react";
+import { siteConfig } from "@/config/site-config";
+import { trackGA } from "@/lib/track";
+
+const SOCIAL_PLATFORMS = [
+  "Instagram",
+  "YouTube",
+  "X (Twitter)",
+  "LinkedIn",
+  "Facebook",
+  "Threads",
+  "Other",
+] as const;
+
+const PLAN_TAGS = [
+  "Unboxing Reel",
+  "Desk Setup Tour",
+  "Odia Tradition Breakdown",
+  "Cultural Storytelling",
+  "Gift Guide Feature",
+  "Shorts / TikTok",
+] as const;
+
+interface SocialAccount {
+  id: string;
+  platform: string;
+  url: string;
+}
+
+export function CreatorGiftModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [socials, setSocials] = useState<SocialAccount[]>([
+    { id: "1", platform: "Instagram", url: "" },
+  ]);
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [stateName, setStateName] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [whatMadeYouStop, setWhatMadeYouStop] = useState("");
+  const [selectedPlanTags, setSelectedPlanTags] = useState<string[]>([]);
+  const [contentPlan, setContentPlan] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [isClosing, setIsClosing] = useState(false);
+  const [dragY, setDragY] = useState(0);
+
+  const touchStartY = useRef<number | null>(null);
+  const isDragging = useRef(false);
+
+  const handleClose = React.useCallback(() => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+      setDragY(0);
+    }, 280);
+  }, [isClosing, onClose]);
+
+  useEffect(() => {
+    if (!open) return;
+    trackGA("creator_modal_open");
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && handleClose();
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, handleClose]);
+
+  if (!open || typeof document === "undefined") return null;
+
+  const addSocial = () => {
+    setSocials((prev) => [
+      ...prev,
+      { id: Date.now().toString(), platform: "Instagram", url: "" },
+    ]);
+  };
+
+  const removeSocial = (id: string) => {
+    if (socials.length <= 1) return;
+    setSocials((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  const updateSocial = (id: string, field: "platform" | "url", val: string) => {
+    setSocials((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, [field]: val } : s))
+    );
+  };
+
+  const togglePlanTag = (tag: string) => {
+    setSelectedPlanTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartY.current === null) return;
+    const diff = e.touches[0].clientY - touchStartY.current;
+    if (diff > 0) setDragY(diff);
+    else setDragY(0);
+  };
+
+  const handleTouchEnd = () => {
+    if (dragY > 75) {
+      handleClose();
+    } else {
+      setDragY(0);
+    }
+    touchStartY.current = null;
+    isDragging.current = false;
+  };
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    const payload = {
+      access_key: key || "test_mode",
+      subject: `Creator Free Calendar Application — ${name}`,
+      name,
+      whatsapp: phone,
+      email,
+      social_accounts: socials.map((s) => `${s.platform}: ${s.url}`).join(" | "),
+      shipping_address: `${streetAddress}, ${city}, ${stateName} - ${pincode}`,
+      what_made_you_stop: whatMadeYouStop,
+      content_formats: selectedPlanTags.join(", "),
+      content_plan: contentPlan,
+    };
+
+    try {
+      if (key) {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        setStatus(res.ok ? "done" : "error");
+      } else {
+        // Fallback for development/preview
+        await new Promise((r) => setTimeout(r, 600));
+        setStatus("done");
+      }
+      trackGA("creator_application_submitted");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const firstName = name.trim().split(" ")[0] || "Creator";
+
+  return createPortal(
+    <div
+      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center bg-[#1B1B1B]/75 backdrop-blur-xs transition-opacity duration-200 ${
+        isClosing ? "animate-backdrop-fade-out" : "animate-backdrop-fade-in"
+      }`}
+      style={{
+        opacity: dragY > 0 ? Math.max(0.15, 1 - dragY / 350) : undefined,
+      }}
+      onClick={handleClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Creator Free Calendar Application"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
+          transition: isDragging.current ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
+        }}
+        className={`flex w-full flex-col overflow-hidden sm:max-w-[540px] max-h-[94dvh] bg-[#F6EFE2] rounded-t-3xl sm:rounded-3xl border-2 border-[#1B1B1B] shadow-2xl will-change-transform ${
+          isClosing
+            ? "animate-modal-slide-down"
+            : dragY === 0
+            ? "animate-modal-slide-up"
+            : ""
+        }`}
+      >
+        {/* Mobile Drag Handle */}
+        <div
+          className="sm:hidden w-full flex flex-col items-center pt-2 pb-1 cursor-grab active:cursor-grabbing touch-none select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="w-12 h-1.5 rounded-full bg-[#1B1B1B]/25 hover:bg-[#1B1B1B]/40 transition-colors" />
+          <span className="text-[9px] font-semibold tracking-wider uppercase text-[#1B1B1B]/40 mt-1">
+            Pull down to close
+          </span>
+        </div>
+
+        {/* Modal Header */}
+        <div
+          className="shrink-0 bg-[#F6EFE2] flex items-start justify-between gap-4 p-5 pt-3 sm:pt-5 border-b-2 border-[#1B1B1B] touch-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div>
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#E0A526] text-[#1B1B1B] text-[10px] font-black uppercase tracking-wider border border-[#1B1B1B]">
+                <Sparkles className="w-3 h-3 text-[#8A1717]" />
+                Creator Gifting Program
+              </span>
+            </div>
+            <h3 className="font-gazpacho text-2xl sm:text-3xl font-bold text-[#1B1B1B]">
+              Get a free 2027 box.
+            </h3>
+            <p className="text-xs sm:text-sm text-[#4A4642] mt-0.5 max-w-sm">
+              Are you a creator or storyteller? Tell us your channels and your plan to feature the calendar. We’ll courier a complimentary box.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={handleClose}
+            aria-label="Close"
+            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-[#1B1B1B] flex items-center justify-center hover:bg-[#ECE3D2] active:scale-95 cursor-pointer shadow-xs transition-all"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Content Body */}
+        {status === "done" ? (
+          <div className="p-8 text-center my-auto flex flex-col items-center">
+            <div className="w-16 h-16 rounded-full bg-[#1B1B1B] text-[#E0A526] border-2 border-[#1B1B1B] flex items-center justify-center mb-4 shadow-md">
+              <CheckCircle2 className="w-9 h-9" />
+            </div>
+            <h4 className="font-gazpacho text-3xl font-bold text-[#1B1B1B]">
+              Application received, {firstName}!
+            </h4>
+            <p className="mt-2 text-sm text-[#4A4642] max-w-xs leading-relaxed">
+              Soubh reviews creator applications daily. If approved, we will send tracking details directly to your WhatsApp at <span className="font-bold text-[#1B1B1B]">{phone}</span>.
+            </p>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="mt-6 px-6 py-2.5 rounded-full bg-[#1B1B1B] text-[#F6EFE2] font-bold text-sm hover:bg-[#333] transition-colors"
+            >
+              Back to Calendar
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={submit} className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar p-5 space-y-4">
+              {/* Creator Name */}
+              <L label="Your Name / Creator Handle *">
+                <input
+                  required
+                  placeholder="e.g. Soubhagya Ranjan or @channel"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={inp}
+                />
+              </L>
+
+              {/* Contact Information */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <L label="WhatsApp Number (for dispatch) *">
+                  <input
+                    required
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="10-digit number"
+                    value={phone}
+                    onChange={(e) =>
+                      setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
+                    }
+                    className={inp}
+                  />
+                </L>
+                <L label="Email Address *">
+                  <input
+                    required
+                    type="email"
+                    placeholder="you@domain.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={inp}
+                  />
+                </L>
+              </div>
+
+              {/* Social Accounts with Dropdown + Link + Plus button */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-bold text-[#1B1B1B]">
+                    Social Accounts & Links *
+                  </label>
+                  <button
+                    type="button"
+                    onClick={addSocial}
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8A1717] hover:text-[#C8221A] cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                    <span>Add another link</span>
+                  </button>
+                </div>
+
+                <div className="space-y-2">
+                  {socials.map((s, idx) => (
+                    <div key={s.id} className="flex items-center gap-2">
+                      <select
+                        value={s.platform}
+                        onChange={(e) => updateSocial(s.id, "platform", e.target.value)}
+                        className="w-[120px] sm:w-[140px] px-2.5 py-2.5 min-h-[44px] rounded-xl border-2 border-[#1B1B1B] text-xs font-bold bg-white text-[#1B1B1B] focus:outline-none focus:border-[#C8221A] shrink-0"
+                      >
+                        {SOCIAL_PLATFORMS.map((p) => (
+                          <option key={p} value={p}>
+                            {p}
+                          </option>
+                        ))}
+                      </select>
+
+                      <input
+                        required
+                        type="text"
+                        placeholder="Profile link or @handle"
+                        value={s.url}
+                        onChange={(e) => updateSocial(s.id, "url", e.target.value)}
+                        className={`${inp} text-xs py-2.5 min-h-[44px] flex-1`}
+                      />
+
+                      {socials.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeSocial(s.id)}
+                          aria-label="Remove social account"
+                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-[#1B1B1B] bg-white flex items-center justify-center text-[#8A1717] hover:bg-[#FBEAEA] active:scale-95 transition-all cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+
+                      {idx === socials.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={addSocial}
+                          aria-label="Add account"
+                          title="Add another social link"
+                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-[#1B1B1B] bg-[#E0A526] hover:bg-[#d69819] active:scale-95 flex items-center justify-center text-[#1B1B1B] font-bold cursor-pointer transition-all shadow-xs"
+                        >
+                          <Plus className="w-4 h-4 stroke-[3]" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Delivery Address */}
+              <div className="space-y-2 pt-1 border-t border-[#1B1B1B]/15">
+                <span className="block text-xs font-bold text-[#1B1B1B]">
+                  Shipping Address (Where to courier the box) *
+                </span>
+                <input
+                  required
+                  placeholder="House / Flat / Street address / Landmark"
+                  value={streetAddress}
+                  onChange={(e) => setStreetAddress(e.target.value)}
+                  className={inp}
+                />
+                <div className="grid grid-cols-3 gap-2">
+                  <input
+                    required
+                    placeholder="City"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className={inp}
+                  />
+                  <input
+                    required
+                    placeholder="State"
+                    value={stateName}
+                    onChange={(e) => setStateName(e.target.value)}
+                    className={inp}
+                  />
+                  <input
+                    required
+                    inputMode="numeric"
+                    placeholder="Pincode"
+                    value={pincode}
+                    onChange={(e) =>
+                      setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))
+                    }
+                    className={inp}
+                  />
+                </div>
+              </div>
+
+              {/* What made you stop at this calendar? */}
+              <div className="space-y-2 pt-1 border-t border-[#1B1B1B]/15">
+                <L label="What made you stop at this calendar? *">
+                  <textarea
+                    required
+                    rows={2}
+                    placeholder="What caught your eye? The art style, the 13 festivals, the Odia nostalgia, the craftsmanship?"
+                    value={whatMadeYouStop}
+                    onChange={(e) => setWhatMadeYouStop(e.target.value)}
+                    className={inp}
+                  />
+                </L>
+              </div>
+
+              {/* Content Format Tags & Plan */}
+              <div className="space-y-2">
+                <label className="block text-xs font-bold text-[#1B1B1B]">
+                  What&apos;s your content plan to feature it? *
+                </label>
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {PLAN_TAGS.map((tag) => {
+                    const active = selectedPlanTags.includes(tag);
+                    return (
+                      <button
+                        type="button"
+                        key={tag}
+                        onClick={() => togglePlanTag(tag)}
+                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border-2 border-[#1B1B1B] cursor-pointer transition-all ${
+                          active
+                            ? "bg-[#1B1B1B] text-[#FFFDF7]"
+                            : "bg-white text-[#1B1B1B] hover:bg-[#ECE3D2]"
+                        }`}
+                      >
+                        {tag} {active && "✓"}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <textarea
+                  required
+                  rows={2}
+                  placeholder="Tell us what you plan to create (e.g. An unboxing reel on Grand Road Rath Yatra, showing all 13 festival art cards to my Odia audience)..."
+                  value={contentPlan}
+                  onChange={(e) => setContentPlan(e.target.value)}
+                  className={inp}
+                />
+              </div>
+
+              {status === "error" && (
+                <p className="text-xs sm:text-sm font-bold text-[#C8221A]">
+                  Submission couldn&apos;t go through. Please{" "}
+                  <a
+                    href={`https://wa.me/${siteConfig.whatsappNumber.replace(
+                      /\D/g,
+                      ""
+                    )}?text=Hi%20Soubh%2C%20I%20am%20a%20creator%20and%20want%20to%20apply%20for%20a%20free%202027%20calendar%20box`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4"
+                  >
+                    message Soubh on WhatsApp directly
+                  </a>
+                  .
+                </p>
+              )}
+            </div>
+
+            {/* Sticky Action Footer */}
+            <div className="shrink-0 border-t-2 border-[#1B1B1B] bg-[#F6EFE2] p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="w-full min-h-[50px] rounded-full bg-[#C8221A] text-[#F6EFE2] font-disko text-base sm:text-lg flex items-center justify-center gap-2 border-2 border-[#1B1B1B] press cursor-pointer disabled:opacity-60 hover:bg-[#b01c15] transition-colors"
+                style={{ boxShadow: "4px 4px 0 0 #1B1B1B" }}
+              >
+                {status === "sending" ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <span>Submit Creator Application</span>
+                    <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+const inp =
+  "w-full px-3 py-2.5 rounded-xl border-2 border-[#1B1B1B] text-sm text-[#1B1B1B] bg-white focus:outline-none focus:border-[#C8221A]";
+
+function L({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="block text-xs font-bold text-[#1B1B1B] mb-1">{label}</span>
+      {children}
+    </label>
+  );
+}

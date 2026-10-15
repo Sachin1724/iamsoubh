@@ -54,8 +54,8 @@ export const festivals: FestivalCard[] = [
     traditions: ["Float Boita before sunrise", "Chant Aa Ka Ma Boi", "Eat Habisa dalma"],
     artwork: "/assets/boita-bandana-card.png",
     calendarDate: "Kartika Purnima · November 2027",
-    accentColor: "#1B382B",
-    tagColor: "#3E9B47",
+    accentColor: "#8A1717",
+    tagColor: "#E0A526",
   },
   {
     id: "durga-puja",

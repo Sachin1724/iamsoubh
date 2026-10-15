@@ -892,3 +892,109 @@ html {
     display: none;
   }
 }
+
+/* Modal Bottom-Sheet Slide Up & Slide Down */
+@keyframes modalSlideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0.4;
+  }
+}
+
+@keyframes backdropFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes backdropFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-modal-slide-up {
+  animation: modalSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-modal-slide-down {
+  animation: modalSlideDown 0.28s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+}
+
+.animate-backdrop-fade-in {
+  animation: backdropFadeIn 0.25s ease-out forwards;
+}
+
+.animate-backdrop-fade-out {
+  animation: backdropFadeOut 0.26s ease-in forwards;
+}
+
+/* Pinned Note Up-Down / Sway Motion pivoting from pin */
+@keyframes pinSwingLeft {
+  0% {
+    transform: rotate(-1deg) translateY(0);
+  }
+  50% {
+    transform: rotate(2deg) translateY(6px);
+  }
+  100% {
+    transform: rotate(-1deg) translateY(0);
+  }
+}
+
+@keyframes pinSwingRight {
+  0% {
+    transform: rotate(1.5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-1.8deg) translateY(6px);
+  }
+  100% {
+    transform: rotate(1.5deg) translateY(0);
+  }
+}
+
+.animate-pin-left {
+  transform-origin: 10px 10px;
+  animation: pinSwingLeft 4.2s ease-in-out infinite;
+}
+
+.animate-pin-right {
+  transform-origin: 10px 10px;
+  animation: pinSwingRight 3.8s ease-in-out infinite;
+}
+
+.animate-pin-swing {
+  transform-origin: 14px 14px;
+  animation: pinSwingLeft 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pin-left,
+  .animate-pin-right,
+  .animate-pin-swing {
+    animation: none;
+  }
+}
+

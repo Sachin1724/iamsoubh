@@ -33,7 +33,7 @@ export function Header({ onOrderClick }: HeaderProps) {
         ctaText="Pre-order"
         ctaHref="#preorder"
         onCtaClick={onOrderClick}
-        containerClassName="pointer-events-none py-3 px-3 sm:px-6 md:px-8 w-full max-w-7xl mx-auto"
+        containerClassName="pointer-events-none py-2 sm:py-3 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto"
         className={`pointer-events-auto border-2 transition-all duration-300 ${
           scrolled
             ? "bg-[#8A1717] border-[#1B1B1B] text-[#F6EFE2] shadow-md"
@@ -55,7 +55,7 @@ export function Header({ onOrderClick }: HeaderProps) {
               width={180}
               height={50}
               priority
-              className="h-8 sm:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
+              className="h-6 sm:h-9 md:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </a>

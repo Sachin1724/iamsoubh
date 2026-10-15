@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabase, getRazorpay, PRICING, isProduct, forceSoldOut, alert } from "@/server/clients";
+import crypto from "node:crypto";
+import { getRazorpay, PRICING, isProduct, forceSoldOut, alert } from "@/server/clients";
 
 type Customer = {
   name?: string;
@@ -50,31 +51,7 @@ export async function POST(req: NextRequest) {
   // Price and box count come from server config only.
   const boxes = rules.boxesEach * quantity;
   const amount = rules.price * quantity * 100;
-
-  const { data: reserved, error: reserveError } = await getSupabase()
-    .rpc("reserve_boxes", {
-      p_product: product,
-      p_qty: quantity,
-      p_boxes: boxes,
-      p_amount: amount,
-      p_customer: c,
-      p_utm: utm ?? {},
-    })
-    .single<{ order_id: string; remaining: number }>();
-
-  if (reserveError) {
-    const match = /OUT_OF_STOCK:(\d+)/.exec(reserveError.message);
-    if (match) {
-      return NextResponse.json(
-        { code: "OUT_OF_STOCK", remaining: Number(match[1]) },
-        { status: 409 }
-      );
-    }
-    await alert(`create-order reserve failed: ${reserveError.message}`);
-    return NextResponse.json({ code: "RESERVE_FAILED" }, { status: 500 });
-  }
-
-  const dbOrderId = reserved!.order_id;
+  const receipt = crypto.randomUUID();
 
   try {
     const site = process.env.NEXT_PUBLIC_SITE_URL || "https://iamsoubh.com";
@@ -88,7 +65,7 @@ export async function POST(req: NextRequest) {
     const orderPayload = {
       amount,
       currency: "INR",
-      receipt: dbOrderId,
+      receipt,
       // line_items_total is what marks this as a Magic Checkout order; drop it
       // and Razorpay silently falls back to Standard Checkout.
       line_items_total: amount,
@@ -104,19 +81,22 @@ export async function POST(req: NextRequest) {
           image_url: `${site}/assets/product/box-open.webp`,
         },
       ],
+      // Razorpay is the only order store now, so everything the admin mail and
+      // the thank-you screen read has to live in the notes.
       notes: {
-        db_order_id: dbOrderId,
         product,
         qty: String(quantity),
         boxes: String(boxes),
         name: c.name?.trim() ?? "",
         phone: c.phone!,
+        email: c.email ?? "",
         pincode: c.pincode ?? "",
         city: c.city ?? "",
         state: c.state ?? "",
         address: (c.address ?? "").slice(0, 250),
         landmark: (c.landmark ?? "").slice(0, 120),
         gift_note: (c.giftNote ?? "").slice(0, 200),
+        utm: JSON.stringify(utm ?? {}).slice(0, 400),
       },
     };
 
@@ -124,21 +104,13 @@ export async function POST(req: NextRequest) {
       orderPayload as unknown as Parameters<ReturnType<typeof getRazorpay>["orders"]["create"]>[0]
     );
 
-    await getSupabase()
-      .from("orders")
-      .update({ razorpay_order_id: rzpOrder.id })
-      .eq("id", dbOrderId);
-
     return NextResponse.json({
-      dbOrderId,
       razorpayOrderId: rzpOrder.id,
       amount,
       keyId: process.env.RAZORPAY_KEY_ID,
     });
   } catch (e) {
-    // Release the hold immediately so the boxes go back to the pool.
-    await getSupabase().from("orders").update({ status: "failed" }).eq("id", dbOrderId);
-    await alert(`razorpay order create failed for ${dbOrderId}: ${String(e)}`);
+    await alert(`razorpay order create failed for ${receipt}: ${String(e)}`);
     return NextResponse.json({ code: "RAZORPAY_FAILED" }, { status: 502 });
   }
 }

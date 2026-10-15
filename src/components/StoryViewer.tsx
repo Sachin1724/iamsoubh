@@ -108,7 +108,7 @@ export function StoryViewer({
           onClose();
         }}
         aria-label="Back to website"
-        className="fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-[#8A1717] text-[#F6EFE2] border border-white/20 shadow-xl text-xs sm:text-sm font-bold transition-all cursor-pointer group"
+        className="hidden sm:flex fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-[#8A1717] text-[#F6EFE2] border border-white/20 shadow-xl text-xs sm:text-sm font-bold transition-all cursor-pointer group"
       >
         <span className="hidden sm:inline">Back to website</span>
         <X className="w-4 h-4 stroke-[2.5] group-hover:rotate-90 transition-transform" />

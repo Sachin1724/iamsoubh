@@ -138,7 +138,7 @@ const Navbar1 = ({
   return (
     <div className={`flex justify-center w-full ${containerClassName}`}>
       <div
-        className={`flex items-center justify-between px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 rounded-full w-full relative z-10 transition-all ${className}`}
+        className={`flex items-center justify-between px-3.5 sm:px-6 lg:px-8 py-1.5 sm:py-2.5 md:py-3 rounded-full w-full relative z-10 transition-all ${className}`}
       >
         <div className="flex items-center shrink-0">
           {brandLogo ? (
@@ -222,12 +222,12 @@ const Navbar1 = ({
 
         {/* Mobile Menu Button */}
         <motion.button
-          className="md:hidden flex items-center p-2 rounded-full text-[#F6EFE2] hover:bg-[#F6EFE2]/10 transition-colors cursor-pointer"
+          className="md:hidden flex items-center p-1.5 sm:p-2 rounded-full text-[#F6EFE2] hover:bg-[#F6EFE2]/10 transition-colors cursor-pointer"
           onClick={toggleMenu}
           whileTap={{ scale: 0.9 }}
           aria-label="Toggle Menu"
         >
-          <Menu className="h-6 w-6 text-[#F6EFE2]" />
+          <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-[#F6EFE2]" />
         </motion.button>
       </div>
 

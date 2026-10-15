@@ -152,7 +152,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
       </div>
 
       {/* 3. Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="flex items-baseline gap-3 mb-2">
@@ -174,11 +174,11 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
         </div>
 
         {/* 3-Column Split: [Product Cluster Visual] | [Pack Selector & Pricing] | [Delivery Form] */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* Column 1: Product 3D Stack Mockup (3 Cols) */}
-          <div className="lg:col-span-3 flex flex-col items-center">
-            <div className="relative w-full max-w-[280px] aspect-[4/5] rounded-2xl overflow-hidden bg-[#EFE7D8] border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] p-2 flex items-center justify-center group">
+          <div className="md:col-span-5 lg:col-span-3 flex flex-col items-center">
+            <div className="relative w-full max-w-[240px] sm:max-w-[280px] aspect-[4/5] rounded-2xl overflow-hidden bg-[#EFE7D8] border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] p-2 flex items-center justify-center group">
               <Image
                 src="/assets/product/hero-client-product-hq.webp"
                 alt="2027 Odia Viral Calendar"
@@ -196,7 +196,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
           </div>
 
           {/* Column 2: Pack Selection & Pre-Order Action (4 Cols) */}
-          <div className="lg:col-span-4 flex flex-col space-y-4">
+          <div className="md:col-span-7 lg:col-span-4 flex flex-col space-y-3.5 sm:space-y-4">
             
             {/* Single Box Card */}
             <div
@@ -204,7 +204,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 setProduct("single");
                 setQuantity(1);
               }}
-              className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+              className={`p-3.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
                 product === "single"
                   ? "border-[#8A1717] bg-[#FFFDF7] shadow-[4px_4px_0_0_#8A1717]"
                   : "border-[#D5C7B3] bg-[#FFFDF7]/60 hover:bg-[#FFFDF7]"
@@ -247,13 +247,13 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 setProduct("family");
                 setQuantity(1);
               }}
-              className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 relative ${
+              className={`p-3.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 relative overflow-visible ${
                 product === "family"
                   ? "border-[#8A1717] bg-[#FFFDF7] shadow-[4px_4px_0_0_#8A1717]"
                   : "border-[#D5C7B3] bg-[#FFFDF7]/60 hover:bg-[#FFFDF7]"
               }`}
             >
-              <span className="absolute -top-2.5 right-4 bg-[#E0A526] text-[#1B1B1B] text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-[#1B1B1B] shadow-xs">
+              <span className="absolute -top-2.5 right-4 z-10 bg-[#E0A526] text-[#1B1B1B] text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-[#1B1B1B] shadow-xs">
                 Best value
               </span>
 
@@ -339,28 +339,28 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               onClick={() => {
                 document.getElementById("shipping-form")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="lg:hidden w-full py-3.5 px-6 rounded-full bg-[#8A1717] hover:bg-[#701212] text-white font-gazpacho text-base font-bold shadow-[4px_4px_0_0_#1B1B1B] hover:shadow-[5px_5px_0_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
+              className="lg:hidden w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-[#8A1717] hover:bg-[#701212] text-white font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_#1B1B1B] hover:shadow-[5px_5px_0_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
             >
               <span>Continue to delivery details</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
             {/* Reassurance Badges */}
-            <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#D5C7B3] text-center">
+            <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-3 border-t border-[#D5C7B3] text-center">
               <div className="flex flex-col items-center">
-                <Truck className="w-4 h-4 text-[#8A1717] mb-1" />
-                <span className="text-[10px] font-bold leading-tight">Free shipping</span>
-                <span className="text-[8px] text-black/60">across India</span>
+                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
+                <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Free shipping</span>
+                <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">across India</span>
               </div>
               <div className="flex flex-col items-center">
-                <ShieldCheck className="w-4 h-4 text-[#8A1717] mb-1" />
-                <span className="text-[10px] font-bold leading-tight">Secure payment</span>
-                <span className="text-[8px] text-black/60">by Razorpay</span>
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
+                <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Secure payment</span>
+                <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">by Razorpay</span>
               </div>
               <div className="flex flex-col items-center">
-                <RotateCcw className="w-4 h-4 text-[#8A1717] mb-1" />
-                <span className="text-[10px] font-bold leading-tight">Free replacement</span>
-                <span className="text-[8px] text-black/60">if arrives damaged</span>
+                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
+                <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Free replacement</span>
+                <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">if damaged</span>
               </div>
             </div>
 
@@ -370,7 +370,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
           </div>
 
           {/* Column 3: Where Should It Go Delivery Form (5 Cols) */}
-          <div className="lg:col-span-5 bg-[#FFFDF7] p-5 sm:p-7 rounded-2xl border-2 border-[#1B1B1B] shadow-[6px_6px_0_0_#1B1B1B]">
+          <div className="md:col-span-12 lg:col-span-5 bg-[#FFFDF7] p-4 sm:p-6 lg:p-7 rounded-2xl border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] sm:shadow-[6px_6px_0_0_#1B1B1B]">
             <h3 className="font-gazpacho text-lg sm:text-xl font-bold text-[#1B1B1B] mb-4">
               Where should it go?
             </h3>
@@ -434,11 +434,11 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                       className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-[#8A1717]"
                     />
 
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       <input
                         type="text"
                         inputMode="numeric"
-                        placeholder="Pincode"
+                        placeholder="Pincode (6 digits)"
                         value={pincode}
                         onChange={(e) => handlePincodeChange(e.target.value)}
                         maxLength={6}

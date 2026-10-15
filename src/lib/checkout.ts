@@ -36,8 +36,8 @@ type CheckoutResult = { ok: true } | { ok: false; message: string };
 
 /**
  * One click from the preorder form into Magic Checkout. Razorpay collects the
- * delivery address itself; `pullMagicAddress` copies it onto the order after
- * payment, so nothing here needs an address.
+ * delivery address itself and the webhook reads it back off the paid order,
+ * so nothing here needs an address.
  */
 export async function startCheckout(
   order: OrderData,
@@ -84,13 +84,11 @@ export async function startCheckout(
       return {
         ok: false,
         message:
-          data.code === "OUT_OF_STOCK"
-            ? `Only ${data.remaining} boxes left — please lower the quantity.`
-            : data.code === "SOLD_OUT"
-              ? "Batch 1 just sold out."
-              : data.code === "BAD_PHONE"
-                ? "Enter a valid 10-digit mobile number."
-                : "Could not start the payment. Please try again.",
+          data.code === "SOLD_OUT"
+            ? "Batch 1 just sold out."
+            : data.code === "BAD_PHONE"
+              ? "Enter a valid 10-digit mobile number."
+              : "Could not start the payment. Please try again.",
       };
     }
 
@@ -109,7 +107,6 @@ export async function startCheckout(
         email: order.email || undefined,
         contact: `+91${order.phone}`,
       },
-      notes: { db_order_id: data.dbOrderId },
       theme: { color: "#C8221A" },
       timeout: 900,
       retry: { enabled: true },

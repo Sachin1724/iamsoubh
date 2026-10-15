@@ -18,24 +18,39 @@ export function Footer() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main Footer Row: [Left Quote] | [Center Brand & Socials] | [Right Legal Links] */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-8 border-b border-white/15">
           
           {/* Left: Serif Tagline */}
-          <div className="md:col-span-4 flex flex-col items-start text-left">
+          <div className="md:col-span-4 flex flex-col items-center text-center md:items-start md:text-left">
             <p className="font-serif italic text-base sm:text-lg text-[#FFFDF7] leading-tight">
               Made in Odisha, <br />
               <span className="text-sm not-italic font-normal text-[#F6EFE2]/80">for everyone who misses it.</span>
             </p>
           </div>
 
-          {/* Center: IAMSOUBH Brand & Social Icons */}
+          {/* Center: IAMSOUBH Brand Logo & Social Icons */}
           <div className="md:col-span-4 flex flex-col items-center justify-center gap-3 text-center">
-            <span className="font-gazpacho text-xl sm:text-2xl font-bold tracking-wider text-white">
-              IAMSOUBH
-            </span>
+            <Link
+              href="#hero"
+              className="inline-flex items-center group cursor-pointer"
+              aria-label="IAMSOUBH Home"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <Image
+                src="/assets/brand/calogo.png"
+                alt="IAMSOUBH"
+                width={180}
+                height={50}
+                className="h-7 sm:h-9 md:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+            </Link>
 
             <div className="flex items-center gap-3">
               <a
@@ -69,7 +84,7 @@ export function Footer() {
           </div>
 
           {/* Right: Policy Links */}
-          <div className="md:col-span-4 flex flex-wrap md:justify-end gap-x-4 gap-y-2 text-xs text-[#F6EFE2]/80 font-medium">
+          <div className="md:col-span-4 flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-2 text-xs text-[#F6EFE2]/80 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             <Link href="/shipping" className="hover:text-white transition-colors">Shipping</Link>
             <Link href="/refunds" className="hover:text-white transition-colors">Refunds and cancellation</Link>
