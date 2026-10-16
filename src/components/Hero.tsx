@@ -5,7 +5,6 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTilt } from "@/components/ui/use-tilt";
-import { GokulpShader } from "@/components/ui/GokulpShader.webgl";
 
 const HERO_CARDS = [
   { src: "/assets/manabasa-card.png", alt: "Manabasa Gurubara card" },

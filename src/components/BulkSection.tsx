@@ -58,7 +58,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
                 Your office has 40 Odias and zero festival vibes. Fix that.
               </p>
               <p>
-                For teams, Odia associations, housing societies, wedding return-gifts, and a new-year gift that isn&apos;t another diary. Ten boxes or more, and I&apos;ll send you a price that makes sense.
+                For corporate teams, coworkers, Odia associations, housing societies, wedding return-gifts, and a new-year gift that isn&apos;t another diary. Ten boxes or more, and I&apos;ll send you a price that makes sense.
               </p>
             </div>
 
@@ -85,7 +85,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
             {/* Tier strip: what each volume actually gets you */}
             <div className="reveal-stagger mt-8 grid w-full max-w-xl grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { count: "10+", perk: "Custom sleeve" },
+                { count: "10+", perk: "Coworker gifts · custom sleeve" },
                 { count: "25+", perk: "Your logo on the box" },
                 { count: "50+", perk: "Best price · free shipping" },
               ].map((tier) => (

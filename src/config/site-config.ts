@@ -55,7 +55,7 @@ export const products = {
     maxQty: 3,
     badge: "Best value · ₹250 a box",
     description:
-      "For Maa, Bou and that one cousin in Bengaluru. All three 13th parbas guaranteed, plus an extra sticker sheet.",
+      "For Maa, Bou, your favorite coworker, and that one cousin in Bengaluru. All three 13th parbas guaranteed, plus an extra sticker sheet.",
   },
 } as const;
 

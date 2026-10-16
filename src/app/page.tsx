@@ -16,11 +16,6 @@ const MonthCarousel = dynamic(
   { ssr: true }
 );
 
-const WhatsInside = dynamic(
-  () => import("@/components/WhatsInside").then((m) => m.WhatsInside),
-  { ssr: true }
-);
-
 const BuyerStories = dynamic(
   () => import("@/components/BuyerStories").then((m) => m.BuyerStories),
   { ssr: true }
@@ -47,10 +42,6 @@ export default function HomePage() {
 
       {/* 03: Inside the Calendar (Dynamic Client Island) */}
       <MonthCarousel />
-      <div className="strip strip-pattachitra" aria-hidden />
-
-      {/* 03B: What's In The Box Goodies (Dynamic Client Island) */}
-      <WhatsInside />
       <div className="strip strip-pattachitra" aria-hidden />
 
       {/* 04: Stories (Dynamic Client Island) */}

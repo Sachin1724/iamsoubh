@@ -67,4 +67,10 @@ export const faqs: FAQItem[] = [
     question: "Ordering 10 or more?",
     answer: 'Tap "Request a quote" in section 07, or WhatsApp me.',
   },
+  {
+    id: "faq-12",
+    question: "Can I gift this to coworkers, teammates, or my office desk?",
+    answer:
+      "Yes! Many buyers order the Family Pack (3 boxes) to gift coworkers and desk-mates across Bengaluru, Hyderabad, Pune, and Gurgaon. For 10+ boxes for an entire office or company team, request a quote in Section 07 for custom corporate sleeves and volume pricing.",
+  },
 ];

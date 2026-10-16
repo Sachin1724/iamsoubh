@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const navItems: NavItem[] = [
   { name: "Hero", href: "#hero" },
-  { name: "What's inside", href: "#whats-inside" },
+  { name: "What's inside", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
   { name: "Creators", href: "#creators" },
   { name: "Questions", href: "#faq" },

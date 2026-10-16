@@ -124,7 +124,7 @@ export function SoundFamiliar() {
             This calendar keeps the dates, so you don&apos;t have to fake it.
           </p>
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#F6EFE2]/85">
-            One parba a month, right when you feel it. Every card has two faces: on the back, tick mark what you actually show up, not when you watch it on someone&apos;s story.
+            One parba a month, right when you feel it. Perfect on your work desk, shared with your Odia coworkers, or sent home to family. Every card has two faces: on the back, tick mark what you actually celebrate, not when you watch it on someone&apos;s story.
           </p>
         </div>
 

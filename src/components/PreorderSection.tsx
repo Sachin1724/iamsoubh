@@ -287,7 +287,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 </div>
               </div>
               <p className="text-[11px] text-[#1B1B1B]/70 pl-6">
-                For Maa, Bapa and that one cousin in Bengaluru. All three 13th parbas guaranteed; plus an extra sticker sheet.
+                For Maa, Bapa, your favorite Odia coworker, or that cousin in Bengaluru. All three 13th parbas guaranteed; plus an extra sticker sheet.
               </p>
             </div>
 
