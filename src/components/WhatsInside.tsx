@@ -77,7 +77,7 @@ export function WhatsInside() {
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#1B1B1B] leading-none">
             What&apos;s inside?
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-[#1B1B1B]/80">
+          <p className="mt-3 text-base sm:text-lg text-[#1B1B1B]/80 font-subtext italic font-medium">
             Every single component is crafted to survive the courier and live on your desk all year.
           </p>
         </div>

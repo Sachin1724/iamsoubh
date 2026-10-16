@@ -222,12 +222,10 @@ export function Text3DFlip({
                       ? {
                           rotateX: 90,
                           opacity: [1, 0.8, 0],
-                          color: "#E0A526", // Turns yellow during 3D roll
                         }
                       : {
                           rotateX: 0,
                           opacity: 1,
-                          color: "#FFFFFF", // Crisp white when resting
                         }
                   }
                   transition={
@@ -235,7 +233,6 @@ export function Text3DFlip({
                       ? {
                           rotateX: { ...transition, delay },
                           opacity: { duration: 0.28, delay },
-                          color: { duration: 0.05 },
                         }
                       : {
                           duration: 0.1,
@@ -273,20 +270,14 @@ export function Text3DFlip({
                     initial={{
                       rotateX: -90,
                       opacity: 0,
-                      color: "#E0A526", // Rolls in with yellow color
                     }}
                     animate={{
                       rotateX: 0,
                       opacity: 1,
-                      color: "#FFFFFF", // Transitions to white after completing the 3D roll
                     }}
                     transition={{
                       rotateX: { ...transition, delay },
                       opacity: { duration: 0.22, delay },
-                      color: {
-                        delay: delay + 0.38, // Stays yellow during flip, then turns white
-                        duration: 0.22,
-                      },
                     }}
                   >
                     {char}

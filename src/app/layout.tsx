@@ -56,6 +56,21 @@ const gazpacho = localFont({
   preload: true,
 });
 
+const bigdream = localFont({
+  src: "./fonts/Bigdream.ttf",
+  variable: "--font-bigdream",
+  weight: "100 900",
+  display: "swap",
+  preload: true,
+});
+
+const bricolage = localFont({
+  src: "./fonts/BricolageGrotesque.ttf",
+  variable: "--font-bricolage",
+  display: "swap",
+  preload: true,
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -83,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} scroll-smooth`}
+      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable} scroll-smooth`}
     >
       <body className="min-h-screen overflow-x-hidden bg-[#F6EFE2] text-[#1B1B1B] font-sans antialiased selection:bg-[#E0A526] selection:text-[#1B1B1B]">
         {children}

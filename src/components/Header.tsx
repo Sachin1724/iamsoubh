@@ -38,14 +38,12 @@ export function Header({ onOrderClick }: HeaderProps) {
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       <Navbar1
         navItems={navItems}
-        ctaText="Pre-order"
-        ctaHref="#preorder"
         onCtaClick={handleCtaClick}
         containerClassName="pointer-events-none py-2 sm:py-3 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto"
         className={`pointer-events-auto border-2 transition-all duration-300 ${
           scrolled
-            ? "bg-[#8A1717] border-[#1B1B1B] text-[#F6EFE2] shadow-md"
-            : "bg-[#8A1717]/85 backdrop-blur-md border-[#F6EFE2]/25 text-[#F6EFE2]"
+            ? "bg-[#FAF6EE]/95 border-[#8A1717]/30 text-[#8A1717] shadow-md backdrop-blur-md"
+            : "bg-[#FAF6EE]/85 backdrop-blur-md border-[#8A1717]/20 text-[#8A1717]"
         }`}
         brandLogo={
           <a
@@ -64,7 +62,7 @@ export function Header({ onOrderClick }: HeaderProps) {
               height={50}
               priority
               className="h-6 sm:h-9 md:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
-              style={{ filter: "brightness(0) invert(1)" }}
+              style={{ filter: "brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(3400%) hue-rotate(345deg)" }}
             />
           </a>
         }

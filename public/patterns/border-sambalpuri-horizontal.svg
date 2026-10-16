@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="0 0 80 40">
+  <defs>
+    <!-- Seamless Sambalpuri Bandha/Ikat Horizontal Tile -->
+  </defs>
+
+  <!-- Ground -->
+  <rect width="80" height="40" fill="#7A1313"/>
+
+  <!-- Top Selvage & Kumbha Temple Spires -->
+  <line x1="0" y1="1" x2="80" y2="1" stroke="#E0A526" stroke-width="2"/>
+  <line x1="0" y1="4" x2="80" y2="4" stroke="#F6EFE2" stroke-width="0.75" opacity="0.6"/>
+  <g fill="#E0A526">
+    <polygon points="6,5 10,10 14,5"/>
+    <polygon points="26,5 30,10 34,5"/>
+    <polygon points="46,5 50,10 54,5"/>
+    <polygon points="66,5 70,10 74,5"/>
+  </g>
+
+  <!-- Bottom Selvage -->
+  <line x1="0" y1="36" x2="80" y2="36" stroke="#008B99" stroke-width="1"/>
+  <line x1="0" y1="39" x2="80" y2="39" stroke="#E0A526" stroke-width="2"/>
+
+  <!-- Center Ikat Bandha Diamond Motif 1 (x=20, y=23) -->
+  <g>
+    <!-- Outer Cyan/Teal Diamond -->
+    <polygon points="20,13 30,23 20,33 10,23" fill="#008B99"/>
+    <!-- Mustard Gold Layer -->
+    <polygon points="20,15.5 26.5,23 20,30.5 13.5,23" fill="#E0A526"/>
+    <!-- Deep Red Center -->
+    <polygon points="20,18 23.5,23 20,28 16.5,23" fill="#7A1313"/>
+    <!-- White Core Dot -->
+    <polygon points="20,20.5 21.5,23 20,25.5 18.5,23" fill="#FFFDF7"/>
+    <!-- Stepped Ikat Notches -->
+    <rect x="19" y="11.5" width="2" height="1.5" fill="#E0A526"/>
+    <rect x="19" y="33" width="2" height="1.5" fill="#E0A526"/>
+    <rect x="8.5" y="22" width="1.5" height="2" fill="#E0A526"/>
+    <rect x="30" y="22" width="1.5" height="2" fill="#E0A526"/>
+  </g>
+
+  <!-- Divider Ikat Flower / Cross (x=40, y=23) -->
+  <g fill="#E0A526">
+    <circle cx="40" cy="23" r="2.5" fill="#FFFDF7"/>
+    <circle cx="40" cy="18" r="1.5"/>
+    <circle cx="40" cy="28" r="1.5"/>
+    <circle cx="35" cy="23" r="1.5"/>
+    <circle cx="45" cy="23" r="1.5"/>
+  </g>
+
+  <!-- Center Ikat Bandha Diamond Motif 2 (x=60, y=23) -->
+  <g>
+    <!-- Outer Mustard Diamond -->
+    <polygon points="60,13 70,23 60,33 50,23" fill="#E0A526"/>
+    <!-- Terracotta Red Layer -->
+    <polygon points="60,15.5 66.5,23 60,30.5 53.5,23" fill="#C8221A"/>
+    <!-- Cyan Center -->
+    <polygon points="60,18 63.5,23 60,28 56.5,23" fill="#008B99"/>
+    <!-- White Core Dot -->
+    <polygon points="60,20.5 61.5,23 60,25.5 58.5,23" fill="#FFFDF7"/>
+    <!-- Stepped Ikat Notches -->
+    <rect x="59" y="11.5" width="2" height="1.5" fill="#FFFDF7"/>
+    <rect x="59" y="33" width="2" height="1.5" fill="#FFFDF7"/>
+    <rect x="48.5" y="22" width="1.5" height="2" fill="#FFFDF7"/>
+    <rect x="70" y="22" width="1.5" height="2" fill="#FFFDF7"/>
+  </g>
+
+  <!-- Left/Right Edge Divider Dots (x=0/80, y=23) -->
+  <g fill="#E0A526">
+    <circle cx="0" cy="23" r="2.5" fill="#FFFDF7"/>
+    <circle cx="80" cy="23" r="2.5" fill="#FFFDF7"/>
+    <circle cx="0" cy="18" r="1.5"/>
+    <circle cx="80" cy="18" r="1.5"/>
+    <circle cx="0" cy="28" r="1.5"/>
+    <circle cx="80" cy="28" r="1.5"/>
+  </g>
+</svg>

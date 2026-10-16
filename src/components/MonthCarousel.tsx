@@ -137,7 +137,7 @@ export function MonthCarousel() {
           <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#1B1B1B]">
             Not just dates.
           </h2>
-          <p className="mt-2 text-base sm:text-lg text-[#1B1B1B]/80 font-medium">
+          <p className="mt-2 text-base sm:text-lg text-[#1B1B1B]/80 font-subtext italic font-medium">
             Stories, festivals, artwork and a deeper connection to Odisha.
           </p>
         </div>

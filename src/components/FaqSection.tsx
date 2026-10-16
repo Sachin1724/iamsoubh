@@ -69,7 +69,7 @@ export function FaqSection() {
           <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-[#8A1717] leading-none">
             QUESTIONS
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#1B1B1B]/80 font-medium">
+          <p className="mt-3 text-sm sm:text-base text-[#1B1B1B]/80 font-subtext italic font-medium">
             The short answers to the long ones.
           </p>
         </div>

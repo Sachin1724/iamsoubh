@@ -30,7 +30,7 @@ const defaultItems: NavItem[] = [
 
 const Navbar1 = ({
   navItems,
-  ctaText = "Get Started",
+  ctaText,
   ctaHref = "#",
   onCtaClick,
   brandLogo,
@@ -175,15 +175,15 @@ const Navbar1 = ({
                 onClick={(e) => handleNavClick(e, item.href)}
                 className={`relative px-3 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 rounded-full text-xs lg:text-sm font-medium transition-all select-none cursor-pointer flex items-center gap-1.5 ${
                   isActive
-                    ? "text-[#E0A526] font-bold"
-                    : "text-[#F6EFE2]/85 hover:text-[#F6EFE2] hover:bg-[#F6EFE2]/10"
+                    ? "text-[#8A1717] font-bold"
+                    : "text-[#1B1B1B]/75 hover:text-[#8A1717] hover:bg-[#8A1717]/5"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
                 {isActive && (
                   <motion.span
                     layoutId="activeNavHighlight"
-                    className="absolute inset-0 rounded-full bg-[#F6EFE2]/15 border border-[#E0A526]/50"
+                    className="absolute inset-0 rounded-full bg-[#8A1717]/10 border border-[#8A1717]/30"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -192,7 +192,7 @@ const Navbar1 = ({
                   {isActive && (
                     <motion.span
                       layoutId="activeNavDot"
-                      className="w-1.5 h-1.5 rounded-full bg-[#E0A526]"
+                      className="w-1.5 h-1.5 rounded-full bg-[#8A1717]"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -203,32 +203,36 @@ const Navbar1 = ({
         </nav>
 
         {/* Desktop CTA Button */}
-        <motion.div
-          className="hidden md:block shrink-0"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-        >
-          <a
-            href={ctaHref}
-            onClick={handleCtaClick}
-            className="inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-[#1B1B1B] bg-[#E0A526] hover:bg-[#E5B23F] active:bg-[#D99A1E] rounded-full border-2 border-[#1B1B1B] shadow-[3px_3px_0_#1B1B1B] active:shadow-[1px_1px_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer select-none"
+        {ctaText && (
+          <motion.div
+            className="hidden md:block shrink-0"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.15 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
           >
-            {ctaText}
-          </a>
-        </motion.div>
+            <a
+              href={ctaHref}
+              onClick={handleCtaClick}
+              className="inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-[#1B1B1B] bg-[#E0A526] hover:bg-[#E5B23F] active:bg-[#D99A1E] rounded-full border-2 border-[#1B1B1B] shadow-[3px_3px_0_#1B1B1B] active:shadow-[1px_1px_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer select-none"
+            >
+              {ctaText}
+            </a>
+          </motion.div>
+        )}
 
-        {/* Mobile Menu Button */}
-        <motion.button
-          className="md:hidden flex items-center p-1.5 sm:p-2 rounded-full text-[#F6EFE2] hover:bg-[#F6EFE2]/10 transition-colors cursor-pointer"
-          onClick={toggleMenu}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Toggle Menu"
-        >
-          <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-[#F6EFE2]" />
-        </motion.button>
+        {/* Mobile Action Cluster: Hamburger Toggle */}
+        <div className="flex md:hidden items-center shrink-0">
+          <motion.button
+            className="flex items-center p-1.5 rounded-full text-current hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+            onClick={toggleMenu}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Toggle Menu"
+          >
+            <Menu className="h-6 w-6 text-current" />
+          </motion.button>
+        </div>
       </div>
 
       {/* Mobile Menu Drawer Overlay */}
