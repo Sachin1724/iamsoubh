@@ -23,6 +23,7 @@ interface HeroProps {
 export function Hero({ onOrderClick }: HeroProps) {
   const [hovered, setHovered] = React.useState<number | null>(null);
   const [shaderReady, setShaderReady] = React.useState(false);
+  const [mobileActiveIndex, setMobileActiveIndex] = React.useState(2);
   const tilt = useTilt(9);
 
   React.useEffect(() => {
@@ -192,8 +193,90 @@ export function Hero({ onOrderClick }: HeroProps) {
           </div>
         </div>
 
-        {/* Card row: grounded gracefully at bottom with full visibility */}
-        <div className="w-full flex items-end justify-center px-2 mt-auto pb-1 sm:pb-2">
+        {/* Mobile Fanned Card Stack (Visible only on < sm screens to fill the empty vertical space) */}
+        <div className="sm:hidden w-full flex flex-col items-center justify-center my-auto py-2 relative z-20">
+          <div className="relative w-full max-w-[280px] h-[220px] flex items-center justify-center">
+            {HERO_CARDS.slice(0, 5).map((c, i) => {
+              const diff = i - mobileActiveIndex;
+              const isCenter = diff === 0;
+              const isLeft = diff === -1;
+              const isRight = diff === 1;
+              const isDeepLeft = diff < -1;
+              const isDeepRight = diff > 1;
+
+              let transform = "scale(0.8) translateY(12px) opacity(0)";
+              let zIndex = 10;
+              let opacity = 0;
+
+              if (isCenter) {
+                transform = "scale(1.05) translateY(-4px) rotate(0deg)";
+                zIndex = 30;
+                opacity = 1;
+              } else if (isLeft) {
+                transform = "translateX(-48px) translateY(8px) rotate(-8deg) scale(0.92)";
+                zIndex = 20;
+                opacity = 0.92;
+              } else if (isRight) {
+                transform = "translateX(48px) translateY(8px) rotate(8deg) scale(0.92)";
+                zIndex = 20;
+                opacity = 0.92;
+              } else if (isDeepLeft) {
+                transform = "translateX(-76px) translateY(14px) rotate(-14deg) scale(0.82)";
+                zIndex = 10;
+                opacity = 0.45;
+              } else if (isDeepRight) {
+                transform = "translateX(76px) translateY(14px) rotate(14deg) scale(0.82)";
+                zIndex = 10;
+                opacity = 0.45;
+              }
+
+              return (
+                <div
+                  key={c.src}
+                  onClick={() => setMobileActiveIndex(i)}
+                  style={{
+                    transform,
+                    zIndex,
+                    opacity,
+                  }}
+                  className="absolute cursor-pointer transition-all duration-500 ease-out w-[155px] aspect-[3/4]"
+                >
+                  <div className="tilt-card foil rounded-xl shadow-[0_12px_28px_rgba(0,0,0,0.5)]">
+                    <Image
+                      src={c.src}
+                      alt={c.alt}
+                      width={420}
+                      height={560}
+                      sizes="160px"
+                      priority={i < 3}
+                      className="w-full h-auto rounded-xl border-2 border-[#1B1B1B] bg-[#F6EFE2] object-cover"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Indicator dots for mobile */}
+          <div className="flex items-center gap-1.5 mt-3 select-none">
+            {HERO_CARDS.slice(0, 5).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setMobileActiveIndex(i)}
+                aria-label={`Show card ${i + 1}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  mobileActiveIndex === i
+                    ? "w-5 h-1.5 bg-[#E0A526]"
+                    : "w-1.5 h-1.5 bg-[#FFFDF7]/35 hover:bg-[#FFFDF7]/60"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Card row: grounded gracefully at bottom with full visibility (Visible on >= sm) */}
+        <div className="hidden sm:flex w-full items-end justify-center px-2 mt-auto pb-1 sm:pb-2">
           {HERO_CARDS.map((c, i) => (
             <div
               key={c.src}
