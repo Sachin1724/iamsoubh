@@ -72,6 +72,7 @@ public/
 
 ### 1. Brand Assets (`/assets/brand/`)
 - **`calogo.png`** (41.7 KB): The official IAMSOUBH calendar logo. Consumed by [`Header.tsx`](file:///d:/Projects/calenderweb/src/components/Header.tsx) and [`Footer.tsx`](file:///d:/Projects/calenderweb/src/components/Footer.tsx).
+- **`razorpay-logo.svg`** & **`razorpay-icon.svg`**: Official Razorpay vector brandmark and two-tone icon used in [`PreorderSection.tsx`](file:///d:/Projects/calenderweb/src/components/PreorderSection.tsx) for payment security reassurance.
 - **`soubh-avatar.png`** (65.7 KB): Round creator profile portrait of Soubhagya. Consumed in [`BuyerStories.tsx`](file:///d:/Projects/calenderweb/src/components/BuyerStories.tsx).
 - **`odia-hero-title.webp`** (88.1 KB): Hand-crafted Odia script title "ବାର ମାସରେ ତେର ପର୍ବ". Used as high-contrast hero center art.
 - **`extracted/`**: Granular SVG flourishes, border bands, and leaf strips used in ambient particle decoration [`Ambient.tsx`](file:///d:/Projects/calenderweb/src/components/Ambient.tsx).

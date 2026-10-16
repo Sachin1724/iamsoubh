@@ -358,7 +358,16 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               <div className="flex flex-col items-center">
                 <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
                 <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Secure payment</span>
-                <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">by Razorpay</span>
+                <span className="inline-flex items-center justify-center gap-1 mt-0.5">
+                  <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">by</span>
+                  <Image
+                    src="/assets/brand/razorpay-logo.svg"
+                    alt="Razorpay"
+                    width={48}
+                    height={10}
+                    className="h-2 sm:h-2.5 w-auto object-contain inline-block"
+                  />
+                </span>
               </div>
               <div className="flex flex-col items-center">
                 <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
@@ -503,9 +512,17 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 <span>{paying ? "Opening Razorpay…" : `Pay ₹${total} · UPI, cards, wallets`}</span>
               </button>
 
-              <span className="text-[10px] text-black/60 flex items-center justify-center gap-1.5 mt-2 text-center">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#3E9B47]" />
-                <span>Secure payment by Razorpay · GPay · PhonePe · Paytm</span>
+              <span className="text-[10px] text-black/60 flex items-center justify-center gap-1.5 mt-2 text-center flex-wrap">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#3E9B47] shrink-0" />
+                <span>Secure payment by</span>
+                <Image
+                  src="/assets/brand/razorpay-logo.svg"
+                  alt="Razorpay"
+                  width={52}
+                  height={11}
+                  className="h-2.5 sm:h-3 w-auto object-contain inline-block"
+                />
+                <span>· GPay · PhonePe · Paytm</span>
               </span>
             </form>
           </div>
