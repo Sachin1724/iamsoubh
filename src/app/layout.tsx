@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { AgentationProvider } from "@/components/AgentationProvider";
 import { RevealObserver } from "@/components/Reveal";
 import { Analytics } from "@/components/Analytics";
 
@@ -104,7 +103,6 @@ export default function RootLayout({
         {children}
         <RevealObserver />
         <Analytics />
-        <AgentationProvider />
       </body>
     </html>
   );
