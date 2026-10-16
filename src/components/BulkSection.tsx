@@ -29,6 +29,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
           src="/assets/motifs/odia-jhoti-mandala.svg"
           alt=""
           fill
+          sizes="(max-width: 640px) 288px, 384px"
           className="object-contain animate-spin-slow"
         />
       </div>

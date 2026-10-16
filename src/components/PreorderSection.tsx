@@ -134,6 +134,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
           src="/assets/motifs/odia-jhoti-corner.svg"
           alt=""
           fill
+          sizes="(max-width: 640px) 144px, 224px"
           className="object-contain"
         />
       </div>
@@ -147,6 +148,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
           src="/assets/motifs/odia-jhoti-corner.svg"
           alt=""
           fill
+          sizes="(max-width: 640px) 192px, 256px"
           className="object-contain"
         />
       </div>
@@ -183,6 +185,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 src="/assets/product/hero-client-product-hq.webp"
                 alt="2027 Odia Viral Calendar"
                 fill
+                sizes="(max-width: 640px) 240px, 280px"
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
               

@@ -103,6 +103,7 @@ export function CreatorVideos() {
           src="/assets/motifs/odia-jhoti-corner.svg"
           alt=""
           fill
+          sizes="(max-width: 640px) 128px, 192px"
           className="object-contain"
         />
       </div>
@@ -276,6 +277,7 @@ function CreatorCard({
                   src={creator.poster}
                   alt={creator.name || "Creator"}
                   fill
+                  sizes="(max-width: 640px) 260px, 300px"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               )}

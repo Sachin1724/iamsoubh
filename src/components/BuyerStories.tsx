@@ -233,6 +233,7 @@ export function BuyerStories() {
           src="/assets/motifs/odia-jhoti-mandala.svg"
           alt=""
           fill
+          sizes="(max-width: 640px) 176px, 288px"
           className="object-contain"
         />
       </div>
