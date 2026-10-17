@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { RevealObserver } from "@/components/Reveal";
 import { Analytics } from "@/components/Analytics";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -66,6 +67,7 @@ const bigdream = localFont({
 const bricolage = localFont({
   src: "./fonts/BricolageGrotesque.ttf",
   variable: "--font-bricolage",
+  weight: "200 800",
   display: "swap",
   preload: true,
 });
@@ -97,10 +99,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable} scroll-smooth`}
+      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable}`}
     >
       <body className="min-h-screen overflow-x-hidden bg-[#F6EFE2] text-[#1B1B1B] font-sans antialiased selection:bg-[#E0A526] selection:text-[#1B1B1B]">
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
         <RevealObserver />
         <Analytics />
       </body>

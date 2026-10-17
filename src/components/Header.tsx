@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Navbar1, NavItem } from "@/components/ui/navbar-1";
+import { scrollToTarget } from "@/components/SmoothScroll";
 
 interface HeaderProps {
   onOrderClick?: () => void;
@@ -30,7 +31,7 @@ export function Header({ onOrderClick }: HeaderProps) {
     if (onOrderClick) {
       onOrderClick();
     } else {
-      document.getElementById("preorder")?.scrollIntoView({ behavior: "smooth" });
+      scrollToTarget("#preorder");
     }
   };
 

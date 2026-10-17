@@ -124,7 +124,7 @@ export function CreatorVideos() {
             <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#FFFDF7]">
               Ask them, not me.
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-[#F6EFE2]/85 max-w-xl font-subtext italic font-medium">
+            <p className="mt-3 text-base sm:text-lg text-[#F6EFE2]/90 max-w-xl font-subtext font-normal leading-relaxed">
               What happened when six creators unboxed the calendar on camera.
             </p>
           </div>

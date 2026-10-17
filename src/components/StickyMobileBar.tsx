@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { products } from "@/config/site-config";
 import { useStock } from "@/lib/useStock";
+import { scrollToTarget } from "@/components/SmoothScroll";
 
 interface StickyMobileBarProps {
   onOrderClick?: () => void;
@@ -17,7 +18,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
     if (onOrderClick) {
       onOrderClick();
     } else {
-      document.getElementById("preorder")?.scrollIntoView({ behavior: "smooth" });
+      scrollToTarget("#preorder");
     }
   };
 

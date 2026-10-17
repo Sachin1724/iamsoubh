@@ -258,8 +258,8 @@ export function BuyerStories() {
           <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#1B1B1B]">
             2,000+ of you put it on your story.
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-[#1B1B1B]/80 font-subtext italic font-medium">
-            Real screenshots from <strong className="font-bold text-[#8A1717] not-italic">45 buyers</strong> across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
+          <p className="mt-3 text-base sm:text-lg text-[#4A4642] font-subtext font-normal leading-relaxed">
+            Real screenshots from <strong className="font-bold text-[#8A1717]">45 buyers</strong> across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
           </p>
         </div>
 
