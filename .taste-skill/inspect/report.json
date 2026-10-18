@@ -1,0 +1,2638 @@
+{
+ "url": "http://localhost:3234/?nosmooth",
+ "at": "2026-10-18T20:04:26.397Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0.95,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 123,
+    "css": 19,
+    "transitions": 77,
+    "scripted": 27,
+    "videos": 12,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 9492,
+     "screens": 10.5,
+     "words": 1427,
+     "img": 60,
+     "video": 12,
+     "canvas": 0,
+     "svg": 176,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 36,
+     "videoCount": 12,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
+     ],
+     "blendText": 0,
+     "sideScrollers": 2,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "TERA PARBA",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 134.4,
+     "vw": 9.3,
+     "font": "bigdream",
+     "weight": 700,
+     "tracking": 0.03,
+     "leading": 0.82,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.67,
+     "top": 255,
+     "tag": "span",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "BARA MASA The Viral Odia Calendar TERA PARBA",
+     "words": 8,
+     "lines": 3,
+     "size": 16,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "BARA MASA",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 99.2,
+      "vw": 6.9,
+      "font": "bigdream",
+      "weight": 700,
+      "tracking": 0.03,
+      "leading": 0.82,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.67,
+      "top": 130,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "TERA PARBA",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 134.4,
+      "vw": 9.3,
+      "font": "bigdream",
+      "weight": 700,
+      "tracking": 0.03,
+      "leading": 0.82,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.67,
+      "top": 255,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "For everyone who misses Odisha without saying it.",
+      "words": 8,
+      "chars": 49,
+      "lines": 2,
+      "size": 68,
+      "vw": 4.7,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.67,
+      "top": 1165,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "This calendar keeps the dates for you.",
+      "words": 7,
+      "chars": 38,
+      "lines": 2,
+      "size": 68,
+      "vw": 4.7,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.53,
+      "top": 2519,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "One card for every month. Keep it on your desk, and when you celebrate, tick the box on the back.",
+      "words": 20,
+      "chars": 97,
+      "lines": 3,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Inter",
+      "weight": 400,
+      "tracking": -0.014,
+      "leading": 1.22,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.48,
+      "top": 2678,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "12 months. 13 festivals.",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 68,
+      "vw": 4.7,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.51,
+      "top": 3147,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "12",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.02,
+      "top": 3288,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.02,
+      "top": 3390,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.02,
+      "top": 3469,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.02,
+      "top": 3548,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.02,
+      "top": 3627,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Last year, 2,000+ people loved it.",
+      "words": 6,
+      "chars": 34,
+      "lines": 2,
+      "size": 60,
+      "vw": 4.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.53,
+      "top": 4144,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Hear it from the creators.",
+      "words": 5,
+      "chars": 26,
+      "lines": 1,
+      "size": 60,
+      "vw": 4.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 5370,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Get your 2027 calendar",
+      "words": 4,
+      "chars": 22,
+      "lines": 2,
+      "size": 48,
+      "vw": 3.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.36,
+      "top": 6560,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "₹749",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.07,
+      "top": 6721,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "For your parivar. Or your office.",
+      "words": 6,
+      "chars": 33,
+      "lines": 2,
+      "size": 60,
+      "vw": 4.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 7891,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "QUESTIONS",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 60,
+      "vw": 4.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 8710,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 17,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 7,
+     "centered": 2,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.91,
+       "mono": false
+      },
+      {
+       "family": "gazpacho",
+       "share": 0.08,
+       "mono": false
+      },
+      {
+       "family": "bigdream",
+       "share": 0,
+       "mono": false
+      },
+      {
+       "family": "jaya",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 4,
+     "sizes": [
+      10,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      24,
+      28,
+      32,
+      48,
+      60,
+      68,
+      99,
+      134
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.63,
+      "weight": 500,
+      "tracking": -0.012,
+      "contrast": 7.3
+     },
+     "measureChars": 73,
+     "max": {
+      "size": 134.4,
+      "vw": 9.3,
+      "font": "bigdream",
+      "text": "TERA PARBA"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 7,
+     "microLabelShare": 0.014,
+     "microSamples": [
+      "2027 Edition · Only 500 boxes",
+      "Sound familiar?",
+      "Inside the box",
+      "Stories",
+      "From the creators",
+      "Order now"
+     ],
+     "upperShare": 0.04,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "2027 Edition · Only 500 boxes",
+      "above": "BARA MASA",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 96
+     },
+     {
+      "text": "Sound familiar?",
+      "above": "For everyone who misses Odisha without s",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1131
+     },
+     {
+      "text": "Inside the box",
+      "above": "12 months. 13 festivals.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 3117
+     },
+     {
+      "text": "Stories",
+      "above": "Last year, 2,000+ people loved it.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4114
+     },
+     {
+      "text": "From the creators",
+      "above": "Hear it from the creators.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 5340
+     },
+     {
+      "text": "BULK AND GIFTING",
+      "above": "For your parivar. Or your office.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 7861
+     }
+    ],
+    "numbered": [
+     {
+      "text": "02",
+      "size": 24,
+      "top": 1121
+     },
+     {
+      "text": "03",
+      "size": 24,
+      "top": 3107
+     },
+     {
+      "text": "04",
+      "size": 24,
+      "top": 4104
+     },
+     {
+      "text": "05",
+      "size": 24,
+      "top": 5330
+     },
+     {
+      "text": "06",
+      "size": 24,
+      "top": 6504
+     },
+     {
+      "text": "07",
+      "size": 24,
+      "top": 7851
+     },
+     {
+      "text": "08",
+      "size": 24,
+      "top": 8674
+     }
+    ],
+    "color": {
+     "bodyBg": "#f6efe2",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.53,
+      "l": 0.93
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fff4e2",
+       "top": 0,
+       "hsl": {
+        "h": 37,
+        "s": 1,
+        "l": 0.94
+       }
+      },
+      {
+       "color": "#f2b035",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.88,
+        "l": 0.58
+       }
+      },
+      {
+       "color": "#1f2d66",
+       "top": 977,
+       "hsl": {
+        "h": 228,
+        "s": 0.53,
+        "l": 0.26
+       }
+      },
+      {
+       "color": "#0f4c5c",
+       "top": 5186,
+       "hsl": {
+        "h": 192,
+        "s": 0.72,
+        "l": 0.21
+       }
+      },
+      {
+       "color": "#8e1b1b",
+       "top": 7707,
+       "hsl": {
+        "h": 0,
+        "s": 0.68,
+        "l": 0.33
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#1b1b1b",
+       "share": 0.31
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.23
+      },
+      {
+       "color": "#e0a526",
+       "share": 0.13
+      },
+      {
+       "color": "#5a0f14",
+       "share": 0.1
+      },
+      {
+       "color": "#5a1014",
+       "share": 0.08
+      }
+     ],
+     "button": {
+      "bg": "#fffdf7",
+      "hsl": {
+       "h": 45,
+       "s": 1,
+       "l": 0.98
+      },
+      "fg": "#1b1b1b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 12,
+     "inHero": 1,
+     "radius": "pill",
+     "height": 32,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Pre-book now"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 102,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+     ],
+     "gradients": 92,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0",
+      "div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(to top, oklab(0 0 0 / 0.95) 0%, oklab(0 0 0 / 0.6) 50%, rgba(0, 0, 0, 0) 100%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 7,
+     "hairlineSamples": [
+      "div.self-start.border-b 584px",
+      "div.self-start.border-b 584px",
+      "div.self-start.border-b 584px",
+      "div.self-start.border-b 584px",
+      "div.self-start.border-b 584px"
+     ],
+     "outlinedBoxes": 16,
+     "dashed": 0,
+     "blurred": 45,
+     "roundedBoxes": 66,
+     "boxRadius": 24,
+     "squareMedia": 14,
+     "roundedMedia": 62,
+     "mediaRadius": 24,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 45,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 4434
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     },
+     {
+      "type": "img",
+      "ratio": 1
+     },
+     {
+      "type": "img",
+      "ratio": 0.42
+     },
+     {
+      "type": "svg",
+      "ratio": 0.15
+     }
+    ],
+    "nav": {
+     "links": 6,
+     "fixed": true,
+     "height": 68,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter",
+     "inter fallback",
+     "akshar",
+     "akshar fallback",
+     "jaya",
+     "jaya fallback",
+     "gazpacho",
+     "gazpacho fallback",
+     "bigdream"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    1,
+    1,
+    1,
+    0.97,
+    1,
+    1,
+    1,
+    0.95,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 123,
+    "css": 19,
+    "transitions": 77,
+    "scripted": 27,
+    "videos": 12,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 10659,
+     "screens": 10.4,
+     "words": 1427,
+     "img": 60,
+     "video": 12,
+     "canvas": 0,
+     "svg": 176,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 36,
+     "videoCount": 12,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
+     ],
+     "blendText": 0,
+     "sideScrollers": 2,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "TERA PARBA",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 107.5,
+     "vw": 14,
+     "font": "bigdream",
+     "weight": 700,
+     "tracking": 0.03,
+     "leading": 0.82,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 240,
+     "tag": "span",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "BARA MASA The Viral Odia Calendar TERA PARBA",
+     "words": 8,
+     "lines": 3,
+     "size": 16,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "BARA MASA",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 80.6,
+      "vw": 10.5,
+      "font": "bigdream",
+      "weight": 700,
+      "tracking": 0.03,
+      "leading": 0.82,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 130,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "TERA PARBA",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 107.5,
+      "vw": 14,
+      "font": "bigdream",
+      "weight": 700,
+      "tracking": 0.03,
+      "leading": 0.82,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 240,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "For everyone who misses Odisha without saying it.",
+      "words": 8,
+      "chars": 49,
+      "lines": 2,
+      "size": 46.1,
+      "vw": 6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1236,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "This calendar keeps the dates for you.",
+      "words": 7,
+      "chars": 38,
+      "lines": 2,
+      "size": 46.1,
+      "vw": 6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 2285,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "12 months. 13 festivals.",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 46.1,
+      "vw": 6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.65,
+      "top": 2841,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "12",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.04,
+      "top": 3531,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.04,
+      "top": 3633,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.04,
+      "top": 3712,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.04,
+      "top": 3792,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.04,
+      "top": 3871,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Last year, 2,000+ people loved it.",
+      "words": 6,
+      "chars": 34,
+      "lines": 2,
+      "size": 48,
+      "vw": 6.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 4388,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Hear it from the creators.",
+      "words": 5,
+      "chars": 26,
+      "lines": 2,
+      "size": 48,
+      "vw": 6.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.66,
+      "top": 5716,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Get your 2027 calendar",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 7558,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "₹749",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.14,
+      "top": 7668,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "For your parivar. Or your office.",
+      "words": 6,
+      "chars": 33,
+      "lines": 2,
+      "size": 48,
+      "vw": 6.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 8800,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "QUESTIONS",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 60,
+      "vw": 7.8,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 9878,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 6,
+     "centered": 2,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.91,
+       "mono": false
+      },
+      {
+       "family": "gazpacho",
+       "share": 0.08,
+       "mono": false
+      },
+      {
+       "family": "bigdream",
+       "share": 0,
+       "mono": false
+      },
+      {
+       "family": "jaya",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 4,
+     "sizes": [
+      10,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      24,
+      25,
+      28,
+      46,
+      48,
+      60,
+      81,
+      108
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.63,
+      "weight": 500,
+      "tracking": -0.012,
+      "contrast": 7.3
+     },
+     "measureChars": 42,
+     "max": {
+      "size": 107.5,
+      "vw": 14,
+      "font": "bigdream",
+      "text": "TERA PARBA"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 7,
+     "microLabelShare": 0.014,
+     "microSamples": [
+      "2027 Edition · Only 500 boxes",
+      "Sound familiar?",
+      "Inside the box",
+      "Stories",
+      "From the creators",
+      "Order now"
+     ],
+     "upperShare": 0.04,
+     "centerShare": 0.07,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "2027 Edition · Only 500 boxes",
+      "above": "BARA MASA",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 96
+     },
+     {
+      "text": "Sound familiar?",
+      "above": "For everyone who misses Odisha without s",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1202
+     },
+     {
+      "text": "Inside the box",
+      "above": "12 months. 13 festivals.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 2811
+     },
+     {
+      "text": "Stories",
+      "above": "Last year, 2,000+ people loved it.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4358
+     },
+     {
+      "text": "From the creators",
+      "above": "Hear it from the creators.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 5686
+     },
+     {
+      "text": "BULK AND GIFTING",
+      "above": "For your parivar. Or your office.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 8770
+     }
+    ],
+    "numbered": [
+     {
+      "text": "02",
+      "size": 24,
+      "top": 1192
+     },
+     {
+      "text": "03",
+      "size": 24,
+      "top": 2801
+     },
+     {
+      "text": "04",
+      "size": 24,
+      "top": 4348
+     },
+     {
+      "text": "05",
+      "size": 24,
+      "top": 5676
+     },
+     {
+      "text": "06",
+      "size": 24,
+      "top": 6918
+     },
+     {
+      "text": "07",
+      "size": 24,
+      "top": 8760
+     },
+     {
+      "text": "08",
+      "size": 24,
+      "top": 9842
+     }
+    ],
+    "color": {
+     "bodyBg": "#f6efe2",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.53,
+      "l": 0.93
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fff4e2",
+       "top": 0,
+       "hsl": {
+        "h": 37,
+        "s": 1,
+        "l": 0.94
+       }
+      },
+      {
+       "color": "#f2b035",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.88,
+        "l": 0.58
+       }
+      },
+      {
+       "color": "#1f2d66",
+       "top": 1048,
+       "hsl": {
+        "h": 228,
+        "s": 0.53,
+        "l": 0.26
+       }
+      },
+      {
+       "color": "#0f4c5c",
+       "top": 5532,
+       "hsl": {
+        "h": 192,
+        "s": 0.72,
+        "l": 0.21
+       }
+      },
+      {
+       "color": "#8e1b1b",
+       "top": 8616,
+       "hsl": {
+        "h": 0,
+        "s": 0.68,
+        "l": 0.33
+       }
+      },
+      {
+       "color": "#8a1717",
+       "top": 10009,
+       "hsl": {
+        "h": 0,
+        "s": 0.71,
+        "l": 0.32
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#1b1b1b",
+       "share": 0.31
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.23
+      },
+      {
+       "color": "#e0a526",
+       "share": 0.13
+      },
+      {
+       "color": "#5a0f14",
+       "share": 0.09
+      },
+      {
+       "color": "#5a1014",
+       "share": 0.08
+      }
+     ],
+     "button": {
+      "bg": "#fffdf7",
+      "hsl": {
+       "h": 45,
+       "s": 1,
+       "l": 0.98
+      },
+      "fg": "#1b1b1b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 12,
+     "inHero": 1,
+     "radius": "pill",
+     "height": 32,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Pre-book now"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 100,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+     ],
+     "gradients": 92,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0",
+      "div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(to top, oklab(0 0 0 / 0.95) 0%, oklab(0 0 0 / 0.6) 50%, rgba(0, 0, 0, 0) 100%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 7,
+     "hairlineSamples": [
+      "div.self-start.border-b 336px",
+      "div.self-start.border-b 336px",
+      "div.self-start.border-b 336px",
+      "div.self-start.border-b 336px",
+      "div.self-start.border-b 336px"
+     ],
+     "outlinedBoxes": 16,
+     "dashed": 0,
+     "blurred": 45,
+     "roundedBoxes": 66,
+     "boxRadius": 24,
+     "squareMedia": 14,
+     "roundedMedia": 62,
+     "mediaRadius": 24,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 45,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 4762
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     },
+     {
+      "type": "img",
+      "ratio": 1
+     },
+     {
+      "type": "img",
+      "ratio": 0.54
+     },
+     {
+      "type": "svg",
+      "ratio": 0.36
+     }
+    ],
+    "nav": {
+     "links": 6,
+     "fixed": true,
+     "height": 68,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter",
+     "inter fallback",
+     "akshar",
+     "akshar fallback",
+     "jaya",
+     "jaya fallback",
+     "gazpacho",
+     "gazpacho fallback",
+     "bigdream",
+     "bigdream fallback"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    1,
+    1,
+    1,
+    0.91,
+    1,
+    1,
+    1,
+    0.96,
+    0.88,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 120,
+    "css": 21,
+    "transitions": 72,
+    "scripted": 27,
+    "videos": 12,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 9508,
+     "screens": 11.3,
+     "words": 1399,
+     "img": 60,
+     "video": 12,
+     "canvas": 0,
+     "svg": 176,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 35,
+     "videoCount": 12,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
+     ],
+     "blendText": 0,
+     "sideScrollers": 2,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "TERA PARBA",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 54.6,
+     "vw": 14,
+     "font": "bigdream",
+     "weight": 700,
+     "tracking": 0.03,
+     "leading": 0.82,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 176,
+     "tag": "span",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "BARA MASA The Viral Odia Calendar TERA PARBA",
+     "words": 8,
+     "lines": 3,
+     "size": 16,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "BARA MASA",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 41.6,
+      "vw": 10.7,
+      "font": "bigdream",
+      "weight": 700,
+      "tracking": 0.03,
+      "leading": 0.82,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 110,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "TERA PARBA",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 54.6,
+      "vw": 14,
+      "font": "bigdream",
+      "weight": 700,
+      "tracking": 0.03,
+      "leading": 0.82,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 176,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "For everyone who misses Odisha without saying it.",
+      "words": 8,
+      "chars": 49,
+      "lines": 2,
+      "size": 25.6,
+      "vw": 6.6,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1004,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "This calendar keeps the dates for you.",
+      "words": 7,
+      "chars": 38,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1560,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "One card for every month. Keep it on your desk, and when you celebrate, tick the box on the back.",
+      "words": 20,
+      "chars": 97,
+      "lines": 3,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Inter",
+      "weight": 400,
+      "tracking": -0.014,
+      "leading": 1.22,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1653,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "12 months. 13 festivals.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2002,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "12",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 2475,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 2577,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 2679,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 2780,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "1",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 2859,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Last year, 2,000+ people loved it.",
+      "words": 6,
+      "chars": 34,
+      "lines": 2,
+      "size": 30,
+      "vw": 7.7,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3317,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Hear it from the creators.",
+      "words": 5,
+      "chars": 26,
+      "lines": 2,
+      "size": 30,
+      "vw": 7.7,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4523,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Get your 2027 calendar",
+      "words": 4,
+      "chars": 22,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6083,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "₹749",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 6219,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "For your parivar. Or your office.",
+      "words": 6,
+      "chars": 33,
+      "lines": 2,
+      "size": 30,
+      "vw": 7.7,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7372,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "QUESTIONS",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8510,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 17,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 7,
+     "centered": 2,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.91,
+       "mono": false
+      },
+      {
+       "family": "gazpacho",
+       "share": 0.08,
+       "mono": false
+      },
+      {
+       "family": "bigdream",
+       "share": 0,
+       "mono": false
+      },
+      {
+       "family": "jaya",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 4,
+     "sizes": [
+      10,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      22,
+      26,
+      28,
+      30,
+      36,
+      42,
+      48,
+      55
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 15,
+      "leading": 1.63,
+      "weight": 500,
+      "tracking": -0.012,
+      "contrast": 7.3
+     },
+     "measureChars": 48,
+     "max": {
+      "size": 54.6,
+      "vw": 14,
+      "font": "bigdream",
+      "text": "TERA PARBA"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 7,
+     "microLabelShare": 0.014,
+     "microSamples": [
+      "2027 Edition · Only 500 boxes",
+      "Sound familiar?",
+      "Inside the box",
+      "Stories",
+      "From the creators",
+      "Order now"
+     ],
+     "upperShare": 0.04,
+     "centerShare": 0.07,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "2027 Edition · Only 500 boxes",
+      "above": "BARA MASA",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 80
+     },
+     {
+      "text": "The Viral Odia Calendar",
+      "above": "TERA PARBA",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 150
+     },
+     {
+      "text": "Inside the box",
+      "above": "12 months. 13 festivals.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 1975
+     },
+     {
+      "text": "Stories",
+      "above": "Last year, 2,000+ people loved it.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 3290
+     },
+     {
+      "text": "From the creators",
+      "above": "Hear it from the creators.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 4496
+     },
+     {
+      "text": "BULK AND GIFTING",
+      "above": "For your parivar. Or your office.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 7345
+     }
+    ],
+    "numbered": [
+     {
+      "text": "02",
+      "size": 20,
+      "top": 964
+     },
+     {
+      "text": "03",
+      "size": 20,
+      "top": 1966
+     },
+     {
+      "text": "04",
+      "size": 20,
+      "top": 3281
+     },
+     {
+      "text": "05",
+      "size": 20,
+      "top": 4487
+     },
+     {
+      "text": "06",
+      "size": 20,
+      "top": 5577
+     },
+     {
+      "text": "07",
+      "size": 20,
+      "top": 7336
+     },
+     {
+      "text": "08",
+      "size": 20,
+      "top": 8478
+     }
+    ],
+    "color": {
+     "bodyBg": "#f6efe2",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.53,
+      "l": 0.93
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fff4e2",
+       "top": 0,
+       "hsl": {
+        "h": 37,
+        "s": 1,
+        "l": 0.94
+       }
+      },
+      {
+       "color": "#f2b035",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.88,
+        "l": 0.58
+       }
+      },
+      {
+       "color": "#1f2d66",
+       "top": 868,
+       "hsl": {
+        "h": 228,
+        "s": 0.53,
+        "l": 0.26
+       }
+      },
+      {
+       "color": "#8a1717",
+       "top": 3026,
+       "hsl": {
+        "h": 0,
+        "s": 0.71,
+        "l": 0.32
+       }
+      },
+      {
+       "color": "#1b1b1b",
+       "top": 3646,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.11
+       }
+      },
+      {
+       "color": "#0f4c5c",
+       "top": 4391,
+       "hsl": {
+        "h": 192,
+        "s": 0.72,
+        "l": 0.21
+       }
+      },
+      {
+       "color": "#0f0f0f",
+       "top": 4761,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.06
+       }
+      },
+      {
+       "color": "#8e1b1b",
+       "top": 7240,
+       "hsl": {
+        "h": 0,
+        "s": 0.68,
+        "l": 0.33
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#1b1b1b",
+       "share": 0.31
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.24
+      },
+      {
+       "color": "#e0a526",
+       "share": 0.13
+      },
+      {
+       "color": "#5a0f14",
+       "share": 0.09
+      },
+      {
+       "color": "#5a1014",
+       "share": 0.08
+      }
+     ],
+     "button": {
+      "bg": "#8e1b1b",
+      "hsl": {
+       "h": 0,
+       "s": 0.68,
+       "l": 0.33
+      },
+      "fg": "#fff4e2"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 1,
+     "radius": "pill",
+     "height": 56,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Pre-book now"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 101,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+     ],
+     "gradients": 92,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0",
+      "div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(to top, oklab(0 0 0 / 0.95) 0%, oklab(0 0 0 / 0.6) 50%, rgba(0, 0, 0, 0) 100%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 7,
+     "hairlineSamples": [
+      "div.self-start.border-b 358px",
+      "div.self-start.border-b 358px",
+      "div.self-start.border-b 358px",
+      "div.self-start.border-b 358px",
+      "div.self-start.border-b 358px"
+     ],
+     "outlinedBoxes": 13,
+     "dashed": 0,
+     "blurred": 45,
+     "roundedBoxes": 64,
+     "boxRadius": 16,
+     "squareMedia": 14,
+     "roundedMedia": 58,
+     "mediaRadius": 16,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 45,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 3646
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     },
+     {
+      "type": "img",
+      "ratio": 1
+     },
+     {
+      "type": "img",
+      "ratio": 0.91
+     },
+     {
+      "type": "svg",
+      "ratio": 0.19
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 60,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter",
+     "inter fallback",
+     "akshar",
+     "akshar fallback",
+     "jaya",
+     "jaya fallback",
+     "gazpacho",
+     "gazpacho fallback",
+     "bigdream"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "6 eyebrow/kicker label(s) above headings: \"2027 Edition · Only 500 boxes\" above \"BARA MASA\"; \"Sound familiar?\" above \"For everyone who misses Odisha without s\"; \"Inside the box\" above \"12 months. 13 festivals.\"; \"Stories\" above \"Last year, 2,000+ people loved it.\"; \"From the creators\" above \"Hear it from the creators.\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"02\", \"03\", \"04\", \"05\", \"06\", \"07\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "7 tiny uppercase letter-spaced labels (e.g. \"2027 Edition · Only 500 boxes\", \"Sound familiar?\", \"Inside the box\", \"Stories\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "92 gradient fill(s): div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0 | div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%) | div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "102 box-shadow(s) on elements at rest: button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "7 thin rule(s)/divider line(s): div.self-start.border-b 584px | div.self-start.border-b 584px | div.self-start.border-b 584px | div.self-start.border-b 584px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "16 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "glass",
+   "width": 1440,
+   "message": "45 backdrop-blur surfaces.",
+   "fix": "One blurred sticky bar at most; glass cards are a tell.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #f6efe2, section #fff4e2, button #fffdf7).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "15 different font sizes (10, 13, 14, 15, 16, 18, 20, 24, 28, 32, 48, 60, 68, 99, 134).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "side-scroll",
+   "width": 1440,
+   "message": "2 row(s) scroll sideways with content past their edge.",
+   "fix": "Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "covered-text",
+   "width": 1440,
+   "message": "Large text lies under another element at some scroll position: \"12 months. 13 festivals.\" (screen 4, 50% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
+   "alsoAt": [
+    390
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\desktop-page-01.jpg",
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\desktop-page-02.jpg",
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\tablet-page-01.jpg",
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\mobile-page-01.jpg",
+    "D:\\Projects\\calenderweb\\.taste-skill\\inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

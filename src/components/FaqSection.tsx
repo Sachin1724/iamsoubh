@@ -16,7 +16,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="py-16 sm:py-24 bg-rice text-ink relative overflow-hidden scroll-mt-24"
+      className="py-24 sm:py-36 bg-pipili-yellow text-on-light relative overflow-hidden scroll-mt-24"
     >
       {/* 1. Folk Background Pattern Texture */}
       <div
@@ -29,7 +29,7 @@ export function FaqSection() {
 
 
       {/* Mandala, centred on the page's top-right corner, red mask, slow spin */}
-      <div className="absolute top-0 right-0 w-[320px] sm:w-[460px] aspect-square translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
+      <div className="absolute top-0 right-0 w-[240px] sm:w-[340px] aspect-square translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
         <div
           className="w-full h-full opacity-40 bg-brand animate-spin-slow"
           style={{
@@ -63,13 +63,13 @@ export function FaqSection() {
         
         {/* Header Block */}
         <div className="reveal max-w-2xl mb-12 sm:mb-16">
-          <span className="font-gazpacho text-[#C4A882] text-xl sm:text-2xl font-bold block mb-1">
+          <span className="font-gazpacho text-on-light/60 text-xl sm:text-2xl font-bold block mb-1">
             08
           </span>
-          <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-brand leading-none">
+          <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-on-light leading-none">
             QUESTIONS
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-muted font-subtext font-normal leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-on-light/80 font-subtext font-normal leading-relaxed">
             The short answers to the long ones.
           </p>
         </div>
@@ -79,15 +79,15 @@ export function FaqSection() {
           {faqs.map((faq) => {
             const isOpen = openId === faq.id;
             return (
-              <div key={faq.id} className="self-start border-b border-[#D5C7B3]">
+              <div key={faq.id} className="self-start border-b border-on-light/20">
                 <button
                   onClick={() => toggle(faq.id)}
                   aria-expanded={isOpen}
-                  className="w-full py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-ink hover:text-brand cursor-pointer transition-colors"
+                  className="w-full py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-on-light hover:text-pipili-red cursor-pointer transition-colors"
                 >
                   <span>{faq.question}</span>
                   <Plus
-                    className="w-4 h-4 text-brand shrink-0 transition-transform duration-300"
+                    className="w-4 h-4 text-pipili-red shrink-0 transition-transform duration-300"
                     style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
                   />
                 </button>
@@ -97,7 +97,7 @@ export function FaqSection() {
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-4 text-xs sm:text-sm text-ink/80 leading-relaxed font-medium">
+                    <p className="pb-4 text-[15px] sm:text-base text-ink/80 leading-relaxed font-medium">
                       {faq.answer}
                     </p>
                   </div>

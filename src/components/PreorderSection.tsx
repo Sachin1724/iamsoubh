@@ -2,16 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import {
-  Truck,
-  CheckCircle2,
-  ShieldCheck,
-  RotateCcw,
-  Plus,
-  Minus,
-  ArrowRight,
-  AlertCircle,
-} from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { siteConfig, products, ProductId } from "@/config/site-config";
 import { startCheckout } from "@/lib/checkout";
 import { useStock } from "@/lib/useStock";
@@ -23,12 +14,6 @@ export interface OrderData {
   fullName: string;
   phone: string;
   email?: string;
-  pincode: string;
-  city: string;
-  state: string;
-  address: string;
-  landmark?: string;
-  giftNote?: string;
   total: number;
 }
 
@@ -36,46 +21,67 @@ interface PreorderSectionProps {
   onRequestQuote?: () => void;
 }
 
+// Every order Razorpay can take is one product at one quantity, so these are
+// all the ways to buy. Boxes are what the buyer chooses; the pack is the
+// cheapest row that covers them.
+const OPTIONS = (Object.keys(products) as ProductId[]).flatMap((id) =>
+  Array.from({ length: products[id].maxQty }, (_, i) => ({
+    product: id,
+    quantity: i + 1,
+    boxes: products[id].boxes * (i + 1),
+    price: products[id].price * (i + 1),
+  }))
+);
+
+const MAX_BOXES = Math.max(...OPTIONS.map((o) => o.boxes));
+
+/**
+ * Cheapest way to get at least `wanted` boxes. Asking for 4 is answered with
+ * the 5-box Gift Pack, because it costs less than four singles — so the extra
+ * box is free and the page says so.
+ */
+function bestFor(wanted: number) {
+  return OPTIONS.filter((o) => o.boxes >= wanted).sort(
+    (a, b) => a.price - b.price || a.boxes - b.boxes
+  )[0];
+}
+
+/**
+ * The next rung up: more boxes at a meaningfully lower price per box, offered
+ * as its own choosable row. Under ₹5 a box is not worth asking someone to
+ * spend more, so it stays quiet.
+ */
+function nextDeal(current: { boxes: number; price: number }) {
+  const perBox = current.price / current.boxes;
+  return OPTIONS.filter((o) => o.boxes > current.boxes && perBox - o.price / o.boxes >= 5).sort(
+    (a, b) => a.boxes - b.boxes || a.price - b.price
+  )[0];
+}
+
+const QUICK_PICKS = [1, 2, 3, 5, 9];
+
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   const { stock, showCounter } = useStock();
+  const reduceMotion = useReducedMotion();
 
-  const [product, setProduct] = useState<ProductId>("family");
-  const [quantity, setQuantity] = useState(1);
+  const morph = reduceMotion
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 420, damping: 36, mass: 0.7 };
+
+  const [wanted, setWanted] = useState(3);
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [address, setAddress] = useState("");
-  const [landmark, setLandmark] = useState("");
-  const [giftNote, setGiftNote] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  // Address fields live behind a drawer: Magic Checkout asks for them, so most
-  // buyers never open it.
-  const [showAddress, setShowAddress] = useState(false);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
+  const best = bestFor(wanted);
+  const { product, quantity, boxes, price: total } = best;
   const active = products[product];
-  const boxes = active.boxes * quantity;
-  const total = active.price * quantity;
-
-  const handlePincodeChange = async (val: string) => {
-    const clean = val.replace(/\D/g, "").slice(0, 6);
-    setPincode(clean);
-    if (clean.length !== 6) return;
-
-    try {
-      const res = await fetch(`/api/pincode?pin=${clean}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      setCity(data.city ?? "");
-      setState(data.state ?? "");
-    } catch {
-      // Lookup convenience
-    }
-  };
+  const saving = products.single.price * boxes - total;
+  const deal = nextDeal(best);
+  const perBox = Math.round(total / boxes);
 
   const validate = () => {
     const next: Record<string, string> = {};
@@ -90,445 +96,218 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
     if (!validate() || paying) return;
     setPaying(true);
     setPayError("");
-    const result = await startCheckout({
-      product,
-      quantity,
-      boxes,
-      fullName,
-      phone,
-      email,
-      pincode,
-      city,
-      state,
-      address,
-      landmark,
-      giftNote,
-      total,
-    }, () => setPaying(false));
+    const result = await startCheckout(
+      { product, quantity, boxes, fullName, phone, email, total },
+      () => setPaying(false)
+    );
     if (!result.ok) {
       setPayError(result.message);
       setPaying(false);
     }
   };
 
+  const field =
+    "w-full border-b border-on-light/25 bg-transparent py-3 text-base text-on-light placeholder:text-on-light/45 focus:border-pipili-red focus:outline-none";
+
   return (
     <section
       id="preorder"
-      className="py-16 sm:py-24 bg-rice text-ink relative overflow-hidden scroll-mt-24"
+      className="relative bg-pipili-cream py-24 text-on-light scroll-mt-24 sm:py-36"
     >
-      {/* 1. Odia Folk Pattern Texture */}
-      <div
-        className="absolute inset-0 opacity-15 pointer-events-none bg-repeat z-0"
-        style={{
-          backgroundImage: "url('/assets/folk-pattern-tile.png')",
-          backgroundSize: "200px",
-        }}
-      />
-
-      {/* 2. Top-Left & Bottom-Right Odia Jhoti / Chita Sacred Art */}
-      <div
-        className="absolute top-4 left-4 sm:left-8 w-36 sm:w-56 h-36 sm:h-56 pointer-events-none select-none opacity-25 mix-blend-multiply z-0 animate-jhoti-shimmer"
-        aria-hidden="true"
-      >
-        <Image
-          src="/assets/motifs/odia-jhoti-corner.svg"
-          alt=""
-          fill
-          sizes="(max-width: 640px) 144px, 224px"
-          className="object-contain"
-        />
-      </div>
-
-      <div
-        className="absolute -bottom-8 -right-8 sm:-right-12 w-48 sm:w-64 h-48 sm:h-64 pointer-events-none select-none opacity-20 mix-blend-multiply z-0 -scale-100 animate-jhoti-shimmer"
-        style={{ animationDelay: "3s" }}
-        aria-hidden="true"
-      >
-        <Image
-          src="/assets/motifs/odia-jhoti-corner.svg"
-          alt=""
-          fill
-          sizes="(max-width: 640px) 192px, 256px"
-          className="object-contain"
-        />
-      </div>
-
-      {/* 3. Main Container */}
-      <div className="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-baseline gap-3 mb-2">
-          <span className="font-gazpacho text-brand font-bold text-xl sm:text-2xl">
-            06
-          </span>
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand">
-            YOUR STORIES · ORDER NOW
-          </span>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-2 flex items-baseline gap-3">
+          <span className="font-gazpacho text-xl font-bold sm:text-2xl">06</span>
+          <span className="text-xs font-bold uppercase tracking-wider sm:text-sm">Order now</span>
         </div>
 
-        <div className="mb-10 sm:mb-12">
-          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-none text-ink">
-            2027 Odia Calendar
-          </h2>
-          <span className="font-odia text-xl sm:text-2xl font-bold text-brand mt-1 block">
-            ବାର ମାସେ ତେର ପରବ
-          </span>
-        </div>
-
-        {/* 3-Column Split: [Product Cluster Visual] | [Pack Selector & Pricing] | [Delivery Form] */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
-          
-          {/* Column 1: Product 3D Stack Mockup (3 Cols) */}
-          <div className="md:col-span-5 lg:col-span-3 flex flex-col items-center">
-            <div className="relative w-full max-w-[240px] sm:max-w-[280px] aspect-[4/5] rounded-2xl overflow-hidden bg-[#EFE7D8] border-2 border-ink shadow-[5px_5px_0_0_var(--color-ink)] p-2 flex items-center justify-center group">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* The product, unframed, and it stays with you while you choose */}
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative -mx-4 aspect-square sm:mx-0 sm:aspect-4/3 lg:aspect-square">
               <Image
-                src="/assets/product/hero-client-product-hq.webp"
-                alt="2027 Odia Viral Calendar"
+                key={boxes}
+                src="/assets/product%20mockup/View%204.png"
+                alt="The 2027 festival cards"
                 fill
-                sizes="(max-width: 640px) 240px, 280px"
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 1024px) 100vw, 560px"
+                className="animate-parcel-drop scale-[1.35] object-contain drop-shadow-[0_24px_40px_rgba(90,15,20,0.18)] lg:scale-[1.5]"
               />
-              
-              {/* Yellow Sticky Note on Product with subtle floating motion */}
-              <div className="absolute top-4 left-3 z-20 -rotate-3 select-none animate-float-gentle">
-                <div className="bg-gold text-ink px-2.5 py-1.5 rounded shadow border border-[#E6C63B] text-[10px] font-serif leading-tight">
-                  A calendar for our people, wherever we are.
-                </div>
-              </div>
             </div>
-          </div>
-
-          {/* Column 2: Pack Selection & Pre-Order Action (4 Cols) */}
-          <div className="md:col-span-7 lg:col-span-4 flex flex-col space-y-3.5 sm:space-y-4">
-            
-            {/* Single Box Card */}
-            <div
-              onClick={() => {
-                setProduct("single");
-                setQuantity(1);
-              }}
-              className={`p-3.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
-                product === "single"
-                  ? "border-brand bg-cream shadow-[4px_4px_0_0_var(--color-brand)]"
-                  : "border-[#D5C7B3] bg-cream/60 hover:bg-cream"
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <div className="flex items-center gap-2.5">
-                  <div
-                    className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      product === "single"
-                        ? "border-brand"
-                        : "border-[#999]"
-                    }`}
-                  >
-                    {product === "single" && (
-                      <div className="w-2 h-2 rounded-full bg-brand" />
-                    )}
-                  </div>
-                  <span className="font-bold text-sm text-ink">
-                    Single Box
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="font-gazpacho text-lg font-bold text-ink">
-                    ₹299
-                  </span>
-                  <span className="text-xs text-black/40 line-through ml-1.5">
-                    ₹339
-                  </span>
-                </div>
-              </div>
-              <p className="text-[11px] text-ink/70 pl-6">
-                One box, twelve parbas, and one sealed 13th you only reveal when it arrives.
-              </p>
-            </div>
-
-            {/* Family Pack (x3) Card */}
-            <div
-              onClick={() => {
-                setProduct("family");
-                setQuantity(1);
-              }}
-              className={`p-3.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 relative overflow-visible ${
-                product === "family"
-                  ? "border-brand bg-cream shadow-[4px_4px_0_0_var(--color-brand)]"
-                  : "border-[#D5C7B3] bg-cream/60 hover:bg-cream"
-              }`}
-            >
-              <span className="absolute -top-2.5 right-4 z-10 bg-turmeric text-ink text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-ink shadow-xs">
-                Best value
-              </span>
-
-              <div className="flex items-center justify-between mb-1">
-                <div className="flex items-center gap-2.5">
-                  <div
-                    className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      product === "family"
-                        ? "border-brand"
-                        : "border-[#999]"
-                    }`}
-                  >
-                    {product === "family" && (
-                      <div className="w-2 h-2 rounded-full bg-brand" />
-                    )}
-                  </div>
-                  <span className="font-bold text-sm text-ink">
-                    Family Pack (x3)
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="font-gazpacho text-lg font-bold text-brand">
-                    ₹749
-                  </span>
-                  <span className="text-[11px] text-parrot font-bold block">
-                    (₹250 a box)
-                  </span>
-                </div>
-              </div>
-              <p className="text-[11px] text-ink/70 pl-6">
-                For Maa, Bapa, your favorite Odia coworker, or that cousin in Bengaluru. All three 13th parbas guaranteed; plus an extra sticker sheet.
-              </p>
-            </div>
-
-            {/* Quantity Stepper */}
-            <div className="flex items-center justify-between pt-2">
-              <span className="text-xs font-bold text-ink uppercase tracking-wider">
-                Quantity
-              </span>
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-8 h-8 rounded-full bg-cream border-2 border-ink flex items-center justify-center hover:bg-rice active:scale-95 transition-transform"
-                >
-                  <Minus className="w-3.5 h-3.5" />
-                </button>
-                <span className="font-gazpacho text-base font-bold w-4 text-center">
-                  {quantity}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-                  className="w-8 h-8 rounded-full bg-cream border-2 border-ink flex items-center justify-center hover:bg-rice active:scale-95 transition-transform"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Bulk Inquiry Link */}
-            {onRequestQuote && (
-              <button
-                type="button"
-                onClick={onRequestQuote}
-                className="text-xs text-brand font-bold hover:underline text-right block"
-              >
-                10 or more? Get a bulk price →
-              </button>
-            )}
-
-            {/* Summary Row */}
-            <div className="pt-2 text-xs font-medium text-ink/80 flex justify-between">
-              <span>Total:</span>
-              <span className="font-bold text-ink">
-                {boxes} {boxes === 1 ? "box" : "boxes"} — ₹{total} — Free shipping
-              </span>
-            </div>
-
-            {/* Mobile-only jump to form button */}
-            <button
-              type="button"
-              onClick={() => {
-                document.getElementById("shipping-form")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="lg:hidden w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-brand hover:bg-[#701212] text-white font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_var(--color-ink)] hover:shadow-[5px_5px_0_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
-            >
-              <span>Continue to delivery details</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            {/* Reassurance Badges */}
-            <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-3 border-t border-[#D5C7B3] text-center">
-              <div className="flex flex-col items-center">
-                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand mb-0.5 sm:mb-1" />
-                <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Free shipping</span>
-                <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">across India</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand mb-0.5 sm:mb-1" />
-                <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Secure payment</span>
-                <span className="inline-flex items-center justify-center gap-1 mt-0.5">
-                  <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">by</span>
-                  <Image
-                    src="/assets/brand/razorpay-logo.svg"
-                    alt="Razorpay"
-                    width={48}
-                    height={10}
-                    className="h-2 sm:h-2.5 w-auto object-contain inline-block"
-                  />
-                </span>
-              </div>
-              <div className="flex flex-col items-center">
-                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand mb-0.5 sm:mb-1" />
-                <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Free replacement</span>
-                <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">if damaged</span>
-              </div>
-            </div>
-
-            <p className="text-[10px] italic text-ink/70 text-center">
-              Ships from the first week of November. Not shipped by 15 November? Full refund.
+            <p className="text-center text-sm text-on-light/70 lg:text-left">
+              12 festival cards, a sealed 13th parba, a postcard, stickers and a note.
             </p>
           </div>
 
-          {/* Column 3: Where Should It Go Delivery Form (5 Cols) */}
-          <div className="md:col-span-12 lg:col-span-5 bg-cream p-4 sm:p-6 lg:p-7 rounded-2xl border-2 border-ink shadow-[5px_5px_0_0_var(--color-ink)] sm:shadow-[6px_6px_0_0_var(--color-ink)]">
-            <h3 className="font-gazpacho text-lg sm:text-xl font-bold text-ink mb-4">
-              Where should it go?
-            </h3>
+          {/* The choices */}
+          <div className="lg:py-4">
+            <h2 className="font-gazpacho text-4xl font-bold leading-[1.05] sm:text-5xl">
+              Get your 2027 calendar
+            </h2>
+            <p className="mt-2 font-odia text-lg text-pipili-red sm:text-xl">
+              {siteConfig.odiaTitle}
+            </p>
 
-            <form id="shipping-form" onSubmit={handleSubmit} className="space-y-3">
-              <div>
-                <input
-                  type="tel"
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  placeholder="WhatsApp number *"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                  className={`w-full px-3.5 py-3 rounded-lg bg-rice/60 border text-sm font-medium focus:outline-none focus:border-brand ${
-                    errors.phone ? "border-red-500 bg-red-50" : "border-[#D5C7B3]"
+            {/* Price leads, the way a shop does it */}
+            <div className="mt-6 flex items-baseline gap-3">
+              <motion.span layout transition={morph} className="font-gazpacho text-5xl font-bold">
+                ₹{total.toLocaleString("en-IN")}
+              </motion.span>
+              {boxes > 1 && (
+                <span className="text-base font-semibold text-on-light/65">
+                  ₹{perBox} a box
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-sm text-on-light/70">
+              {boxes} {boxes === 1 ? "box" : "boxes"} · {siteConfig.freeDeliveryLabel}
+              {saving > 0 && <span className="font-semibold text-parrot"> · you save ₹{saving}</span>}
+            </p>
+
+            {showCounter && stock !== null && (
+              <p className="mt-2 text-sm font-bold text-pipili-red">
+                {stock.remaining} of {stock.cap} left.
+              </p>
+            )}
+
+            {/* Step one: how many */}
+            <p className="mt-9 text-sm font-bold">How many boxes?</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {QUICK_PICKS.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setWanted(n)}
+                  aria-pressed={wanted === n}
+                  className={`h-12 min-w-[56px] rounded-xl border px-4 font-gazpacho text-lg font-bold transition-colors ${
+                    wanted === n
+                      ? "border-pipili-red bg-pipili-red text-on-dark"
+                      : "border-on-light/25 hover:border-on-light/60"
                   }`}
-                />
-                {errors.phone ? (
-                  <span className="text-[10px] text-red-600 mt-0.5 block">{errors.phone}</span>
-                ) : (
-                  <span className="text-[10px] text-black/55 mt-1 block">
-                    Razorpay fills your saved address from this number. Order updates come on WhatsApp.
+                >
+                  {n}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => setWanted((n) => Math.min(MAX_BOXES, n + 1))}
+                disabled={wanted >= MAX_BOXES}
+                className="h-12 rounded-xl border border-on-light/25 px-4 text-sm font-semibold transition-colors hover:border-on-light/60 disabled:opacity-40"
+              >
+                More
+              </button>
+            </div>
+
+            {/* Step two: what that works out as, and the one upgrade worth it */}
+            <div className="mt-6 space-y-3">
+              <div className="rounded-2xl border-2 border-pipili-red p-4">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="font-gazpacho text-lg font-bold">
+                    {quantity > 1 ? `${quantity} × ${active.name}` : active.name}
                   </span>
-                )}
+                  <span className="font-gazpacho text-lg font-bold">₹{total.toLocaleString("en-IN")}</span>
+                </div>
+                <p className="mt-1 text-sm text-on-light/70">
+                  {boxes > wanted
+                    ? `That's ${boxes} boxes, and it costs less than ${wanted}.`
+                    : active.description}
+                </p>
               </div>
 
-              <div>
+              <AnimatePresence initial={false}>
+                {deal && (
+                  <motion.button
+                    layout
+                    initial={reduceMotion ? false : { opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
+                    transition={morph}
+                    type="button"
+                    onClick={() => setWanted(deal.boxes)}
+                    className="w-full overflow-hidden rounded-2xl border border-on-light/25 p-4 text-left transition-colors hover:border-on-light/60"
+                  >
+                    <div className="flex items-baseline justify-between gap-4">
+                      <span className="font-gazpacho text-lg font-bold">
+                        {deal.boxes} boxes
+                      </span>
+                      <span className="font-gazpacho text-lg font-bold">
+                        ₹{deal.price.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-on-light/70">
+                      ₹{Math.round(deal.price / deal.boxes)} a box. You save ₹
+                      {(products.single.price * deal.boxes - deal.price).toLocaleString("en-IN")} in
+                      all.
+                    </p>
+                  </motion.button>
+                )}
+              </AnimatePresence>
+
+              {onRequestQuote && (
+                <button
+                  type="button"
+                  onClick={onRequestQuote}
+                  className="text-sm font-semibold text-pipili-red underline underline-offset-4"
+                >
+                  Need 10 or more? Get a bulk price
+                </button>
+              )}
+            </div>
+
+            {/* Step three: where it goes */}
+            <form onSubmit={handleSubmit} id="shipping-form" className="mt-10">
+              <div className="space-y-5">
+                <div>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    placeholder="WhatsApp number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                    className={`${field} ${errors.phone ? "border-red-500" : ""}`}
+                  />
+                  {errors.phone && (
+                    <span className="mt-1 block text-sm text-red-600">{errors.phone}</span>
+                  )}
+                </div>
                 <input
                   type="text"
                   autoComplete="name"
                   placeholder="Your name (optional)"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
+                  className={field}
                 />
-              </div>
-
-              {/* Everything below is optional: sending it as a gift, or a
-                  delivery address Razorpay will not already know. */}
-              <button
-                type="button"
-                onClick={() => setShowAddress((v) => !v)}
-                aria-expanded={showAddress}
-                className="w-full text-left text-xs font-bold text-brand underline underline-offset-2 cursor-pointer"
-              >
-                {showAddress ? "Hide address & gift note" : "Sending as a gift or to another address?"}
-              </button>
-
-              <div
-                className="grid transition-[grid-template-rows] duration-300 ease-out"
-                style={{ gridTemplateRows: showAddress ? "1fr" : "0fr" }}
-              >
-                <div className="overflow-hidden">
-                  <div className="space-y-3 pt-1">
-                    <input
-                      type="email"
-                      autoComplete="email"
-                      placeholder="Email (optional)"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
-                    />
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        placeholder="Pincode (6 digits)"
-                        value={pincode}
-                        onChange={(e) => handlePincodeChange(e.target.value)}
-                        maxLength={6}
-                        className="w-full px-3 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-brand"
-                      />
-                      <input
-                        type="text"
-                        placeholder="City"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-brand"
-                      />
-                      <input
-                        type="text"
-                        placeholder="State"
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-brand"
-                      />
-                    </div>
-
-                    <input
-                      type="text"
-                      placeholder="Address line (House, Street)"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Landmark (optional)"
-                      value={landmark}
-                      onChange={(e) => setLandmark(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Add a gift note (optional)"
-                      value={giftNote}
-                      onChange={(e) => setGiftNote(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
-                    />
-                  </div>
-                </div>
+                <input
+                  type="email"
+                  autoComplete="email"
+                  placeholder="Email (optional)"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={field}
+                />
               </div>
 
               {payError && (
-                <p className="rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-[11px] font-semibold text-red-700">
-                  {payError}
-                </p>
+                <p className="mt-4 text-sm font-semibold text-red-700">{payError}</p>
               )}
 
-              {/* Pay Razorpay Button */}
               <button
                 type="submit"
                 disabled={paying}
-                className="w-full py-3.5 px-6 rounded-lg bg-turmeric hover:bg-[#cca322] text-ink font-bold text-sm sm:text-base border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-4 disabled:opacity-60"
+                className="mt-8 flex min-h-[60px] w-full items-center justify-center rounded-full bg-pipili-red px-8 font-gazpacho text-lg font-bold text-on-dark transition-opacity hover:opacity-90 disabled:opacity-60"
               >
-                <span>{paying ? "Opening Razorpay…" : `Pay ₹${total} · UPI, cards, wallets`}</span>
+                {paying ? "Opening Razorpay…" : `${active.payButtonLabel} · ₹${total.toLocaleString("en-IN")}`}
               </button>
 
-              <span className="text-[10px] text-black/60 flex items-center justify-center gap-1.5 mt-2 text-center flex-wrap">
-                <ShieldCheck className="w-3.5 h-3.5 text-parrot shrink-0" />
-                <span>Secure payment by</span>
-                <Image
-                  src="/assets/brand/razorpay-logo.svg"
-                  alt="Razorpay"
-                  width={52}
-                  height={11}
-                  className="h-2.5 sm:h-3 w-auto object-contain inline-block"
-                />
-                <span>· GPay · PhonePe · Paytm</span>
-              </span>
+              <p className="mt-4 text-sm leading-relaxed text-on-light/70">
+                Razorpay collects your delivery address at checkout. Ships from the{" "}
+                {siteConfig.shipDateInline}. Not shipped by 15 November, full refund. Damaged in
+                transit, free replacement.
+              </p>
             </form>
           </div>
-
         </div>
-
       </div>
     </section>
   );

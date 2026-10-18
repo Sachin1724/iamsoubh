@@ -212,7 +212,7 @@ export function BuyerStories() {
   return (
     <section
       id="stories"
-      className="relative pt-20 sm:pt-28 pb-14 sm:pb-20 bg-rice text-ink z-10 scroll-mt-28 overflow-x-clip"
+      className="relative pt-24 sm:pt-36 pb-20 sm:pb-32 bg-pipili-cream text-on-light z-10 scroll-mt-28 overflow-clip"
     >
       {/* 1. Folk Background Pattern Texture */}
       <div
@@ -238,6 +238,38 @@ export function BuyerStories() {
         />
       </div>
 
+      {/* Spinning mandala in two corners only */}
+      <div className="absolute top-0 left-0 w-[240px] sm:w-[340px] aspect-square -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
+        <div
+          className="w-full h-full opacity-40 bg-brand animate-spin-slow"
+          style={{
+            maskImage: "url('/assets/motifs/mandala-laser-1200.png')",
+            WebkitMaskImage: "url('/assets/motifs/mandala-laser-1200.png')",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="absolute bottom-0 right-0 w-[240px] sm:w-[340px] aspect-square translate-x-1/2 translate-y-1/2 pointer-events-none select-none z-0">
+        <div
+          className="w-full h-full opacity-40 bg-brand animate-spin-slow"
+          style={{
+            animationDelay: "4s",
+            maskImage: "url('/assets/motifs/mandala-laser-1200.png')",
+            WebkitMaskImage: "url('/assets/motifs/mandala-laser-1200.png')",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
       {/* 4. Main Section Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
@@ -247,19 +279,19 @@ export function BuyerStories() {
         {/* Header Block */}
         <div className="reveal max-w-3xl lg:flex-1">
           <div className="flex items-baseline gap-3 mb-2">
-            <span className="font-gazpacho text-brand font-bold text-xl sm:text-2xl">
+            <span className="font-gazpacho text-on-light font-bold text-xl sm:text-2xl">
               04
             </span>
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand">
-              CUSTOMER STORIES & REVIEWS
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-on-light">
+              Stories
             </span>
           </div>
 
-          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-ink">
-            2,000+ of you put it on your story.
+          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-on-light">
+            Last year, 2,000+ people loved it.
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-muted font-subtext font-normal leading-relaxed">
-            Real screenshots from <strong className="font-bold text-brand">45 buyers</strong> across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
+          <p className="mt-3 text-base sm:text-lg text-on-light/80 font-subtext font-normal leading-relaxed">
+            See what they said. Tap any card to watch the full story.
           </p>
         </div>
 
@@ -273,7 +305,7 @@ export function BuyerStories() {
             >
               <Pin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold fill-gold" />
             </div>
-            <div className="-rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 bg-gold text-ink px-3 py-2 sm:px-4 sm:py-3 rounded-xl shadow-[3px_3px_0_0_var(--color-ink)] sm:shadow-[4px_4px_0_0_var(--color-ink)] border-2 border-ink text-[11px] sm:text-xs font-serif leading-tight sm:leading-snug select-none">
+            <div className="-rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 bg-gold text-ink px-3 py-2 sm:px-4 sm:py-3 rounded-xl shadow-[3px_3px_0_0_var(--color-ink)] sm:shadow-[4px_4px_0_0_var(--color-ink)] border-2 border-ink text-xs sm:text-sm font-editorial leading-tight sm:leading-snug select-none">
               <div className="flex items-center gap-1.5 font-bold mb-0.5 sm:mb-1 text-brand">
                 <InstagramIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
                 <span className="font-sans font-bold text-xs sm:text-sm">Got your box?</span>
@@ -314,7 +346,7 @@ export function BuyerStories() {
                       <path d="M12 1.5l2.4 2.1 3.2-.3.9 3.1 2.8 1.6-1.2 3 1.2 3-2.8 1.6-.9 3.1-3.2-.3L12 22.5l-2.4-2.1-3.2.3-.9-3.1L2.7 16l1.2-3-1.2-3 2.8-1.6.9-3.1 3.2.3L12 1.5zm-1.1 13.6l5.2-5.2-1.4-1.4-3.8 3.8-1.8-1.8-1.4 1.4 3.2 3.2z" />
                     </svg>
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-semibold text-ink/70 leading-tight whitespace-nowrap">
+                  <div className="text-xs font-semibold text-ink/70 leading-tight whitespace-nowrap">
                     10K followers
                   </div>
                 </div>
@@ -326,7 +358,7 @@ export function BuyerStories() {
         </div>
 
         {/* 6. Carousel Controls & Filter Tabs Bar */}
-        <div className="flex items-center justify-between gap-4 mb-4 pb-2 border-b border-ink/10 w-full min-w-0">
+        <div className="flex items-center justify-between gap-4 mb-4 pb-2 w-full min-w-0">
           
           {/* Quick Filter Pill Chips: Desktop and tablet */}
           <div className="hidden sm:flex items-center gap-2 overflow-x-auto no-scrollbar py-1 min-w-0 scroll-pl-4 sm:scroll-pl-6">
@@ -445,13 +477,13 @@ export function BuyerStories() {
                         </span>
                         <CheckCircle2 className="w-3 h-3 text-turmeric shrink-0 fill-turmeric/20" />
                       </div>
-                      <span className="text-[10px] text-white/70 block leading-none truncate">
+                      <span className="block truncate text-xs leading-none text-white/70">
                         {story.city}
                       </span>
                     </div>
                   </div>
 
-                  <span className="text-[10px] bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full font-semibold shrink-0">
+                  <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold backdrop-blur-md">
                     {idx + 1}/{activeStories.length}
                   </span>
                 </div>
@@ -466,10 +498,7 @@ export function BuyerStories() {
 
                 {/* Bottom Review Quote Overlay */}
                 <div className="absolute bottom-3 left-3 right-3 text-white z-15">
-                  <p className="text-xs sm:text-[13px] font-medium leading-snug line-clamp-2 text-white/95 drop-shadow-md mb-2 italic">
-                    &ldquo;{story.quote}&rdquo;
-                  </p>
-                  <div className="flex items-center justify-between text-[10px] text-turmeric font-semibold border-t border-white/15 pt-1.5">
+                  <div className="flex items-center justify-between pt-1.5 text-xs font-semibold text-turmeric">
                     <div className="flex items-center gap-1">
                       <MapPin className="w-3 h-3 text-turmeric" />
                       <span>{story.city}, {story.stateOrCountry}</span>

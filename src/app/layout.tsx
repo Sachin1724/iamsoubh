@@ -94,10 +94,13 @@ export const metadata: Metadata = {
   title: "IAMSOUBH — Bara Masa Tera Parba 2027 | The Odia Viral Calendar",
   description:
     "Pre-orders open for the first 500 boxes of the 2027 edition. 12 festival cards, sealed 13th parba, stickers, and Odisha heritage. For everyone who misses Odisha without saying it.",
+  // No photo of the 2027 box anywhere, including the link preview: three card
+  // fronts fanned out is the share image until the first parcels ship.
   openGraph: {
-    title: "The Odia Viral Calendar is back | 2027 Edition",
-    description: "Pre-orders open for the first 500 boxes. ₹299 pre-order price.",
-    images: ["/assets/brand/odia-hero-title.webp"],
+    title: "The Odia Viral Calendar is back · 2027",
+    description:
+      "12 festival cards, one sealed 13th parba. Only 500 in batch 1, shipping the first week of November.",
+    images: ["/assets/product/cards-fan-hero.webp"],
   },
 };
 

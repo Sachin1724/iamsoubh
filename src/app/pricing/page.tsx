@@ -17,8 +17,12 @@ export default function Pricing() {
         <li>
           <strong>Family Pack (x3)</strong> — <span className="rupee">₹</span>
           {products.family.price}, which works out at <span className="rupee">₹</span>
-          {products.family.perBox} a box. All three 13th parbas guaranteed, plus an extra
-          sticker sheet.
+          {products.family.perBox} a box. For Maa, Bapa and you, plus an extra sticker sheet.
+        </li>
+        <li>
+          <strong>Gift Pack (x5)</strong> — <span className="rupee">₹</span>
+          {products.gift.price}, about <span className="rupee">₹</span>
+          {products.gift.perBox} a box. Keep one, gift four.
         </li>
       </ul>
 
@@ -29,7 +33,7 @@ export default function Pricing() {
       </p>
 
       <h2>Shipping</h2>
-      <p>Free across India. There is no delivery charge on any order in batch 1.</p>
+      <p>Free anywhere in India, whether you buy 1, 3 or 5 boxes. There is no delivery charge on any order in batch 1.</p>
 
       <h2>Bulk orders</h2>
       <p>

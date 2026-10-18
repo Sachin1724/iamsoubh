@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { SectionArt } from "@/components/SectionArt";
 import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight } from "lucide-react";
 import { creators } from "@/data/creators";
 import { trackGA } from "@/lib/track";
@@ -82,7 +83,7 @@ export function CreatorVideos() {
   return (
     <section
       id="creators"
-      className="relative py-16 sm:py-24 bg-[#141414] text-rice scroll-mt-24 overflow-hidden"
+      className="relative py-24 sm:py-36 bg-pipili-teal text-on-dark scroll-mt-24 overflow-hidden"
     >
       {/* 1. Odia Folk Pattern Texture with Deep Forest Green Tint */}
       <div
@@ -108,6 +109,9 @@ export function CreatorVideos() {
         />
       </div>
 
+      {/* A big lotus, half off the left edge */}
+      <SectionArt name="lotus" className="z-0 text-line-teal opacity-60" />
+
       {/* 4. Main Section Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -117,22 +121,22 @@ export function CreatorVideos() {
                 05
               </span>
               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-turmeric/85">
-                ON CAMERA
+                From the creators
               </span>
             </div>
 
-            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-cream">
-              Ask them, not me.
+            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-turmeric">
+              Hear it from the creators.
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-rice/90 max-w-xl font-subtext font-normal leading-relaxed">
-              What happened when six creators unboxed the calendar on camera.
+            <p className="mt-3 text-base sm:text-lg text-on-dark/90 max-w-xl font-subtext font-normal leading-relaxed">
+              Six creators opened the box on camera. Here&apos;s what they said.
             </p>
           </div>
 
           {/* Navigation Controls */}
           <div className="flex items-center gap-3 self-start md:self-auto">
-            <span className="text-xs text-rice/60 hidden sm:inline">
-              Swipe or click arrows
+            <span className="text-xs text-on-dark/60 hidden sm:inline">
+              Swipe to see more
             </span>
             <button
               onClick={() => scroll("left")}
@@ -249,7 +253,7 @@ function CreatorCard({
   return (
     <div
       ref={cardRef}
-      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric transition-all duration-300 group hover:-translate-y-1 shadow-xl"
+      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric transition-all duration-300 group hover:-translate-y-1"
     >
       <div className="relative aspect-[9/16] bg-[#0F0F0F]">
         {creator.video ? (
@@ -291,7 +295,7 @@ function CreatorCard({
         )}
 
         {creator.collab && (
-          <span className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-rice text-ink border border-ink shadow-xs">
+          <span className="absolute top-3 left-3 text-xs font-bold px-2.5 py-0.5 rounded-full bg-rice text-ink border border-ink shadow-xs">
             Collaborator
           </span>
         )}
@@ -312,11 +316,11 @@ function CreatorCard({
       </div>
 
       {/* Reaction and Handle Bar */}
-      <div className="p-4 bg-[#092D23]/95 border-t border-turmeric/20">
+      <div className="bg-[#092D23]/95 p-4">
         <p className="text-xs sm:text-sm font-semibold text-cream line-clamp-1 mb-1">
           {creator.pullLine || "Feels like home on my wall"}
         </p>
-        <span className="text-[11px] font-bold text-turmeric block">
+        <span className="text-xs font-bold text-turmeric block">
           @{creator.handle || "iamsoubh"}
         </span>
       </div>

@@ -16,6 +16,32 @@
   --color-sand: #FAF6EE;
   --color-teal: #009EA8;
   --color-cocoa: #4A2E1B;
+
+  /* 12px is below the floor for anything meant to be read, and `text-xs` is
+     the page's workhorse small size, so the step itself moves to 13px. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.35;
+
+  /* Pipili appliqué palette — one bold colour per section, each with its own
+     lighter line-drawing shade. Rath Yatra umbrellas and canopies. */
+  --color-pipili-yellow: #F2B035;
+  --color-pipili-indigo: #1F2D66;
+  --color-pipili-green: #1F6B3A;
+  --color-pipili-teal: #0F4C5C;
+  --color-pipili-red: #8E1B1B;
+  --color-pipili-cream: #FFF4E2;
+
+  --color-line-yellow: #E69E32;
+  --color-line-indigo: #414C7D;
+  --color-line-green: #418158;
+  --color-line-teal: #336774;
+  --color-line-red: #9F3D3D;
+  --color-line-cream: #F6E3D2;
+
+  /* Deep maroon on yellow and cream; cream on every dark section. Turmeric is
+     too weak on green for small text, so it is for big headings only. */
+  --color-on-light: #5A0F14;
+  --color-on-dark: #FFF4E2;
 }
 
 @layer base {
@@ -742,6 +768,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Running text floor. Small print may step down, body copy may not. */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 /* The sticky order bar floats over the footer; keep the last rows reachable */
 @media (max-width: 767px) {
   body {
@@ -760,6 +792,74 @@ body {
 html.lenis,
 html.lenis body {
   height: auto;
+}
+
+@layer components {
+  /* Type scale, Apple's rule: tracking and leading are size-specific, never one
+     value for every size. Large text tightens, body sits near zero. */
+  .u-display {
+    font-size: clamp(2.25rem, 6vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  .u-statement {
+    font-size: clamp(1.375rem, 3.2vw, 2rem);
+    line-height: 1.22;
+    letter-spacing: -0.014em;
+    text-wrap: pretty;
+  }
+
+  .u-body {
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.58;
+    letter-spacing: 0;
+    text-wrap: pretty;
+  }
+}
+
+/* Figures in a tally line up and read as one column. */
+.u-figure {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* An entrance shaped like a critically damped spring: it arrives and settles,
+   it never overshoots. Gesture-driven motion uses real springs in JS. */
+.reveal-spring,
+.reveal-spring-stagger > * {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-spring.is-in,
+.reveal-spring-stagger.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+.reveal-spring-stagger.is-in > *:nth-child(2) { transition-delay: 90ms; }
+.reveal-spring-stagger.is-in > *:nth-child(3) { transition-delay: 180ms; }
+.reveal-spring-stagger.is-in > *:nth-child(4) { transition-delay: 270ms; }
+.reveal-spring-stagger.is-in > *:nth-child(n + 5) { transition-delay: 360ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-spring,
+  .reveal-spring-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+}
+
+/* Reduced transparency: the frosted surfaces go solid rather than frosty. */
+@media (prefers-reduced-transparency: reduce) {
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+  }
 }
 
 /* Scroll reveal: opt in with `reveal`, stagger children with `reveal-stagger`. */
@@ -969,3 +1069,20 @@ html.lenis body {
   }
 }
 
+
+/* Switching packs drops the parcels in with a small bounce. */
+@keyframes parcel-drop {
+  0% { transform: translateY(-14px) scale(0.96); opacity: 0; }
+  60% { transform: translateY(4px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.animate-parcel-drop {
+  animation: parcel-drop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-parcel-drop {
+    animation: none;
+  }
+}

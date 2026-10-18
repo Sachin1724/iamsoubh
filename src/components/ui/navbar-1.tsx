@@ -3,7 +3,9 @@
 import * as React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageCircle, AtSign } from "lucide-react";
+import { siteConfig, products } from "@/config/site-config";
+import { trackGA } from "@/lib/track";
 
 export interface NavItem {
   name: string;
@@ -16,6 +18,8 @@ export interface Navbar1Props {
   ctaHref?: string;
   onCtaClick?: () => void;
   brandLogo?: React.ReactNode;
+  /** Shown at the top of the mobile drawer; falls back to brandLogo. */
+  drawerLogo?: React.ReactNode;
   brandName?: string;
   className?: string;
   containerClassName?: string;
@@ -34,13 +38,19 @@ const Navbar1 = ({
   ctaHref = "#",
   onCtaClick,
   brandLogo,
+  drawerLogo,
   className = "",
   containerClassName = "",
 }: Navbar1Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string>("#hero");
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen((open) => {
+      if (!open) trackGA("menu_open");
+      return !open;
+    });
+  };
 
   // Normalize navItems to { name, href } objects
   const items: NavItem[] = React.useMemo(() => {
@@ -103,6 +113,27 @@ const Navbar1 = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [items]);
 
+  // While the drawer is open the page behind it must not scroll, and the back
+  // gesture should close the drawer rather than leave the page.
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    history.pushState({ menu: true }, "");
+    const onPop = () => setIsOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("popstate", onPop);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("popstate", onPop);
+      window.removeEventListener("keydown", onKey);
+      if (history.state?.menu) history.back();
+    };
+  }, [isOpen]);
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
@@ -138,7 +169,7 @@ const Navbar1 = ({
   return (
     <div className={`flex justify-center w-full ${containerClassName}`}>
       <div
-        className={`flex items-center justify-between px-3.5 sm:px-6 lg:px-8 py-1.5 sm:py-2.5 md:py-3 rounded-full w-full relative z-10 transition-all ${className}`}
+        className={`relative z-10 flex w-full items-center justify-between ${className}`}
       >
         <div className="flex items-center shrink-0">
           {brandLogo ? (
@@ -165,7 +196,7 @@ const Navbar1 = ({
         </div>
 
         {/* Desktop Navigation with animated active highlight */}
-        <nav className="hidden md:flex items-center space-x-0.5 sm:space-x-1 lg:space-x-2 xl:space-x-3" aria-label="Main Navigation">
+        <nav className="hidden items-center gap-4 md:flex lg:gap-6" aria-label="Main Navigation">
           {items.map((item) => {
             const isActive = activeHref === item.href;
             return (
@@ -173,26 +204,17 @@ const Navbar1 = ({
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className={`relative px-3 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 rounded-full text-xs lg:text-sm font-medium transition-all select-none cursor-pointer flex items-center gap-1.5 ${
-                  isActive
-                    ? "text-brand font-bold"
-                    : "text-ink/75 hover:text-brand hover:bg-brand/5"
+                className={`relative flex items-center gap-1.5 px-2 py-1.5 text-sm font-semibold transition-opacity select-none cursor-pointer lg:px-2.5 ${
+                  isActive ? "opacity-100" : "opacity-65 hover:opacity-100"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
-                {isActive && (
-                  <motion.span
-                    layoutId="activeNavHighlight"
-                    className="absolute inset-0 rounded-full bg-brand/10 border border-brand/30"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10 flex items-center gap-1.5">
+                <span className="relative">
                   {item.name}
                   {isActive && (
                     <motion.span
-                      layoutId="activeNavDot"
-                      className="w-1.5 h-1.5 rounded-full bg-brand"
+                      layoutId="activeNavRule"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-current"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -225,7 +247,7 @@ const Navbar1 = ({
         {/* Mobile Action Cluster: Hamburger Toggle */}
         <div className="flex md:hidden items-center shrink-0">
           <motion.button
-            className="flex items-center p-1.5 rounded-full text-current hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+            className="flex items-center p-1.5 text-current transition-opacity hover:opacity-70 cursor-pointer"
             onClick={toggleMenu}
             whileTap={{ scale: 0.9 }}
             aria-label="Toggle Menu"
@@ -235,23 +257,20 @@ const Navbar1 = ({
         </div>
       </div>
 
-      {/* Mobile Menu Drawer Overlay */}
+      {/* Mobile Menu Drawer, sliding in from the right */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             className="fixed inset-0 bg-white/98 backdrop-blur-xl z-50 pt-5 px-6 md:hidden pointer-events-auto flex flex-col justify-between pb-8 shadow-2xl"
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.2 }}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Top Bar inside Drawer */}
-            <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-              <div className="flex items-center">
-                {brandLogo}
-              </div>
+            {/* Nothing at the top but the way out */}
+            <div className="flex justify-end">
               <motion.button
-                className="p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors cursor-pointer"
+                className="rounded-full bg-gray-100 p-2.5 transition-colors hover:bg-gray-200 active:bg-gray-300 cursor-pointer"
                 onClick={toggleMenu}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Close Menu"
@@ -260,8 +279,14 @@ const Navbar1 = ({
               </motion.button>
             </div>
 
+            {/* The lockup sits with the links, not stranded at the top:
+                the calendar's name, then who makes it. */}
+            <div className="mt-auto flex items-center justify-center pb-6">
+              {drawerLogo ?? brandLogo}
+            </div>
+
             {/* Menu Links with active indicator */}
-            <div className="flex flex-col space-y-3 my-auto py-6">
+            <div className="flex flex-col space-y-3 pb-6">
               {items.map((item, i) => {
                 const isActive = activeHref === item.href;
                 return (
@@ -283,12 +308,10 @@ const Navbar1 = ({
                     >
                       <span className="flex items-center gap-2">
                         {item.name}
-                        {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-chandua" />
-                        )}
+                        {isActive && <span className="w-2 h-2 rounded-full bg-chandua" />}
                       </span>
                       <span className={isActive ? "text-chandua" : "text-gray-400"}>
-                        →
+                        &rarr;
                       </span>
                     </a>
                   </motion.div>
@@ -307,18 +330,36 @@ const Navbar1 = ({
                   className="inline-flex items-center justify-center w-full px-5 py-3 text-base font-bold text-ink bg-turmeric hover:bg-[#E5B23F] active:translate-x-[1px] active:translate-y-[1px] rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] transition-all cursor-pointer"
                   onClick={handleCtaClick}
                 >
-                  {ctaText} · ₹299
+                  {ctaText ?? "Pre-book now"} &middot; from &#8377;{products.single.price}
                 </a>
               </motion.div>
             </div>
 
             {/* Drawer Footer */}
-            <div className="text-center text-xs text-gray-400 border-t border-gray-100 pt-3">
-              IAMSOUBH · Bara Masa Tera Parba 2027
+            <div className="flex items-center justify-center gap-5 border-t border-gray-100 pt-3 text-xs font-semibold text-gray-500">
+              <a
+                href={siteConfig.whatsappWaitlistUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-[44px] items-center gap-2 hover:text-chandua"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp me
+              </a>
+              <a
+                href={siteConfig.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-[44px] items-center gap-2 hover:text-chandua"
+              >
+                <AtSign className="h-4 w-4" />
+                Instagram
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
     </div>
   );
 };

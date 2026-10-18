@@ -18,12 +18,13 @@ export function getRazorpay(): Razorpay {
 export const PRICING = {
   single: { price: 299, boxesEach: 1, maxQty: 9 },
   family: { price: 749, boxesEach: 3, maxQty: 3 },
+  gift: { price: 1149, boxesEach: 5, maxQty: 1 },
 } as const;
 
 export type ServerProduct = keyof typeof PRICING;
 
 export function isProduct(v: unknown): v is ServerProduct {
-  return v === "single" || v === "family";
+  return v === "single" || v === "family" || v === "gift";
 }
 
 export const forceSoldOut = () => process.env.FORCE_SOLD_OUT === "true";

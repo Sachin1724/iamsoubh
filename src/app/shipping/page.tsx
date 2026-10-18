@@ -19,7 +19,7 @@ export default function Shipping() {
 
       <h2>When it ships</h2>
       <p>
-        Boxes ship from the {siteConfig.shipDateLabel.toLowerCase()}. Delivery then takes about
+        Boxes ship from the {siteConfig.shipDateInline}. Delivery then takes about
         3 to 7 working days depending on your pincode.
       </p>
       <p>

@@ -2,6 +2,7 @@
 
 import { track } from "@/lib/track";
 import { getUtm } from "@/lib/utm";
+import { products } from "@/config/site-config";
 import type { OrderData } from "@/components/PreorderSection";
 
 declare global {
@@ -43,10 +44,7 @@ export async function startCheckout(
   order: OrderData,
   onDismiss: () => void
 ): Promise<CheckoutResult> {
-  const label =
-    order.product === "family"
-      ? "Odia Viral Calendar 2027 · Family Pack"
-      : "Odia Viral Calendar 2027 · Single Box";
+  const label = `Odia Viral Calendar 2027 · ${products[order.product].name}`;
 
   track("InitiateCheckout", "begin_checkout", {
     value: order.total,
@@ -67,12 +65,6 @@ export async function startCheckout(
           name: order.fullName,
           phone: order.phone,
           email: order.email,
-          pincode: order.pincode,
-          city: order.city,
-          state: order.state,
-          address: order.address,
-          landmark: order.landmark,
-          giftNote: order.giftNote,
         },
         utm: getUtm(),
       }),

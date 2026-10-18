@@ -9,10 +9,13 @@ export const siteConfig = {
   soldOut: false,
 
   shipDateLabel: "First week of November 2026",
+  // Same date set mid-sentence, so November keeps its capital.
+  shipDateInline: "first week of November 2026",
   refundDeadlineLabel: "15 November 2026",
 
   freeShippingIndia: true,
   indiaOnly: true,
+  freeDeliveryLabel: "Free delivery anywhere in India",
 
   author: "Soubhagya Ranjan",
   handle: "@iamsoubh",
@@ -42,8 +45,9 @@ export const products = {
     pricePaise: 29900,
     strikePrice: 339,
     maxQty: 9,
-    description:
-      "One box, twelve parbas, and one sealed 13th you only meet when it arrives.",
+    payButtonLabel: "Let's Odia this",
+    parcelImage: "/assets/product/parcel-1.webp",
+    description: "One box for you. 12 cards and a sealed 13th.",
   },
   family: {
     id: "family" as const,
@@ -53,9 +57,23 @@ export const products = {
     pricePaise: 74900,
     perBox: 250,
     maxQty: 3,
-    badge: "Best value · ₹250 a box",
-    description:
-      "For Maa, Bou, your favorite coworker, and that one cousin in Bengaluru. All three 13th parbas guaranteed, plus an extra sticker sheet.",
+    badge: "Save ₹148",
+    payButtonLabel: "Odia-fy the family",
+    parcelImage: "/assets/product/parcel-3.webp",
+    description: "For Maa, Bapa and you.",
+  },
+  gift: {
+    id: "gift" as const,
+    name: "Gift Pack (x5)",
+    boxes: 5,
+    price: 1149,
+    pricePaise: 114900,
+    perBox: 230,
+    maxQty: 1,
+    badge: "Best value · Save ₹346",
+    payButtonLabel: "Odia-fy everyone",
+    parcelImage: "/assets/product/parcel-5.webp",
+    description: "Keep one, gift four.",
   },
 } as const;
 

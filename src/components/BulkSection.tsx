@@ -9,7 +9,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
   return (
     <section
       id="bulk"
-      className="relative py-16 sm:py-24 bg-brand text-rice scroll-mt-24 overflow-clip"
+      className="relative py-24 sm:py-36 bg-pipili-red text-on-dark scroll-mt-24 overflow-clip"
     >
       {/* 1. Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
@@ -50,7 +50,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
             </div>
 
             <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-cream max-w-2xl">
-              Ordering for the whole parivar? Or the whole office?
+              For your parivar. Or your office.
             </h2>
 
             <div className="mt-6 space-y-3 max-w-xl text-sm sm:text-base text-rice/90 leading-relaxed font-medium">
@@ -87,7 +87,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
               {[
                 { count: "10+", perk: "Coworker gifts · custom sleeve" },
                 { count: "25+", perk: "Your logo on the box" },
-                { count: "50+", perk: "Best price · free shipping" },
+                { count: "50+", perk: "Best price, one invoice" },
               ].map((tier) => (
                 <div
                   key={tier.count}
@@ -96,7 +96,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
                   <span className="block font-gazpacho text-xl font-bold text-turmeric transition-transform duration-300 group-hover:-translate-y-0.5">
                     {tier.count}
                   </span>
-                  <span className="block text-[11px] font-semibold leading-snug text-rice/85">
+                  <span className="block text-xs font-semibold leading-snug text-rice/85">
                     {tier.perk}
                   </span>
                 </div>
@@ -113,15 +113,15 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
 
               <div className="relative overflow-hidden rounded-2xl border-2 border-ink bg-cream shadow-[6px_6px_0_0_var(--color-ink)] transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(6deg)_rotateY(-8deg)_translateY(-6px)]">
                 <Image
-                  src="/assets/product/box-open.webp"
-                  alt="The 2027 box, opened"
+                  src="/assets/product%20mockup/View%204.png"
+                  alt="The festival cards"
                   width={640}
-                  height={640}
-                  className="h-auto w-full object-cover"
+                  height={480}
+                  className="h-auto w-full scale-110 object-contain"
                 />
                 <div className="flex items-center justify-between gap-2 bg-ink px-3 py-2">
                   <span className="font-gazpacho text-sm font-bold text-white">Bulk Parivar Pack</span>
-                  <span className="rounded-full bg-turmeric px-2 py-0.5 text-[10px] font-black text-ink">
+                  <span className="rounded-full bg-turmeric px-2 py-0.5 text-xs font-black text-ink">
                     10+ BOXES
                   </span>
                 </div>
@@ -129,7 +129,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
 
               {/* Handwritten Stamp Note */}
               <div className="absolute -top-5 -right-4 z-20 rotate-6 select-none animate-float-gentle transition-transform duration-500 group-hover:rotate-2">
-                <div className="rounded border border-[#E6C63B] bg-gold px-3 py-2 text-[11px] font-serif font-bold leading-tight text-brand shadow-md">
+                <div className="rounded border border-[#E6C63B] bg-gold px-3 py-2 text-xs font-editorial font-bold leading-tight text-brand shadow-md">
                   Same calendar. <br />
                   More people. <br />
                   More parba.

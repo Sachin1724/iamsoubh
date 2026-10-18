@@ -9,22 +9,53 @@ interface HeaderProps {
   onOrderClick?: () => void;
 }
 
+// Page order. No "Hero" - the logo already takes you to the top - and no
+// "Order", because the drawer button below the links is the order link.
 const navItems: NavItem[] = [
-  { name: "Hero", href: "#hero" },
-  { name: "What's inside", href: "#inside-calendar" },
+  { name: "Inside the box", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
   { name: "Creators", href: "#creators" },
+  { name: "Bulk and gifting", href: "#bulk" },
   { name: "Questions", href: "#faq" },
 ];
 
+// The header has no bar of its own, so its marks take their colour from
+// whichever section is passing underneath.
+const DARK_SECTIONS = new Set(["sound-familiar", "creators", "bulk"]);
+
 export function Header({ onOrderClick }: HeaderProps) {
-  const [scrolled, setScrolled] = React.useState(false);
+  const [onDark, setOnDark] = React.useState(false);
 
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const ids = [
+      "hero",
+      "sound-familiar",
+      "inside-calendar",
+      "stories",
+      "creators",
+      "preorder",
+      "bulk",
+      "faq",
+    ];
+
+    const update = () => {
+      // Sample the page at the header's own eye-line.
+      const y = window.scrollY + 48;
+      let current = "hero";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) current = id;
+      }
+      setOnDark(DARK_SECTIONS.has(current));
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   const handleCtaClick = () => {
@@ -40,17 +71,15 @@ export function Header({ onOrderClick }: HeaderProps) {
       <Navbar1
         navItems={navItems}
         onCtaClick={handleCtaClick}
-        containerClassName="pointer-events-none py-2 sm:py-3 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto"
-        className={`pointer-events-auto border-2 transition-all duration-300 ${
-          scrolled
-            ? "bg-sand border-brand/30 text-brand shadow-md backdrop-blur-md"
-            : "bg-sand/92 backdrop-blur-md border-brand/20 text-brand"
+        containerClassName="pointer-events-none px-4 py-3 sm:px-6 sm:py-4 lg:px-8 w-full max-w-7xl mx-auto"
+        className={`pointer-events-auto transition-colors duration-500 ${
+          onDark ? "text-on-dark" : "text-on-light"
         }`}
         brandLogo={
           <a
             href="#hero"
             className="flex items-center group pointer-events-auto cursor-pointer"
-            aria-label="IAMSOUBH Home"
+            aria-label="Bara Masa Tera Parba by IAMSOUBH — Home"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -62,10 +91,46 @@ export function Header({ onOrderClick }: HeaderProps) {
               width={180}
               height={50}
               priority
-              className="h-6 sm:h-9 md:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
-              style={{ filter: "brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(3400%) hue-rotate(345deg)" }}
+              className={`h-6 w-auto object-contain transition-opacity group-hover:opacity-85 sm:h-8 md:h-9 ${
+                onDark ? "brightness-0 invert" : ""
+              }`}
+              style={
+                onDark
+                  ? undefined
+                  : {
+                      filter:
+                        "brightness(0) saturate(100%) invert(10%) sepia(40%) saturate(4000%) hue-rotate(338deg)",
+                    }
+              }
             />
           </a>
+        }
+        drawerLogo={
+          // One horizontal lockup for the drawer: the calendar's name, "by",
+          // then the IAMSOUBH wordmark. Both marks are forced to the deep
+          // maroon here, because the header's own ink flips with the section
+          // and would otherwise turn the wordmark white on the white drawer.
+          <span className="flex items-center justify-center gap-2.5">
+            <Image
+              src="/assets/product-logo-v2.png"
+              alt="Bara Masa Tera Parba"
+              width={782}
+              height={383}
+              className="h-11 w-auto object-contain"
+            />
+            <span className="font-editorial text-sm italic text-gray-500">by</span>
+            <Image
+              src="/assets/brand/calogo.png"
+              alt="IAMSOUBH"
+              width={180}
+              height={50}
+              className="h-5 w-auto object-contain"
+              style={{
+                filter:
+                  "brightness(0) saturate(100%) invert(10%) sepia(40%) saturate(4000%) hue-rotate(338deg)",
+              }}
+            />
+          </span>
         }
       />
     </header>

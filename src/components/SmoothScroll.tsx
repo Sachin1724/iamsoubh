@@ -29,8 +29,12 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Respect user's motion preferences
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Respect user's motion preferences. ?nosmooth hands scrolling back to the
+    // browser so screenshot tools can step down the page.
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      new URLSearchParams(window.location.search).has("nosmooth")
+    ) {
       return;
     }
 

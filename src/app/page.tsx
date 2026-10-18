@@ -8,11 +8,12 @@ import { Footer } from "@/components/Footer";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
 import { BulkQuoteManager } from "@/components/BulkQuoteManager";
 import { UtmTracker } from "@/components/UtmTracker";
+import { ScrollPhysics } from "@/components/ScrollPhysics";
 
 // Dynamic code splitting for below-the-fold interactive carousels:
 // Server renders the HTML while deferring non-critical JS chunks until needed.
-const MonthCarousel = dynamic(
-  () => import("@/components/MonthCarousel").then((m) => m.MonthCarousel),
+const InsideTheBox = dynamic(
+  () => import("@/components/InsideTheBox").then((m) => m.InsideTheBox),
   { ssr: true }
 );
 
@@ -28,8 +29,9 @@ const CreatorVideos = dynamic(
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col bg-rice relative selection:bg-turmeric selection:text-ink overflow-x-clip">
+    <main className="min-h-screen flex flex-col bg-pipili-cream relative selection:bg-turmeric selection:text-ink overflow-x-clip">
       <UtmTracker />
+      <ScrollPhysics />
       <Header />
 
       {/* 01: Hero */}
@@ -40,15 +42,15 @@ export default function HomePage() {
       <SoundFamiliar />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 03: Inside the Calendar (Dynamic Client Island) */}
-      <MonthCarousel />
+      {/* 03: Inside the Box (Dynamic Client Island) */}
+      <InsideTheBox />
       <div className="strip strip-pattachitra" aria-hidden />
 
       {/* 04: Stories (Dynamic Client Island) */}
       <BuyerStories />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 05: On Camera (Dynamic Client Island) */}
+      {/* 05: From the creators (Dynamic Client Island) */}
       <CreatorVideos />
       <div className="strip strip-pattachitra" aria-hidden />
 

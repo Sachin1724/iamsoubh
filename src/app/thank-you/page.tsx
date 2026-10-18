@@ -13,6 +13,44 @@ type Status = {
   amountInr?: number;
 };
 
+// Every box gets one of three sealed 13th parbas at random. Guessing which one
+// is the one thing there is left to do while waiting for November.
+const PARBAS = ["Sahi Jata", "Sitalsasthi", "Gajalaxmi Puja"];
+
+function ParbaGuess() {
+  const [guess, setGuess] = useState<string | null>(null);
+
+  return (
+    <div className="mt-8 rounded-2xl border border-rice/25 bg-black/15 p-5">
+      <p className="text-sm font-bold text-turmeric">
+        Which 13th parba do you think you&apos;ll get?
+      </p>
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        {PARBAS.map((p) => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => setGuess(p)}
+            aria-pressed={guess === p}
+            className={`min-h-[44px] rounded-full border px-4 text-sm font-bold transition-colors ${
+              guess === p
+                ? "border-turmeric bg-turmeric text-ink"
+                : "border-rice/40 text-rice hover:border-turmeric"
+            }`}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+      {guess && (
+        <p className="mt-3 text-sm text-rice/90">
+          {guess} it is. We&apos;ll find out in November!
+        </p>
+      )}
+    </div>
+  );
+}
+
 function ThankYouBody() {
   const orderId = useSearchParams().get("o");
   const [data, setData] = useState<Status | null>(null);
@@ -90,9 +128,10 @@ function ThankYouBody() {
               </p>
             )}
             <p className="mt-4 text-base text-rice/90">
-              Ships from the {siteConfig.shipDateLabel.toLowerCase()}. Your tracking link reaches
+              Ships from the {siteConfig.shipDateInline}. Your tracking link reaches
               you on WhatsApp and email the day it leaves.
             </p>
+            <ParbaGuess />
           </>
         ) : timedOut ? (
           <>

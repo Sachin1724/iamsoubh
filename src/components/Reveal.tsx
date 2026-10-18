@@ -24,7 +24,7 @@ export function RevealObserver() {
 
     const seen = new WeakSet<Element>();
     const scan = () => {
-      for (const el of document.querySelectorAll(".reveal:not(.is-in), .reveal-stagger:not(.is-in)")) {
+      for (const el of document.querySelectorAll(".reveal:not(.is-in), .reveal-stagger:not(.is-in), .reveal-spring:not(.is-in), .reveal-spring-stagger:not(.is-in)")) {
         if (!seen.has(el)) {
           seen.add(el);
           io.observe(el);

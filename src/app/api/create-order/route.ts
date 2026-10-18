@@ -14,6 +14,14 @@ type Customer = {
   giftNote?: string;
 };
 
+// The box stays secret until it ships, so the checkout line item shows the
+// gamuchha-wrapped parcel instead.
+const LABELS = {
+  single: "Single Box",
+  family: "Family Pack (3 boxes)",
+  gift: "Gift Pack (5 boxes)",
+} as const;
+
 export async function POST(req: NextRequest) {
   if (forceSoldOut()) {
     return NextResponse.json({ code: "SOLD_OUT" }, { status: 409 });
@@ -55,10 +63,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const site = process.env.NEXT_PUBLIC_SITE_URL || "https://iamsoubh.com";
-    const label =
-      product === "family"
-        ? "Odia Viral Calendar 2027 · Family Pack (3 boxes)"
-        : "Odia Viral Calendar 2027 · Single Box";
+    const label = `Odia Viral Calendar 2027 · ${LABELS[product]}`;
 
     // The SDK's types predate Magic Checkout's line_items, so the payload is
     // built loosely and cast back to what orders.create accepts.
@@ -78,7 +83,7 @@ export async function POST(req: NextRequest) {
           quantity,
           name: label,
           description: `${boxes} box${boxes > 1 ? "es" : ""} · 12 festival cards, a sealed 13th parba, stickers and a note.`,
-          image_url: `${site}/assets/product/box-open.webp`,
+          image_url: `${site}/assets/product/parcel-${rules.boxesEach}.webp`,
         },
       ],
       // Razorpay is the only order store now, so everything the admin mail and

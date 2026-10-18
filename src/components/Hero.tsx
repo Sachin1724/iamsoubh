@@ -1,60 +1,18 @@
 "use client";
 
 import React from "react";
-import { ArrowRight } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { HeroCardsCarousel } from "@/components/HeroCardsCarousel";
+import { ArrowRight, Truck } from "lucide-react";
 import { AmbientFestiveLayer } from "@/components/AmbientFestiveLayer";
 import { scrollToTarget } from "@/components/SmoothScroll";
+import { SectionArt } from "@/components/SectionArt";
+import { siteConfig } from "@/config/site-config";
 
 interface HeroProps {
   onOrderClick?: () => void;
 }
 
-const TICKER_WORDS = [
-  "Only 500 boxes in batch 1",
-  "Ships first week of November",
-  "Free shipping across India",
-  "Sealed 13th parba",
-];
-
-function HeroTrustTicker() {
-  const [index, setIndex] = React.useState(0);
-  const reduceMotion = useReducedMotion();
-
-  React.useEffect(() => {
-    if (reduceMotion) return;
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % TICKER_WORDS.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, [reduceMotion]);
-
-  return (
-    <div className="flex items-center justify-center min-h-[30px] overflow-hidden select-none" aria-live="polite">
-      <AnimatePresence mode="wait">
-        <motion.button
-          key={index}
-          type="button"
-          initial={reduceMotion ? false : { opacity: 0, y: 12, rotateX: -60 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          exit={reduceMotion ? undefined : { opacity: 0, y: -12, rotateX: 60 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          style={{ perspective: 600, transformStyle: "preserve-3d" }}
-          className="inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs md:text-sm text-brand font-subtext font-semibold whitespace-nowrap cursor-pointer rounded-full px-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-          onClick={() => setIndex((prev) => (prev + 1) % TICKER_WORDS.length)}
-          title="Click to advance"
-        >
-          <span className="w-2 h-2 rounded-full bg-parrot shrink-0 animate-pulse shadow-[0_0_6px_var(--color-parrot)] motion-reduce:animate-none" aria-hidden="true" />
-          <span className="tracking-wide">{TICKER_WORDS[index]}</span>
-        </motion.button>
-      </AnimatePresence>
-    </div>
-  );
-}
-
 const HEADLINE =
-  "font-bigdream text-[clamp(3.2rem,11vw,7.8rem)] font-bold tracking-tight leading-[0.82] text-brand select-none text-center w-full block";
+  "font-bigdream text-[clamp(3.6rem,15vw,9rem)] font-bold tracking-tight leading-[0.82] text-on-light select-none text-center w-full block";
 
 export function Hero({ onOrderClick }: HeroProps) {
   const handleOrder = () => {
@@ -68,98 +26,72 @@ export function Hero({ onOrderClick }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 md:pt-30 pb-4 sm:pb-6 bg-sand text-ink overflow-hidden"
+      className="relative min-h-[100dvh] flex flex-col justify-center pt-24 pb-10 sm:pt-28 sm:pb-12 bg-pipili-yellow text-on-light overflow-hidden"
     >
-      {/* Living Cultural Ambient Layer (Warm Temple Glow, Floating Petals, Sun Sparks, Heritage Art) */}
+      {/* Konark wheel, half off the right edge */}
+      <SectionArt name="wheel" className="z-0 text-line-yellow opacity-70" />
+
+      {/* Living Cultural Ambient Layer (Warm Temple Glow, Sun Sparks, Heritage Art) */}
       <AmbientFestiveLayer />
 
-      {/* Sambalpuri Pata Vertical Handloom Borders */}
-      <div
-        className="absolute top-0 bottom-0 left-0 w-3 sm:w-4 md:w-5 z-25 pointer-events-none select-none opacity-90 shadow-[2px_0_8px_rgba(0,0,0,0.08)]"
-        style={{
-          backgroundImage: "url('/patterns/border-sambalpuri-vertical.svg')",
-          backgroundRepeat: "repeat-y",
-          backgroundSize: "100% auto",
-        }}
-        aria-hidden="true"
-      />
-
-      <div
-        className="absolute top-0 bottom-0 right-0 w-3 sm:w-4 md:w-5 z-25 pointer-events-none select-none opacity-90 shadow-[-2px_0_8px_rgba(0,0,0,0.08)]"
-        style={{
-          backgroundImage: "url('/patterns/border-sambalpuri-vertical.svg')",
-          backgroundRepeat: "repeat-y",
-          backgroundSize: "100% auto",
-          transform: "scaleX(-1)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Sambalpuri Pata Horizontal Bottom Ribbon */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-8 sm:h-10 z-25 pointer-events-none select-none shadow-[0_-3px_10px_rgba(0,0,0,0.1)]"
-        style={{
-          backgroundImage: "url('/patterns/border-sambalpuri-horizontal.svg')",
-          backgroundRepeat: "repeat-x",
-          backgroundSize: "auto 100%",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Main hero content container */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 w-full flex-1 flex flex-col justify-between items-center text-center gap-2 sm:gap-4 py-1">
-        {/* Typographic Poster Header Stack */}
-        <div className="flex flex-col items-center text-center relative w-full pt-0.5 sm:pt-1">
-          {/* Eyebrow badge: 2027 EDITION */}
-          <div className="mb-1.5 sm:mb-2 relative z-10 flex justify-center w-full">
-            <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full border border-brand/35 bg-brand/8 text-brand text-[10px] sm:text-xs font-bold tracking-widest uppercase shadow-xs backdrop-blur-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse motion-reduce:animate-none shrink-0" aria-hidden="true" />
-              <span>2027 EDITION</span>
-            </div>
-          </div>
-
-          {/* Towering Condensed Headline: BARA MASA · The Viral Odia Calendar · TERA PARBA */}
-          <div className="flex flex-col items-center text-center w-full">
-            <h1 className="w-full">
-              <span className={HEADLINE}>BARA MASA</span>
-
-            {/* Subtitle row centered between two thin horizontal decorative lines */}
-            <span className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[34rem] mx-auto mt-1 mb-2 sm:mt-1.5 sm:mb-3 md:mt-2 md:mb-4">
-              <span className="h-[1px] flex-1 bg-brand/50" aria-hidden="true" />
-              <span className="font-editorial italic font-bold text-xs sm:text-base md:text-lg lg:text-xl text-brand select-none whitespace-nowrap text-center shrink-0 tracking-tight">
-                The Viral Odia Calendar
-              </span>
-              <span className="h-[1px] flex-1 bg-brand/50" aria-hidden="true" />
-            </span>
-
-              <span className={HEADLINE}>TERA PARBA</span>
-            </h1>
-          </div>
-
-          {/* Body narrative with clean, high-legibility UI subtext */}
-          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base text-cocoa max-w-md sm:max-w-lg font-subtext font-normal leading-relaxed text-center px-4">
-            Last year it went viral before it even shipped. <strong className="text-brand font-bold not-italic">1,500 homes</strong>, 22 states and the USA later, Odisha&apos;s most loved calendar is back.
-          </p>
-
-          {/* CTA action cluster: Pre-book now button + 3D text flip ticker */}
-          <div className="mt-2.5 sm:mt-3 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 relative z-10">
-            <button
-              type="button"
-              onClick={handleOrder}
-              className="group relative inline-flex items-center justify-center gap-3 bg-teal hover:bg-[#008A93] active:bg-[#007A82] text-white font-bold text-xs sm:text-sm md:text-base pl-5 pr-2 py-1.5 min-h-[42px] sm:min-h-[46px] rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-            >
-              <span>Pre-book now</span>
-              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-teal flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 shadow-xs">
-                <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-              </span>
-            </button>
-
-            <HeroTrustTicker />
-          </div>
+      {/* The whole poster sits on the optical centre of the viewport */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 w-full flex flex-col items-center text-center">
+        {/* Eyebrow: edition and scarcity in one line */}
+        <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full border border-on-light/35 bg-on-light/10 text-on-light text-xs font-bold tracking-widest uppercase shadow-xs backdrop-blur-xs">
+          <span
+            className="w-1.5 h-1.5 rounded-full bg-on-light animate-pulse motion-reduce:animate-none shrink-0"
+            aria-hidden="true"
+          />
+          <span>2027 Edition · Only {siteConfig.batchCap} boxes</span>
         </div>
 
-        {/* GSAP Infinite Dragging & Snapping Card Carousel */}
-        <HeroCardsCarousel onOrderClick={handleOrder} />
+        {/* BARA MASA · The Viral Odia Calendar · TERA PARBA */}
+        <h1 className="mt-5 w-full sm:mt-7">
+          <span className={HEADLINE}>BARA MASA</span>
+
+          {/* A 1fr-auto-1fr grid, so the two rules are always the same length
+              and the italic sits dead centre whatever its width renders at. */}
+          <span className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-4 md:gap-5 w-full max-w-[20rem] sm:max-w-[24rem] md:max-w-[27rem] mx-auto my-1.5 sm:my-2 md:my-2.5">
+            <span className="h-px w-full bg-on-light/50" aria-hidden="true" />
+            <span className="font-editorial italic font-bold text-sm sm:text-lg md:text-xl lg:text-2xl text-on-light select-none whitespace-nowrap text-center tracking-wide">
+              The Viral Odia Calendar
+            </span>
+            <span className="h-px w-full bg-on-light/50" aria-hidden="true" />
+          </span>
+
+          <span className={HEADLINE}>TERA PARBA</span>
+        </h1>
+
+        <p className="mt-5 max-w-sm text-[15px] sm:text-base md:text-lg text-on-light/90 font-subtext font-normal leading-relaxed text-center text-balance">
+          Last year it went viral.{" "}
+          <strong className="text-on-light font-bold not-italic">1,500 homes</strong>, 22 states and
+          the USA later, it&apos;s back.
+        </p>
+
+        <button
+          type="button"
+          onClick={handleOrder}
+          className="group relative mt-6 inline-flex w-full max-w-xs items-center justify-center gap-3 bg-on-light hover:bg-[#75161c] active:bg-[#450b0f] text-pipili-cream font-bold text-base pl-6 pr-2 py-2 min-h-[54px] rounded-full border-2 border-ink shadow-[4px_4px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-[3px] active:translate-y-[3px] cursor-pointer transition-all select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:w-auto"
+        >
+          <span>Pre-book now</span>
+          <span className="w-9 h-9 rounded-full bg-pipili-cream text-on-light flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 shadow-xs">
+            <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+          </span>
+        </button>
+
+        {/* The delivery promise is always on screen, never on a rotation */}
+        <p className="mt-3 inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-on-light/25 bg-pipili-cream/80 px-3 py-1.5 text-xs font-bold text-on-light sm:text-xs">
+          <Truck className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+          Free shipping all over India
+        </p>
+
+        <button
+          type="button"
+          onClick={() => scrollToTarget("#inside-calendar")}
+          className="mt-10 text-xs font-bold uppercase tracking-widest text-on-light/70 transition-colors hover:text-on-light"
+        >
+          See what&apos;s inside ↓
+        </button>
       </div>
     </section>
   );

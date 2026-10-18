@@ -3,7 +3,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { scrollToTarget } from "@/components/SmoothScroll";
 import { StoryItem, cityCodeMap } from "@/data/testimonials";
 import { trackGA } from "@/lib/track";
 
@@ -185,17 +186,6 @@ export function StoryViewer({
               className="object-cover"
               priority
             />
-            {current.quote && (
-              <div className="absolute bottom-3 left-3 right-3 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl p-3 text-white z-20 pointer-events-none shadow-lg">
-                <p className="text-xs sm:text-sm font-medium leading-snug line-clamp-2">
-                  &ldquo;{current.quote}&rdquo;
-                </p>
-                <div className="flex items-center justify-between mt-1.5 text-[11px] text-turmeric font-bold">
-                  <span>{current.handle}</span>
-                  <span className="text-white/80">{current.city} · {current.stateOrCountry}</span>
-                </div>
-              </div>
-            )}
           </div>
         ) : (
           /* Clean 9:16 Placeholder card */
@@ -255,6 +245,23 @@ export function StoryViewer({
           aria-label="Next story"
           className="absolute inset-y-0 right-0 w-[65%] cursor-pointer z-10"
         />
+      </div>
+
+      {/* Pre-order bottom bar */}
+      <div
+        className="relative z-10 max-w-sm w-full mx-auto cursor-default shrink-0 mt-2"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={() => {
+            onClose();
+            scrollToTarget("#preorder");
+          }}
+          className="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-turmeric text-ink border-2 border-ink font-bold text-sm press cursor-pointer hover:bg-white transition-colors"
+        >
+          <span>Pre-order 2027 Calendar</span>
+          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+        </button>
       </div>
 
       {/* Desktop navigation chevrons and instructions */}

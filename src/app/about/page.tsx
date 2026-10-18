@@ -36,7 +36,7 @@ export default function About() {
       <h2>The 2027 edition</h2>
       <p>
         Batch 1 is {siteConfig.batchCap} boxes, shipping from the{" "}
-        {siteConfig.shipDateLabel.toLowerCase()}. Everything is repainted. The box is rigid now,
+        {siteConfig.shipDateInline}. Everything is repainted. The box is rigid now,
         because the 2026 one did not always survive the courier.
       </p>
 

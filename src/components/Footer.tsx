@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site-config";
 
 export function Footer() {
   return (
-    <footer className="bg-brand text-rice pt-12 pb-24 sm:pb-16 md:pb-14 border-t-2 border-ink relative z-20 overflow-hidden">
+    <footer className="bg-pipili-red text-on-dark pt-16 pb-24 sm:pb-16 md:pb-14 border-t-2 border-ink relative z-20 overflow-hidden">
       {/* Subtle Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"
@@ -16,6 +16,24 @@ export function Footer() {
         }}
       />
 
+      {/* Hand-sketched Odia Culture Panorama (Boita Maritime Ship -> Konark Sun Temple & Wheel -> Odissi Dancers -> Mukteshvara Torana -> Lingaraj & Puri Jagannath Temple) */}
+      <div
+        className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none select-none z-0"
+        aria-hidden="true"
+      >
+        <div
+          className="w-[200%] sm:w-[150%] md:w-full min-w-[900px] md:min-w-0 h-[220px] sm:h-[280px] md:h-[340px] lg:h-[380px] xl:h-[420px] mx-auto relative left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 opacity-25 md:opacity-35 transition-opacity duration-300"
+          style={{
+            backgroundImage: "url('/assets/scene/odia-culture-desktop-panorama-cream.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "bottom center",
+            backgroundSize: "100% auto",
+            maskImage: "linear-gradient(to top, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main Footer Row: [Left Quote] | [Center Brand & Socials] | [Right Legal Links] */}
@@ -23,9 +41,9 @@ export function Footer() {
           
           {/* Left: Serif Tagline */}
           <div className="md:col-span-4 flex flex-col items-center text-center md:items-start md:text-left">
-            <p className="font-serif italic text-base sm:text-lg text-cream leading-tight">
+            <p className="font-editorial italic text-base sm:text-lg text-cream leading-tight">
               Made in Odisha, <br />
-              <span className="text-sm not-italic font-normal text-rice/80">for everyone who misses it.</span>
+              <span className="text-sm not-italic font-normal text-on-dark/80">for everyone who misses it.</span>
             </p>
           </div>
 
@@ -78,7 +96,7 @@ export function Footer() {
           </div>
 
           {/* Right: Policy Links */}
-          <div className="md:col-span-4 flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-2 text-xs text-rice/80 font-medium">
+          <div className="md:col-span-4 flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-2 text-xs text-on-dark/80 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             <Link href="/shipping" className="hover:text-white transition-colors">Shipping</Link>
             <Link href="/refunds" className="hover:text-white transition-colors">Refunds and cancellation</Link>

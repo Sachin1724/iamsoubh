@@ -14,7 +14,7 @@ export default function Terms() {
       <h2>This is a pre-order</h2>
       <p>
         Batch 1 is limited to {siteConfig.batchCap} boxes. You pay in full now and your box
-        ships from the {siteConfig.shipDateLabel.toLowerCase()}. A pre-order is confirmed only
+        ships from the {siteConfig.shipDateInline}. A pre-order is confirmed only
         once payment is captured and you receive confirmation.
       </p>
       <p>
@@ -35,7 +35,7 @@ export default function Terms() {
       <h2>The sealed 13th parba</h2>
       <p>
         Each box contains one sealed 13th parba card, selected at random from three: Sahi Jata
-        (Puri), Sitalsasthi (Sambalpur) and Gajalaxmi Puja (Dhenkanal). Single boxes cannot
+        (Puri), Sitalsasthi (Sambalpur) and Gajalaxmi Puja (Dhenkanal). A Gift Pack counts as five boxes against the batch cap. Single boxes cannot
         choose which one they receive. A Family Pack is guaranteed to contain all three.
       </p>
 
@@ -44,8 +44,9 @@ export default function Terms() {
         Prices are in Indian Rupees and{" "}
         {siteConfig.gstIncluded ? "include applicable taxes" : "are exclusive of applicable taxes"}.
         A Single Box is <span className="rupee">₹</span>
-        {products.single.price} and a Family Pack is <span className="rupee">₹</span>
-        {products.family.price} during batch 1. The order total is calculated on our servers at
+        {products.single.price}, a Family Pack is <span className="rupee">₹</span>
+        {products.family.price} and a Gift Pack is <span className="rupee">₹</span>
+        {products.gift.price} during batch 1. The order total is calculated on our servers at
         the moment of payment.
       </p>
 

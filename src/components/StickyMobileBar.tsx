@@ -60,7 +60,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
           ) : (
             <>
               {/* Status Eyebrow */}
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-turmeric leading-none mb-0.5">
+              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-turmeric leading-none mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-parrot animate-pulse shrink-0" />
                 <span className="truncate">
                   {showCounter && stock ? `${stock.remaining} left in Batch 1` : "Batch 1 · Fast Selling"}
@@ -69,13 +69,13 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
 
               {/* Price Display: Never wraps awkwardly */}
               <div className="flex items-baseline gap-1 text-rice leading-none">
-                <span className="text-[11px] sm:text-xs text-rice/75 font-medium shrink-0">
+                <span className="text-xs text-rice/75 font-medium shrink-0">
                   from
                 </span>
                 <span className="font-gazpacho text-base sm:text-lg font-bold text-turmeric leading-none">
                   ₹{products.family.perBox}
                 </span>
-                <span className="text-[10px] sm:text-xs text-rice/60 font-normal shrink-0">
+                <span className="text-xs text-rice/60 font-normal shrink-0">
                   / box
                 </span>
               </div>
