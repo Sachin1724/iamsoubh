@@ -170,7 +170,7 @@ export function CreatorGiftModal({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center bg-[#1B1B1B]/75 backdrop-blur-xs transition-opacity duration-200 ${
+      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center bg-ink/75 backdrop-blur-xs transition-opacity duration-200 ${
         isClosing ? "animate-backdrop-fade-out" : "animate-backdrop-fade-in"
       }`}
       style={{
@@ -187,7 +187,7 @@ export function CreatorGiftModal({
           transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
           transition: isDragging.current ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
         }}
-        className={`flex w-full flex-col overflow-hidden sm:max-w-[540px] max-h-[94dvh] bg-[#F6EFE2] rounded-t-3xl sm:rounded-3xl border-2 border-[#1B1B1B] shadow-2xl will-change-transform ${
+        className={`flex w-full flex-col overflow-hidden sm:max-w-[540px] max-h-[94dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink shadow-2xl will-change-transform ${
           isClosing
             ? "animate-modal-slide-down"
             : dragY === 0
@@ -202,30 +202,30 @@ export function CreatorGiftModal({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="w-12 h-1.5 rounded-full bg-[#1B1B1B]/25 hover:bg-[#1B1B1B]/40 transition-colors" />
-          <span className="text-[9px] font-semibold tracking-wider uppercase text-[#1B1B1B]/40 mt-1">
+          <div className="w-12 h-1.5 rounded-full bg-ink/25 hover:bg-ink/40 transition-colors" />
+          <span className="text-[9px] font-semibold tracking-wider uppercase text-ink/40 mt-1">
             Pull down to close
           </span>
         </div>
 
         {/* Modal Header */}
         <div
-          className="shrink-0 bg-[#F6EFE2] flex items-start justify-between gap-4 p-5 pt-3 sm:pt-5 border-b-2 border-[#1B1B1B] touch-none"
+          className="shrink-0 bg-rice flex items-start justify-between gap-4 p-5 pt-3 sm:pt-5 border-b-2 border-ink touch-none"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           <div>
             <div className="flex items-center gap-1.5 mb-1">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#E0A526] text-[#1B1B1B] text-[10px] font-black uppercase tracking-wider border border-[#1B1B1B]">
-                <Sparkles className="w-3 h-3 text-[#8A1717]" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-turmeric text-ink text-[10px] font-black uppercase tracking-wider border border-ink">
+                <Sparkles className="w-3 h-3 text-brand" />
                 Creator Gifting Program
               </span>
             </div>
-            <h3 className="font-gazpacho text-2xl sm:text-3xl font-bold text-[#1B1B1B]">
+            <h3 className="font-gazpacho text-2xl sm:text-3xl font-bold text-ink">
               Get a free 2027 box.
             </h3>
-            <p className="text-xs sm:text-sm text-[#4A4642] mt-0.5 max-w-sm">
+            <p className="text-xs sm:text-sm text-muted mt-0.5 max-w-sm">
               Are you a creator or storyteller? Tell us your channels and your plan to feature the calendar. We’ll courier a complimentary box.
             </p>
           </div>
@@ -233,7 +233,7 @@ export function CreatorGiftModal({
             type="button"
             onClick={handleClose}
             aria-label="Close"
-            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-[#1B1B1B] flex items-center justify-center hover:bg-[#ECE3D2] active:scale-95 cursor-pointer shadow-xs transition-all"
+            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink flex items-center justify-center hover:bg-[#ECE3D2] active:scale-95 cursor-pointer shadow-xs transition-all"
           >
             <X className="w-5 h-5" />
           </button>
@@ -242,19 +242,19 @@ export function CreatorGiftModal({
         {/* Content Body */}
         {status === "done" ? (
           <div className="p-8 text-center my-auto flex flex-col items-center">
-            <div className="w-16 h-16 rounded-full bg-[#1B1B1B] text-[#E0A526] border-2 border-[#1B1B1B] flex items-center justify-center mb-4 shadow-md">
+            <div className="w-16 h-16 rounded-full bg-ink text-turmeric border-2 border-ink flex items-center justify-center mb-4 shadow-md">
               <CheckCircle2 className="w-9 h-9" />
             </div>
-            <h4 className="font-gazpacho text-3xl font-bold text-[#1B1B1B]">
+            <h4 className="font-gazpacho text-3xl font-bold text-ink">
               Application received, {firstName}!
             </h4>
-            <p className="mt-2 text-sm text-[#4A4642] max-w-xs leading-relaxed">
-              Soubh reviews creator applications daily. If approved, we will send tracking details directly to your WhatsApp at <span className="font-bold text-[#1B1B1B]">{phone}</span>.
+            <p className="mt-2 text-sm text-muted max-w-xs leading-relaxed">
+              Soubh reviews creator applications daily. If approved, we will send tracking details directly to your WhatsApp at <span className="font-bold text-ink">{phone}</span>.
             </p>
             <button
               type="button"
               onClick={handleClose}
-              className="mt-6 px-6 py-2.5 rounded-full bg-[#1B1B1B] text-[#F6EFE2] font-bold text-sm hover:bg-[#333] transition-colors"
+              className="mt-6 px-6 py-2.5 rounded-full bg-ink text-rice font-bold text-sm hover:bg-[#333] transition-colors"
             >
               Back to Calendar
             </button>
@@ -303,13 +303,13 @@ export function CreatorGiftModal({
               {/* Social Accounts with Dropdown + Link + Plus button */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-bold text-[#1B1B1B]">
+                  <label className="block text-xs font-bold text-ink">
                     Social Accounts & Links *
                   </label>
                   <button
                     type="button"
                     onClick={addSocial}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8A1717] hover:text-[#C8221A] cursor-pointer"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-brand hover:text-chandua cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5 stroke-[3]" />
                     <span>Add another link</span>
@@ -322,7 +322,7 @@ export function CreatorGiftModal({
                       <select
                         value={s.platform}
                         onChange={(e) => updateSocial(s.id, "platform", e.target.value)}
-                        className="w-[120px] sm:w-[140px] px-2.5 py-2.5 min-h-[44px] rounded-xl border-2 border-[#1B1B1B] text-xs font-bold bg-white text-[#1B1B1B] focus:outline-none focus:border-[#C8221A] shrink-0"
+                        className="w-[120px] sm:w-[140px] px-2.5 py-2.5 min-h-[44px] rounded-xl border-2 border-ink text-xs font-bold bg-white text-ink focus:outline-none focus:border-chandua shrink-0"
                       >
                         {SOCIAL_PLATFORMS.map((p) => (
                           <option key={p} value={p}>
@@ -345,7 +345,7 @@ export function CreatorGiftModal({
                           type="button"
                           onClick={() => removeSocial(s.id)}
                           aria-label="Remove social account"
-                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-[#1B1B1B] bg-white flex items-center justify-center text-[#8A1717] hover:bg-[#FBEAEA] active:scale-95 transition-all cursor-pointer"
+                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink bg-white flex items-center justify-center text-brand hover:bg-[#FBEAEA] active:scale-95 transition-all cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -357,7 +357,7 @@ export function CreatorGiftModal({
                           onClick={addSocial}
                           aria-label="Add account"
                           title="Add another social link"
-                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-[#1B1B1B] bg-[#E0A526] hover:bg-[#d69819] active:scale-95 flex items-center justify-center text-[#1B1B1B] font-bold cursor-pointer transition-all shadow-xs"
+                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink bg-turmeric hover:bg-[#d69819] active:scale-95 flex items-center justify-center text-ink font-bold cursor-pointer transition-all shadow-xs"
                         >
                           <Plus className="w-4 h-4 stroke-[3]" />
                         </button>
@@ -368,8 +368,8 @@ export function CreatorGiftModal({
               </div>
 
               {/* Delivery Address */}
-              <div className="space-y-2 pt-1 border-t border-[#1B1B1B]/15">
-                <span className="block text-xs font-bold text-[#1B1B1B]">
+              <div className="space-y-2 pt-1 border-t border-ink/15">
+                <span className="block text-xs font-bold text-ink">
                   Shipping Address (Where to courier the box) *
                 </span>
                 <input
@@ -408,7 +408,7 @@ export function CreatorGiftModal({
               </div>
 
               {/* What made you stop at this calendar? */}
-              <div className="space-y-2 pt-1 border-t border-[#1B1B1B]/15">
+              <div className="space-y-2 pt-1 border-t border-ink/15">
                 <L label="What made you stop at this calendar? *">
                   <textarea
                     required
@@ -423,7 +423,7 @@ export function CreatorGiftModal({
 
               {/* Content Format Tags & Plan */}
               <div className="space-y-2">
-                <label className="block text-xs font-bold text-[#1B1B1B]">
+                <label className="block text-xs font-bold text-ink">
                   What&apos;s your content plan to feature it? *
                 </label>
                 <div className="flex flex-wrap gap-1.5 mb-2">
@@ -434,10 +434,10 @@ export function CreatorGiftModal({
                         type="button"
                         key={tag}
                         onClick={() => togglePlanTag(tag)}
-                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border-2 border-[#1B1B1B] cursor-pointer transition-all ${
+                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border-2 border-ink cursor-pointer transition-all ${
                           active
-                            ? "bg-[#1B1B1B] text-[#FFFDF7]"
-                            : "bg-white text-[#1B1B1B] hover:bg-[#ECE3D2]"
+                            ? "bg-ink text-cream"
+                            : "bg-white text-ink hover:bg-[#ECE3D2]"
                         }`}
                       >
                         {tag} {active && "✓"}
@@ -457,7 +457,7 @@ export function CreatorGiftModal({
               </div>
 
               {status === "error" && (
-                <p className="text-xs sm:text-sm font-bold text-[#C8221A]">
+                <p className="text-xs sm:text-sm font-bold text-chandua">
                   Submission couldn&apos;t go through. Please{" "}
                   <a
                     href={`https://wa.me/${siteConfig.whatsappNumber.replace(
@@ -476,11 +476,11 @@ export function CreatorGiftModal({
             </div>
 
             {/* Sticky Action Footer */}
-            <div className="shrink-0 border-t-2 border-[#1B1B1B] bg-[#F6EFE2] p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            <div className="shrink-0 border-t-2 border-ink bg-rice p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full min-h-[50px] rounded-full bg-[#C8221A] text-[#F6EFE2] font-disko text-base sm:text-lg flex items-center justify-center gap-2 border-2 border-[#1B1B1B] press cursor-pointer disabled:opacity-60 hover:bg-[#b01c15] transition-colors"
+                className="w-full min-h-[50px] rounded-full bg-chandua text-rice font-disko text-base sm:text-lg flex items-center justify-center gap-2 border-2 border-ink press cursor-pointer disabled:opacity-60 hover:bg-[#b01c15] transition-colors"
                 style={{ boxShadow: "4px 4px 0 0 #1B1B1B" }}
               >
                 {status === "sending" ? (
@@ -502,12 +502,12 @@ export function CreatorGiftModal({
 }
 
 const inp =
-  "w-full px-3 py-2.5 rounded-xl border-2 border-[#1B1B1B] text-sm text-[#1B1B1B] bg-white focus:outline-none focus:border-[#C8221A]";
+  "w-full px-3 py-2.5 rounded-xl border-2 border-ink text-sm text-ink bg-white focus:outline-none focus:border-chandua";
 
 function L({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="block text-xs font-bold text-[#1B1B1B] mb-1">{label}</span>
+      <span className="block text-xs font-bold text-ink mb-1">{label}</span>
       {children}
     </label>
   );

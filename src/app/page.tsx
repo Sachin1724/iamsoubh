@@ -28,7 +28,7 @@ const CreatorVideos = dynamic(
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col bg-[#F6EFE2] relative selection:bg-[#E0A526] selection:text-[#1B1B1B] overflow-x-clip">
+    <main className="min-h-screen flex flex-col bg-rice relative selection:bg-turmeric selection:text-ink overflow-x-clip">
       <UtmTracker />
       <Header />
 

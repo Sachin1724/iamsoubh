@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site-config";
 export function Confirm({ value, label }: { value: string; label: string }) {
   if (value) return <>{value}</>;
   return (
-    <mark className="bg-[#E0A526] text-[#1B1B1B] font-bold px-1.5 py-0.5 rounded">
+    <mark className="bg-turmeric text-ink font-bold px-1.5 py-0.5 rounded">
       [TO CONFIRM: {label}]
     </mark>
   );
@@ -22,7 +22,7 @@ export function PolicyPage({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen bg-[#F6EFE2] text-[#1B1B1B]">
+    <main className="min-h-screen bg-rice text-ink">
       <div className="max-w-[680px] mx-auto px-5 py-14 sm:py-20">
         <Link
           href="/"
@@ -32,15 +32,15 @@ export function PolicyPage({
         </Link>
 
         <h1 className="font-disko text-4xl sm:text-5xl mt-6">{title}</h1>
-        <p className="text-sm text-[#4A4642] mt-2">Last updated {updated}</p>
+        <p className="text-sm text-muted mt-2">Last updated {updated}</p>
 
         <div className="mt-8 space-y-5 text-base leading-relaxed [&_h2]:font-disko [&_h2]:text-2xl [&_h2]:mt-10 [&_h2]:mb-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_a]:underline [&_a]:underline-offset-4">
           {children}
         </div>
 
-        <hr className="my-12 border-t-2 border-[#1B1B1B]" />
+        <hr className="my-12 border-t-2 border-ink" />
 
-        <p className="text-sm text-[#4A4642]">
+        <p className="text-sm text-muted">
           Questions? WhatsApp {siteConfig.whatsappNumber} or write to{" "}
           <Confirm value={siteConfig.supportEmail} label="support email" />.
         </p>

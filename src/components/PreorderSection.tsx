@@ -114,7 +114,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   return (
     <section
       id="preorder"
-      className="py-16 sm:py-24 bg-[#F6EFE2] text-[#1B1B1B] relative overflow-hidden scroll-mt-24"
+      className="py-16 sm:py-24 bg-rice text-ink relative overflow-hidden scroll-mt-24"
     >
       {/* 1. Odia Folk Pattern Texture */}
       <div
@@ -158,19 +158,19 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
         
         {/* Section Header */}
         <div className="flex items-baseline gap-3 mb-2">
-          <span className="font-gazpacho text-[#8A1717] font-bold text-xl sm:text-2xl">
+          <span className="font-gazpacho text-brand font-bold text-xl sm:text-2xl">
             06
           </span>
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8A1717]">
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand">
             YOUR STORIES · ORDER NOW
           </span>
         </div>
 
         <div className="mb-10 sm:mb-12">
-          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-none text-[#1B1B1B]">
+          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-none text-ink">
             2027 Odia Calendar
           </h2>
-          <span className="font-odia text-xl sm:text-2xl font-bold text-[#8A1717] mt-1 block">
+          <span className="font-odia text-xl sm:text-2xl font-bold text-brand mt-1 block">
             ବାର ମାସେ ତେର ପରବ
           </span>
         </div>
@@ -180,7 +180,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
           
           {/* Column 1: Product 3D Stack Mockup (3 Cols) */}
           <div className="md:col-span-5 lg:col-span-3 flex flex-col items-center">
-            <div className="relative w-full max-w-[240px] sm:max-w-[280px] aspect-[4/5] rounded-2xl overflow-hidden bg-[#EFE7D8] border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] p-2 flex items-center justify-center group">
+            <div className="relative w-full max-w-[240px] sm:max-w-[280px] aspect-[4/5] rounded-2xl overflow-hidden bg-[#EFE7D8] border-2 border-ink shadow-[5px_5px_0_0_var(--color-ink)] p-2 flex items-center justify-center group">
               <Image
                 src="/assets/product/hero-client-product-hq.webp"
                 alt="2027 Odia Viral Calendar"
@@ -191,7 +191,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               
               {/* Yellow Sticky Note on Product with subtle floating motion */}
               <div className="absolute top-4 left-3 z-20 -rotate-3 select-none animate-float-gentle">
-                <div className="bg-[#FFE066] text-[#1B1B1B] px-2.5 py-1.5 rounded shadow border border-[#E6C63B] text-[10px] font-serif leading-tight">
+                <div className="bg-gold text-ink px-2.5 py-1.5 rounded shadow border border-[#E6C63B] text-[10px] font-serif leading-tight">
                   A calendar for our people, wherever we are.
                 </div>
               </div>
@@ -209,8 +209,8 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               }}
               className={`p-3.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
                 product === "single"
-                  ? "border-[#8A1717] bg-[#FFFDF7] shadow-[4px_4px_0_0_#8A1717]"
-                  : "border-[#D5C7B3] bg-[#FFFDF7]/60 hover:bg-[#FFFDF7]"
+                  ? "border-brand bg-cream shadow-[4px_4px_0_0_var(--color-brand)]"
+                  : "border-[#D5C7B3] bg-cream/60 hover:bg-cream"
               }`}
             >
               <div className="flex items-center justify-between mb-1">
@@ -218,20 +218,20 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   <div
                     className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
                       product === "single"
-                        ? "border-[#8A1717]"
+                        ? "border-brand"
                         : "border-[#999]"
                     }`}
                   >
                     {product === "single" && (
-                      <div className="w-2 h-2 rounded-full bg-[#8A1717]" />
+                      <div className="w-2 h-2 rounded-full bg-brand" />
                     )}
                   </div>
-                  <span className="font-bold text-sm text-[#1B1B1B]">
+                  <span className="font-bold text-sm text-ink">
                     Single Box
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="font-gazpacho text-lg font-bold text-[#1B1B1B]">
+                  <span className="font-gazpacho text-lg font-bold text-ink">
                     ₹299
                   </span>
                   <span className="text-xs text-black/40 line-through ml-1.5">
@@ -239,7 +239,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   </span>
                 </div>
               </div>
-              <p className="text-[11px] text-[#1B1B1B]/70 pl-6">
+              <p className="text-[11px] text-ink/70 pl-6">
                 One box, twelve parbas, and one sealed 13th you only reveal when it arrives.
               </p>
             </div>
@@ -252,11 +252,11 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               }}
               className={`p-3.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 relative overflow-visible ${
                 product === "family"
-                  ? "border-[#8A1717] bg-[#FFFDF7] shadow-[4px_4px_0_0_#8A1717]"
-                  : "border-[#D5C7B3] bg-[#FFFDF7]/60 hover:bg-[#FFFDF7]"
+                  ? "border-brand bg-cream shadow-[4px_4px_0_0_var(--color-brand)]"
+                  : "border-[#D5C7B3] bg-cream/60 hover:bg-cream"
               }`}
             >
-              <span className="absolute -top-2.5 right-4 z-10 bg-[#E0A526] text-[#1B1B1B] text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-[#1B1B1B] shadow-xs">
+              <span className="absolute -top-2.5 right-4 z-10 bg-turmeric text-ink text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-ink shadow-xs">
                 Best value
               </span>
 
@@ -265,42 +265,42 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   <div
                     className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
                       product === "family"
-                        ? "border-[#8A1717]"
+                        ? "border-brand"
                         : "border-[#999]"
                     }`}
                   >
                     {product === "family" && (
-                      <div className="w-2 h-2 rounded-full bg-[#8A1717]" />
+                      <div className="w-2 h-2 rounded-full bg-brand" />
                     )}
                   </div>
-                  <span className="font-bold text-sm text-[#1B1B1B]">
+                  <span className="font-bold text-sm text-ink">
                     Family Pack (x3)
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="font-gazpacho text-lg font-bold text-[#8A1717]">
+                  <span className="font-gazpacho text-lg font-bold text-brand">
                     ₹749
                   </span>
-                  <span className="text-[11px] text-[#3E9B47] font-bold block">
+                  <span className="text-[11px] text-parrot font-bold block">
                     (₹250 a box)
                   </span>
                 </div>
               </div>
-              <p className="text-[11px] text-[#1B1B1B]/70 pl-6">
+              <p className="text-[11px] text-ink/70 pl-6">
                 For Maa, Bapa, your favorite Odia coworker, or that cousin in Bengaluru. All three 13th parbas guaranteed; plus an extra sticker sheet.
               </p>
             </div>
 
             {/* Quantity Stepper */}
             <div className="flex items-center justify-between pt-2">
-              <span className="text-xs font-bold text-[#1B1B1B] uppercase tracking-wider">
+              <span className="text-xs font-bold text-ink uppercase tracking-wider">
                 Quantity
               </span>
               <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-8 h-8 rounded-full bg-[#FFFDF7] border-2 border-[#1B1B1B] flex items-center justify-center hover:bg-[#F6EFE2] active:scale-95 transition-transform"
+                  className="w-8 h-8 rounded-full bg-cream border-2 border-ink flex items-center justify-center hover:bg-rice active:scale-95 transition-transform"
                 >
                   <Minus className="w-3.5 h-3.5" />
                 </button>
@@ -310,7 +310,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-                  className="w-8 h-8 rounded-full bg-[#FFFDF7] border-2 border-[#1B1B1B] flex items-center justify-center hover:bg-[#F6EFE2] active:scale-95 transition-transform"
+                  className="w-8 h-8 rounded-full bg-cream border-2 border-ink flex items-center justify-center hover:bg-rice active:scale-95 transition-transform"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -322,16 +322,16 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               <button
                 type="button"
                 onClick={onRequestQuote}
-                className="text-xs text-[#8A1717] font-bold hover:underline text-right block"
+                className="text-xs text-brand font-bold hover:underline text-right block"
               >
                 10 or more? Get a bulk price →
               </button>
             )}
 
             {/* Summary Row */}
-            <div className="pt-2 text-xs font-medium text-[#1B1B1B]/80 flex justify-between">
+            <div className="pt-2 text-xs font-medium text-ink/80 flex justify-between">
               <span>Total:</span>
-              <span className="font-bold text-[#1B1B1B]">
+              <span className="font-bold text-ink">
                 {boxes} {boxes === 1 ? "box" : "boxes"} — ₹{total} — Free shipping
               </span>
             </div>
@@ -342,7 +342,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               onClick={() => {
                 document.getElementById("shipping-form")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="lg:hidden w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-[#8A1717] hover:bg-[#701212] text-white font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_#1B1B1B] hover:shadow-[5px_5px_0_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
+              className="lg:hidden w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-brand hover:bg-[#701212] text-white font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_var(--color-ink)] hover:shadow-[5px_5px_0_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
             >
               <span>Continue to delivery details</span>
               <ArrowRight className="w-4 h-4" />
@@ -351,12 +351,12 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
             {/* Reassurance Badges */}
             <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-3 border-t border-[#D5C7B3] text-center">
               <div className="flex flex-col items-center">
-                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
+                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand mb-0.5 sm:mb-1" />
                 <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Free shipping</span>
                 <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">across India</span>
               </div>
               <div className="flex flex-col items-center">
-                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand mb-0.5 sm:mb-1" />
                 <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Secure payment</span>
                 <span className="inline-flex items-center justify-center gap-1 mt-0.5">
                   <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">by</span>
@@ -370,20 +370,20 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 </span>
               </div>
               <div className="flex flex-col items-center">
-                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8A1717] mb-0.5 sm:mb-1" />
+                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand mb-0.5 sm:mb-1" />
                 <span className="text-[8.5px] sm:text-[10px] font-bold leading-tight">Free replacement</span>
                 <span className="text-[7.5px] sm:text-[8px] text-black/60 leading-tight">if damaged</span>
               </div>
             </div>
 
-            <p className="text-[10px] italic text-[#1B1B1B]/70 text-center">
+            <p className="text-[10px] italic text-ink/70 text-center">
               Ships from the first week of November. Not shipped by 15 November? Full refund.
             </p>
           </div>
 
           {/* Column 3: Where Should It Go Delivery Form (5 Cols) */}
-          <div className="md:col-span-12 lg:col-span-5 bg-[#FFFDF7] p-4 sm:p-6 lg:p-7 rounded-2xl border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] sm:shadow-[6px_6px_0_0_#1B1B1B]">
-            <h3 className="font-gazpacho text-lg sm:text-xl font-bold text-[#1B1B1B] mb-4">
+          <div className="md:col-span-12 lg:col-span-5 bg-cream p-4 sm:p-6 lg:p-7 rounded-2xl border-2 border-ink shadow-[5px_5px_0_0_var(--color-ink)] sm:shadow-[6px_6px_0_0_var(--color-ink)]">
+            <h3 className="font-gazpacho text-lg sm:text-xl font-bold text-ink mb-4">
               Where should it go?
             </h3>
 
@@ -396,7 +396,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   placeholder="WhatsApp number *"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                  className={`w-full px-3.5 py-3 rounded-lg bg-[#F6EFE2]/60 border text-sm font-medium focus:outline-none focus:border-[#8A1717] ${
+                  className={`w-full px-3.5 py-3 rounded-lg bg-rice/60 border text-sm font-medium focus:outline-none focus:border-brand ${
                     errors.phone ? "border-red-500 bg-red-50" : "border-[#D5C7B3]"
                   }`}
                 />
@@ -416,7 +416,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   placeholder="Your name (optional)"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-[#8A1717]"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
                 />
               </div>
 
@@ -426,7 +426,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 type="button"
                 onClick={() => setShowAddress((v) => !v)}
                 aria-expanded={showAddress}
-                className="w-full text-left text-xs font-bold text-[#8A1717] underline underline-offset-2 cursor-pointer"
+                className="w-full text-left text-xs font-bold text-brand underline underline-offset-2 cursor-pointer"
               >
                 {showAddress ? "Hide address & gift note" : "Sending as a gift or to another address?"}
               </button>
@@ -443,7 +443,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                       placeholder="Email (optional)"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-[#8A1717]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
                     />
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -454,21 +454,21 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                         value={pincode}
                         onChange={(e) => handlePincodeChange(e.target.value)}
                         maxLength={6}
-                        className="w-full px-3 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-[#8A1717]"
+                        className="w-full px-3 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-brand"
                       />
                       <input
                         type="text"
                         placeholder="City"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-[#8A1717]"
+                        className="w-full px-3 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-brand"
                       />
                       <input
                         type="text"
                         placeholder="State"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-[#8A1717]"
+                        className="w-full px-3 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs font-medium focus:outline-none focus:border-brand"
                       />
                     </div>
 
@@ -477,21 +477,21 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                       placeholder="Address line (House, Street)"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-[#8A1717]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
                     />
                     <input
                       type="text"
                       placeholder="Landmark (optional)"
                       value={landmark}
                       onChange={(e) => setLandmark(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-[#8A1717]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
                     />
                     <input
                       type="text"
                       placeholder="Add a gift note (optional)"
                       value={giftNote}
                       onChange={(e) => setGiftNote(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6EFE2]/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-[#8A1717]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-rice/60 border border-[#D5C7B3] text-xs sm:text-sm font-medium focus:outline-none focus:border-brand"
                     />
                   </div>
                 </div>
@@ -507,13 +507,13 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               <button
                 type="submit"
                 disabled={paying}
-                className="w-full py-3.5 px-6 rounded-lg bg-[#E0A526] hover:bg-[#cca322] text-[#1B1B1B] font-bold text-sm sm:text-base border-2 border-[#1B1B1B] shadow-[4px_4px_0_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-4 disabled:opacity-60"
+                className="w-full py-3.5 px-6 rounded-lg bg-turmeric hover:bg-[#cca322] text-ink font-bold text-sm sm:text-base border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer mt-4 disabled:opacity-60"
               >
                 <span>{paying ? "Opening Razorpay…" : `Pay ₹${total} · UPI, cards, wallets`}</span>
               </button>
 
               <span className="text-[10px] text-black/60 flex items-center justify-center gap-1.5 mt-2 text-center flex-wrap">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#3E9B47] shrink-0" />
+                <ShieldCheck className="w-3.5 h-3.5 text-parrot shrink-0" />
                 <span>Secure payment by</span>
                 <Image
                   src="/assets/brand/razorpay-logo.svg"

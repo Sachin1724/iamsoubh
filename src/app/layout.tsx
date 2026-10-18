@@ -14,7 +14,7 @@ const inter = Inter({
 
 // Supplied by the client; replaces Anek Odia for all Odia text.
 const akshar = localFont({
-  src: "./fonts/akshar.ttf",
+  src: "./fonts/akshar.woff2",
   variable: "--font-odia",
   display: "swap",
   preload: true,
@@ -22,7 +22,7 @@ const akshar = localFont({
 
 // Display Odia, used for the big hero title.
 const jaya = localFont({
-  src: "./fonts/jaya.ttf",
+  src: "./fonts/jaya.woff2",
   variable: "--font-odia-display",
   display: "swap",
   preload: true,
@@ -50,6 +50,16 @@ const gazpacho = localFont({
       weight: "800",
       style: "normal",
     },
+    {
+      path: "./fonts/gazpacho/Gazpacho-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/gazpacho/Gazpacho Bold Italic.woff2",
+      weight: "700",
+      style: "italic",
+    },
   ],
   variable: "--font-gazpacho",
   display: "swap",
@@ -65,7 +75,7 @@ const bigdream = localFont({
 });
 
 const bricolage = localFont({
-  src: "./fonts/BricolageGrotesque.ttf",
+  src: "./fonts/BricolageGrotesque.woff2",
   variable: "--font-bricolage",
   weight: "200 800",
   display: "swap",
@@ -101,7 +111,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable}`}
     >
-      <body className="min-h-screen overflow-x-hidden bg-[#F6EFE2] text-[#1B1B1B] font-sans antialiased selection:bg-[#E0A526] selection:text-[#1B1B1B]">
+      <body className="min-h-screen overflow-x-hidden bg-rice text-ink font-sans antialiased selection:bg-turmeric selection:text-ink">
         <SmoothScroll>{children}</SmoothScroll>
         <RevealObserver />
         <Analytics />

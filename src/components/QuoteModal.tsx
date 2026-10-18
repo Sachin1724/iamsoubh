@@ -75,7 +75,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#1B1B1B]/55"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-ink/55"
       onClick={onClose}
     >
       <div
@@ -84,20 +84,20 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
         aria-modal="true"
         aria-label="Request a bulk quote"
         onClick={(e) => e.stopPropagation()}
-        className="flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[92dvh] bg-[#F6EFE2] rounded-t-3xl sm:rounded-3xl border-2 border-[#1B1B1B]"
+        className="flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[92dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink"
         style={{ boxShadow: "8px 8px 0 0 #1B1B1B" }}
       >
-        <div className="shrink-0 bg-[#F6EFE2] flex items-start justify-between gap-4 p-5 border-b-2 border-[#1B1B1B]">
+        <div className="shrink-0 bg-rice flex items-start justify-between gap-4 p-5 border-b-2 border-ink">
           <div>
-            <h3 className="font-disko text-2xl text-[#1B1B1B]">Let&apos;s talk numbers.</h3>
-            <p className="text-sm text-[#4A4642] mt-0.5">
+            <h3 className="font-disko text-2xl text-ink">Let&apos;s talk numbers.</h3>
+            <p className="text-sm text-muted mt-0.5">
               Tell me what you need. I&apos;ll reply on WhatsApp within 24 hours.
             </p>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-[#1B1B1B] flex items-center justify-center press cursor-pointer"
+            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink flex items-center justify-center press cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -105,8 +105,8 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 
         {status === "done" ? (
           <div className="p-6 text-center">
-            <p className="font-disko text-2xl text-[#1B1B1B]">Got it, {firstName}.</p>
-            <p className="mt-2 text-sm text-[#4A4642]">
+            <p className="font-disko text-2xl text-ink">Got it, {firstName}.</p>
+            <p className="mt-2 text-sm text-muted">
               Expect a WhatsApp from me within 24 hours.
             </p>
           </div>
@@ -134,7 +134,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
             </L>
 
             <fieldset>
-              <legend className="text-xs font-bold text-[#1B1B1B] mb-2">How many boxes? *</legend>
+              <legend className="text-xs font-bold text-ink mb-2">How many boxes? *</legend>
               <div className="flex flex-wrap gap-2">
                 {RANGES.map((r) => (
                   <button
@@ -142,8 +142,8 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
                     key={r}
                     onClick={() => setRange(r)}
                     aria-pressed={range === r}
-                    className={`min-h-[36px] px-4 rounded-full border-2 border-[#1B1B1B] text-sm font-semibold press cursor-pointer ${
-                      range === r ? "bg-[#1B1B1B] text-[#F6EFE2]" : "bg-white text-[#1B1B1B]"
+                    className={`min-h-[36px] px-4 rounded-full border-2 border-ink text-sm font-semibold press cursor-pointer ${
+                      range === r ? "bg-ink text-rice" : "bg-white text-ink"
                     }`}
                   >
                     {r}
@@ -181,7 +181,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
             </L>
 
             {status === "error" && (
-              <p className="text-sm font-bold text-[#C8221A]">
+              <p className="text-sm font-bold text-chandua">
                 That didn&apos;t go through. Try once more, or{" "}
                 <a
                   href={siteConfig.whatsappBulkUrl}
@@ -198,11 +198,11 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
             </div>
 
             {/* Action bar stays put, so the submit is never scrolled out of reach */}
-            <div className="shrink-0 border-t-2 border-[#1B1B1B] bg-[#F6EFE2] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            <div className="shrink-0 border-t-2 border-ink bg-rice p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full min-h-[52px] rounded-full bg-[#C8221A] text-[#F6EFE2] font-disko text-lg flex items-center justify-center gap-2 border-2 border-[#1B1B1B] press cursor-pointer disabled:opacity-60"
+              className="w-full min-h-[52px] rounded-full bg-chandua text-rice font-disko text-lg flex items-center justify-center gap-2 border-2 border-ink press cursor-pointer disabled:opacity-60"
               style={{ boxShadow: "5px 5px 0 0 #1B1B1B" }}
             >
               {status === "sending" ? (
@@ -223,12 +223,12 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 }
 
 const inp =
-  "w-full px-3.5 py-3 rounded-xl border-2 border-[#1B1B1B] text-base text-[#1B1B1B] bg-white focus:outline-none focus:border-[#C8221A]";
+  "w-full px-3.5 py-3 rounded-xl border-2 border-ink text-base text-ink bg-white focus:outline-none focus:border-chandua";
 
 function L({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="block text-xs font-bold text-[#1B1B1B] mb-1">{label}</span>
+      <span className="block text-xs font-bold text-ink mb-1">{label}</span>
       {children}
     </label>
   );

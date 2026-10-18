@@ -4,7 +4,7 @@ export function SoundFamiliar() {
   return (
     <section
       id="sound-familiar"
-      className="relative pt-20 sm:pt-28 pb-20 sm:pb-28 bg-[#141414] text-[#F6EFE2] scroll-mt-28 overflow-x-clip"
+      className="relative pt-20 sm:pt-28 pb-20 sm:pb-28 bg-[#141414] text-rice scroll-mt-28 overflow-x-clip"
     >
       {/* 1. Odia Folk Pattern Texture with Deep Forest Green Tint */}
       <div
@@ -20,28 +20,28 @@ export function SoundFamiliar() {
         
         {/* Section Header */}
         <div className="flex items-center gap-2.5 mb-2.5">
-          <span className="font-gazpacho text-[#E0A526] font-bold text-xl sm:text-2xl">
+          <span className="font-gazpacho text-turmeric font-bold text-xl sm:text-2xl">
             02
           </span>
-          <span className="text-[#E0A526]/50 font-light text-base sm:text-lg">
+          <span className="text-turmeric/50 font-light text-base sm:text-lg">
             |
           </span>
-          <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#E0A526]">
+          <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-turmeric">
             SOUND FAMILIAR?
           </span>
         </div>
 
-        <h2 className="font-gazpacho text-2xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold leading-[1.1] max-w-2xl text-[#FFFDF7] tracking-tight">
+        <h2 className="font-gazpacho text-2xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold leading-[1.1] max-w-2xl text-cream tracking-tight">
           For everyone who misses Odisha without saying it.
         </h2>
 
         {/* Odia Gold Floral Divider */}
         <div className="flex items-center justify-center my-6 sm:my-8 pointer-events-none select-none" aria-hidden="true">
-          <div className="h-px w-14 sm:w-28 bg-gradient-to-r from-transparent to-[#E0A526]/60" />
+          <div className="h-px w-14 sm:w-28 bg-gradient-to-r from-transparent to-turmeric/60" />
           <div className="mx-3 relative flex items-center justify-center">
             <svg
               viewBox="0 0 32 32"
-              className="w-6 h-6 sm:w-7 sm:h-7 fill-[#E0A526] drop-shadow-[0_0_8px_rgba(224,165,38,0.5)]"
+              className="w-6 h-6 sm:w-7 sm:h-7 fill-turmeric drop-shadow-[0_0_8px_rgba(224,165,38,0.5)]"
             >
               <circle cx="16" cy="16" r="3" fill="#FFFDF7" />
               <path d="M16 4c1 3.5 3.5 6 7 7-3.5 1-6 3.5-7 7-1-3.5-3.5-6-7-7 3.5-1 6-3.5 7-7z" fill="#E0A526" />
@@ -52,7 +52,7 @@ export function SoundFamiliar() {
               <circle cx="6" cy="16" r="1" fill="#E0A526" />
             </svg>
           </div>
-          <div className="h-px w-14 sm:w-28 bg-gradient-to-l from-transparent to-[#E0A526]/60" />
+          <div className="h-px w-14 sm:w-28 bg-gradient-to-l from-transparent to-turmeric/60" />
         </div>
 
         {/* 4 Cards Bento Grid Layout */}
@@ -119,11 +119,11 @@ export function SoundFamiliar() {
         </div>
 
         {/* Bottom Punchline */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-[#E0A526]/20 max-w-3xl">
-          <p className="font-gazpacho text-2xl sm:text-3xl lg:text-4xl text-[#E0A526] font-bold leading-tight">
+        <div className="mt-12 sm:mt-16 pt-8 border-t border-turmeric/20 max-w-3xl">
+          <p className="font-gazpacho text-2xl sm:text-3xl lg:text-4xl text-turmeric font-bold leading-tight">
             This calendar keeps the dates, so you don&apos;t have to fake it.
           </p>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#F6EFE2]/85">
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-rice/85">
             One parba a month, right when you feel it. Perfect on your work desk, shared with your Odia coworkers, or sent home to family. Every card has two faces: on the back, tick mark what you actually celebrate, not when you watch it on someone&apos;s story.
           </p>
         </div>

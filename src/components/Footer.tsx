@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site-config";
 
 export function Footer() {
   return (
-    <footer className="bg-[#8A1717] text-[#F6EFE2] pt-12 pb-24 sm:pb-16 md:pb-14 border-t-2 border-[#1B1B1B] relative z-20 overflow-hidden">
+    <footer className="bg-brand text-rice pt-12 pb-24 sm:pb-16 md:pb-14 border-t-2 border-ink relative z-20 overflow-hidden">
       {/* Subtle Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"
@@ -23,9 +23,9 @@ export function Footer() {
           
           {/* Left: Serif Tagline */}
           <div className="md:col-span-4 flex flex-col items-center text-center md:items-start md:text-left">
-            <p className="font-serif italic text-base sm:text-lg text-[#FFFDF7] leading-tight">
+            <p className="font-serif italic text-base sm:text-lg text-cream leading-tight">
               Made in Odisha, <br />
-              <span className="text-sm not-italic font-normal text-[#F6EFE2]/80">for everyone who misses it.</span>
+              <span className="text-sm not-italic font-normal text-rice/80">for everyone who misses it.</span>
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export function Footer() {
           </div>
 
           {/* Right: Policy Links */}
-          <div className="md:col-span-4 flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-2 text-xs text-[#F6EFE2]/80 font-medium">
+          <div className="md:col-span-4 flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-2 text-xs text-rice/80 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             <Link href="/shipping" className="hover:text-white transition-colors">Shipping</Link>
             <Link href="/refunds" className="hover:text-white transition-colors">Refunds and cancellation</Link>

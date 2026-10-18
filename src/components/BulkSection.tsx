@@ -9,7 +9,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
   return (
     <section
       id="bulk"
-      className="relative py-16 sm:py-24 bg-[#8A1717] text-[#F6EFE2] scroll-mt-24 overflow-clip"
+      className="relative py-16 sm:py-24 bg-brand text-rice scroll-mt-24 overflow-clip"
     >
       {/* 1. Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
@@ -41,19 +41,19 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
           {/* Left Text & CTA Column (8 Cols) */}
           <div className="reveal lg:col-span-7 flex flex-col items-start">
             <div className="flex items-baseline gap-3 mb-2">
-              <span className="font-gazpacho text-[#E0A526] font-bold text-xl sm:text-2xl">
+              <span className="font-gazpacho text-turmeric font-bold text-xl sm:text-2xl">
                 07
               </span>
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#E0A526]/85">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-turmeric/85">
                 BULK AND GIFTING
               </span>
             </div>
 
-            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#FFFDF7] max-w-2xl">
+            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-cream max-w-2xl">
               Ordering for the whole parivar? Or the whole office?
             </h2>
 
-            <div className="mt-6 space-y-3 max-w-xl text-sm sm:text-base text-[#F6EFE2]/90 leading-relaxed font-medium">
+            <div className="mt-6 space-y-3 max-w-xl text-sm sm:text-base text-rice/90 leading-relaxed font-medium">
               <p>
                 Your office has 40 Odias and zero festival vibes. Fix that.
               </p>
@@ -65,7 +65,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={onRequestQuote}
-                className="py-3 px-6 rounded-full bg-[#E0A526] hover:bg-[#cca322] text-[#1B1B1B] font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="py-3 px-6 rounded-full bg-turmeric hover:bg-[#cca322] text-ink font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Request a quote</span>
                 <ArrowRight className="w-4 h-4" />
@@ -91,12 +91,12 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
               ].map((tier) => (
                 <div
                   key={tier.count}
-                  className="group rounded-xl border border-[#E0A526]/35 bg-black/15 px-3 py-3 transition-colors duration-300 hover:border-[#E0A526] hover:bg-black/25"
+                  className="group rounded-xl border border-turmeric/35 bg-black/15 px-3 py-3 transition-colors duration-300 hover:border-turmeric hover:bg-black/25"
                 >
-                  <span className="block font-gazpacho text-xl font-bold text-[#E0A526] transition-transform duration-300 group-hover:-translate-y-0.5">
+                  <span className="block font-gazpacho text-xl font-bold text-turmeric transition-transform duration-300 group-hover:-translate-y-0.5">
                     {tier.count}
                   </span>
-                  <span className="block text-[11px] font-semibold leading-snug text-[#F6EFE2]/85">
+                  <span className="block text-[11px] font-semibold leading-snug text-rice/85">
                     {tier.perk}
                   </span>
                 </div>
@@ -108,10 +108,10 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
           <div className="reveal lg:col-span-5 flex items-center justify-center">
             <div className="group relative w-[260px] sm:w-[320px] [perspective:1200px]">
               {/* Two shadow boxes behind, so ten boxes reads as a stack */}
-              <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl border-2 border-[#1B1B1B] bg-[#6E1214] transition-transform duration-500 ease-out group-hover:translate-x-8 group-hover:translate-y-8" />
-              <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl border-2 border-[#1B1B1B] bg-[#A8302A] transition-transform duration-500 ease-out group-hover:translate-x-4 group-hover:translate-y-4" />
+              <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl border-2 border-ink bg-[#6E1214] transition-transform duration-500 ease-out group-hover:translate-x-8 group-hover:translate-y-8" />
+              <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl border-2 border-ink bg-[#A8302A] transition-transform duration-500 ease-out group-hover:translate-x-4 group-hover:translate-y-4" />
 
-              <div className="relative overflow-hidden rounded-2xl border-2 border-[#1B1B1B] bg-[#FFFDF7] shadow-[6px_6px_0_0_#1B1B1B] transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(6deg)_rotateY(-8deg)_translateY(-6px)]">
+              <div className="relative overflow-hidden rounded-2xl border-2 border-ink bg-cream shadow-[6px_6px_0_0_var(--color-ink)] transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(6deg)_rotateY(-8deg)_translateY(-6px)]">
                 <Image
                   src="/assets/product/box-open.webp"
                   alt="The 2027 box, opened"
@@ -119,9 +119,9 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
                   height={640}
                   className="h-auto w-full object-cover"
                 />
-                <div className="flex items-center justify-between gap-2 bg-[#1B1B1B] px-3 py-2">
+                <div className="flex items-center justify-between gap-2 bg-ink px-3 py-2">
                   <span className="font-gazpacho text-sm font-bold text-white">Bulk Parivar Pack</span>
-                  <span className="rounded-full bg-[#E0A526] px-2 py-0.5 text-[10px] font-black text-[#1B1B1B]">
+                  <span className="rounded-full bg-turmeric px-2 py-0.5 text-[10px] font-black text-ink">
                     10+ BOXES
                   </span>
                 </div>
@@ -129,7 +129,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
 
               {/* Handwritten Stamp Note */}
               <div className="absolute -top-5 -right-4 z-20 rotate-6 select-none animate-float-gentle transition-transform duration-500 group-hover:rotate-2">
-                <div className="rounded border border-[#E6C63B] bg-[#FFE066] px-3 py-2 text-[11px] font-serif font-bold leading-tight text-[#8A1717] shadow-md">
+                <div className="rounded border border-[#E6C63B] bg-gold px-3 py-2 text-[11px] font-serif font-bold leading-tight text-brand shadow-md">
                   Same calendar. <br />
                   More people. <br />
                   More parba.

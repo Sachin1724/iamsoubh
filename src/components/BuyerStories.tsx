@@ -212,7 +212,7 @@ export function BuyerStories() {
   return (
     <section
       id="stories"
-      className="relative pt-20 sm:pt-28 pb-14 sm:pb-20 bg-[#F6EFE2] text-[#1B1B1B] z-10 scroll-mt-28 overflow-x-clip"
+      className="relative pt-20 sm:pt-28 pb-14 sm:pb-20 bg-rice text-ink z-10 scroll-mt-28 overflow-x-clip"
     >
       {/* 1. Folk Background Pattern Texture */}
       <div
@@ -247,19 +247,19 @@ export function BuyerStories() {
         {/* Header Block */}
         <div className="reveal max-w-3xl lg:flex-1">
           <div className="flex items-baseline gap-3 mb-2">
-            <span className="font-gazpacho text-[#8A1717] font-bold text-xl sm:text-2xl">
+            <span className="font-gazpacho text-brand font-bold text-xl sm:text-2xl">
               04
             </span>
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8A1717]">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand">
               CUSTOMER STORIES & REVIEWS
             </span>
           </div>
 
-          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#1B1B1B]">
+          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-ink">
             2,000+ of you put it on your story.
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-[#4A4642] font-subtext font-normal leading-relaxed">
-            Real screenshots from <strong className="font-bold text-[#8A1717]">45 buyers</strong> across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
+          <p className="mt-3 text-base sm:text-lg text-muted font-subtext font-normal leading-relaxed">
+            Real screenshots from <strong className="font-bold text-brand">45 buyers</strong> across Bhubaneswar, Cuttack, Bengaluru, Hyderabad, Delhi, London, and the USA. Tap any highlight or card to preview the full unboxing stories.
           </p>
         </div>
 
@@ -268,18 +268,18 @@ export function BuyerStories() {
           {/* Card 1 on the LEFT: Yellow sticky note, pinned with up-down motion */}
           <div className="relative animate-pin-left shrink-0 max-w-[48%] sm:max-w-[280px]">
             <div
-              className="absolute -top-2.5 -left-2.5 z-20 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#8A1717] border-2 border-[#1B1B1B] shadow-[1.5px_1.5px_0_0_#1B1B1B] flex items-center justify-center pointer-events-none"
+              className="absolute -top-2.5 -left-2.5 z-20 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand border-2 border-ink shadow-[1.5px_1.5px_0_0_var(--color-ink)] flex items-center justify-center pointer-events-none"
               aria-hidden="true"
             >
-              <Pin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FFE066] fill-[#FFE066]" />
+              <Pin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold fill-gold" />
             </div>
-            <div className="-rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 bg-[#FFE066] text-[#1B1B1B] px-3 py-2 sm:px-4 sm:py-3 rounded-xl shadow-[3px_3px_0_0_#1B1B1B] sm:shadow-[4px_4px_0_0_#1B1B1B] border-2 border-[#1B1B1B] text-[11px] sm:text-xs font-serif leading-tight sm:leading-snug select-none">
-              <div className="flex items-center gap-1.5 font-bold mb-0.5 sm:mb-1 text-[#8A1717]">
+            <div className="-rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 bg-gold text-ink px-3 py-2 sm:px-4 sm:py-3 rounded-xl shadow-[3px_3px_0_0_var(--color-ink)] sm:shadow-[4px_4px_0_0_var(--color-ink)] border-2 border-ink text-[11px] sm:text-xs font-serif leading-tight sm:leading-snug select-none">
+              <div className="flex items-center gap-1.5 font-bold mb-0.5 sm:mb-1 text-brand">
                 <InstagramIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
                 <span className="font-sans font-bold text-xs sm:text-sm">Got your box?</span>
               </div>
               <p className="line-clamp-3 sm:line-clamp-none">
-                Tag <span className="font-bold underline decoration-[#8A1717]">@iamsoubh</span> in your story or reel to be featured in the 2027 hall of fame!
+                Tag <span className="font-bold underline decoration-brand">@iamsoubh</span> in your story or reel to be featured in the 2027 hall of fame!
               </p>
             </div>
           </div>
@@ -287,10 +287,10 @@ export function BuyerStories() {
           {/* Card 2 on the RIGHT: @iamsoubh profile card, pinned with up-down motion */}
           <div className="relative animate-pin-right shrink-0 max-w-[48%] sm:max-w-[250px]">
             <div
-              className="absolute -top-2.5 -left-2.5 z-20 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#8A1717] border-2 border-[#1B1B1B] shadow-[1.5px_1.5px_0_0_#1B1B1B] flex items-center justify-center pointer-events-none"
+              className="absolute -top-2.5 -left-2.5 z-20 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand border-2 border-ink shadow-[1.5px_1.5px_0_0_var(--color-ink)] flex items-center justify-center pointer-events-none"
               aria-hidden="true"
             >
-              <Pin className="w-3.5 h-3.5 text-[#FFE066] fill-[#FFE066]" />
+              <Pin className="w-3.5 h-3.5 text-gold fill-gold" />
             </div>
             <a
               href="https://www.instagram.com/iamsoubh/"
@@ -299,13 +299,13 @@ export function BuyerStories() {
               aria-label="Open @iamsoubh on Instagram"
               className="rotate-1 sm:rotate-2 hover:rotate-0 transition-transform duration-300 block select-none"
             >
-              <div className="bg-[#FFFDF7] text-[#1B1B1B] rounded-xl border-2 border-[#1B1B1B] shadow-[3px_3px_0_0_#1B1B1B] sm:shadow-[4px_4px_0_0_#1B1B1B] px-2.5 py-2 sm:px-3.5 sm:py-2.5 flex items-center gap-2 sm:gap-2.5 hover:shadow-[5px_5px_0_0_#8A1717] transition-all">
+              <div className="bg-cream text-ink rounded-xl border-2 border-ink shadow-[3px_3px_0_0_var(--color-ink)] sm:shadow-[4px_4px_0_0_var(--color-ink)] px-2.5 py-2 sm:px-3.5 sm:py-2.5 flex items-center gap-2 sm:gap-2.5 hover:shadow-[5px_5px_0_0_var(--color-brand)] transition-all">
                 <Image
                   src="/assets/brand/soubh-avatar.png"
                   alt="Soubh"
                   width={40}
                   height={40}
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#1B1B1B] object-cover shrink-0"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-ink object-cover shrink-0"
                 />
                 <div className="min-w-0">
                   <div className="flex items-center gap-1 font-bold text-xs sm:text-sm leading-tight">
@@ -314,7 +314,7 @@ export function BuyerStories() {
                       <path d="M12 1.5l2.4 2.1 3.2-.3.9 3.1 2.8 1.6-1.2 3 1.2 3-2.8 1.6-.9 3.1-3.2-.3L12 22.5l-2.4-2.1-3.2.3-.9-3.1L2.7 16l1.2-3-1.2-3 2.8-1.6.9-3.1 3.2.3L12 1.5zm-1.1 13.6l5.2-5.2-1.4-1.4-3.8 3.8-1.8-1.8-1.4 1.4 3.2 3.2z" />
                     </svg>
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-semibold text-[#1B1B1B]/70 leading-tight whitespace-nowrap">
+                  <div className="text-[10px] sm:text-[11px] font-semibold text-ink/70 leading-tight whitespace-nowrap">
                     10K followers
                   </div>
                 </div>
@@ -326,7 +326,7 @@ export function BuyerStories() {
         </div>
 
         {/* 6. Carousel Controls & Filter Tabs Bar */}
-        <div className="flex items-center justify-between gap-4 mb-4 pb-2 border-b border-[#1B1B1B]/10 w-full min-w-0">
+        <div className="flex items-center justify-between gap-4 mb-4 pb-2 border-b border-ink/10 w-full min-w-0">
           
           {/* Quick Filter Pill Chips: Desktop and tablet */}
           <div className="hidden sm:flex items-center gap-2 overflow-x-auto no-scrollbar py-1 min-w-0 scroll-pl-4 sm:scroll-pl-6">
@@ -338,8 +338,8 @@ export function BuyerStories() {
                   onClick={() => handleSelectHighlight(hl.id)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                     isSelected
-                      ? "bg-[#1B1B1B] text-white shadow-md border border-[#1B1B1B]"
-                      : "bg-[#FFFDF7] text-[#1B1B1B]/80 hover:text-[#1B1B1B] border border-[#1B1B1B]/20 hover:border-[#1B1B1B]/50"
+                      ? "bg-ink text-white shadow-md border border-ink"
+                      : "bg-cream text-ink/80 hover:text-ink border border-ink/20 hover:border-ink/50"
                   }`}
                 >
                   {hl.name} ({hl.stories.length})
@@ -353,7 +353,7 @@ export function BuyerStories() {
             {/* Watch Highlight Button */}
             <button
               onClick={() => handleOpenHighlightStories(activeHighlight)}
-              className="px-3.5 py-1.5 rounded-full bg-[#E0A526] text-[#1B1B1B] border-2 border-[#1B1B1B] font-bold text-xs flex items-center gap-1.5 shadow-[2px_2px_0_#1B1B1B] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full bg-turmeric text-ink border-2 border-ink font-bold text-xs flex items-center gap-1.5 shadow-[2px_2px_0_var(--color-ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
             >
               <Play className="w-3 h-3 fill-current" />
               <span>Watch {activeHighlight.name} ({activeStories.length})</span>
@@ -365,10 +365,10 @@ export function BuyerStories() {
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
                 aria-label="Scroll left"
-                className={`w-9 h-9 rounded-full border-2 border-[#1B1B1B] flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-9 h-9 rounded-full border-2 border-ink flex items-center justify-center transition-all cursor-pointer ${
                   canScrollLeft
-                    ? "bg-[#FFFDF7] text-[#1B1B1B] shadow-[2px_2px_0_#1B1B1B] hover:bg-[#E0A526] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
-                    : "bg-[#EAE1D0] text-[#1B1B1B]/30 border-[#1B1B1B]/30 cursor-not-allowed"
+                    ? "bg-cream text-ink shadow-[2px_2px_0_var(--color-ink)] hover:bg-turmeric hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                    : "bg-[#EAE1D0] text-ink/30 border-ink/30 cursor-not-allowed"
                 }`}
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
@@ -377,10 +377,10 @@ export function BuyerStories() {
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
                 aria-label="Scroll right"
-                className={`w-9 h-9 rounded-full border-2 border-[#1B1B1B] flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-9 h-9 rounded-full border-2 border-ink flex items-center justify-center transition-all cursor-pointer ${
                   canScrollRight
-                    ? "bg-[#FFFDF7] text-[#1B1B1B] shadow-[2px_2px_0_#1B1B1B] hover:bg-[#E0A526] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
-                    : "bg-[#EAE1D0] text-[#1B1B1B]/30 border-[#1B1B1B]/30 cursor-not-allowed"
+                    ? "bg-cream text-ink shadow-[2px_2px_0_var(--color-ink)] hover:bg-turmeric hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                    : "bg-[#EAE1D0] text-ink/30 border-ink/30 cursor-not-allowed"
                 }`}
               >
                 <ChevronRight className="w-4 h-4 stroke-[2.5]" />
@@ -411,7 +411,7 @@ export function BuyerStories() {
               <div
                 key={story.id}
                 onClick={() => handleCardClick(idx)}
-                className="relative w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#1B1B1B] border-2 border-[#1B1B1B] shadow-[5px_5px_0_0_#1B1B1B] hover:shadow-[8px_8px_0_0_#8A1717] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start"
+                className="relative w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[5px_5px_0_0_var(--color-ink)] hover:shadow-[8px_8px_0_0_var(--color-brand)] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start"
               >
                 {/* Phone Speaker Notch */}
                 <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-1.5 bg-black/60 rounded-full z-20 pointer-events-none" />
@@ -435,7 +435,7 @@ export function BuyerStories() {
                 {/* Top Story Header Bar */}
                 <div className="absolute top-4 left-3 right-3 flex items-center justify-between text-white text-xs z-15 gap-2">
                   <div className="flex items-center gap-2 min-w-0 flex-1">
-                    <div className="w-7 h-7 rounded-full bg-[#E0A526] text-[#1B1B1B] font-bold text-[10px] flex items-center justify-center shrink-0 border border-[#1B1B1B]">
+                    <div className="w-7 h-7 rounded-full bg-turmeric text-ink font-bold text-[10px] flex items-center justify-center shrink-0 border border-ink">
                       {story.city.slice(0, 3).toUpperCase()}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -443,7 +443,7 @@ export function BuyerStories() {
                         <span className="font-bold text-xs truncate max-w-[110px] sm:max-w-[130px]">
                           {story.handle}
                         </span>
-                        <CheckCircle2 className="w-3 h-3 text-[#E0A526] shrink-0 fill-[#E0A526]/20" />
+                        <CheckCircle2 className="w-3 h-3 text-turmeric shrink-0 fill-turmeric/20" />
                       </div>
                       <span className="text-[10px] text-white/70 block leading-none truncate">
                         {story.city}
@@ -458,7 +458,7 @@ export function BuyerStories() {
 
                 {/* Hover Click-to-Preview Pill */}
                 <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-black/20 backdrop-blur-[2px]">
-                  <div className="bg-[#E0A526] text-[#1B1B1B] font-bold text-xs sm:text-sm px-4 py-2 rounded-full border-2 border-[#1B1B1B] shadow-[3px_3px_0_#1B1B1B] flex items-center gap-2 transform group-hover:scale-105 transition-transform">
+                  <div className="bg-turmeric text-ink font-bold text-xs sm:text-sm px-4 py-2 rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] flex items-center gap-2 transform group-hover:scale-105 transition-transform">
                     <Eye className="w-4 h-4" />
                     <span>Click to Preview Story</span>
                   </div>
@@ -469,9 +469,9 @@ export function BuyerStories() {
                   <p className="text-xs sm:text-[13px] font-medium leading-snug line-clamp-2 text-white/95 drop-shadow-md mb-2 italic">
                     &ldquo;{story.quote}&rdquo;
                   </p>
-                  <div className="flex items-center justify-between text-[10px] text-[#E0A526] font-semibold border-t border-white/15 pt-1.5">
+                  <div className="flex items-center justify-between text-[10px] text-turmeric font-semibold border-t border-white/15 pt-1.5">
                     <div className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-[#E0A526]" />
+                      <MapPin className="w-3 h-3 text-turmeric" />
                       <span>{story.city}, {story.stateOrCountry}</span>
                     </div>
                     <span className="text-white/80">Tap to expand</span>
@@ -483,14 +483,14 @@ export function BuyerStories() {
           </div>
 
           {/* Subtitle / Interaction Guide */}
-          <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-[#1B1B1B]/70 px-1">
+          <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-ink/70 px-1">
             <p className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#8A1717]" />
+              <Sparkles className="w-3.5 h-3.5 text-brand" />
               <span>
-                Showing <strong className="text-[#1B1B1B]">{activeStories.length} verified buyer stories</strong>. Drag sideways or use arrows to scroll. Click any card to open the interactive story player.
+                Showing <strong className="text-ink">{activeStories.length} verified buyer stories</strong>. Drag sideways or use arrows to scroll. Click any card to open the interactive story player.
               </span>
             </p>
-            <span className="font-semibold text-[#8A1717] mt-1 sm:mt-0">
+            <span className="font-semibold text-brand mt-1 sm:mt-0">
               100% Real Odia Buyer Stories
             </span>
           </div>

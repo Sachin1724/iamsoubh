@@ -108,7 +108,7 @@ export function MonthCarousel() {
   return (
     <section
       id="inside-calendar"
-      className="pt-16 sm:pt-20 pb-8 sm:pb-10 bg-[#F6EFE2] text-[#1B1B1B] relative z-10 scroll-mt-24 overflow-x-clip"
+      className="pt-16 sm:pt-20 pb-8 sm:pb-10 bg-rice text-ink relative z-10 scroll-mt-24 overflow-x-clip"
     >
       {/* 1. Folk Background Pattern Texture */}
       <div
@@ -126,18 +126,18 @@ export function MonthCarousel() {
         {/* Section Header */}
         <div className="reveal max-w-3xl mb-8 sm:mb-12">
           <div className="flex items-baseline gap-3 mb-2">
-            <span className="font-gazpacho text-[#8A1717] font-bold text-xl sm:text-2xl">
+            <span className="font-gazpacho text-brand font-bold text-xl sm:text-2xl">
               03
             </span>
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8A1717]">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand">
               INSIDE THE CALENDAR
             </span>
           </div>
 
-          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#1B1B1B]">
+          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-ink">
             Not just dates.
           </h2>
-          <p className="mt-2 text-base sm:text-lg text-[#4A4642] font-subtext font-normal leading-relaxed">
+          <p className="mt-2 text-base sm:text-lg text-muted font-subtext font-normal leading-relaxed">
             Stories, festivals, artwork and a deeper connection to Odisha.
           </p>
         </div>
@@ -145,7 +145,7 @@ export function MonthCarousel() {
         {/* Accordion card deck */}
         <div>
           <div className="flex items-center justify-between gap-4 mb-3">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#1B1B1B]/70 text-left">
+            <p className="text-xs font-bold uppercase tracking-wider text-ink/70 text-left">
               Three parbas are open. The rest stay sealed until the box lands.
             </p>
             {/* Mobile / Tablet navigation chevrons */}
@@ -154,7 +154,7 @@ export function MonthCarousel() {
                 type="button"
                 onClick={() => scroll("left")}
                 aria-label="Previous festival card"
-                className="w-8 h-8 rounded-full border-2 border-[#1B1B1B] bg-white active:bg-[#E0A526] text-[#1B1B1B] flex items-center justify-center transition-all shadow-[2px_2px_0_0_#1B1B1B]"
+                className="w-8 h-8 rounded-full border-2 border-ink bg-white active:bg-turmeric text-ink flex items-center justify-center transition-all shadow-[2px_2px_0_0_var(--color-ink)]"
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
               </button>
@@ -162,7 +162,7 @@ export function MonthCarousel() {
                 type="button"
                 onClick={() => scroll("right")}
                 aria-label="Next festival card"
-                className="w-8 h-8 rounded-full border-2 border-[#1B1B1B] bg-white active:bg-[#E0A526] text-[#1B1B1B] flex items-center justify-center transition-all shadow-[2px_2px_0_0_#1B1B1B]"
+                className="w-8 h-8 rounded-full border-2 border-ink bg-white active:bg-turmeric text-ink flex items-center justify-center transition-all shadow-[2px_2px_0_0_var(--color-ink)]"
               >
                 <ChevronRight className="w-4 h-4 stroke-[2.5]" />
               </button>
@@ -202,7 +202,7 @@ export function MonthCarousel() {
                     onPointerMove={tilt.onPointerMove}
                     style={{ flexGrow: open ? 3 : 1 }}
                     aria-pressed={flipped === fest.id}
-                    className="foil group relative w-[78vw] sm:w-[280px] max-w-[320px] shrink-0 snap-start lg:w-auto lg:basis-0 lg:shrink lg:min-w-0 h-full rounded-xl border-2 border-[#1B1B1B] bg-[#FFFDF7] cursor-pointer transition-[flex-grow] duration-700 [transition-timing-function:cubic-bezier(.22,1,.36,1)] [perspective:1200px]"
+                    className="foil group relative w-[78vw] sm:w-[280px] max-w-[320px] shrink-0 snap-start lg:w-auto lg:basis-0 lg:shrink lg:min-w-0 h-full rounded-xl border-2 border-ink bg-cream cursor-pointer transition-[flex-grow] duration-700 [transition-timing-function:cubic-bezier(.22,1,.36,1)] [perspective:1200px]"
                   >
                     <span
                       className="relative block w-full h-full rounded-[10px] overflow-hidden transition-transform duration-700 [transform-style:preserve-3d] [transition-timing-function:cubic-bezier(.22,1,.36,1)]"
@@ -220,28 +220,28 @@ export function MonthCarousel() {
                           sizes="(max-width: 1023px) 80vw, 30vw"
                           className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         />
-                        <span className="absolute inset-x-0 bottom-0 bg-[#1B1B1B]/90 backdrop-blur-md text-white px-3.5 py-2.5 text-left border-t border-white/10">
+                        <span className="absolute inset-x-0 bottom-0 bg-ink/90 backdrop-blur-md text-white px-3.5 py-2.5 text-left border-t border-white/10">
                           <div className="flex items-center justify-between gap-1 mb-0.5">
-                            <span className="block text-[10px] font-black uppercase tracking-wider text-[#E0A526]">
+                            <span className="block text-[10px] font-black uppercase tracking-wider text-turmeric">
                               {fest.monthEn}
                             </span>
-                            <span className="text-[10px] text-[#F6EFE2]/70 font-medium">
+                            <span className="text-[10px] text-rice/70 font-medium">
                               {fest.calendarDate.split("·")[0]?.trim()}
                             </span>
                           </div>
-                          <span className="block text-sm sm:text-base font-bold truncate text-[#F6EFE2]">
-                            {fest.festivalNameEn} <span className="font-normal text-xs text-[#E0A526] ml-1">({fest.festivalNameOr})</span>
+                          <span className="block text-sm sm:text-base font-bold truncate text-rice">
+                            {fest.festivalNameEn} <span className="font-normal text-xs text-turmeric ml-1">({fest.festivalNameOr})</span>
                           </span>
                         </span>
                       </span>
 
                       {/* Back of the card: the story */}
-                      <span className="absolute inset-0 flex flex-col gap-2 overflow-hidden bg-[#1B1B1B] text-left text-[#F6EFE2] p-4 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                        <span className="block text-[10px] font-black uppercase tracking-wider text-[#E0A526]">
+                      <span className="absolute inset-0 flex flex-col gap-2 overflow-hidden bg-ink text-left text-rice p-4 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                        <span className="block text-[10px] font-black uppercase tracking-wider text-turmeric">
                           {fest.calendarDate}
                         </span>
                         <span className="block font-gazpacho text-xl font-bold">{fest.festivalNameEn}</span>
-                        <span lang="or" className="block text-sm text-[#F6EFE2]/80">{fest.festivalNameOr}</span>
+                        <span lang="or" className="block text-sm text-rice/80">{fest.festivalNameOr}</span>
                         <span className="block text-sm leading-relaxed">{fest.flavorText}</span>
                         <span className="mt-auto flex flex-wrap gap-1.5">
                           {fest.traditions.map((trad) => (
@@ -263,23 +263,23 @@ export function MonthCarousel() {
                 style={{ flexGrow: hovered === -1 ? 3 : 1.4 }}
                 onMouseEnter={() => setHovered(-1)}
                 onMouseLeave={() => setHovered(null)}
-                className="group relative w-[78vw] sm:w-[280px] max-w-[320px] shrink-0 snap-start lg:w-auto lg:basis-0 lg:shrink lg:min-w-0 h-full overflow-hidden rounded-xl border-2 border-dashed border-[#8A1717]/60 bg-[#1B1B1B] text-[#F6EFE2] cursor-pointer transition-[flex-grow] duration-700 [transition-timing-function:cubic-bezier(.22,1,.36,1)]"
+                className="group relative w-[78vw] sm:w-[280px] max-w-[320px] shrink-0 snap-start lg:w-auto lg:basis-0 lg:shrink lg:min-w-0 h-full overflow-hidden rounded-xl border-2 border-dashed border-brand/60 bg-ink text-rice cursor-pointer transition-[flex-grow] duration-700 [transition-timing-function:cubic-bezier(.22,1,.36,1)]"
               >
                 <span className="absolute inset-0 opacity-25">
                   <Image src="/assets/parba/13th-parba-sealed.webp" alt="" fill sizes="30vw" className="object-cover blur-[3px]" />
                 </span>
                 <span className="relative flex h-full flex-col items-center justify-center gap-3 px-4 text-center">
-                  <Lock className="h-6 w-6 text-[#E0A526]" />
-                  <span className="font-gazpacho text-3xl font-bold leading-none text-[#E0A526]">
+                  <Lock className="h-6 w-6 text-turmeric" />
+                  <span className="font-gazpacho text-3xl font-bold leading-none text-turmeric">
                     {sealedCount}
                   </span>
                   <span className="text-xs font-black uppercase tracking-widest">
                     parbas still sealed
                   </span>
-                  <span className="max-w-[22ch] text-[11px] leading-snug text-[#F6EFE2]/80">
+                  <span className="max-w-[22ch] text-[11px] leading-snug text-rice/80">
                     Nuakhai, Manabasa, Boita Bandana and more — they open when the box lands.
                   </span>
-                  <span className="mt-1 rounded-full bg-[#E0A526] px-3 py-1.5 text-[11px] font-black text-[#1B1B1B] transition-transform duration-300 group-hover:scale-105">
+                  <span className="mt-1 rounded-full bg-turmeric px-3 py-1.5 text-[11px] font-black text-ink transition-transform duration-300 group-hover:scale-105">
                     Pre-order to unseal →
                   </span>
                 </span>
@@ -288,9 +288,9 @@ export function MonthCarousel() {
           </div>
 
           {/* Mobile swipe helper */}
-          <div className="flex lg:hidden items-center justify-between px-1 mt-2 text-[11px] text-[#1B1B1B]/70 font-medium">
+          <div className="flex lg:hidden items-center justify-between px-1 mt-2 text-[11px] text-ink/70 font-medium">
             <span>Swipe or use arrows to view all parbas</span>
-            <span className="text-[#8A1717] font-bold">Tap card for story →</span>
+            <span className="text-brand font-bold">Tap card for story →</span>
           </div>
         </div>
 
@@ -301,7 +301,7 @@ export function MonthCarousel() {
         if (!fest) return null;
         return createPortal(
           <div
-            className={`fixed inset-0 z-[60] flex items-end justify-center bg-[#1B1B1B]/75 lg:hidden backdrop-blur-xs transition-opacity duration-200 ${
+            className={`fixed inset-0 z-[60] flex items-end justify-center bg-ink/75 lg:hidden backdrop-blur-xs transition-opacity duration-200 ${
               isClosing ? "animate-backdrop-fade-out" : "animate-backdrop-fade-in"
             }`}
             style={{
@@ -318,7 +318,7 @@ export function MonthCarousel() {
                 transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
                 transition: isDragging.current ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
               }}
-              className={`max-h-[94dvh] w-full overflow-y-auto no-scrollbar rounded-t-3xl border-2 border-[#1B1B1B] bg-[#FFFDF7] p-4 pt-2.5 pb-[max(1.25rem,env(safe-area-inset-bottom))] will-change-transform ${
+              className={`max-h-[94dvh] w-full overflow-y-auto no-scrollbar rounded-t-3xl border-2 border-ink bg-cream p-4 pt-2.5 pb-[max(1.25rem,env(safe-area-inset-bottom))] will-change-transform ${
                 isClosing
                   ? "animate-modal-slide-down"
                   : dragY === 0
@@ -333,8 +333,8 @@ export function MonthCarousel() {
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
               >
-                <div className="w-12 h-1.5 rounded-full bg-[#1B1B1B]/30 group-hover/handle:bg-[#1B1B1B]/50 transition-colors" />
-                <span className="text-[9px] font-semibold tracking-wider uppercase text-[#1B1B1B]/40 mt-1">
+                <div className="w-12 h-1.5 rounded-full bg-ink/30 group-hover/handle:bg-ink/50 transition-colors" />
+                <span className="text-[9px] font-semibold tracking-wider uppercase text-ink/40 mt-1">
                   Pull down to close
                 </span>
               </div>
@@ -347,11 +347,11 @@ export function MonthCarousel() {
                 onTouchEnd={handleTouchEnd}
               >
                 <div>
-                  <span className="block text-[10px] font-black uppercase tracking-wider text-[#8A1717]">
+                  <span className="block text-[10px] font-black uppercase tracking-wider text-brand">
                     {fest.calendarDate}
                   </span>
                   <h3 className="font-gazpacho text-2xl font-bold leading-tight">{fest.festivalNameEn}</h3>
-                  <span lang="or" className="block text-sm text-[#1B1B1B]/70 font-odia">
+                  <span lang="or" className="block text-sm text-ink/70 font-odia">
                     {fest.festivalNameOr}
                   </span>
                 </div>
@@ -359,7 +359,7 @@ export function MonthCarousel() {
                   type="button"
                   onClick={handleClose}
                   aria-label="Close preview"
-                  className="shrink-0 grid h-11 w-11 place-items-center rounded-full border-2 border-[#1B1B1B] bg-white cursor-pointer hover:bg-[#F6EFE2] active:scale-95 transition-all shadow-xs"
+                  className="shrink-0 grid h-11 w-11 place-items-center rounded-full border-2 border-ink bg-white cursor-pointer hover:bg-rice active:scale-95 transition-all shadow-xs"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -386,7 +386,7 @@ export function MonthCarousel() {
                   }}
                 >
                   {/* FRONT SIDE: Official Artwork */}
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-[#1B1B1B] bg-[#FFFDF7] [backface-visibility:hidden]">
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-ink bg-cream [backface-visibility:hidden]">
                     <Image
                       src={fest.artwork}
                       alt={fest.festivalNameEn}
@@ -397,7 +397,7 @@ export function MonthCarousel() {
                     />
                     
                     {/* Floating 3D Flip Badge */}
-                    <div className="absolute top-3 right-3 bg-[#1B1B1B]/80 backdrop-blur-md text-[#E0A526] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#E0A526]/50 flex items-center gap-1.5 shadow-md group-hover:scale-105 transition-transform">
+                    <div className="absolute top-3 right-3 bg-ink/80 backdrop-blur-md text-turmeric text-[11px] font-bold px-3 py-1.5 rounded-full border border-turmeric/50 flex items-center gap-1.5 shadow-md group-hover:scale-105 transition-transform">
                       <RotateCw className="w-3.5 h-3.5" />
                       <span>Tap to 3D flip</span>
                     </div>
@@ -405,7 +405,7 @@ export function MonthCarousel() {
                     {/* Bottom Art Ribbon */}
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent p-3.5 pt-8 text-white">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-[#E0A526]">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-turmeric">
                           Front · Official Art
                         </span>
                         <span className="text-[10px] text-white/90 font-medium flex items-center gap-1">
@@ -416,7 +416,7 @@ export function MonthCarousel() {
                   </div>
 
                   {/* BACK SIDE: Story, Traditions & Rituals Tracker */}
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-[#1B1B1B] bg-[#141414] text-[#F6EFE2] p-4 sm:p-5 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner">
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-ink bg-[#141414] text-rice p-4 sm:p-5 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner">
                     {/* Odia Folk Pattern Texture Overlay */}
                     <div
                       className="absolute inset-0 opacity-10 pointer-events-none bg-repeat"
@@ -427,19 +427,19 @@ export function MonthCarousel() {
                     />
 
                     {/* Back Header */}
-                    <div className="relative z-10 flex items-start justify-between border-b border-[#E0A526]/30 pb-2.5">
+                    <div className="relative z-10 flex items-start justify-between border-b border-turmeric/30 pb-2.5">
                       <div>
-                        <span className="block text-[10px] font-black uppercase tracking-wider text-[#E0A526]">
+                        <span className="block text-[10px] font-black uppercase tracking-wider text-turmeric">
                           {fest.calendarDate}
                         </span>
-                        <h4 className="font-gazpacho text-xl sm:text-2xl font-bold text-[#FFFDF7] leading-tight">
+                        <h4 className="font-gazpacho text-xl sm:text-2xl font-bold text-cream leading-tight">
                           {fest.festivalNameEn}
                         </h4>
-                        <span lang="or" className="block text-xs text-[#E0A526]/90 font-odia">
+                        <span lang="or" className="block text-xs text-turmeric/90 font-odia">
                           {fest.festivalNameOr}
                         </span>
                       </div>
-                      <div className="bg-[#E0A526]/20 border border-[#E0A526]/50 text-[#E0A526] text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-xs">
+                      <div className="bg-turmeric/20 border border-turmeric/50 text-turmeric text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-xs">
                         <RotateCw className="w-3 h-3" />
                         <span>Back Face</span>
                       </div>
@@ -447,8 +447,8 @@ export function MonthCarousel() {
 
                     {/* Story Flavor Quote */}
                     <div className="relative z-10 my-auto py-2">
-                      <div className="bg-[#0B0B0B]/85 p-3 sm:p-3.5 rounded-xl border border-[#E0A526]/25 shadow-xs">
-                        <p className="text-xs sm:text-sm leading-relaxed text-[#F6EFE2]/95 italic">
+                      <div className="bg-[#0B0B0B]/85 p-3 sm:p-3.5 rounded-xl border border-turmeric/25 shadow-xs">
+                        <p className="text-xs sm:text-sm leading-relaxed text-rice/95 italic">
                           &ldquo;{fest.flavorText}&rdquo;
                         </p>
                       </div>
@@ -456,16 +456,16 @@ export function MonthCarousel() {
 
                     {/* Traditions Checklist */}
                     <div className="relative z-10 space-y-1.5 pt-1">
-                      <span className="block text-[10px] font-bold uppercase tracking-wider text-[#E0A526]/90">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-turmeric/90">
                         Traditions on this card:
                       </span>
                       <div className="space-y-1.5">
                         {fest.traditions.map((trad, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-2 text-[11px] sm:text-xs text-[#FFFDF7] bg-[#1A1A1A]/90 px-2.5 py-1.5 rounded-lg border border-[#E0A526]/25 shadow-xs"
+                            className="flex items-center gap-2 text-[11px] sm:text-xs text-cream bg-[#1A1A1A]/90 px-2.5 py-1.5 rounded-lg border border-turmeric/25 shadow-xs"
                           >
-                            <div className="w-4 h-4 rounded border border-[#E0A526] bg-[#E0A526]/20 flex items-center justify-center shrink-0 text-[#E0A526]">
+                            <div className="w-4 h-4 rounded border border-turmeric bg-turmeric/20 flex items-center justify-center shrink-0 text-turmeric">
                               <Check className="w-3 h-3" strokeWidth={2.5} />
                             </div>
                             <span className="leading-snug">{trad}</span>
@@ -475,9 +475,9 @@ export function MonthCarousel() {
                     </div>
 
                     {/* Card Footer Stamp */}
-                    <div className="relative z-10 pt-2.5 border-t border-[#E0A526]/25 flex items-center justify-between text-[10px] text-[#E0A526]/85 font-medium">
+                    <div className="relative z-10 pt-2.5 border-t border-turmeric/25 flex items-center justify-between text-[10px] text-turmeric/85 font-medium">
                       <span>BARA MASA TERA PARBA</span>
-                      <span className="flex items-center gap-1 text-[#E0A526]">
+                      <span className="flex items-center gap-1 text-turmeric">
                         Tap to flip front ↺
                       </span>
                     </div>
@@ -486,13 +486,13 @@ export function MonthCarousel() {
               </div>
 
               {/* Flavor Text & Traditions (Below Card) */}
-              <p className="mt-3 text-sm leading-relaxed text-[#1B1B1B]/85 italic">&ldquo;{fest.flavorText}&rdquo;</p>
+              <p className="mt-3 text-sm leading-relaxed text-ink/85 italic">&ldquo;{fest.flavorText}&rdquo;</p>
 
               <div className="mt-2.5 flex flex-wrap gap-1.5">
                 {fest.traditions.map((trad) => (
                   <span
                     key={trad}
-                    className="rounded-md border border-[#D5C7B3] bg-[#F6EFE2] px-2 py-1 text-[11px] font-medium text-[#1B1B1B]"
+                    className="rounded-md border border-[#D5C7B3] bg-rice px-2 py-1 text-[11px] font-medium text-ink"
                   >
                     {trad}
                   </span>

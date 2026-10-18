@@ -98,7 +98,7 @@ export function StoryViewer({
       role="dialog"
       aria-modal="true"
       aria-label={`Story from ${current.handle}`}
-      className="fixed inset-0 z-[9999] bg-[#1B1B1B]/95 backdrop-blur-md flex flex-col justify-between py-2 sm:py-4 px-3 sm:px-6 cursor-pointer select-none"
+      className="fixed inset-0 z-[9999] bg-ink/95 backdrop-blur-md flex flex-col justify-between py-2 sm:py-4 px-3 sm:px-6 cursor-pointer select-none"
       onClick={onClose}
     >
       {/* Prominent Desktop Close / Back to Website Button */}
@@ -108,7 +108,7 @@ export function StoryViewer({
           onClose();
         }}
         aria-label="Back to website"
-        className="hidden sm:flex fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-[#8A1717] text-[#F6EFE2] border border-white/20 shadow-xl text-xs sm:text-sm font-bold transition-all cursor-pointer group"
+        className="hidden sm:flex fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-brand text-rice border border-white/20 shadow-xl text-xs sm:text-sm font-bold transition-all cursor-pointer group"
       >
         <span className="hidden sm:inline">Back to website</span>
         <X className="w-4 h-4 stroke-[2.5] group-hover:rotate-90 transition-transform" />
@@ -124,9 +124,9 @@ export function StoryViewer({
       >
         <div className="flex gap-1 p-2 shrink-0">
           {stories.map((s, i) => (
-            <div key={s.id} className="h-1 flex-1 rounded-full bg-[#F6EFE2]/25 overflow-hidden">
+            <div key={s.id} className="h-1 flex-1 rounded-full bg-rice/25 overflow-hidden">
               <div
-                className="h-full bg-[#F6EFE2]"
+                className="h-full bg-rice"
                 style={{
                   width: i < index ? "100%" : i === index ? `${progress * 100}%` : "0%",
                 }}
@@ -138,7 +138,7 @@ export function StoryViewer({
         {/* Top bar with handle, city, and close */}
         <div className="flex items-center justify-between px-2 pt-1 pb-2 shrink-0">
           <div className="min-w-0 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#E0A526] text-[#1B1B1B] font-bold text-xs flex items-center justify-center shrink-0 border border-[#1B1B1B]">
+            <div className="w-8 h-8 rounded-full bg-turmeric text-ink font-bold text-xs flex items-center justify-center shrink-0 border border-ink">
               {cityCode}
             </div>
             <div>
@@ -146,12 +146,12 @@ export function StoryViewer({
                 href={`https://instagram.com/${current.handle.replace("@", "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-bold text-[#F6EFE2] hover:underline hover:text-[#E0A526] transition-colors"
+                className="text-sm font-bold text-rice hover:underline hover:text-turmeric transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
                 {current.handle}
               </a>
-              <p className="text-xs text-[#F6EFE2]/70">{current.city} · {current.stateOrCountry}</p>
+              <p className="text-xs text-rice/70">{current.city} · {current.stateOrCountry}</p>
             </div>
           </div>
           <button
@@ -160,7 +160,7 @@ export function StoryViewer({
               onClose();
             }}
             aria-label="Close stories"
-            className="w-10 h-10 rounded-full bg-[#F6EFE2] text-[#1B1B1B] border-2 border-[#1B1B1B] flex items-center justify-center press cursor-pointer hover:bg-white"
+            className="w-10 h-10 rounded-full bg-rice text-ink border-2 border-ink flex items-center justify-center press cursor-pointer hover:bg-white"
           >
             <X className="w-5 h-5 stroke-[2.5]" />
           </button>
@@ -176,7 +176,7 @@ export function StoryViewer({
         onPointerLeave={() => setPaused(false)}
       >
         {hasSharpImage ? (
-          <div className="w-full h-full relative aspect-[9/16] rounded-2xl overflow-hidden border-2 border-[#1B1B1B] shadow-[4px_4px_0_#E0A526]">
+          <div className="w-full h-full relative aspect-[9/16] rounded-2xl overflow-hidden border-2 border-ink shadow-[4px_4px_0_var(--color-turmeric)]">
             <Image
               src={current.image}
               alt={current.quote || `Story from ${current.handle}`}
@@ -190,7 +190,7 @@ export function StoryViewer({
                 <p className="text-xs sm:text-sm font-medium leading-snug line-clamp-2">
                   &ldquo;{current.quote}&rdquo;
                 </p>
-                <div className="flex items-center justify-between mt-1.5 text-[11px] text-[#E0A526] font-bold">
+                <div className="flex items-center justify-between mt-1.5 text-[11px] text-turmeric font-bold">
                   <span>{current.handle}</span>
                   <span className="text-white/80">{current.city} · {current.stateOrCountry}</span>
                 </div>
@@ -200,35 +200,35 @@ export function StoryViewer({
         ) : (
           /* Clean 9:16 Placeholder card */
           <div
-            className="w-full h-full max-h-[780px] aspect-[9/16] rounded-2xl bg-[#FFFAF0] border-2 border-[#1B1B1B] flex flex-col justify-between p-6 select-none relative overflow-hidden"
+            className="w-full h-full max-h-[780px] aspect-[9/16] rounded-2xl bg-[#FFFAF0] border-2 border-ink flex flex-col justify-between p-6 select-none relative overflow-hidden"
             style={{ boxShadow: "5px 5px 0 0 #E0A526" }}
           >
             {/* Top motif accent */}
-            <div className="flex items-center justify-between text-xs text-[#8A1717] font-bold uppercase tracking-wider">
+            <div className="flex items-center justify-between text-xs text-brand font-bold uppercase tracking-wider">
               <span>{cityCode} · {current.city}</span>
-              <span className="bg-[#E0A526]/30 text-[#8A1717] px-2 py-0.5 rounded-full border border-[#8A1717]/20">
+              <span className="bg-turmeric/30 text-brand px-2 py-0.5 rounded-full border border-brand/20">
                 2026 Wall
               </span>
             </div>
 
             {/* Center story content */}
             <div className="my-auto text-center flex flex-col items-center py-6">
-              <div className="w-16 h-16 rounded-full bg-[#F6EFE2] border-2 border-[#1B1B1B] flex items-center justify-center mb-4 text-[#C8221A] shadow-[2px_2px_0_#1B1B1B]">
+              <div className="w-16 h-16 rounded-full bg-rice border-2 border-ink flex items-center justify-center mb-4 text-chandua shadow-[2px_2px_0_var(--color-ink)]">
                 <span className="font-disko text-2xl">{cityCode}</span>
               </div>
-              <h3 className="font-disko text-3xl sm:text-4xl text-[#1B1B1B] leading-tight mb-2">
+              <h3 className="font-disko text-3xl sm:text-4xl text-ink leading-tight mb-2">
                 {current.city}
               </h3>
-              <span className="inline-block text-xs font-bold text-[#8A1717] uppercase tracking-widest bg-[#F6EFE2] px-3 py-1 rounded-full border border-[#1B1B1B]/15 mb-6">
+              <span className="inline-block text-xs font-bold text-brand uppercase tracking-widest bg-rice px-3 py-1 rounded-full border border-ink/15 mb-6">
                 Story coming
               </span>
 
               {current.quote && (
-                <div className="bg-[#F6EFE2] border-2 border-[#1B1B1B] rounded-xl p-4 shadow-[3px_3px_0_#1B1B1B] text-left max-w-xs">
-                  <p className="text-sm sm:text-base italic text-[#1B1B1B] leading-relaxed">
+                <div className="bg-rice border-2 border-ink rounded-xl p-4 shadow-[3px_3px_0_var(--color-ink)] text-left max-w-xs">
+                  <p className="text-sm sm:text-base italic text-ink leading-relaxed">
                     &ldquo;{current.quote}&rdquo;
                   </p>
-                  <p className="text-xs font-bold text-[#8A1717] mt-2 text-right">
+                  <p className="text-xs font-bold text-brand mt-2 text-right">
                     — {current.name} ({current.handle})
                   </p>
                 </div>
@@ -236,8 +236,8 @@ export function StoryViewer({
             </div>
 
             {/* Bottom bar */}
-            <div className="pt-3 border-t-2 border-[#1B1B1B]/15 text-center">
-              <p className="text-xs text-[#4A4642] font-semibold">
+            <div className="pt-3 border-t-2 border-ink/15 text-center">
+              <p className="text-xs text-muted font-semibold">
                 Tap anywhere to advance · 2027 Calendar Pre-orders Open
               </p>
             </div>
@@ -265,21 +265,21 @@ export function StoryViewer({
         <div className="hidden sm:flex justify-between items-center px-4 pb-2">
           <button
             onClick={prev}
-            className="px-4 py-2 rounded-full bg-[#2A2A2A] text-[#F6EFE2] text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
+            className="px-4 py-2 rounded-full bg-[#2A2A2A] text-rice text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4" /> Previous
           </button>
-          <span className="text-xs text-[#F6EFE2]/60">
+          <span className="text-xs text-rice/60">
             {index + 1} of {stories.length}
           </span>
           <button
             onClick={next}
-            className="px-4 py-2 rounded-full bg-[#2A2A2A] text-[#F6EFE2] text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
+            className="px-4 py-2 rounded-full bg-[#2A2A2A] text-rice text-xs font-bold flex items-center gap-1 hover:bg-[#3A3A3A] cursor-pointer"
           >
             Next <ChevronRight className="w-4 h-4" />
           </button>
         </div>
-        <p className="text-[11px] text-[#F6EFE2]/50 text-center hidden sm:block pointer-events-none select-none">
+        <p className="text-[11px] text-rice/50 text-center hidden sm:block pointer-events-none select-none">
           Click anywhere outside or press ESC to return to main page
         </p>
       </div>

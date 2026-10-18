@@ -69,13 +69,14 @@ export function AmbientFestiveLayer() {
         {FESTIVE_LEAVES.map((item) => (
           <div
             key={item.id}
-            className="absolute top-0 will-change-transform"
+            className="absolute top-0 will-change-transform festive-motion"
             style={{
               left: item.left,
               animation: `petalFall ${item.duration}s linear ${item.delay}s infinite`,
             }}
           >
             <div
+              className="festive-motion"
               style={{
                 animation: `petalSway ${item.swayDuration}s ease-in-out infinite alternate`,
               }}
@@ -150,7 +151,7 @@ export function AmbientFestiveLayer() {
         {GOLD_SPARKS.map((spark) => (
           <div
             key={spark.id}
-            className="absolute rounded-full bg-[#FFE066] shadow-[0_0_8px_#F59E0B] will-change-transform"
+            className="absolute rounded-full bg-gold shadow-[0_0_8px_#F59E0B] will-change-transform festive-motion"
             style={{
               left: spark.left,
               bottom: spark.bottom,

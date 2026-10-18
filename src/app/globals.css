@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #1B1B1B;
+  --color-brand: #8A1717;
+  --color-turmeric: #E0A526;
+  --color-charcoal: #1C1917;
+  --color-rice: #F6EFE2;
+  --color-cream: #FFFDF7;
+  --color-marigold: #E59618;
+  --color-chandua: #C8221A;
+  --color-shell: #FBF7EF;
+  --color-gold: #FFE066;
+  --color-muted: #4A4642;
+  --color-parrot: #3E9B47;
+  --color-sand: #FAF6EE;
+  --color-teal: #009EA8;
+  --color-cocoa: #4A2E1B;
+}
+
 @layer base {
   :root {
     --color-chandua-red: #C8221A;
@@ -17,102 +35,13 @@
   }
 }
 
-/* Custom font utilities */
-@font-face {
-  font-family: 'Gazpacho';
-  src: url('/fonts/gazpacho/Gazpacho-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gazpacho';
-  src: url('/fonts/gazpacho/Gazpacho-Heavy.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gazpacho';
-  src: url('/fonts/gazpacho/Gazpacho-Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gazpacho';
-  src: url('/fonts/gazpacho/Gazpacho-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gazpacho';
-  src: url('/fonts/gazpacho/Gazpacho Bold Italic.woff2') format('woff2');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'DiskoPhonic';
-  src: url('/fonts/DiskoPhonic-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'OdiaJaya';
-  src: url('/fonts/jaya.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'AksharUnicode';
-  src: url('/fonts/akshar.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Bigdream';
-  src: url('/fonts/Bigdream.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'BricolageGrotesque';
-  src: url('/fonts/BricolageGrotesque.ttf') format('truetype');
-  font-weight: 200 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'BricolageGrotesque';
-  src: url('/fonts/BricolageGrotesque.ttf') format('truetype');
-  font-weight: 200 800;
-  font-style: italic;
-  font-display: swap;
-}
-
 .font-bigdream {
-  font-family: 'Bigdream', var(--font-bigdream), sans-serif;
+  font-family: var(--font-bigdream), sans-serif;
   letter-spacing: 0.03em;
 }
 
 .font-bricolage {
-  font-family: var(--font-bricolage), 'BricolageGrotesque', system-ui, sans-serif;
+  font-family: var(--font-bricolage), system-ui, sans-serif;
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
@@ -125,14 +54,14 @@
 }
 
 .font-editorial {
-  font-family: var(--font-gazpacho), 'Gazpacho', Georgia, serif;
+  font-family: var(--font-gazpacho), Georgia, serif;
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .font-gazpacho,
 .font-disko,
 .font-display {
-  font-family: var(--font-gazpacho), 'Gazpacho', serif;
+  font-family: var(--font-gazpacho), serif;
   font-feature-settings: "kern", "liga", "clig";
   letter-spacing: -0.02em;
 }
@@ -146,12 +75,12 @@
 }
 
 .font-odia-display {
-  font-family: var(--font-odia-display), 'OdiaJaya', var(--font-odia), "Noto Sans Oriya", sans-serif;
+  font-family: var(--font-odia-display), var(--font-odia), "Noto Sans Oriya", sans-serif;
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .font-odia {
-  font-family: var(--font-odia-display), 'OdiaJaya', var(--font-odia), 'AksharUnicode', "Noto Sans Oriya", sans-serif;
+  font-family: var(--font-odia-display), var(--font-odia), "Noto Sans Oriya", sans-serif;
 }
 
 .font-sans {
@@ -427,6 +356,12 @@
   .animate-petal-sway,
   .animate-spark-float {
     animation: none;
+  }
+
+  /* Petals and sparks carry their animation inline (see AmbientFestiveLayer),
+     so the opt-out has to outrank the style attribute. */
+  .festive-motion {
+    animation: none !important;
   }
 }
 
@@ -759,11 +694,6 @@ body::after {
   background-image: url("/patterns/border-ikat.svg");
 }
 
-/* Display Odia for the hero title; Akshar stays for running Odia text */
-.font-odia-display {
-  font-family: var(--font-odia-display), var(--font-odia), "Noto Sans Oriya", sans-serif;
-}
-
 /* ============================================================
    Deal-in: tiles enter like cards pulled from the box.
    Scroll-driven, so it runs on the compositor with no observers.
@@ -865,13 +795,6 @@ html.lenis body {
   }
 }
 
-/* Ambient drifting leaves / dots (see components/Ambient.tsx). */
-@keyframes ambientDrift {
-  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(18px, -22px, 0) rotate(8deg); }
-  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-}
-
 @keyframes birdsGliding {
   0% { transform: translate3d(0, 0, 0); }
   50% { transform: translate3d(-18px, -8px, 0); }
@@ -887,59 +810,10 @@ html.lenis body {
   animation: birdsGliding 9s ease-in-out infinite;
 }
 
-.animate-wheel-spin {
-  animation: wheelSpinSlow 180s linear infinite;
-}
-
-.animate-jhoti-shimmer {
-  animation: jhotiShimmer 6s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 7s ease-in-out infinite;
-}
-
 .animate-flower-float {
   animation: flowerFloat 5s ease-in-out infinite;
 }
 
-.ambient {
-  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
-  transition: transform 600ms ease-out;
-}
-.ambient-item {
-  position: absolute;
-  display: block;
-  opacity: 0.45;
-  will-change: transform;
-}
-.ambient-item > * {
-  display: block;
-  animation: ambientDrift linear infinite;
-  animation-duration: inherit;
-  animation-delay: inherit;
-}
-.ambient-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 9999px;
-  background: currentColor;
-}
-.ambient-leaf {
-  width: 44px;
-  height: 44px;
-  background: currentColor;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-}
-@media (prefers-reduced-motion: reduce) {
-  .ambient { transition: none; transform: none; }
-  .ambient-item > * { animation: none; }
-}
 
 /* Card tilt + gold foil sheen. The pointer writes --rx/--ry/--mx/--my/--foil
    (see use-tilt.ts); everything here is GPU work only. */

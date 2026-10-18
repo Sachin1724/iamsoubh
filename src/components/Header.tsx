@@ -43,8 +43,8 @@ export function Header({ onOrderClick }: HeaderProps) {
         containerClassName="pointer-events-none py-2 sm:py-3 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto"
         className={`pointer-events-auto border-2 transition-all duration-300 ${
           scrolled
-            ? "bg-[#FAF6EE]/95 border-[#8A1717]/30 text-[#8A1717] shadow-md backdrop-blur-md"
-            : "bg-[#FAF6EE]/85 backdrop-blur-md border-[#8A1717]/20 text-[#8A1717]"
+            ? "bg-sand border-brand/30 text-brand shadow-md backdrop-blur-md"
+            : "bg-sand/92 backdrop-blur-md border-brand/20 text-brand"
         }`}
         brandLogo={
           <a

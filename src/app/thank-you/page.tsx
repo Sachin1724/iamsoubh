@@ -71,12 +71,12 @@ function ThankYouBody() {
   }, [paid, orderId, data]);
 
   return (
-    <main className="min-h-screen bg-[#8A1717] text-[#F6EFE2] flex items-center justify-center px-5 py-20">
+    <main className="min-h-screen bg-brand text-rice flex items-center justify-center px-5 py-20">
       <div className="w-full max-w-lg text-center">
         {overflow ? (
           <>
             <h1 className="font-disko text-4xl sm:text-5xl">That was close.</h1>
-            <p className="mt-4 text-base text-[#F6EFE2]/90">
+            <p className="mt-4 text-base text-rice/90">
               Your payment came in just after the last box went. Soubh will refund you in full
               within 48 hours.
             </p>
@@ -85,11 +85,11 @@ function ThankYouBody() {
           <>
             <h1 className="font-disko text-4xl sm:text-5xl">You&apos;re in.</h1>
             {data!.orderNumber && (
-              <p className="font-disko mt-2 text-2xl text-[#E0A526]">
+              <p className="font-disko mt-2 text-2xl text-turmeric">
                 Order {data!.orderNumber} of {siteConfig.batchCap}
               </p>
             )}
-            <p className="mt-4 text-base text-[#F6EFE2]/90">
+            <p className="mt-4 text-base text-rice/90">
               Ships from the {siteConfig.shipDateLabel.toLowerCase()}. Your tracking link reaches
               you on WhatsApp and email the day it leaves.
             </p>
@@ -97,7 +97,7 @@ function ThankYouBody() {
         ) : timedOut ? (
           <>
             <h1 className="font-disko text-4xl sm:text-5xl">Still confirming.</h1>
-            <p className="mt-4 text-base text-[#F6EFE2]/90">
+            <p className="mt-4 text-base text-rice/90">
               Your payment is going through. You&apos;ll get a WhatsApp from Soubh once it lands.
               Nothing more to do here.
             </p>
@@ -111,7 +111,7 @@ function ThankYouBody() {
             href={siteConfig.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[52px] px-6 rounded-full bg-[#E0A526] text-[#1B1B1B] font-disko text-lg inline-flex items-center justify-center border-2 border-[#1B1B1B] press"
+            className="min-h-[52px] px-6 rounded-full bg-turmeric text-ink font-disko text-lg inline-flex items-center justify-center border-2 border-ink press"
             style={{ boxShadow: "5px 5px 0 0 #1B1B1B" }}
           >
             Follow @iamsoubh
@@ -122,7 +122,7 @@ function ThankYouBody() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[52px] px-6 rounded-full bg-transparent text-[#F6EFE2] font-disko text-lg inline-flex items-center justify-center border-2 border-[#F6EFE2]"
+            className="min-h-[52px] px-6 rounded-full bg-transparent text-rice font-disko text-lg inline-flex items-center justify-center border-2 border-rice"
           >
             Send to family
           </a>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { HeroCardsCarousel } from "@/components/HeroCardsCarousel";
 import { AmbientFestiveLayer } from "@/components/AmbientFestiveLayer";
 import { scrollToTarget } from "@/components/SmoothScroll";
@@ -20,35 +20,41 @@ const TICKER_WORDS = [
 
 function HeroTrustTicker() {
   const [index, setIndex] = React.useState(0);
+  const reduceMotion = useReducedMotion();
 
   React.useEffect(() => {
+    if (reduceMotion) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % TICKER_WORDS.length);
     }, 3200);
     return () => clearInterval(timer);
-  }, []);
+  }, [reduceMotion]);
 
   return (
-    <div className="flex items-center justify-center min-h-[30px] overflow-hidden select-none">
+    <div className="flex items-center justify-center min-h-[30px] overflow-hidden select-none" aria-live="polite">
       <AnimatePresence mode="wait">
-        <motion.div
+        <motion.button
           key={index}
-          initial={{ opacity: 0, y: 12, rotateX: -60 }}
+          type="button"
+          initial={reduceMotion ? false : { opacity: 0, y: 12, rotateX: -60 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          exit={{ opacity: 0, y: -12, rotateX: 60 }}
+          exit={reduceMotion ? undefined : { opacity: 0, y: -12, rotateX: 60 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           style={{ perspective: 600, transformStyle: "preserve-3d" }}
-          className="inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs md:text-sm text-[#8A1717] font-subtext font-semibold whitespace-nowrap cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs md:text-sm text-brand font-subtext font-semibold whitespace-nowrap cursor-pointer rounded-full px-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           onClick={() => setIndex((prev) => (prev + 1) % TICKER_WORDS.length)}
           title="Click to advance"
         >
-          <span className="w-2 h-2 rounded-full bg-[#3E9B47] shrink-0 animate-pulse shadow-[0_0_6px_#3E9B47]" />
+          <span className="w-2 h-2 rounded-full bg-parrot shrink-0 animate-pulse shadow-[0_0_6px_var(--color-parrot)] motion-reduce:animate-none" aria-hidden="true" />
           <span className="tracking-wide">{TICKER_WORDS[index]}</span>
-        </motion.div>
+        </motion.button>
       </AnimatePresence>
     </div>
   );
 }
+
+const HEADLINE =
+  "font-bigdream text-[clamp(3.2rem,11vw,7.8rem)] font-bold tracking-tight leading-[0.82] text-brand select-none text-center w-full block";
 
 export function Hero({ onOrderClick }: HeroProps) {
   const handleOrder = () => {
@@ -62,7 +68,7 @@ export function Hero({ onOrderClick }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 md:pt-30 pb-4 sm:pb-6 bg-[#FAF6EE] text-[#1B1B1B] overflow-hidden"
+      className="relative min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 md:pt-30 pb-4 sm:pb-6 bg-sand text-ink overflow-hidden"
     >
       {/* Living Cultural Ambient Layer (Warm Temple Glow, Floating Petals, Sun Sparks, Heritage Art) */}
       <AmbientFestiveLayer />
@@ -106,35 +112,33 @@ export function Hero({ onOrderClick }: HeroProps) {
         <div className="flex flex-col items-center text-center relative w-full pt-0.5 sm:pt-1">
           {/* Eyebrow badge: 2027 EDITION */}
           <div className="mb-1.5 sm:mb-2 relative z-10 flex justify-center w-full">
-            <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full border border-[#8A1717]/35 bg-[#8A1717]/8 text-[#8A1717] text-[10px] sm:text-xs font-bold tracking-widest uppercase shadow-xs backdrop-blur-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8A1717] animate-pulse shrink-0" />
+            <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full border border-brand/35 bg-brand/8 text-brand text-[10px] sm:text-xs font-bold tracking-widest uppercase shadow-xs backdrop-blur-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse motion-reduce:animate-none shrink-0" aria-hidden="true" />
               <span>2027 EDITION</span>
             </div>
           </div>
 
           {/* Towering Condensed Headline: BARA MASA · The Viral Odia Calendar · TERA PARBA */}
           <div className="flex flex-col items-center text-center w-full">
-            <h1 className="font-bigdream text-[clamp(3.2rem,14vw,5.8rem)] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[7.8rem] font-bold tracking-tight leading-[0.82] text-[#8A1717] select-none text-center w-full">
-              BARA MASA
-            </h1>
+            <h1 className="w-full">
+              <span className={HEADLINE}>BARA MASA</span>
 
             {/* Subtitle row centered between two thin horizontal decorative lines */}
-            <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 w-fit mx-auto mt-1 mb-2 sm:mt-1.5 sm:mb-3 md:mt-2 md:mb-4">
-              <div className="h-[1px] w-8 sm:w-12 md:w-16 bg-[#8A1717]/50 shrink-0" aria-hidden="true" />
-              <span className="font-editorial italic font-bold text-xs sm:text-base md:text-lg lg:text-xl text-[#8A1717] select-none whitespace-nowrap text-center shrink-0 tracking-tight">
+            <span className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[34rem] mx-auto mt-1 mb-2 sm:mt-1.5 sm:mb-3 md:mt-2 md:mb-4">
+              <span className="h-[1px] flex-1 bg-brand/50" aria-hidden="true" />
+              <span className="font-editorial italic font-bold text-xs sm:text-base md:text-lg lg:text-xl text-brand select-none whitespace-nowrap text-center shrink-0 tracking-tight">
                 The Viral Odia Calendar
               </span>
-              <div className="h-[1px] w-8 sm:w-12 md:w-16 bg-[#8A1717]/50 shrink-0" aria-hidden="true" />
-            </div>
+              <span className="h-[1px] flex-1 bg-brand/50" aria-hidden="true" />
+            </span>
 
-            <h2 className="font-bigdream text-[clamp(3.2rem,14vw,5.8rem)] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[7.8rem] font-bold tracking-tight leading-[0.82] text-[#8A1717] select-none text-center w-full">
-              TERA PARBA
-            </h2>
+              <span className={HEADLINE}>TERA PARBA</span>
+            </h1>
           </div>
 
           {/* Body narrative with clean, high-legibility UI subtext */}
-          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base text-[#4A2E1B] max-w-md sm:max-w-lg font-subtext font-normal leading-relaxed text-center px-4">
-            Last year it went viral before it even shipped. <strong className="text-[#8A1717] font-bold not-italic">1,500 homes</strong>, 22 states and the USA later, Odisha&apos;s most loved calendar is back.
+          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base text-cocoa max-w-md sm:max-w-lg font-subtext font-normal leading-relaxed text-center px-4">
+            Last year it went viral before it even shipped. <strong className="text-brand font-bold not-italic">1,500 homes</strong>, 22 states and the USA later, Odisha&apos;s most loved calendar is back.
           </p>
 
           {/* CTA action cluster: Pre-book now button + 3D text flip ticker */}
@@ -142,10 +146,10 @@ export function Hero({ onOrderClick }: HeroProps) {
             <button
               type="button"
               onClick={handleOrder}
-              className="group relative inline-flex items-center justify-center gap-3 bg-[#009EA8] hover:bg-[#008A93] active:bg-[#007A82] text-white font-bold text-xs sm:text-sm md:text-base pl-5 pr-2 py-1.5 min-h-[42px] sm:min-h-[46px] rounded-full border-2 border-[#1B1B1B] shadow-[3px_3px_0_#1B1B1B] active:shadow-[1px_1px_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all select-none"
+              className="group relative inline-flex items-center justify-center gap-3 bg-teal hover:bg-[#008A93] active:bg-[#007A82] text-white font-bold text-xs sm:text-sm md:text-base pl-5 pr-2 py-1.5 min-h-[42px] sm:min-h-[46px] rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
             >
               <span>Pre-book now</span>
-              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-[#009EA8] flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 shadow-xs">
+              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-teal flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 shadow-xs">
                 <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
               </span>
             </button>

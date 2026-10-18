@@ -82,7 +82,7 @@ export function CreatorVideos() {
   return (
     <section
       id="creators"
-      className="relative py-16 sm:py-24 bg-[#141414] text-[#F6EFE2] scroll-mt-24 overflow-hidden"
+      className="relative py-16 sm:py-24 bg-[#141414] text-rice scroll-mt-24 overflow-hidden"
     >
       {/* 1. Odia Folk Pattern Texture with Deep Forest Green Tint */}
       <div
@@ -113,37 +113,37 @@ export function CreatorVideos() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
             <div className="flex items-baseline gap-3 mb-2">
-              <span className="font-gazpacho text-[#E0A526] font-bold text-xl sm:text-2xl">
+              <span className="font-gazpacho text-turmeric font-bold text-xl sm:text-2xl">
                 05
               </span>
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#E0A526]/85">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-turmeric/85">
                 ON CAMERA
               </span>
             </div>
 
-            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-[#FFFDF7]">
+            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-cream">
               Ask them, not me.
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-[#F6EFE2]/90 max-w-xl font-subtext font-normal leading-relaxed">
+            <p className="mt-3 text-base sm:text-lg text-rice/90 max-w-xl font-subtext font-normal leading-relaxed">
               What happened when six creators unboxed the calendar on camera.
             </p>
           </div>
 
           {/* Navigation Controls */}
           <div className="flex items-center gap-3 self-start md:self-auto">
-            <span className="text-xs text-[#F6EFE2]/60 hidden sm:inline">
+            <span className="text-xs text-rice/60 hidden sm:inline">
               Swipe or click arrows
             </span>
             <button
               onClick={() => scroll("left")}
-              className="w-11 h-11 rounded-full bg-[#1B1B1B] text-[#E0A526] border-2 border-[#E0A526]/40 hover:border-[#E0A526] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
+              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-turmeric/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
               aria-label="Previous creators"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-11 h-11 rounded-full bg-[#1B1B1B] text-[#E0A526] border-2 border-[#E0A526]/40 hover:border-[#E0A526] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
+              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-turmeric/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
               aria-label="Next creators"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.5]" />
@@ -189,10 +189,10 @@ export function CreatorVideos() {
           <button
             type="button"
             onClick={() => setCreatorModalOpen(true)}
-            className="inline-flex items-center gap-2 text-sm sm:text-base text-[#F6EFE2] hover:text-white transition-colors cursor-pointer group"
+            className="inline-flex items-center gap-2 text-sm sm:text-base text-rice hover:text-white transition-colors cursor-pointer group"
           >
             <span className="font-medium">Are you a creator?</span>
-            <span className="font-bold text-[#1B1B1B] bg-[#E0A526] px-2.5 py-0.5 rounded-md underline underline-offset-4 decoration-2 decoration-[#1B1B1B] group-hover:bg-[#f5b833] active:scale-95 transition-all shadow-xs">
+            <span className="font-bold text-ink bg-turmeric px-2.5 py-0.5 rounded-md underline underline-offset-4 decoration-2 decoration-ink group-hover:bg-[#f5b833] active:scale-95 transition-all shadow-xs">
               Get 1 free →
             </span>
           </button>
@@ -249,7 +249,7 @@ function CreatorCard({
   return (
     <div
       ref={cardRef}
-      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-[#1B1B1B] border border-[#E0A526]/40 hover:border-[#E0A526] transition-all duration-300 group hover:-translate-y-1 shadow-xl"
+      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric transition-all duration-300 group hover:-translate-y-1 shadow-xl"
     >
       <div className="relative aspect-[9/16] bg-[#0F0F0F]">
         {creator.video ? (
@@ -282,7 +282,7 @@ function CreatorCard({
                 />
               )}
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <span className="w-14 h-14 rounded-full bg-[#E0A526] text-[#0D3B2E] flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform shadow-lg">
+                <span className="w-14 h-14 rounded-full bg-turmeric text-[#0D3B2E] flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform shadow-lg">
                   <Play className="w-6 h-6 fill-current ml-1" />
                 </span>
               </div>
@@ -291,7 +291,7 @@ function CreatorCard({
         )}
 
         {creator.collab && (
-          <span className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#F6EFE2] text-[#1B1B1B] border border-[#1B1B1B] shadow-xs">
+          <span className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-rice text-ink border border-ink shadow-xs">
             Collaborator
           </span>
         )}
@@ -312,11 +312,11 @@ function CreatorCard({
       </div>
 
       {/* Reaction and Handle Bar */}
-      <div className="p-4 bg-[#092D23]/95 border-t border-[#E0A526]/20">
-        <p className="text-xs sm:text-sm font-semibold text-[#FFFDF7] line-clamp-1 mb-1">
+      <div className="p-4 bg-[#092D23]/95 border-t border-turmeric/20">
+        <p className="text-xs sm:text-sm font-semibold text-cream line-clamp-1 mb-1">
           {creator.pullLine || "Feels like home on my wall"}
         </p>
-        <span className="text-[11px] font-bold text-[#E0A526] block">
+        <span className="text-[11px] font-bold text-turmeric block">
           @{creator.handle || "iamsoubh"}
         </span>
       </div>

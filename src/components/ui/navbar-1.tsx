@@ -175,15 +175,15 @@ const Navbar1 = ({
                 onClick={(e) => handleNavClick(e, item.href)}
                 className={`relative px-3 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 rounded-full text-xs lg:text-sm font-medium transition-all select-none cursor-pointer flex items-center gap-1.5 ${
                   isActive
-                    ? "text-[#8A1717] font-bold"
-                    : "text-[#1B1B1B]/75 hover:text-[#8A1717] hover:bg-[#8A1717]/5"
+                    ? "text-brand font-bold"
+                    : "text-ink/75 hover:text-brand hover:bg-brand/5"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
                 {isActive && (
                   <motion.span
                     layoutId="activeNavHighlight"
-                    className="absolute inset-0 rounded-full bg-[#8A1717]/10 border border-[#8A1717]/30"
+                    className="absolute inset-0 rounded-full bg-brand/10 border border-brand/30"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -192,7 +192,7 @@ const Navbar1 = ({
                   {isActive && (
                     <motion.span
                       layoutId="activeNavDot"
-                      className="w-1.5 h-1.5 rounded-full bg-[#8A1717]"
+                      className="w-1.5 h-1.5 rounded-full bg-brand"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -215,7 +215,7 @@ const Navbar1 = ({
             <a
               href={ctaHref}
               onClick={handleCtaClick}
-              className="inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-[#1B1B1B] bg-[#E0A526] hover:bg-[#E5B23F] active:bg-[#D99A1E] rounded-full border-2 border-[#1B1B1B] shadow-[3px_3px_0_#1B1B1B] active:shadow-[1px_1px_0_#1B1B1B] active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer select-none"
+              className="inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-ink bg-turmeric hover:bg-[#E5B23F] active:bg-[#D99A1E] rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer select-none"
             >
               {ctaText}
             </a>
@@ -276,18 +276,18 @@ const Navbar1 = ({
                       href={item.href}
                       className={`text-lg font-bold transition-all flex items-center justify-between px-4 py-3 rounded-2xl ${
                         isActive
-                          ? "bg-[#C8221A]/10 text-[#C8221A] border border-[#C8221A]/20 shadow-xs"
-                          : "text-gray-800 hover:text-[#C8221A] hover:bg-gray-50 border border-transparent"
+                          ? "bg-chandua/10 text-chandua border border-chandua/20 shadow-xs"
+                          : "text-gray-800 hover:text-chandua hover:bg-gray-50 border border-transparent"
                       }`}
                       onClick={(e) => handleNavClick(e, item.href)}
                     >
                       <span className="flex items-center gap-2">
                         {item.name}
                         {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-[#C8221A]" />
+                          <span className="w-2 h-2 rounded-full bg-chandua" />
                         )}
                       </span>
-                      <span className={isActive ? "text-[#C8221A]" : "text-gray-400"}>
+                      <span className={isActive ? "text-chandua" : "text-gray-400"}>
                         →
                       </span>
                     </a>
@@ -304,7 +304,7 @@ const Navbar1 = ({
               >
                 <a
                   href={ctaHref}
-                  className="inline-flex items-center justify-center w-full px-5 py-3 text-base font-bold text-[#1B1B1B] bg-[#E0A526] hover:bg-[#E5B23F] active:translate-x-[1px] active:translate-y-[1px] rounded-full border-2 border-[#1B1B1B] shadow-[3px_3px_0_#1B1B1B] transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center w-full px-5 py-3 text-base font-bold text-ink bg-turmeric hover:bg-[#E5B23F] active:translate-x-[1px] active:translate-y-[1px] rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] transition-all cursor-pointer"
                   onClick={handleCtaClick}
                 >
                   {ctaText} · ₹299

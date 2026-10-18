@@ -16,7 +16,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="py-16 sm:py-24 bg-[#F6EFE2] text-[#1B1B1B] relative overflow-hidden scroll-mt-24"
+      className="py-16 sm:py-24 bg-rice text-ink relative overflow-hidden scroll-mt-24"
     >
       {/* 1. Folk Background Pattern Texture */}
       <div
@@ -31,7 +31,7 @@ export function FaqSection() {
       {/* Mandala, centred on the page's top-right corner, red mask, slow spin */}
       <div className="absolute top-0 right-0 w-[320px] sm:w-[460px] aspect-square translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
         <div
-          className="w-full h-full opacity-40 bg-[#8A1717] animate-spin-slow"
+          className="w-full h-full opacity-40 bg-brand animate-spin-slow"
           style={{
             maskImage: "url('/assets/motifs/mandala-laser-1200.png')",
             WebkitMaskImage: "url('/assets/motifs/mandala-laser-1200.png')",
@@ -46,7 +46,7 @@ export function FaqSection() {
 
       {/* Konark temple, red mask */}
       <div
-        className="absolute bottom-0 right-0 w-[min(760px,90vw)] aspect-[720/360] pointer-events-none select-none z-0 opacity-40 bg-[#8A1717]"
+        className="absolute bottom-0 right-0 w-[min(760px,90vw)] aspect-[720/360] pointer-events-none select-none z-0 opacity-40 bg-brand"
         style={{
           maskImage: "url('/assets/scene/konark-lineart.png')",
           WebkitMaskImage: "url('/assets/scene/konark-lineart.png')",
@@ -66,10 +66,10 @@ export function FaqSection() {
           <span className="font-gazpacho text-[#C4A882] text-xl sm:text-2xl font-bold block mb-1">
             08
           </span>
-          <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-[#8A1717] leading-none">
+          <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-brand leading-none">
             QUESTIONS
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#4A4642] font-subtext font-normal leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-muted font-subtext font-normal leading-relaxed">
             The short answers to the long ones.
           </p>
         </div>
@@ -83,11 +83,11 @@ export function FaqSection() {
                 <button
                   onClick={() => toggle(faq.id)}
                   aria-expanded={isOpen}
-                  className="w-full py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[#1B1B1B] hover:text-[#8A1717] cursor-pointer transition-colors"
+                  className="w-full py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-ink hover:text-brand cursor-pointer transition-colors"
                 >
                   <span>{faq.question}</span>
                   <Plus
-                    className="w-4 h-4 text-[#8A1717] shrink-0 transition-transform duration-300"
+                    className="w-4 h-4 text-brand shrink-0 transition-transform duration-300"
                     style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
                   />
                 </button>
@@ -97,7 +97,7 @@ export function FaqSection() {
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-4 text-xs sm:text-sm text-[#1B1B1B]/80 leading-relaxed font-medium">
+                    <p className="pb-4 text-xs sm:text-sm text-ink/80 leading-relaxed font-medium">
                       {faq.answer}
                     </p>
                   </div>
