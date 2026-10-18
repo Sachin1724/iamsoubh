@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { HeroCardsCarousel } from "@/components/HeroCardsCarousel";
 import { AmbientFestiveLayer } from "@/components/AmbientFestiveLayer";
 import { scrollToTarget } from "@/components/SmoothScroll";
-import { EditionBadge2027 } from "@/components/EditionBadge2027";
 
 interface HeroProps {
   onOrderClick?: () => void;
@@ -103,8 +102,16 @@ export function Hero({ onOrderClick }: HeroProps) {
 
       {/* Main hero content container */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 w-full flex-1 flex flex-col justify-between items-center text-center gap-2 sm:gap-4 py-1">
-        {/* Typographic Poster Header Stack with generous top breathing space */}
-        <div className="flex flex-col items-center text-center relative w-full pt-3 sm:pt-6 md:pt-8">
+        {/* Typographic Poster Header Stack */}
+        <div className="flex flex-col items-center text-center relative w-full pt-0.5 sm:pt-1">
+          {/* Eyebrow badge: 2027 EDITION */}
+          <div className="mb-1.5 sm:mb-2 relative z-10 flex justify-center w-full">
+            <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full border border-[#8A1717]/35 bg-[#8A1717]/8 text-[#8A1717] text-[10px] sm:text-xs font-bold tracking-widest uppercase shadow-xs backdrop-blur-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8A1717] animate-pulse shrink-0" />
+              <span>2027 EDITION</span>
+            </div>
+          </div>
+
           {/* Towering Condensed Headline: BARA MASA · The Viral Odia Calendar · TERA PARBA */}
           <div className="flex flex-col items-center text-center w-full">
             <h1 className="font-bigdream text-[clamp(3.2rem,14vw,5.8rem)] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[7.8rem] font-bold tracking-tight leading-[0.82] text-[#8A1717] select-none text-center w-full">
@@ -144,11 +151,6 @@ export function Hero({ onOrderClick }: HeroProps) {
             </button>
 
             <HeroTrustTicker />
-          </div>
-
-          {/* 2027 Edition Archival Badge placed below Pre-booking CTA */}
-          <div className="mt-3.5 sm:mt-4 mb-1 relative z-10 flex justify-center w-full">
-            <EditionBadge2027 />
           </div>
         </div>
 
