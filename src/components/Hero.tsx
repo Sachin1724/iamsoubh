@@ -36,14 +36,10 @@ export function Hero({ onOrderClick }: HeroProps) {
 
       {/* The whole poster sits on the optical centre of the viewport */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 w-full flex flex-col items-center text-center">
-        {/* Eyebrow: edition and scarcity in one line */}
-        <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full border border-on-light/35 bg-on-light/10 text-on-light text-xs font-bold tracking-widest uppercase shadow-xs backdrop-blur-xs">
-          <span
-            className="w-1.5 h-1.5 rounded-full bg-on-light animate-pulse motion-reduce:animate-none shrink-0"
-            aria-hidden="true"
-          />
-          <span>2027 Edition · Only {siteConfig.batchCap} boxes</span>
-        </div>
+        {/* No pill, no dot: two facts, set small. */}
+        <p className="text-sm font-semibold tracking-[0.08em] text-on-light/75">
+          2027 · {siteConfig.batchCap} boxes
+        </p>
 
         {/* BARA MASA · The Viral Odia Calendar · TERA PARBA */}
         <h1 className="mt-5 w-full sm:mt-7">

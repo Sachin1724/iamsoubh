@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site-config";
 
 export function Footer() {
   return (
-    <footer className="bg-pipili-red text-on-dark pt-16 pb-24 sm:pb-16 md:pb-14 border-t-2 border-ink relative z-20 overflow-hidden">
+    <footer className="bg-pipili-red text-on-dark pt-16 pb-28 sm:pb-20 md:pt-20 md:pb-16 lg:pb-20 border-t-2 border-ink relative z-20 overflow-hidden">
       {/* Subtle Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"
@@ -54,12 +54,23 @@ export function Footer() {
               className="inline-flex items-center group cursor-pointer"
               aria-label="IAMSOUBH Home"
             >
+              {/* The same lockup the menu closes with: the calendar's name,
+                  then who makes it. */}
+              <Image
+                src="/assets/product-logo-v2.png"
+                alt="Bara Masa Tera Parba"
+                width={782}
+                height={383}
+                className="h-11 w-auto object-contain transition-opacity group-hover:opacity-85 sm:h-12"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+              <span className="mx-2.5 font-editorial text-sm italic text-on-dark/70">by</span>
               <Image
                 src="/assets/brand/calogo.png"
                 alt="IAMSOUBH"
                 width={180}
                 height={50}
-                className="h-7 sm:h-9 md:h-10 w-auto object-contain group-hover:opacity-85 transition-opacity"
+                className="h-5 w-auto object-contain transition-opacity group-hover:opacity-85 sm:h-6"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </Link>

@@ -8,6 +8,10 @@ import React from "react";
  */
 export type ArtName = "wheel" | "ikat" | "jhoti" | "appliqué" | "lotus" | "umbrellas";
 
+/** Two decimals is plenty for a line drawing, and it hydrates identically. */
+const at = (centre: number, radius: number, angle: number, fn: (n: number) => number) =>
+  (centre + fn(angle) * radius).toFixed(2);
+
 const ART: Record<ArtName, { box: string; wrap: string; paths: React.ReactNode }> = {
   // Konark wheel, half off the right edge
   wheel: {
@@ -24,17 +28,17 @@ const ART: Record<ArtName, { box: string; wrap: string; paths: React.ReactNode }
           return (
             <line
               key={i}
-              x1={100 + Math.cos(a) * 30}
-              y1={100 + Math.sin(a) * 30}
-              x2={100 + Math.cos(a) * 74}
-              y2={100 + Math.sin(a) * 74}
+              x1={at(100, 30, a, Math.cos)}
+              y1={at(100, 30, a, Math.sin)}
+              x2={at(100, 74, a, Math.cos)}
+              y2={at(100, 74, a, Math.sin)}
             />
           );
         })}
         {Array.from({ length: 32 }, (_, i) => {
           const a = ((i + 0.5) * Math.PI * 2) / 32;
           return (
-            <circle key={i} cx={100 + Math.cos(a) * 83} cy={100 + Math.sin(a) * 83} r="4" />
+            <circle key={i} cx={at(100, 83, a, Math.cos)} cy={at(100, 83, a, Math.sin)} r="4" />
           );
         })}
       </>
@@ -70,11 +74,11 @@ const ART: Record<ArtName, { box: string; wrap: string; paths: React.ReactNode }
           return (
             <ellipse
               key={i}
-              cx={60 + Math.cos(a) * 30}
-              cy={60 + Math.sin(a) * 30}
+              cx={at(60, 30, a, Math.cos)}
+              cy={at(60, 30, a, Math.sin)}
               rx="16"
               ry="9"
-              transform={`rotate(${(i * 360) / 8} ${60 + Math.cos(a) * 30} ${60 + Math.sin(a) * 30})`}
+              transform={`rotate(${(i * 360) / 8} ${at(60, 30, a, Math.cos)} ${at(60, 30, a, Math.sin)})`}
             />
           );
         })}
@@ -101,10 +105,10 @@ const ART: Record<ArtName, { box: string; wrap: string; paths: React.ReactNode }
           return (
             <line
               key={i}
-              x1={250 + Math.cos(a) * 26}
-              y1={60 + Math.sin(a) * 26}
-              x2={250 + Math.cos(a) * 36}
-              y2={60 + Math.sin(a) * 36}
+              x1={at(250, 26, a, Math.cos)}
+              y1={at(60, 26, a, Math.sin)}
+              x2={at(250, 36, a, Math.cos)}
+              y2={at(60, 36, a, Math.sin)}
             />
           );
         })}

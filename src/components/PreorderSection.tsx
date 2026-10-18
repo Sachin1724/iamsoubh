@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { ShieldCheck, MapPin, Truck } from "lucide-react";
 import { siteConfig, products, ProductId } from "@/config/site-config";
 import { startCheckout } from "@/lib/checkout";
 import { useStock } from "@/lib/useStock";
@@ -297,8 +298,31 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 disabled={paying}
                 className="mt-8 flex min-h-[60px] w-full items-center justify-center rounded-full bg-pipili-red px-8 font-gazpacho text-lg font-bold text-on-dark transition-opacity hover:opacity-90 disabled:opacity-60"
               >
-                {paying ? "Opening Razorpay…" : `${active.payButtonLabel} · ₹${total.toLocaleString("en-IN")}`}
+                {paying ? "Opening Razorpay…" : `Buy Now · ₹${total.toLocaleString("en-IN")}`}
               </button>
+
+              {/* The three things a buyer checks before paying, in one row */}
+              <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-semibold text-on-light/80">
+                <li className="inline-flex items-center gap-1.5">
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-parrot" aria-hidden="true" />
+                  Secure payment by
+                  <Image
+                    src="/assets/brand/razorpay-logo.svg"
+                    alt="Razorpay"
+                    width={52}
+                    height={11}
+                    className="inline-block h-3 w-auto object-contain"
+                  />
+                </li>
+                <li className="inline-flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4 shrink-0 text-pipili-red" aria-hidden="true" />
+                  Pan India
+                </li>
+                <li className="inline-flex items-center gap-1.5">
+                  <Truck className="h-4 w-4 shrink-0 text-pipili-red" aria-hidden="true" />
+                  Free delivery
+                </li>
+              </ul>
 
               <p className="mt-4 text-sm leading-relaxed text-on-light/70">
                 Razorpay collects your delivery address at checkout. Ships from the{" "}
