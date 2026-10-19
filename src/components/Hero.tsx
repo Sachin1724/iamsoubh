@@ -121,58 +121,61 @@ export function Hero() {
 
       <div
         data-hero-copy
-        className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center sm:px-6 md:px-8"
+        className="relative z-20 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 text-center sm:px-6 md:px-8"
       >
-        {/* Edition 2027 and the red dot: centered */}
-        <div data-hero-part className="flex items-center justify-center gap-2 text-center">
+        {/* Edition 2027 and the red dot: stays right at the top */}
+        <div data-hero-part className="pt-1 flex items-center justify-center gap-2 text-center">
           <span className="h-1.5 w-1.5 rounded-full bg-[#8A1717] shrink-0" />
           <span className="font-mono text-xs uppercase tracking-[0.14em] text-on-light/80">
             Edition 2027
           </span>
         </div>
 
-        {/* Drawn Odia lettering mark: centered */}
-        <h1 className="mt-2.5 sm:mt-3 w-full flex justify-center text-center">
-          <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
-          <Image
-            data-hero-lettering
-            src="/assets/product-logo-v2.png"
-            alt="Bara Masa Tera Parba"
-            width={782}
-            height={383}
-            priority
-            className="mx-auto h-auto w-[60%] max-w-[260px] select-none sm:w-[46%] sm:max-w-[340px]"
-          />
-        </h1>
+        {/* The middle cluster (Logo + Text + CTA): moved down and centered in available space */}
+        <div className="my-auto flex flex-col items-center justify-center w-full py-4 sm:py-6">
+          {/* Drawn Odia lettering mark */}
+          <h1 className="w-full flex justify-center text-center">
+            <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
+            <Image
+              data-hero-lettering
+              src="/assets/product-logo-v2.png"
+              alt="Bara Masa Tera Parba"
+              width={782}
+              height={383}
+              priority
+              className="mx-auto h-auto w-[62%] max-w-[270px] select-none sm:w-[48%] sm:max-w-[340px]"
+            />
+          </h1>
 
-        {/* Clean copy text: strictly center-aligned */}
-        <p
-          data-hero-part
-          className="mx-auto mt-2.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-xs sm:text-[14px] leading-snug text-on-light/85"
-        >
-          In <strong className="font-bold text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
-        </p>
-
-        {/* CTA and Free Shipping: strictly column-centered on mobile & desktop */}
-        <div data-hero-part className="mt-3.5 flex flex-col items-center justify-center gap-2 text-center w-full">
-          <button
-            type="button"
-            onClick={() => scrollToTarget("#preorder")}
-            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-none select-none text-center"
+          {/* Clean copy text */}
+          <p
+            data-hero-part
+            className="mx-auto mt-3 sm:mt-3.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-xs sm:text-[14px] leading-snug text-on-light/85"
           >
-            <span>Pre-order · ₹250</span>
-            <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
-          </button>
-          
-          <span className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-on-light/75 text-center">
-            <ShoppingCart className="h-3.5 w-3.5 shrink-0 text-[#8A1717]" aria-hidden="true" />
-            <span>Free shipping India</span>
-          </span>
+            In <strong className="font-bold text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
+          </p>
+
+          {/* CTA and Free Shipping */}
+          <div data-hero-part className="mt-4 sm:mt-5 flex flex-col items-center justify-center gap-2 text-center w-full">
+            <button
+              type="button"
+              onClick={() => scrollToTarget("#preorder")}
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-none select-none text-center"
+            >
+              <span>Pre-order · ₹250</span>
+              <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
+            </button>
+            
+            <span className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-on-light/75 text-center">
+              <ShoppingCart className="h-3.5 w-3.5 shrink-0 text-[#8A1717]" aria-hidden="true" />
+              <span>Free shipping India</span>
+            </span>
+          </div>
         </div>
       </div>
 
       {/* The shelf: the product centred, its two views cropped by the fold */}
-      <div className="relative z-10 flex w-full flex-1 items-end justify-center gap-0 sm:gap-2">
+      <div className="relative z-10 flex w-full shrink-0 items-end justify-center gap-0 sm:gap-2">
         {SHELF.map((shot, i) => {
           const middle = i === 1;
           return (
@@ -181,7 +184,7 @@ export function Hero() {
               data-hero-card
               className={`relative ${
                 middle
-                  ? "aspect-square w-[104%] translate-y-1 sm:aspect-4/3 sm:w-[74%] sm:translate-y-4 lg:w-[66%]"
+                  ? "aspect-square w-[100%] translate-y-1 sm:aspect-4/3 sm:w-[74%] sm:translate-y-4 lg:w-[66%]"
                   : "hidden aspect-4/3 w-[30%] translate-y-20 opacity-90 lg:block"
               }`}
             >
@@ -190,7 +193,7 @@ export function Hero() {
                 alt={shot.alt}
                 fill
                 priority={middle}
-                sizes={middle ? "(max-width: 640px) 104vw, 700px" : "36vw"}
+                sizes={middle ? "(max-width: 640px) 100vw, 700px" : "36vw"}
                 className="object-contain object-bottom drop-shadow-[0_20px_36px_rgba(90,15,20,0.22)]"
               />
             </div>
