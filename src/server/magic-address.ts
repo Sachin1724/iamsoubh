@@ -38,22 +38,32 @@ const s = (v: unknown) => (typeof v === "string" ? v : "");
  * order is the only place it exists. This reads the order back and merges it
  * with the notes written at create time — no database in the loop.
  */
+export type RzpOrder = {
+  amount: number;
+  receipt?: string;
+  notes?: Record<string, unknown>;
+  customer_details?: {
+    name?: string;
+    contact?: string;
+    email?: string;
+    shipping_address?: RzpAddress;
+  };
+};
+
 export async function fetchPaidOrder(
   razorpayOrderId: string,
   paymentId?: string
 ): Promise<PaidOrder> {
-  const order = (await getRazorpay().orders.fetch(razorpayOrderId)) as unknown as {
-    amount: number;
-    receipt?: string;
-    notes?: Record<string, unknown>;
-    customer_details?: {
-      name?: string;
-      contact?: string;
-      email?: string;
-      shipping_address?: RzpAddress;
-    };
-  };
+  const order = (await getRazorpay().orders.fetch(razorpayOrderId)) as unknown as RzpOrder;
+  return mapOrder(razorpayOrderId, order, paymentId);
+}
 
+/** The same order object, shaped for packing. Used by the webhook and /admin. */
+export function mapOrder(
+  razorpayOrderId: string,
+  order: RzpOrder,
+  paymentId?: string
+): PaidOrder {
   const n = order.notes ?? {};
   const d = order.customer_details;
   const ship = d?.shipping_address;

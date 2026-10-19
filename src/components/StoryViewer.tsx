@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { scrollToTarget } from "@/components/SmoothScroll";
-import { StoryItem, cityCodeMap } from "@/data/testimonials";
+import { StoryItem } from "@/data/testimonials";
 import { trackGA } from "@/lib/track";
 
 const STORY_MS = 5000;
@@ -92,7 +92,6 @@ export function StoryViewer({
   if (!current || !mounted) return null;
 
   const hasSharpImage = Boolean(current.image && !current.image.includes("story-"));
-  const cityCode = cityCodeMap[current.city] || current.city.slice(0, 4).toUpperCase();
 
   return createPortal(
     <div
@@ -109,7 +108,7 @@ export function StoryViewer({
           onClose();
         }}
         aria-label="Back to website"
-        className="hidden sm:flex fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-brand text-rice border border-white/20 shadow-xl text-xs sm:text-sm font-bold transition-all cursor-pointer group"
+        className="hidden sm:flex fixed top-3 right-3 sm:top-5 sm:right-6 z-[10001] items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#2A2A2A]/90 hover:bg-brand text-rice border border-white/20 text-xs sm:text-sm font-bold transition-all cursor-pointer group"
       >
         <span className="hidden sm:inline">Back to website</span>
         <X className="w-4 h-4 stroke-[2.5] group-hover:rotate-90 transition-transform" />
@@ -140,7 +139,7 @@ export function StoryViewer({
         <div className="flex items-center justify-between px-2 pt-1 pb-2 shrink-0">
           <div className="min-w-0 flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-turmeric text-ink font-bold text-xs flex items-center justify-center shrink-0 border border-ink">
-              {cityCode}
+              {current.handle.replace("@", "").slice(0, 2).toUpperCase()}
             </div>
             <div>
               <a
@@ -152,7 +151,9 @@ export function StoryViewer({
               >
                 {current.handle}
               </a>
-              <p className="text-xs text-rice/70">{current.city} · {current.stateOrCountry}</p>
+              {current.city && (
+                <p className="text-xs text-rice/70">{current.city} · {current.stateOrCountry}</p>
+              )}
             </div>
           </div>
           <button
@@ -161,7 +162,7 @@ export function StoryViewer({
               onClose();
             }}
             aria-label="Close stories"
-            className="w-10 h-10 rounded-full bg-rice text-ink border-2 border-ink flex items-center justify-center press cursor-pointer hover:bg-white"
+            className="w-10 h-10 rounded-full bg-rice text-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center press cursor-pointer hover:bg-white"
           >
             <X className="w-5 h-5 stroke-[2.5]" />
           </button>
@@ -177,7 +178,7 @@ export function StoryViewer({
         onPointerLeave={() => setPaused(false)}
       >
         {hasSharpImage ? (
-          <div className="w-full h-full relative aspect-[9/16] rounded-2xl overflow-hidden border-2 border-ink shadow-[4px_4px_0_var(--color-turmeric)]">
+          <div className="w-full h-full relative aspect-[9/16] rounded-2xl overflow-hidden border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]">
             <Image
               src={current.image}
               alt={current.quote || `Story from ${current.handle}`}
@@ -190,12 +191,12 @@ export function StoryViewer({
         ) : (
           /* Clean 9:16 Placeholder card */
           <div
-            className="w-full h-full max-h-[780px] aspect-[9/16] rounded-2xl bg-[#FFFAF0] border-2 border-ink flex flex-col justify-between p-6 select-none relative overflow-hidden"
+            className="w-full h-full max-h-[780px] aspect-[9/16] rounded-2xl bg-[#FFFAF0] border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex flex-col justify-between p-6 select-none relative overflow-hidden"
             style={{ boxShadow: "5px 5px 0 0 #E0A526" }}
           >
             {/* Top motif accent */}
             <div className="flex items-center justify-between text-xs text-brand font-bold uppercase tracking-wider">
-              <span>{cityCode} · {current.city}</span>
+              <span>{current.handle}</span>
               <span className="bg-turmeric/30 text-brand px-2 py-0.5 rounded-full border border-brand/20">
                 2026 Wall
               </span>
@@ -203,18 +204,20 @@ export function StoryViewer({
 
             {/* Center story content */}
             <div className="my-auto text-center flex flex-col items-center py-6">
-              <div className="w-16 h-16 rounded-full bg-rice border-2 border-ink flex items-center justify-center mb-4 text-chandua shadow-[2px_2px_0_var(--color-ink)]">
-                <span className="font-disko text-2xl">{cityCode}</span>
+              <div className="w-16 h-16 rounded-full bg-rice border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center mb-4 text-chandua">
+                <span className="font-disko text-2xl">
+                  {current.handle.replace("@", "").slice(0, 2).toUpperCase()}
+                </span>
               </div>
               <h3 className="font-disko text-3xl sm:text-4xl text-ink leading-tight mb-2">
-                {current.city}
+                {current.handle}
               </h3>
               <span className="inline-block text-xs font-bold text-brand uppercase tracking-widest bg-rice px-3 py-1 rounded-full border border-ink/15 mb-6">
                 Story coming
               </span>
 
               {current.quote && (
-                <div className="bg-rice border-2 border-ink rounded-xl p-4 shadow-[3px_3px_0_var(--color-ink)] text-left max-w-xs">
+                <div className="bg-rice border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] rounded-xl p-4 text-left max-w-xs">
                   <p className="text-sm sm:text-base italic text-ink leading-relaxed">
                     &ldquo;{current.quote}&rdquo;
                   </p>
@@ -257,7 +260,7 @@ export function StoryViewer({
             onClose();
             scrollToTarget("#preorder");
           }}
-          className="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-turmeric text-ink border-2 border-ink font-bold text-sm press cursor-pointer hover:bg-white transition-colors"
+          className="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-turmeric text-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] font-bold text-sm press cursor-pointer hover:bg-white transition-colors"
         >
           <span>Pre-order 2027 Calendar</span>
           <ArrowRight className="w-4 h-4 stroke-[2.5]" />

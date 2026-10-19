@@ -41,7 +41,7 @@ export function PolicyPage({
         <hr className="my-12 border-t-2 border-ink" />
 
         <p className="text-sm text-muted">
-          Questions? WhatsApp {siteConfig.whatsappNumber} or write to{" "}
+          Questions? Write to{" "}
           <Confirm value={siteConfig.supportEmail} label="support email" />.
         </p>
       </div>

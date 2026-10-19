@@ -258,7 +258,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                     type="tel"
                     inputMode="numeric"
                     autoComplete="tel"
-                    placeholder="WhatsApp number"
+                    placeholder="Phone number"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                     className={`${field} ${errors.phone ? "border-red-500" : ""}`}

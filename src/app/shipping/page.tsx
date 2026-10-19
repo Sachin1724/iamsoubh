@@ -29,13 +29,13 @@ export default function Shipping() {
 
       <h2>Tracking</h2>
       <p>
-        Your tracking link reaches you on WhatsApp and email the day the box leaves. Keep the
+        Your tracking link reaches you by email the day the box leaves. Keep the
         number you entered at checkout reachable.
       </p>
 
       <h2>If it arrives damaged</h2>
       <p>
-        Send a photo on WhatsApp within 48 hours of delivery and a replacement ships free. No
+        Email a photo within 48 hours of delivery and a replacement ships free. No
         need to return the damaged one.
       </p>
     </PolicyPage>

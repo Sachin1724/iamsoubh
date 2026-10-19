@@ -14,7 +14,7 @@ export default function Privacy() {
       <h2>What we collect</h2>
       <ul>
         <li>Your name</li>
-        <li>WhatsApp number</li>
+        <li>Phone number</li>
         <li>Email address, if you give one</li>
         <li>Delivery address, pincode, city and state</li>
         <li>A gift note, if you write one</li>
@@ -23,7 +23,7 @@ export default function Privacy() {
 
       <h2>Why we collect it</h2>
       <p>
-        To pack and deliver your box, to send you tracking and order updates on WhatsApp and
+        To pack and deliver your box, to send you tracking and order updates by
         email, and to handle refunds or replacements. Your gift note is printed and sent inside
         the box.
       </p>
@@ -59,7 +59,7 @@ export default function Privacy() {
       <h2>Getting your data removed</h2>
       <p>
         Write to <Confirm value={siteConfig.supportEmail} label="support email" /> or message{" "}
-        {siteConfig.whatsappNumber} and we will delete your details, except records we are
+        {siteConfig.supportEmail} and we will delete your details, except records we are
         required to keep for tax purposes.
       </p>
     </PolicyPage>

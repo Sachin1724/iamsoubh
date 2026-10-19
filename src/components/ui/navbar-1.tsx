@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, MessageCircle, AtSign } from "lucide-react";
+import { Menu, X, Mail, AtSign } from "lucide-react";
 import { siteConfig, products } from "@/config/site-config";
 import { trackGA } from "@/lib/track";
 
@@ -338,13 +338,11 @@ const Navbar1 = ({
             {/* Drawer Footer */}
             <div className="flex items-center justify-center gap-5 border-t border-gray-100 pt-3 text-xs font-semibold text-gray-500">
               <a
-                href={siteConfig.whatsappWaitlistUrl}
-                target="_blank"
-                rel="noreferrer"
+                href={`mailto:${siteConfig.supportEmail}`}
                 className="flex min-h-[44px] items-center gap-2 hover:text-chandua"
               >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp me
+                <Mail className="h-4 w-4" />
+                Email me
               </a>
               <a
                 href={siteConfig.instagramUrl}

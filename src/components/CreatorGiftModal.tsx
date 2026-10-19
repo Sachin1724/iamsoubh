@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X, ArrowRight, Loader2, Plus, Trash2, Sparkles, CheckCircle2 } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { trackGA } from "@/lib/track";
+import { openMail, SUPPORT_EMAIL } from "@/lib/mailto";
 
 const SOCIAL_PLATFORMS = [
   "Instagram",
@@ -129,41 +129,23 @@ export function CreatorGiftModal({
     isDragging.current = false;
   };
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
 
-    const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-    const payload = {
-      access_key: key || "test_mode",
-      subject: `Creator Free Calendar Application — ${name}`,
-      name,
-      whatsapp: phone,
-      email,
-      social_accounts: socials.map((s) => `${s.platform}: ${s.url}`).join(" | "),
-      shipping_address: `${streetAddress}, ${city}, ${stateName} - ${pincode}`,
-      what_made_you_stop: whatMadeYouStop,
-      content_formats: selectedPlanTags.join(", "),
-      content_plan: contentPlan,
-    };
+    openMail("Creator", name, {
+      Name: name,
+      Phone: phone,
+      Email: email,
+      Socials: socials.map((s) => `${s.platform}: ${s.url}`).join(" | "),
+      Address: `${streetAddress}, ${city}, ${stateName} - ${pincode}`,
+      "What made you stop": whatMadeYouStop,
+      "Content formats": selectedPlanTags.join(", "),
+      "Content plan": contentPlan,
+    });
 
-    try {
-      if (key) {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        setStatus(res.ok ? "done" : "error");
-      } else {
-        // Fallback for development/preview
-        await new Promise((r) => setTimeout(r, 600));
-        setStatus("done");
-      }
-      trackGA("creator_application_submitted");
-    } catch {
-      setStatus("error");
-    }
+    trackGA("creator_application_submitted");
+    setStatus("done");
   };
 
   const firstName = name.trim().split(" ")[0] || "Creator";
@@ -187,7 +169,7 @@ export function CreatorGiftModal({
           transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
           transition: isDragging.current ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
         }}
-        className={`flex w-full flex-col overflow-hidden sm:max-w-[540px] max-h-[94dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink shadow-2xl will-change-transform ${
+        className={`flex w-full flex-col overflow-hidden sm:max-w-[540px] max-h-[94dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] will-change-transform ${
           isClosing
             ? "animate-modal-slide-down"
             : dragY === 0
@@ -233,7 +215,7 @@ export function CreatorGiftModal({
             type="button"
             onClick={handleClose}
             aria-label="Close"
-            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink flex items-center justify-center hover:bg-[#ECE3D2] active:scale-95 cursor-pointer shadow-xs transition-all"
+            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center hover:bg-[#ECE3D2] active:scale-95 cursor-pointer transition-all"
           >
             <X className="w-5 h-5" />
           </button>
@@ -242,14 +224,14 @@ export function CreatorGiftModal({
         {/* Content Body */}
         {status === "done" ? (
           <div className="p-8 text-center my-auto flex flex-col items-center">
-            <div className="w-16 h-16 rounded-full bg-ink text-turmeric border-2 border-ink flex items-center justify-center mb-4 shadow-md">
+            <div className="w-16 h-16 rounded-full bg-ink text-turmeric border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center mb-4">
               <CheckCircle2 className="w-9 h-9" />
             </div>
             <h4 className="font-gazpacho text-3xl font-bold text-ink">
               Application received, {firstName}!
             </h4>
             <p className="mt-2 text-sm text-muted max-w-xs leading-relaxed">
-              Soubh reviews creator applications daily. If approved, we will send tracking details directly to your WhatsApp at <span className="font-bold text-ink">{phone}</span>.
+              Your mail app has the application filled in &mdash; send it and Soubh takes it from there. If approved, tracking details come to <span className="font-bold text-ink">{email || "your email"}</span>.
             </p>
             <button
               type="button"
@@ -275,7 +257,7 @@ export function CreatorGiftModal({
 
               {/* Contact Information */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <L label="WhatsApp Number (for dispatch) *">
+                <L label="Phone number (for dispatch) *">
                   <input
                     required
                     type="tel"
@@ -345,7 +327,7 @@ export function CreatorGiftModal({
                           type="button"
                           onClick={() => removeSocial(s.id)}
                           aria-label="Remove social account"
-                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink bg-white flex items-center justify-center text-brand hover:bg-[#FBEAEA] active:scale-95 transition-all cursor-pointer"
+                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-white flex items-center justify-center text-brand hover:bg-[#FBEAEA] active:scale-95 transition-all cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -357,7 +339,7 @@ export function CreatorGiftModal({
                           onClick={addSocial}
                           aria-label="Add account"
                           title="Add another social link"
-                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink bg-turmeric hover:bg-[#d69819] active:scale-95 flex items-center justify-center text-ink font-bold cursor-pointer transition-all shadow-xs"
+                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-turmeric hover:bg-[#d69819] active:scale-95 flex items-center justify-center text-ink font-bold cursor-pointer transition-all"
                         >
                           <Plus className="w-4 h-4 stroke-[3]" />
                         </button>
@@ -434,7 +416,7 @@ export function CreatorGiftModal({
                         type="button"
                         key={tag}
                         onClick={() => togglePlanTag(tag)}
-                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border-2 border-ink cursor-pointer transition-all ${
+                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] cursor-pointer transition-all ${
                           active
                             ? "bg-ink text-cream"
                             : "bg-white text-ink hover:bg-[#ECE3D2]"
@@ -457,20 +439,12 @@ export function CreatorGiftModal({
               </div>
 
               {status === "error" && (
-                <p className="text-xs sm:text-sm font-bold text-chandua">
-                  Submission couldn&apos;t go through. Please{" "}
-                  <a
-                    href={`https://wa.me/${siteConfig.whatsappNumber.replace(
-                      /\D/g,
-                      ""
-                    )}?text=Hi%20Soubh%2C%20I%20am%20a%20creator%20and%20want%20to%20apply%20for%20a%20free%202027%20calendar%20box`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-4"
-                  >
-                    message Soubh on WhatsApp directly
-                  </a>
-                  .
+                <p className="text-xs font-bold text-chandua sm:text-sm">
+                  That didn&apos;t open your mail app. Write to{" "}
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
+                    {SUPPORT_EMAIL}
+                  </a>{" "}
+                  instead.
                 </p>
               )}
             </div>
@@ -480,7 +454,7 @@ export function CreatorGiftModal({
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full min-h-[50px] rounded-full bg-chandua text-rice font-disko text-base sm:text-lg flex items-center justify-center gap-2 border-2 border-ink press cursor-pointer disabled:opacity-60 hover:bg-[#b01c15] transition-colors"
+                className="w-full min-h-[50px] rounded-full bg-chandua text-rice font-disko text-base sm:text-lg flex items-center justify-center gap-2 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] press cursor-pointer disabled:opacity-60 hover:bg-[#b01c15] transition-colors"
                 style={{ boxShadow: "4px 4px 0 0 #1B1B1B" }}
               >
                 {status === "sending" ? (

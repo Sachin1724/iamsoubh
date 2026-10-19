@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { X, ArrowRight, Loader2 } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
+import { openMail, SUPPORT_EMAIL } from "@/lib/mailto";
 import { track, trackGA } from "@/lib/track";
 
 const RANGES = ["10–25", "26–50", "51–100", "100+"] as const;
@@ -37,38 +37,23 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
   // At least seven days out, per the brief.
   const minDate = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
 
-    const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-    if (!key) {
-      setStatus("error");
-      return;
-    }
+    openMail("Bulk", `${range} boxes — ${name}`, {
+      Name: name,
+      "Company or group": group,
+      Phone: phone,
+      Email: email,
+      Boxes: range,
+      "Needed by": neededBy,
+      "Delivery city": cityField,
+      Notes: notes,
+    });
 
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          access_key: key,
-          subject: `Bulk quote request — ${range} boxes`,
-          name,
-          group,
-          whatsapp: phone,
-          email,
-          boxes: range,
-          needed_by: neededBy,
-          delivery_city: cityField,
-          notes,
-        }),
-      });
-      if (res.ok) track("Lead", "generate_lead", { boxes: range });
-      setStatus(res.ok ? "done" : "error");
-    } catch {
-      setStatus("error");
-    }
+    track("Lead", "generate_lead", { boxes: range });
+    setStatus("done");
   };
 
   const firstName = name.trim().split(" ")[0] || "there";
@@ -84,20 +69,20 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
         aria-modal="true"
         aria-label="Request a bulk quote"
         onClick={(e) => e.stopPropagation()}
-        className="flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[92dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink"
+        className="flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[92dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
         style={{ boxShadow: "8px 8px 0 0 #1B1B1B" }}
       >
         <div className="shrink-0 bg-rice flex items-start justify-between gap-4 p-5 border-b-2 border-ink">
           <div>
             <h3 className="font-disko text-2xl text-ink">Let&apos;s talk numbers.</h3>
             <p className="text-sm text-muted mt-0.5">
-              Tell me what you need. I&apos;ll reply on WhatsApp within 24 hours.
+              Tell me what you need. I&apos;ll reply by email within 24 hours.
             </p>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink flex items-center justify-center press cursor-pointer"
+            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center press cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -107,7 +92,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
           <div className="p-6 text-center">
             <p className="font-disko text-2xl text-ink">Got it, {firstName}.</p>
             <p className="mt-2 text-sm text-muted">
-              Expect a WhatsApp from me within 24 hours.
+              Your mail app has the details filled in. Send it and I&apos;ll reply within 24 hours.
             </p>
           </div>
         ) : (
@@ -119,7 +104,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
             <L label="Company or group (optional)">
               <input value={group} onChange={(e) => setGroup(e.target.value)} className={inp} />
             </L>
-            <L label="WhatsApp number *">
+            <L label="Phone number *">
               <input
                 required
                 type="tel"
@@ -142,7 +127,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
                     key={r}
                     onClick={() => setRange(r)}
                     aria-pressed={range === r}
-                    className={`min-h-[36px] px-4 rounded-full border-2 border-ink text-sm font-semibold press cursor-pointer ${
+                    className={`min-h-[36px] px-4 rounded-full border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] text-sm font-semibold press cursor-pointer ${
                       range === r ? "bg-ink text-rice" : "bg-white text-ink"
                     }`}
                   >
@@ -182,16 +167,11 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 
             {status === "error" && (
               <p className="text-sm font-bold text-chandua">
-                That didn&apos;t go through. Try once more, or{" "}
-                <a
-                  href={siteConfig.whatsappBulkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4"
-                >
-                  WhatsApp me directly
-                </a>
-                .
+                That didn&apos;t open your mail app. Write to{" "}
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
+                  {SUPPORT_EMAIL}
+                </a>{" "}
+                instead.
               </p>
             )}
 
@@ -202,7 +182,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full min-h-[52px] rounded-full bg-chandua text-rice font-disko text-lg flex items-center justify-center gap-2 border-2 border-ink press cursor-pointer disabled:opacity-60"
+              className="w-full min-h-[52px] rounded-full bg-chandua text-rice font-disko text-lg flex items-center justify-center gap-2 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] press cursor-pointer disabled:opacity-60"
               style={{ boxShadow: "5px 5px 0 0 #1B1B1B" }}
             >
               {status === "sending" ? (

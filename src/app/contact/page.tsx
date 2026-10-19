@@ -18,14 +18,6 @@ export default function Contact() {
         <Confirm value={siteConfig.businessAddress} label="registered business address" />
       </p>
 
-      <h2>WhatsApp</h2>
-      <p>
-        <a href={siteConfig.whatsappWaitlistUrl} target="_blank" rel="noopener noreferrer">
-          {siteConfig.whatsappNumber}
-        </a>{" "}
-        — fastest way to reach us, especially during launch week.
-      </p>
-
       <h2>Email</h2>
       <p>
         <Confirm value={siteConfig.supportEmail} label="support email" />
@@ -41,7 +33,7 @@ export default function Contact() {
       <h2>Response time</h2>
       <p>
         Within 24 hours on working days. Order and delivery questions are answered fastest on
-        WhatsApp with your order number to hand.
+        email with your order number to hand.
       </p>
     </PolicyPage>
   );

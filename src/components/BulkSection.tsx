@@ -2,8 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowRight, MessageCircle } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
+import { ArrowRight } from "lucide-react";
 
 export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) {
   return (
@@ -11,28 +10,13 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
       id="bulk"
       className="relative py-24 sm:py-36 bg-pipili-red text-on-dark scroll-mt-24 overflow-clip"
     >
-      {/* 1. Odia Folk Pattern Texture with Crimson Red Tint */}
+
+      {/* Folk pattern texture */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"
-        style={{
-          backgroundImage: "url('/assets/folk-pattern-tile.png')",
-          backgroundSize: "180px",
-        }}
-      />
-
-      {/* 2. Top-Right Subtle Jhoti Motif, slowly turning */}
-      <div
-        className="absolute -top-16 -right-16 w-72 sm:w-96 h-72 sm:h-96 pointer-events-none select-none opacity-[0.14] animate-jhoti-shimmer"
+        style={{ backgroundImage: "url('/assets/folk-pattern-tile.png')", backgroundSize: "180px" }}
         aria-hidden="true"
-      >
-        <Image
-          src="/assets/motifs/odia-jhoti-mandala.svg"
-          alt=""
-          fill
-          sizes="(max-width: 640px) 288px, 384px"
-          className="object-contain animate-spin-slow"
-        />
-      </div>
+      />
 
       {/* 3. Main Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -65,21 +49,12 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={onRequestQuote}
-                className="py-3 px-6 rounded-full bg-turmeric hover:bg-[#cca322] text-ink font-gazpacho text-sm sm:text-base font-bold shadow-[4px_4px_0_0_var(--color-ink)] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="py-3 px-6 rounded-full bg-turmeric hover:bg-[#cca322] text-ink font-gazpacho text-sm sm:text-base font-bold active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Request a quote</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <a
-                href={siteConfig.whatsappBulkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="py-3 px-5 rounded-full border-2 border-white/80 hover:border-white text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Or just WhatsApp me →</span>
-              </a>
             </div>
 
             {/* Tier strip: what each volume actually gets you */}
@@ -96,11 +71,19 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
                   <span className="block font-gazpacho text-xl font-bold text-turmeric transition-transform duration-300 group-hover:-translate-y-0.5">
                     {tier.count}
                   </span>
-                  <span className="block text-xs font-semibold leading-snug text-rice/85">
+                  <span className="block text-xs font-semibold leading-snug text-turmeric/85">
                     {tier.perk}
                   </span>
                 </div>
               ))}
+              {/* Handwritten stamp note */}
+              <div className="absolute -top-5 -right-4 z-20 rotate-6 select-none animate-float-gentle transition-transform duration-500 group-hover:rotate-2">
+                <div className="rounded border border-[#E6C63B] bg-gold px-3 py-2 text-xs font-editorial font-bold leading-tight text-brand shadow-md">
+                  Same calendar. <br />
+                  More people. <br />
+                  More parba.
+                </div>
+              </div>
             </div>
           </div>
 
@@ -108,10 +91,10 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
           <div className="reveal lg:col-span-5 flex items-center justify-center">
             <div className="group relative w-[260px] sm:w-[320px] [perspective:1200px]">
               {/* Two shadow boxes behind, so ten boxes reads as a stack */}
-              <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl border-2 border-ink bg-[#6E1214] transition-transform duration-500 ease-out group-hover:translate-x-8 group-hover:translate-y-8" />
-              <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl border-2 border-ink bg-[#A8302A] transition-transform duration-500 ease-out group-hover:translate-x-4 group-hover:translate-y-4" />
+              <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-[#6E1214] transition-transform duration-500 ease-out group-hover:translate-x-8 group-hover:translate-y-8" />
+              <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-[#A8302A] transition-transform duration-500 ease-out group-hover:translate-x-4 group-hover:translate-y-4" />
 
-              <div className="relative overflow-hidden rounded-2xl border-2 border-ink bg-cream shadow-[6px_6px_0_0_var(--color-ink)] transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(6deg)_rotateY(-8deg)_translateY(-6px)]">
+              <div className="relative overflow-hidden rounded-2xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-cream transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(6deg)_rotateY(-8deg)_translateY(-6px)]">
                 <Image
                   src="/assets/product%20mockup/View%204.png"
                   alt="The festival cards"
@@ -127,14 +110,6 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
                 </div>
               </div>
 
-              {/* Handwritten Stamp Note */}
-              <div className="absolute -top-5 -right-4 z-20 rotate-6 select-none animate-float-gentle transition-transform duration-500 group-hover:rotate-2">
-                <div className="rounded border border-[#E6C63B] bg-gold px-3 py-2 text-xs font-editorial font-bold leading-tight text-brand shadow-md">
-                  Same calendar. <br />
-                  More people. <br />
-                  More parba.
-                </div>
-              </div>
             </div>
           </div>
 

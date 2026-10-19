@@ -100,7 +100,7 @@ export const metadata: Metadata = {
     title: "The Odia Viral Calendar is back · 2027",
     description:
       "12 festival cards, one sealed 13th parba. Only 500 in batch 1, shipping the first week of November.",
-    images: ["/assets/product/cards-fan-hero.webp"],
+    images: ["/assets/product%20mockup/View%204.png"],
   },
 };
 

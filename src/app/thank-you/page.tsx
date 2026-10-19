@@ -129,7 +129,7 @@ function ThankYouBody() {
             )}
             <p className="mt-4 text-base text-rice/90">
               Ships from the {siteConfig.shipDateInline}. Your tracking link reaches
-              you on WhatsApp and email the day it leaves.
+              you by email the day it leaves.
             </p>
             <ParbaGuess />
           </>
@@ -137,7 +137,7 @@ function ThankYouBody() {
           <>
             <h1 className="font-disko text-4xl sm:text-5xl">Still confirming.</h1>
             <p className="mt-4 text-base text-rice/90">
-              Your payment is going through. You&apos;ll get a WhatsApp from Soubh once it lands.
+              Your payment is going through. You&apos;ll get an email from Soubh once it lands.
               Nothing more to do here.
             </p>
           </>
@@ -150,7 +150,7 @@ function ThankYouBody() {
             href={siteConfig.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[52px] px-6 rounded-full bg-turmeric text-ink font-disko text-lg inline-flex items-center justify-center border-2 border-ink press"
+            className="min-h-[52px] px-6 rounded-full bg-turmeric text-ink font-disko text-lg inline-flex items-center justify-center border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] press"
             style={{ boxShadow: "5px 5px 0 0 #1B1B1B" }}
           >
             Follow @iamsoubh
@@ -161,7 +161,7 @@ function ThankYouBody() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[52px] px-6 rounded-full bg-transparent text-rice font-disko text-lg inline-flex items-center justify-center border-2 border-rice"
+            className="min-h-[52px] px-6 rounded-full bg-transparent text-rice font-disko text-lg inline-flex items-center justify-center border border-on-dark/20"
           >
             Send to family
           </a>

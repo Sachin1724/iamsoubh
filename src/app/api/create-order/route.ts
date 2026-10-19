@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { getRazorpay, PRICING, isProduct, forceSoldOut, alert } from "@/server/clients";
+import { boxesSold } from "@/server/orders";
+import { siteConfig } from "@/config/site-config";
 
 type Customer = {
   name?: string;
@@ -58,6 +60,22 @@ export async function POST(req: NextRequest) {
 
   // Price and box count come from server config only.
   const boxes = rules.boxesEach * quantity;
+
+  // The batch is capped, and the count is a sum over Razorpay's own paid
+  // orders — no store to drift out of sync with the money.
+  try {
+    const sold = await boxesSold();
+    if (sold + boxes > siteConfig.batchCap) {
+      return NextResponse.json(
+        { code: "SOLD_OUT", left: Math.max(0, siteConfig.batchCap - sold) },
+        { status: 409 }
+      );
+    }
+  } catch {
+    // Razorpay unreachable: take the order rather than lose it, and say so.
+    await alert("stock check failed; order allowed through without a cap check");
+  }
+
   const amount = rules.price * quantity * 100;
   const receipt = crypto.randomUUID();
 

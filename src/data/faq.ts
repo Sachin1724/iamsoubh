@@ -11,7 +11,7 @@ export const faqs: FAQItem[] = [
     id: "faq-1",
     question: "When will I get my box?",
     answer:
-      "We start shipping in the first week of November. Most orders reach you within a week after that. You'll get the tracking link on WhatsApp.",
+      "We start shipping in the first week of November. Most orders reach you within a week after that. You'll get the tracking link by email.",
   },
   {
     id: "faq-2",
@@ -35,12 +35,12 @@ export const faqs: FAQItem[] = [
     id: "faq-5",
     question: "What if it's late or damaged?",
     answer:
-      "If your order hasn't shipped by 15 November, you get a full refund. If it arrives damaged, WhatsApp us a photo within 48 hours and we'll send a new one free.",
+      "If your order hasn't shipped by 15 November, you get a full refund. If it arrives damaged, email us a photo within 48 hours and we'll send a new one free.",
   },
   {
     id: "faq-6",
     question: "Can I cancel?",
     answer:
-      "Yes, any time before it ships. WhatsApp us and you'll get your money back in full.",
+      "Yes, any time before it ships. Email us and you'll get your money back in full.",
   },
 ];

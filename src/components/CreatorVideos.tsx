@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { SectionArt } from "@/components/SectionArt";
 import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight } from "lucide-react";
 import { creators } from "@/data/creators";
+import { SectionArt } from "@/components/SectionArt";
 import { trackGA } from "@/lib/track";
 import { CreatorGiftModal } from "@/components/CreatorGiftModal";
 
@@ -85,29 +85,13 @@ export function CreatorVideos() {
       id="creators"
       className="relative py-24 sm:py-36 bg-pipili-teal text-on-dark scroll-mt-24 overflow-hidden"
     >
-      {/* 1. Odia Folk Pattern Texture with Deep Forest Green Tint */}
+
+      {/* Folk pattern texture */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none bg-repeat z-0"
-        style={{
-          backgroundImage: "url('/assets/folk-pattern-tile.png')",
-          backgroundSize: "180px",
-        }}
-      />
-
-
-      {/* 3. Top Left Subtle Jhoti Motif */}
-      <div
-        className="absolute top-4 left-6 sm:left-12 w-32 sm:w-48 h-32 sm:h-48 pointer-events-none select-none z-0 opacity-15 animate-jhoti-shimmer"
+        style={{ backgroundImage: "url('/assets/folk-pattern-tile.png')", backgroundSize: "180px" }}
         aria-hidden="true"
-      >
-        <Image
-          src="/assets/motifs/odia-jhoti-corner.svg"
-          alt=""
-          fill
-          sizes="(max-width: 640px) 128px, 192px"
-          className="object-contain"
-        />
-      </div>
+      />
 
       {/* A big lotus, half off the left edge */}
       <SectionArt name="lotus" className="z-0 text-line-teal opacity-60" />
@@ -140,14 +124,14 @@ export function CreatorVideos() {
             </span>
             <button
               onClick={() => scroll("left")}
-              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-turmeric/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
+              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105"
               aria-label="Previous creators"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-turmeric/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md"
+              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105"
               aria-label="Next creators"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.5]" />
@@ -196,7 +180,7 @@ export function CreatorVideos() {
             className="inline-flex items-center gap-2 text-sm sm:text-base text-rice hover:text-white transition-colors cursor-pointer group"
           >
             <span className="font-medium">Are you a creator?</span>
-            <span className="font-bold text-ink bg-turmeric px-2.5 py-0.5 rounded-md underline underline-offset-4 decoration-2 decoration-ink group-hover:bg-[#f5b833] active:scale-95 transition-all shadow-xs">
+            <span className="font-bold text-ink bg-turmeric px-2.5 py-0.5 rounded-md underline underline-offset-4 decoration-2 decoration-ink group-hover:bg-[#f5b833] active:scale-95 transition-all">
               Get 1 free →
             </span>
           </button>
@@ -286,7 +270,7 @@ function CreatorCard({
                 />
               )}
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <span className="w-14 h-14 rounded-full bg-turmeric text-[#0D3B2E] flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform shadow-lg">
+                <span className="w-14 h-14 rounded-full bg-turmeric text-[#0D3B2E] flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform">
                   <Play className="w-6 h-6 fill-current ml-1" />
                 </span>
               </div>
@@ -295,7 +279,7 @@ function CreatorCard({
         )}
 
         {creator.collab && (
-          <span className="absolute top-3 left-3 text-xs font-bold px-2.5 py-0.5 rounded-full bg-rice text-ink border border-ink shadow-xs">
+          <span className="absolute top-3 left-3 text-xs font-bold px-2.5 py-0.5 rounded-full bg-rice text-ink border border-ink">
             Collaborator
           </span>
         )}

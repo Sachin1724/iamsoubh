@@ -1,13 +1,13 @@
 {
- "url": "http://localhost:3234/?nosmooth",
- "at": "2026-10-18T20:04:26.397Z",
+ "url": "http://localhost:3244/?nosmooth",
+ "at": "2026-10-19T14:22:54.963Z",
  "allow": [],
  "viewports": [
   {
    "width": 1440,
    "height": 900,
    "load": "load",
-   "screens": 11,
+   "screens": 12,
    "filled": [
     1,
     1,
@@ -16,16 +16,17 @@
     1,
     1,
     1,
-    0.95,
+    1,
+    0.92,
     1,
     1,
     1
    ],
    "motion": {
-    "elements": 123,
-    "css": 19,
-    "transitions": 77,
-    "scripted": 27,
+    "elements": 120,
+    "css": 15,
+    "transitions": 74,
+    "scripted": 31,
     "videos": 12,
     "playingVideos": 0
    },
@@ -35,33 +36,33 @@
      "h": 900
     },
     "page": {
-     "height": 9492,
-     "screens": 10.5,
-     "words": 1427,
-     "img": 60,
+     "height": 9971,
+     "screens": 11.1,
+     "words": 1220,
+     "img": 63,
      "video": 12,
      "canvas": 0,
-     "svg": 176,
+     "svg": 132,
      "sections": 8,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 36,
+     "realPictures": 39,
      "videoCount": 12,
      "uiPictures": 0,
      "pictureSamples": [
       "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
-      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FCalen"
      ],
      "blendText": 0,
-     "sideScrollers": 2,
+     "sideScrollers": 4,
      "brokenImages": [],
      "emoji": []
     },
@@ -70,8 +71,8 @@
      "words": 2,
      "chars": 10,
      "lines": 1,
-     "size": 134.4,
-     "vw": 9.3,
+     "size": 144,
+     "vw": 10,
      "font": "bigdream",
      "weight": 700,
      "tracking": 0.03,
@@ -82,7 +83,7 @@
      "align": "center",
      "position": "center",
      "widthRatio": 0.67,
-     "top": 255,
+     "top": 402,
      "tag": "span",
      "kind": "heading"
     },
@@ -99,8 +100,8 @@
       "words": 2,
       "chars": 9,
       "lines": 1,
-      "size": 99.2,
-      "vw": 6.9,
+      "size": 144,
+      "vw": 10,
       "font": "bigdream",
       "weight": 700,
       "tracking": 0.03,
@@ -111,7 +112,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 0.67,
-      "top": 130,
+      "top": 232,
       "tag": "span",
       "kind": "heading"
      },
@@ -120,8 +121,8 @@
       "words": 2,
       "chars": 10,
       "lines": 1,
-      "size": 134.4,
-      "vw": 9.3,
+      "size": 144,
+      "vw": 10,
       "font": "bigdream",
       "weight": 700,
       "tracking": 0.03,
@@ -132,7 +133,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 0.67,
-      "top": 255,
+      "top": 402,
       "tag": "span",
       "kind": "heading"
      },
@@ -153,7 +154,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.67,
-      "top": 1165,
+      "top": 1112,
       "tag": "h2",
       "kind": "heading"
      },
@@ -174,7 +175,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.53,
-      "top": 2519,
+      "top": 2812,
       "tag": "p",
       "kind": "statement"
      },
@@ -195,7 +196,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.48,
-      "top": 2678,
+      "top": 2971,
       "tag": "p",
       "kind": "statement"
      },
@@ -216,7 +217,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.51,
-      "top": 3147,
+      "top": 3440,
       "tag": "h2",
       "kind": "heading"
      },
@@ -237,7 +238,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3288,
+      "top": 3581,
       "tag": "span",
       "kind": "statement"
      },
@@ -258,7 +259,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3390,
+      "top": 3683,
       "tag": "span",
       "kind": "statement"
      },
@@ -279,7 +280,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3469,
+      "top": 3762,
       "tag": "span",
       "kind": "statement"
      },
@@ -300,7 +301,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3548,
+      "top": 3841,
       "tag": "span",
       "kind": "statement"
      },
@@ -321,7 +322,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3627,
+      "top": 3920,
       "tag": "span",
       "kind": "statement"
      },
@@ -342,7 +343,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.53,
-      "top": 4144,
+      "top": 4438,
       "tag": "h2",
       "kind": "heading"
      },
@@ -363,7 +364,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.52,
-      "top": 5370,
+      "top": 5664,
       "tag": "h2",
       "kind": "heading"
      },
@@ -384,7 +385,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.36,
-      "top": 6560,
+      "top": 6853,
       "tag": "h2",
       "kind": "heading"
      },
@@ -405,7 +406,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.07,
-      "top": 6721,
+      "top": 7014,
       "tag": "span",
       "kind": "heading"
      },
@@ -426,7 +427,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.47,
-      "top": 7891,
+      "top": 8322,
       "tag": "h2",
       "kind": "heading"
      },
@@ -447,7 +448,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.47,
-      "top": 8710,
+      "top": 9141,
       "tag": "h2",
       "kind": "heading"
      }
@@ -465,12 +466,12 @@
      "families": [
       {
        "family": "Inter",
-       "share": 0.91,
+       "share": 0.9,
        "mono": false
       },
       {
        "family": "gazpacho",
-       "share": 0.08,
+       "share": 0.09,
        "mono": false
       },
       {
@@ -486,7 +487,6 @@
      ],
      "familyCount": 4,
      "sizes": [
-      10,
       13,
       14,
       15,
@@ -499,54 +499,53 @@
       48,
       60,
       68,
-      99,
-      134
+      144
      ],
-     "sizeCount": 15,
+     "sizeCount": 13,
      "notLoaded": [],
      "body": {
       "font": "Inter",
       "size": 16,
       "leading": 1.63,
       "weight": 500,
-      "tracking": -0.012,
-      "contrast": 7.3
+      "tracking": 0,
+      "contrast": 7.9
      },
      "measureChars": 73,
      "max": {
-      "size": 134.4,
-      "vw": 9.3,
+      "size": 144,
+      "vw": 10,
       "font": "bigdream",
-      "text": "TERA PARBA"
+      "text": "BARA MASA"
      },
      "monoShare": 0,
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 7,
-     "microLabelShare": 0.014,
+     "microLabels": 6,
+     "microLabelShare": 0.012,
      "microSamples": [
-      "2027 Edition · Only 500 boxes",
       "Sound familiar?",
       "Inside the box",
       "Stories",
       "From the creators",
-      "Order now"
+      "Order now",
+      "BULK AND GIFTING"
      ],
-     "upperShare": 0.04,
-     "centerShare": 0.05,
+     "upperShare": 0.02,
+     "centerShare": 0.06,
      "smallText": 0
     },
     "eyebrows": [
      {
-      "text": "2027 Edition · Only 500 boxes",
+      "text": "2027 · 500 boxes",
       "above": "BARA MASA",
-      "upper": true,
+      "upper": false,
       "tracked": true,
       "mono": false,
       "pill": false,
-      "size": 13,
-      "top": 96
+      "size": 14,
+      "top": 184
      },
      {
       "text": "Sound familiar?",
@@ -556,7 +555,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 1131
+      "top": 1078
      },
      {
       "text": "Inside the box",
@@ -566,7 +565,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 3117
+      "top": 3410
      },
      {
       "text": "Stories",
@@ -576,7 +575,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4114
+      "top": 4408
      },
      {
       "text": "From the creators",
@@ -586,7 +585,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5340
+      "top": 5634
      },
      {
       "text": "BULK AND GIFTING",
@@ -596,44 +595,44 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 7861
+      "top": 8292
      }
     ],
     "numbered": [
      {
       "text": "02",
       "size": 24,
-      "top": 1121
+      "top": 1068
      },
      {
       "text": "03",
       "size": 24,
-      "top": 3107
+      "top": 3400
      },
      {
       "text": "04",
       "size": 24,
-      "top": 4104
+      "top": 4398
      },
      {
       "text": "05",
       "size": 24,
-      "top": 5330
+      "top": 5624
      },
      {
       "text": "06",
       "size": 24,
-      "top": 6504
+      "top": 6797
      },
      {
       "text": "07",
       "size": 24,
-      "top": 7851
+      "top": 8282
      },
      {
       "text": "08",
       "size": 24,
-      "top": 8674
+      "top": 9105
      }
     ],
     "color": {
@@ -665,7 +664,7 @@
       },
       {
        "color": "#1f2d66",
-       "top": 977,
+       "top": 924,
        "hsl": {
         "h": 228,
         "s": 0.53,
@@ -674,7 +673,7 @@
       },
       {
        "color": "#0f4c5c",
-       "top": 5186,
+       "top": 5480,
        "hsl": {
         "h": 192,
         "s": 0.72,
@@ -683,7 +682,7 @@
       },
       {
        "color": "#8e1b1b",
-       "top": 7707,
+       "top": 8138,
        "hsl": {
         "h": 0,
         "s": 0.68,
@@ -694,23 +693,23 @@
      "textColors": [
       {
        "color": "#1b1b1b",
-       "share": 0.31
+       "share": 0.34
       },
       {
        "color": "#ffffff",
-       "share": 0.23
-      },
-      {
-       "color": "#e0a526",
-       "share": 0.13
+       "share": 0.22
       },
       {
        "color": "#5a0f14",
-       "share": 0.1
+       "share": 0.11
       },
       {
        "color": "#5a1014",
-       "share": 0.08
+       "share": 0.11
+      },
+      {
+       "color": "#fffdf7",
+       "share": 0.06
       }
      ],
      "button": {
@@ -725,7 +724,7 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 12,
+     "count": 10,
      "inHero": 1,
      "radius": "pill",
      "height": 32,
@@ -738,7 +737,7 @@
      ]
     },
     "surfaces": {
-     "shadowStatic": 102,
+     "shadowStatic": 100,
      "shadowOverlay": 0,
      "shadowSamples": [
       "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
@@ -746,13 +745,13 @@
       "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
      ],
-     "gradients": 92,
+     "gradients": 93,
      "scrims": 1,
      "gradientSamples": [
       "div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0",
       "div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%)",
-      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
-      "div.absolute.inset-x-0 → linear-gradient(to top, oklab(0 0 0 / 0.95) 0%, oklab(0 0 0 / 0.6) 50%, rgba(0, 0, 0, 0) 100%)"
+      "div.absolute.inset-0 → radial-gradient(rgba(31, 45, 102, 0) 35%, rgba(12, 18, 45, 0.55) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)"
      ],
      "gradientText": 0,
      "hairlines": 7,
@@ -768,7 +767,7 @@
      "blurred": 45,
      "roundedBoxes": 66,
      "boxRadius": 24,
-     "squareMedia": 14,
+     "squareMedia": 18,
      "roundedMedia": 62,
      "mediaRadius": 24,
      "textShadow": 0,
@@ -777,7 +776,7 @@
        "count": 45,
        "iconTopped": false,
        "rounded": true,
-       "top": 4434
+       "top": 4727
       }
      ]
     },
@@ -789,10 +788,6 @@
      {
       "type": "img",
       "ratio": 1
-     },
-     {
-      "type": "img",
-      "ratio": 0.42
      },
      {
       "type": "svg",
@@ -815,7 +810,8 @@
      "jaya fallback",
      "gazpacho",
      "gazpacho fallback",
-     "bigdream"
+     "bigdream",
+     "bigdream fallback"
     ]
    },
    "consoleErrors": []
@@ -830,19 +826,19 @@
     1,
     1,
     0.97,
+    0.99,
     1,
     1,
     1,
     0.95,
     1,
-    1,
     1
    ],
    "motion": {
-    "elements": 123,
-    "css": 19,
-    "transitions": 77,
-    "scripted": 27,
+    "elements": 120,
+    "css": 15,
+    "transitions": 74,
+    "scripted": 31,
     "videos": 12,
     "playingVideos": 0
    },
@@ -852,33 +848,33 @@
      "h": 1024
     },
     "page": {
-     "height": 10659,
-     "screens": 10.4,
-     "words": 1427,
-     "img": 60,
+     "height": 11160,
+     "screens": 10.9,
+     "words": 1220,
+     "img": 63,
      "video": 12,
      "canvas": 0,
-     "svg": 176,
+     "svg": 132,
      "sections": 8,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 36,
+     "realPictures": 37,
      "videoCount": 12,
      "uiPictures": 0,
      "pictureSamples": [
       "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
       "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
      ],
      "blendText": 0,
-     "sideScrollers": 2,
+     "sideScrollers": 4,
      "brokenImages": [],
      "emoji": []
     },
@@ -887,8 +883,8 @@
      "words": 2,
      "chars": 10,
      "lines": 1,
-     "size": 107.5,
-     "vw": 14,
+     "size": 115.2,
+     "vw": 15,
      "font": "bigdream",
      "weight": 700,
      "tracking": 0.03,
@@ -899,7 +895,7 @@
      "align": "center",
      "position": "center",
      "widthRatio": 0.92,
-     "top": 240,
+     "top": 462,
      "tag": "span",
      "kind": "heading"
     },
@@ -916,8 +912,8 @@
       "words": 2,
       "chars": 9,
       "lines": 1,
-      "size": 80.6,
-      "vw": 10.5,
+      "size": 115.2,
+      "vw": 15,
       "font": "bigdream",
       "weight": 700,
       "tracking": 0.03,
@@ -928,7 +924,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 130,
+      "top": 320,
       "tag": "span",
       "kind": "heading"
      },
@@ -937,8 +933,8 @@
       "words": 2,
       "chars": 10,
       "lines": 1,
-      "size": 107.5,
-      "vw": 14,
+      "size": 115.2,
+      "vw": 15,
       "font": "bigdream",
       "weight": 700,
       "tracking": 0.03,
@@ -949,7 +945,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 240,
+      "top": 462,
       "tag": "span",
       "kind": "heading"
      },
@@ -991,7 +987,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.94,
-      "top": 2285,
+      "top": 2551,
       "tag": "p",
       "kind": "statement"
      },
@@ -1012,7 +1008,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.65,
-      "top": 2841,
+      "top": 3107,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1033,7 +1029,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.04,
-      "top": 3531,
+      "top": 3842,
       "tag": "span",
       "kind": "statement"
      },
@@ -1054,7 +1050,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.04,
-      "top": 3633,
+      "top": 3944,
       "tag": "span",
       "kind": "statement"
      },
@@ -1075,7 +1071,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.04,
-      "top": 3712,
+      "top": 4023,
       "tag": "span",
       "kind": "statement"
      },
@@ -1096,7 +1092,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.04,
-      "top": 3792,
+      "top": 4102,
       "tag": "span",
       "kind": "statement"
      },
@@ -1117,7 +1113,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.04,
-      "top": 3871,
+      "top": 4181,
       "tag": "span",
       "kind": "statement"
      },
@@ -1138,7 +1134,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.94,
-      "top": 4388,
+      "top": 4698,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1159,7 +1155,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.66,
-      "top": 5716,
+      "top": 6027,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1180,7 +1176,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.94,
-      "top": 7558,
+      "top": 7912,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1201,7 +1197,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.14,
-      "top": 7668,
+      "top": 8023,
       "tag": "span",
       "kind": "heading"
      },
@@ -1222,7 +1218,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 8800,
+      "top": 9269,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1243,7 +1239,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 9878,
+      "top": 10347,
       "tag": "h2",
       "kind": "heading"
      }
@@ -1261,12 +1257,12 @@
      "families": [
       {
        "family": "Inter",
-       "share": 0.91,
+       "share": 0.9,
        "mono": false
       },
       {
        "family": "gazpacho",
-       "share": 0.08,
+       "share": 0.09,
        "mono": false
       },
       {
@@ -1282,7 +1278,6 @@
      ],
      "familyCount": 4,
      "sizes": [
-      10,
       13,
       14,
       15,
@@ -1295,54 +1290,53 @@
       46,
       48,
       60,
-      81,
-      108
+      115
      ],
-     "sizeCount": 15,
+     "sizeCount": 13,
      "notLoaded": [],
      "body": {
       "font": "Inter",
       "size": 16,
       "leading": 1.63,
       "weight": 500,
-      "tracking": -0.012,
-      "contrast": 7.3
+      "tracking": 0,
+      "contrast": 7.9
      },
      "measureChars": 42,
      "max": {
-      "size": 107.5,
-      "vw": 14,
+      "size": 115.2,
+      "vw": 15,
       "font": "bigdream",
-      "text": "TERA PARBA"
+      "text": "BARA MASA"
      },
      "monoShare": 0,
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 7,
-     "microLabelShare": 0.014,
+     "microLabels": 6,
+     "microLabelShare": 0.012,
      "microSamples": [
-      "2027 Edition · Only 500 boxes",
       "Sound familiar?",
       "Inside the box",
       "Stories",
       "From the creators",
-      "Order now"
+      "Order now",
+      "BULK AND GIFTING"
      ],
-     "upperShare": 0.04,
-     "centerShare": 0.07,
+     "upperShare": 0.02,
+     "centerShare": 0.08,
      "smallText": 0
     },
     "eyebrows": [
      {
-      "text": "2027 Edition · Only 500 boxes",
+      "text": "2027 · 500 boxes",
       "above": "BARA MASA",
-      "upper": true,
+      "upper": false,
       "tracked": true,
       "mono": false,
       "pill": false,
-      "size": 13,
-      "top": 96
+      "size": 14,
+      "top": 272
      },
      {
       "text": "Sound familiar?",
@@ -1362,7 +1356,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 2811
+      "top": 3077
      },
      {
       "text": "Stories",
@@ -1372,7 +1366,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4358
+      "top": 4668
      },
      {
       "text": "From the creators",
@@ -1382,7 +1376,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5686
+      "top": 5997
      },
      {
       "text": "BULK AND GIFTING",
@@ -1392,7 +1386,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 8770
+      "top": 9239
      }
     ],
     "numbered": [
@@ -1404,32 +1398,32 @@
      {
       "text": "03",
       "size": 24,
-      "top": 2801
+      "top": 3067
      },
      {
       "text": "04",
       "size": 24,
-      "top": 4348
+      "top": 4658
      },
      {
       "text": "05",
       "size": 24,
-      "top": 5676
+      "top": 5987
      },
      {
       "text": "06",
       "size": 24,
-      "top": 6918
+      "top": 7228
      },
      {
       "text": "07",
       "size": 24,
-      "top": 8760
+      "top": 9229
      },
      {
       "text": "08",
       "size": 24,
-      "top": 9842
+      "top": 10311
      }
     ],
     "color": {
@@ -1470,7 +1464,7 @@
       },
       {
        "color": "#0f4c5c",
-       "top": 5532,
+       "top": 5843,
        "hsl": {
         "h": 192,
         "s": 0.72,
@@ -1479,43 +1473,34 @@
       },
       {
        "color": "#8e1b1b",
-       "top": 8616,
+       "top": 9085,
        "hsl": {
         "h": 0,
         "s": 0.68,
         "l": 0.33
-       }
-      },
-      {
-       "color": "#8a1717",
-       "top": 10009,
-       "hsl": {
-        "h": 0,
-        "s": 0.71,
-        "l": 0.32
        }
       }
      ],
      "textColors": [
       {
        "color": "#1b1b1b",
-       "share": 0.31
+       "share": 0.34
       },
       {
        "color": "#ffffff",
-       "share": 0.23
-      },
-      {
-       "color": "#e0a526",
-       "share": 0.13
+       "share": 0.22
       },
       {
        "color": "#5a0f14",
-       "share": 0.09
+       "share": 0.11
       },
       {
        "color": "#5a1014",
-       "share": 0.08
+       "share": 0.11
+      },
+      {
+       "color": "#fffdf7",
+       "share": 0.06
       }
      ],
      "button": {
@@ -1530,7 +1515,7 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 12,
+     "count": 10,
      "inHero": 1,
      "radius": "pill",
      "height": 32,
@@ -1543,7 +1528,7 @@
      ]
     },
     "surfaces": {
-     "shadowStatic": 100,
+     "shadowStatic": 98,
      "shadowOverlay": 0,
      "shadowSamples": [
       "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
@@ -1551,13 +1536,13 @@
       "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
      ],
-     "gradients": 92,
+     "gradients": 93,
      "scrims": 1,
      "gradientSamples": [
       "div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0",
       "div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%)",
-      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
-      "div.absolute.inset-x-0 → linear-gradient(to top, oklab(0 0 0 / 0.95) 0%, oklab(0 0 0 / 0.6) 50%, rgba(0, 0, 0, 0) 100%)"
+      "div.absolute.inset-0 → radial-gradient(rgba(31, 45, 102, 0) 35%, rgba(12, 18, 45, 0.55) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)"
      ],
      "gradientText": 0,
      "hairlines": 7,
@@ -1573,7 +1558,7 @@
      "blurred": 45,
      "roundedBoxes": 66,
      "boxRadius": 24,
-     "squareMedia": 14,
+     "squareMedia": 18,
      "roundedMedia": 62,
      "mediaRadius": 24,
      "textShadow": 0,
@@ -1582,7 +1567,7 @@
        "count": 45,
        "iconTopped": false,
        "rounded": true,
-       "top": 4762
+       "top": 5073
       }
      ]
     },
@@ -1594,10 +1579,6 @@
      {
       "type": "img",
       "ratio": 1
-     },
-     {
-      "type": "img",
-      "ratio": 0.54
      },
      {
       "type": "svg",
@@ -1620,8 +1601,7 @@
      "jaya fallback",
      "gazpacho",
      "gazpacho fallback",
-     "bigdream",
-     "bigdream fallback"
+     "bigdream"
     ]
    },
    "consoleErrors": []
@@ -1635,21 +1615,21 @@
     1,
     1,
     1,
-    0.91,
-    1,
-    1,
-    1,
-    0.96,
     0.88,
+    1,
+    1,
+    1,
+    0.95,
+    0.8,
     1,
     1,
     1
    ],
    "motion": {
-    "elements": 120,
-    "css": 21,
-    "transitions": 72,
-    "scripted": 27,
+    "elements": 117,
+    "css": 17,
+    "transitions": 69,
+    "scripted": 31,
     "videos": 12,
     "playingVideos": 0
    },
@@ -1659,33 +1639,33 @@
      "h": 844
     },
     "page": {
-     "height": 9508,
-     "screens": 11.3,
-     "words": 1399,
-     "img": 60,
+     "height": 9816,
+     "screens": 11.6,
+     "words": 1192,
+     "img": 63,
      "video": 12,
      "canvas": 0,
-     "svg": 176,
+     "svg": 132,
      "sections": 8,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 35,
+     "realPictures": 37,
      "videoCount": 12,
      "uiPictures": 0,
      "pictureSamples": [
       "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
       "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
      ],
      "blendText": 0,
-     "sideScrollers": 2,
+     "sideScrollers": 4,
      "brokenImages": [],
      "emoji": []
     },
@@ -1694,8 +1674,8 @@
      "words": 2,
      "chars": 10,
      "lines": 1,
-     "size": 54.6,
-     "vw": 14,
+     "size": 58.5,
+     "vw": 15,
      "font": "bigdream",
      "weight": 700,
      "tracking": 0.03,
@@ -1706,7 +1686,7 @@
      "align": "center",
      "position": "center",
      "widthRatio": 0.92,
-     "top": 176,
+     "top": 361,
      "tag": "span",
      "kind": "heading"
     },
@@ -1723,8 +1703,8 @@
       "words": 2,
       "chars": 9,
       "lines": 1,
-      "size": 41.6,
-      "vw": 10.7,
+      "size": 58.5,
+      "vw": 15,
       "font": "bigdream",
       "weight": 700,
       "tracking": 0.03,
@@ -1735,7 +1715,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 110,
+      "top": 281,
       "tag": "span",
       "kind": "heading"
      },
@@ -1744,8 +1724,8 @@
       "words": 2,
       "chars": 10,
       "lines": 1,
-      "size": 54.6,
-      "vw": 14,
+      "size": 58.5,
+      "vw": 15,
       "font": "bigdream",
       "weight": 700,
       "tracking": 0.03,
@@ -1756,7 +1736,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 176,
+      "top": 361,
       "tag": "span",
       "kind": "heading"
      },
@@ -1798,7 +1778,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 1560,
+      "top": 1712,
       "tag": "p",
       "kind": "statement"
      },
@@ -1819,7 +1799,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 1653,
+      "top": 1806,
       "tag": "p",
       "kind": "statement"
      },
@@ -1840,7 +1820,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 2002,
+      "top": 2154,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1861,7 +1841,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2475,
+      "top": 2672,
       "tag": "span",
       "kind": "statement"
      },
@@ -1882,7 +1862,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2577,
+      "top": 2773,
       "tag": "span",
       "kind": "statement"
      },
@@ -1903,7 +1883,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2679,
+      "top": 2875,
       "tag": "span",
       "kind": "statement"
      },
@@ -1924,7 +1904,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2780,
+      "top": 2977,
       "tag": "span",
       "kind": "statement"
      },
@@ -1945,7 +1925,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2859,
+      "top": 3056,
       "tag": "span",
       "kind": "statement"
      },
@@ -1966,7 +1946,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 3317,
+      "top": 3513,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1987,7 +1967,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 4523,
+      "top": 4719,
       "tag": "h2",
       "kind": "heading"
      },
@@ -2008,7 +1988,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 6083,
+      "top": 6324,
       "tag": "h2",
       "kind": "heading"
      },
@@ -2029,8 +2009,33 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.28,
-      "top": 6219,
+      "top": 6459,
       "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "− 3 +",
+      "words": 3,
+      "chars": 5,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "gazpacho",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1.33,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "right",
+      "widthRatio": 0.37,
+      "top": 6588,
+      "mixedFonts": [
+       "Inter",
+       "gazpacho"
+      ],
+      "tag": "div",
       "kind": "heading"
      },
      {
@@ -2050,7 +2055,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 7372,
+      "top": 7726,
       "tag": "h2",
       "kind": "heading"
      },
@@ -2071,30 +2076,30 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 8510,
+      "top": 8803,
       "tag": "h2",
       "kind": "heading"
      }
     ],
     "headingSummary": {
-     "count": 17,
+     "count": 18,
      "maxLines": 3,
      "over2Lines": 0,
      "statements": 7,
-     "centered": 2,
-     "medianWords": 4,
-     "mixedFontHeadings": 0
+     "centered": 3,
+     "medianWords": 3,
+     "mixedFontHeadings": 1
     },
     "type": {
      "families": [
       {
        "family": "Inter",
-       "share": 0.91,
+       "share": 0.9,
        "mono": false
       },
       {
        "family": "gazpacho",
-       "share": 0.08,
+       "share": 0.1,
        "mono": false
       },
       {
@@ -2110,7 +2115,6 @@
      ],
      "familyCount": 4,
      "sizes": [
-      10,
       13,
       14,
       15,
@@ -2118,59 +2122,59 @@
       18,
       20,
       22,
+      24,
       26,
       28,
       30,
       36,
-      42,
       48,
-      55
+      59
      ],
-     "sizeCount": 15,
+     "sizeCount": 14,
      "notLoaded": [],
      "body": {
       "font": "Inter",
       "size": 15,
       "leading": 1.63,
-      "weight": 500,
+      "weight": 400,
       "tracking": -0.012,
       "contrast": 7.3
      },
      "measureChars": 48,
      "max": {
-      "size": 54.6,
-      "vw": 14,
+      "size": 58.5,
+      "vw": 15,
       "font": "bigdream",
-      "text": "TERA PARBA"
+      "text": "BARA MASA"
      },
      "monoShare": 0,
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 7,
-     "microLabelShare": 0.014,
+     "microLabels": 6,
+     "microLabelShare": 0.012,
      "microSamples": [
-      "2027 Edition · Only 500 boxes",
       "Sound familiar?",
       "Inside the box",
       "Stories",
       "From the creators",
-      "Order now"
+      "Order now",
+      "BULK AND GIFTING"
      ],
-     "upperShare": 0.04,
-     "centerShare": 0.07,
+     "upperShare": 0.02,
+     "centerShare": 0.08,
      "smallText": 0
     },
     "eyebrows": [
      {
-      "text": "2027 Edition · Only 500 boxes",
+      "text": "2027 · 500 boxes",
       "above": "BARA MASA",
-      "upper": true,
+      "upper": false,
       "tracked": true,
       "mono": false,
       "pill": false,
-      "size": 13,
-      "top": 80
+      "size": 14,
+      "top": 241
      },
      {
       "text": "The Viral Odia Calendar",
@@ -2180,7 +2184,17 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 150
+      "top": 335
+     },
+     {
+      "text": "Tap a card to see it bigger",
+      "above": "This calendar keeps the dates for you.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 1631
      },
      {
       "text": "Inside the box",
@@ -2190,7 +2204,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 1975
+      "top": 2127
      },
      {
       "text": "Stories",
@@ -2200,7 +2214,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 3290
+      "top": 3486
      },
      {
       "text": "From the creators",
@@ -2210,7 +2224,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4496
+      "top": 4692
      },
      {
       "text": "BULK AND GIFTING",
@@ -2220,7 +2234,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 7345
+      "top": 7699
      }
     ],
     "numbered": [
@@ -2232,32 +2246,32 @@
      {
       "text": "03",
       "size": 20,
-      "top": 1966
+      "top": 2118
      },
      {
       "text": "04",
       "size": 20,
-      "top": 3281
+      "top": 3477
      },
      {
       "text": "05",
       "size": 20,
-      "top": 4487
+      "top": 4683
      },
      {
       "text": "06",
       "size": 20,
-      "top": 5577
+      "top": 5774
      },
      {
       "text": "07",
       "size": 20,
-      "top": 7336
+      "top": 7690
      },
      {
       "text": "08",
       "size": 20,
-      "top": 8478
+      "top": 8771
      }
     ],
     "color": {
@@ -2298,7 +2312,7 @@
       },
       {
        "color": "#8a1717",
-       "top": 3026,
+       "top": 3222,
        "hsl": {
         "h": 0,
         "s": 0.71,
@@ -2307,7 +2321,7 @@
       },
       {
        "color": "#1b1b1b",
-       "top": 3646,
+       "top": 3842,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -2316,7 +2330,7 @@
       },
       {
        "color": "#0f4c5c",
-       "top": 4391,
+       "top": 4587,
        "hsl": {
         "h": 192,
         "s": 0.72,
@@ -2325,7 +2339,7 @@
       },
       {
        "color": "#0f0f0f",
-       "top": 4761,
+       "top": 4957,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -2334,34 +2348,43 @@
       },
       {
        "color": "#8e1b1b",
-       "top": 7240,
+       "top": 7594,
        "hsl": {
         "h": 0,
         "s": 0.68,
         "l": 0.33
+       }
+      },
+      {
+       "color": "#e69e32",
+       "top": 8516,
+       "hsl": {
+        "h": 36,
+        "s": 0.78,
+        "l": 0.55
        }
       }
      ],
      "textColors": [
       {
        "color": "#1b1b1b",
-       "share": 0.31
+       "share": 0.34
       },
       {
        "color": "#ffffff",
-       "share": 0.24
-      },
-      {
-       "color": "#e0a526",
-       "share": 0.13
-      },
-      {
-       "color": "#5a0f14",
-       "share": 0.09
+       "share": 0.22
       },
       {
        "color": "#5a1014",
-       "share": 0.08
+       "share": 0.11
+      },
+      {
+       "color": "#5a0f14",
+       "share": 0.1
+      },
+      {
+       "color": "#fffdf7",
+       "share": 0.06
       }
      ],
      "button": {
@@ -2376,7 +2399,7 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 7,
+     "count": 5,
      "inHero": 1,
      "radius": "pill",
      "height": 56,
@@ -2389,7 +2412,7 @@
      ]
     },
     "surfaces": {
-     "shadowStatic": 101,
+     "shadowStatic": 100,
      "shadowOverlay": 0,
      "shadowSamples": [
       "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
@@ -2397,13 +2420,13 @@
       "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
      ],
-     "gradients": 92,
+     "gradients": 93,
      "scrims": 1,
      "gradientSamples": [
       "div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0",
       "div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%)",
-      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
-      "div.absolute.inset-x-0 → linear-gradient(to top, oklab(0 0 0 / 0.95) 0%, oklab(0 0 0 / 0.6) 50%, rgba(0, 0, 0, 0) 100%)"
+      "div.absolute.inset-0 → radial-gradient(rgba(31, 45, 102, 0) 35%, rgba(12, 18, 45, 0.55) 100%)",
+      "div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)"
      ],
      "gradientText": 0,
      "hairlines": 7,
@@ -2419,7 +2442,7 @@
      "blurred": 45,
      "roundedBoxes": 64,
      "boxRadius": 16,
-     "squareMedia": 14,
+     "squareMedia": 16,
      "roundedMedia": 58,
      "mediaRadius": 16,
      "textShadow": 0,
@@ -2428,7 +2451,7 @@
        "count": 45,
        "iconTopped": false,
        "rounded": true,
-       "top": 3646
+       "top": 3842
       }
      ]
     },
@@ -2440,10 +2463,6 @@
      {
       "type": "img",
       "ratio": 1
-     },
-     {
-      "type": "img",
-      "ratio": 0.91
      },
      {
       "type": "svg",
@@ -2477,7 +2496,7 @@
    "level": "FAIL",
    "id": "eyebrow",
    "width": 1440,
-   "message": "6 eyebrow/kicker label(s) above headings: \"2027 Edition · Only 500 boxes\" above \"BARA MASA\"; \"Sound familiar?\" above \"For everyone who misses Odisha without s\"; \"Inside the box\" above \"12 months. 13 festivals.\"; \"Stories\" above \"Last year, 2,000+ people loved it.\"; \"From the creators\" above \"Hear it from the creators.\"",
+   "message": "6 eyebrow/kicker label(s) above headings: \"2027 · 500 boxes\" above \"BARA MASA\"; \"Sound familiar?\" above \"For everyone who misses Odisha without s\"; \"Inside the box\" above \"12 months. 13 festivals.\"; \"Stories\" above \"Last year, 2,000+ people loved it.\"; \"From the creators\" above \"Hear it from the creators.\"",
    "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
    "alsoAt": [
     768,
@@ -2499,7 +2518,7 @@
    "level": "FAIL",
    "id": "micro-label",
    "width": 1440,
-   "message": "7 tiny uppercase letter-spaced labels (e.g. \"2027 Edition · Only 500 boxes\", \"Sound familiar?\", \"Inside the box\", \"Stories\").",
+   "message": "6 tiny uppercase letter-spaced labels (e.g. \"Sound familiar?\", \"Inside the box\", \"Stories\", \"From the creators\").",
    "fix": "Use sentence-case text at a readable size, or delete the label.",
    "alsoAt": [
     768,
@@ -2510,7 +2529,7 @@
    "level": "FAIL",
    "id": "gradient",
    "width": 1440,
-   "message": "92 gradient fill(s): div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0 | div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%) | div.absolute.inset-x-0 → linear-gradient(oklab(0 0 0 / 0.85) 0%, oklab(0 0 0 / 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+   "message": "93 gradient fill(s): div.absolute.inset-0 → radial-gradient(75% 55% at 50% 68%, rgba(245, 158, 11, 0.14) 0%, rgba(224, 165, 38, 0.07) 45%, rgba(0, 0, 0, 0 | div.absolute.inset-0 → radial-gradient(rgba(0, 0, 0, 0) 40%, rgba(138, 23, 23, 0.035) 75%, rgba(70, 25, 10, 0.08) 100%) | div.absolute.inset-0 → radial-gradient(rgba(31, 45, 102, 0) 35%, rgba(12, 18, 45, 0.55) 100%)",
    "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
    "alsoAt": [
     768,
@@ -2521,7 +2540,7 @@
    "level": "FAIL",
    "id": "shadow",
    "width": 1440,
-   "message": "102 box-shadow(s) on elements at rest: button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+   "message": "100 box-shadow(s) on elements at rest: button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
    "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
    "alsoAt": [
     768,
@@ -2576,7 +2595,7 @@
    "level": "WARN",
    "id": "size-count",
    "width": 1440,
-   "message": "15 different font sizes (10, 13, 14, 15, 16, 18, 20, 24, 28, 32, 48, 60, 68, 99, 134).",
+   "message": "13 different font sizes (13, 14, 15, 16, 18, 20, 24, 28, 32, 48, 60, 68, 144).",
    "fix": "A page needs about five: display, heading, lead, body, small.",
    "alsoAt": [
     768,
@@ -2587,7 +2606,7 @@
    "level": "WARN",
    "id": "side-scroll",
    "width": 1440,
-   "message": "2 row(s) scroll sideways with content past their edge.",
+   "message": "4 row(s) scroll sideways with content past their edge.",
    "fix": "Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.",
    "alsoAt": [
     768,
@@ -2595,14 +2614,11 @@
    ]
   },
   {
-   "level": "FAIL",
-   "id": "covered-text",
-   "width": 1440,
-   "message": "Large text lies under another element at some scroll position: \"12 months. 13 festivals.\" (screen 4, 50% hidden)",
-   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
-   "alsoAt": [
-    390
-   ]
+   "level": "WARN",
+   "id": "mixed-font-headline",
+   "width": 390,
+   "message": "1 headline(s) switch typeface or to italic mid-line (the \"one italic serif word\" move).",
+   "fix": "Set the whole headline in one face. Emphasis comes from the words."
   }
  ],
  "images": [

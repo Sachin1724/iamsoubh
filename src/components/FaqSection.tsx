@@ -18,20 +18,11 @@ export function FaqSection() {
       id="faq"
       className="py-24 sm:py-36 bg-pipili-yellow text-on-light relative overflow-hidden scroll-mt-24"
     >
-      {/* 1. Folk Background Pattern Texture */}
-      <div
-        className="absolute inset-0 opacity-15 pointer-events-none bg-repeat z-0"
-        style={{
-          backgroundImage: "url('/assets/folk-pattern-tile.png')",
-          backgroundSize: "200px",
-        }}
-      />
 
-
-      {/* Mandala, centred on the page's top-right corner, red mask, slow spin */}
+      {/* Mandala on the top-right corner, slowly turning */}
       <div className="absolute top-0 right-0 w-[240px] sm:w-[340px] aspect-square translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
         <div
-          className="w-full h-full opacity-40 bg-brand animate-spin-slow"
+          className="w-full h-full opacity-30 bg-line-yellow animate-spin-slow"
           style={{
             maskImage: "url('/assets/motifs/mandala-laser-1200.png')",
             WebkitMaskImage: "url('/assets/motifs/mandala-laser-1200.png')",
@@ -43,20 +34,6 @@ export function FaqSection() {
           aria-hidden="true"
         />
       </div>
-
-      {/* Konark temple, red mask */}
-      <div
-        className="absolute bottom-0 right-0 w-[min(760px,90vw)] aspect-[720/360] pointer-events-none select-none z-0 opacity-40 bg-brand"
-        style={{
-          maskImage: "url('/assets/scene/konark-lineart.png')",
-          WebkitMaskImage: "url('/assets/scene/konark-lineart.png')",
-          maskSize: "contain",
-          WebkitMaskSize: "contain",
-          maskRepeat: "no-repeat",
-          WebkitMaskRepeat: "no-repeat",
-        }}
-        aria-hidden="true"
-      />
 
       {/* 4. Main Section Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">

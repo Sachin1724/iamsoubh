@@ -13,7 +13,7 @@ export default function Refunds() {
 
       <h2>Cancelling before it ships</h2>
       <p>
-        Changed your mind before your box ships? Message us on WhatsApp and you get a full
+        Changed your mind before your box ships? Email us and you get a full
         refund.
       </p>
 
@@ -25,7 +25,7 @@ export default function Refunds() {
 
       <h2>Damaged on arrival</h2>
       <p>
-        Send a photo on WhatsApp within 48 hours of delivery and we ship a replacement free. You
+        Email us a photo within 48 hours of delivery and we ship a replacement free. You
         do not need to send the damaged box back.
       </p>
 

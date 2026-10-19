@@ -9,9 +9,23 @@ import Image from "next/image";
  * both the Inside the box section and the order section.
  */
 export const MOCKUPS = [
-  { src: "/assets/product%20mockup/View%204.png", alt: "The 2027 festival cards" },
-  { src: "/assets/product%20mockup/View%201.png", alt: "The 2027 festival cards, fanned out" },
-  { src: "/assets/product%20mockup/Calendar%20PNG.png", alt: "A festival card, close up" },
+  // `zoom` is per shot: the first two are framed with air around the cards and
+  // need filling out, the third is cropped tight and must sit as it is.
+  {
+    src: "/assets/product%20mockup/View%204.png",
+    alt: "The 2027 festival cards",
+    zoom: "scale-[1.3] lg:scale-[1.45]",
+  },
+  {
+    src: "/assets/product%20mockup/View%201.png",
+    alt: "The 2027 festival cards, fanned out",
+    zoom: "scale-[1.3] lg:scale-[1.45]",
+  },
+  {
+    src: "/assets/product%20mockup/Calendar%20PNG.png",
+    alt: "The January card, front and dates",
+    zoom: "scale-100",
+  },
 ];
 
 export function MockupSlider({
@@ -61,7 +75,7 @@ export function MockupSlider({
               fill
               priority={priority && i === 0}
               sizes={sizes}
-              className="scale-[1.3] object-contain drop-shadow-[0_24px_40px_rgba(90,15,20,0.18)] lg:scale-[1.45]"
+              className={`object-contain drop-shadow-[0_24px_40px_rgba(90,15,20,0.18)] ${m.zoom}`}
             />
           </div>
         ))}

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MessageCircle, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { siteConfig } from "@/config/site-config";
 
 export function Footer() {
@@ -88,16 +88,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href={siteConfig.whatsappWaitlistUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center transition-colors"
-                aria-label="WhatsApp Contact"
-              >
-                <MessageCircle className="w-4 h-4 text-white" />
-              </a>
-              <a
-                href="mailto:contact@iamsoubh.com"
+                href={`mailto:${siteConfig.supportEmail}`}
                 className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center transition-colors"
                 aria-label="Email Soubh"
               >

@@ -87,7 +87,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         <button
           type="button"
           onClick={handleOrder}
-          className="shrink-0 whitespace-nowrap bg-chandua hover:bg-[#A31812] active:scale-95 text-rice font-gazpacho text-sm sm:text-base font-bold px-5 py-2.5 rounded-full border-2 border-rice shadow-[2px_2px_0_0_var(--color-turmeric)] transition-all duration-200 flex items-center gap-1.5 cursor-pointer"
+          className="shrink-0 whitespace-nowrap bg-chandua hover:bg-[#A31812] active:scale-95 text-rice font-gazpacho text-sm sm:text-base font-bold px-5 py-2.5 rounded-full border border-on-dark/20 transition-all duration-200 flex items-center gap-1.5 cursor-pointer"
         >
           <span>{soldOut ? "Join Batch 2" : "Pre-order"}</span>
           <ArrowRight className="w-4 h-4 stroke-[2.5]" />

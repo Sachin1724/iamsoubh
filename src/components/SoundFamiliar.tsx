@@ -1,5 +1,38 @@
-import Image from "next/image";
-import { SectionArt } from "@/components/SectionArt";
+import { FamiliarCards, type FamiliarCard } from "@/components/FamiliarCards";
+
+// Placeholder artwork: the bento cards already in the project. Soubh's four
+// new ones drop straight in here, nothing else changes.
+const FAMILIAR_CARDS: FamiliarCard[] = [
+  {
+    id: "raja",
+    line: "Raja came and went. You found out from someone's story.",
+    image: "/assets/bento/odia_bento_card_pngs/bento_01_raja_swing_clean.png",
+    width: 949,
+    height: 336,
+    wide: true,
+  },
+  {
+    id: "pitha",
+    line: "Maa asked, 'Pitha khailu?' You said yes. Your last pitha was months ago.",
+    image: "/assets/bento/odia_bento_card_pngs/bento_02_manda_pitha_clean.png",
+    width: 476,
+    height: 691,
+  },
+  {
+    id: "rath",
+    line: "You watched Rath Yatra on reels. From 1,000 km away. Again.",
+    image: "/assets/bento/odia_bento_card_pngs/bento_03_rath_yatra_clean.png",
+    width: 474,
+    height: 373,
+  },
+  {
+    id: "pana",
+    line: "You wished Maa for Pana Sankranti. A day late.",
+    image: "/assets/bento/odia_bento_card_pngs/bento_04_boita_bandana_clean.png",
+    width: 474,
+    height: 320,
+  },
+];
 
 export function SoundFamiliar() {
   return (
@@ -7,17 +40,60 @@ export function SoundFamiliar() {
       id="sound-familiar"
       className="relative pt-24 sm:pt-36 pb-24 sm:pb-36 bg-pipili-indigo text-on-dark scroll-mt-28 overflow-x-clip"
     >
-      {/* 1. Odia Folk Pattern Texture with Deep Forest Green Tint */}
+      {/* Deep indigo vignette */}
       <div
-        className="absolute inset-0 opacity-5 pointer-events-none bg-repeat z-0"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
-          backgroundImage: "url('/assets/folk-pattern-tile.png')",
-          backgroundSize: "180px",
+          background:
+            "radial-gradient(ellipse at center, rgba(31,45,102,0) 35%, rgba(12,18,45,0.55) 100%)",
         }}
+        aria-hidden="true"
       />
 
-      {/* Sambalpuri ikat motifs down the left edge */}
-      <SectionArt name="ikat" className="z-0 text-line-indigo opacity-70" />
+      {/* Folk pattern texture */}
+      <div
+        className="absolute inset-0 opacity-[0.035] pointer-events-none bg-repeat z-0"
+        style={{ backgroundImage: "url('/assets/folk-pattern-tile.png')", backgroundSize: "180px" }}
+        aria-hidden="true"
+      />
+
+      {/* Sketch plates, cropped off the corners */}
+      <div
+        className="absolute -top-16 -right-20 sm:-right-10 md:right-0 w-[380px] sm:w-[500px] md:w-[620px] aspect-square pointer-events-none select-none z-0 opacity-[0.08] sm:opacity-[0.11]"
+        style={{
+          backgroundImage: "url('/assets/scene/sound-familiar-right-cream.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -bottom-24 -left-20 sm:-left-12 md:left-2 w-[340px] sm:w-[460px] md:w-[560px] aspect-square pointer-events-none select-none z-0 opacity-[0.06] sm:opacity-[0.08]"
+        style={{
+          backgroundImage: "url('/assets/scene/sound-familiar-left-cream.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-0 left-0 w-[140px] sm:w-[200px] md:w-[240px] aspect-square pointer-events-none select-none z-0 opacity-[0.10] sm:opacity-[0.13]"
+        style={{
+          backgroundImage: "url('/assets/scene/sound-familiar-sketches-cream.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-0 right-0 w-[140px] sm:w-[200px] md:w-[240px] aspect-square pointer-events-none select-none z-0 opacity-[0.08] sm:opacity-[0.11] rotate-180"
+        style={{
+          backgroundImage: "url('/assets/scene/sound-familiar-sketches-gold.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+        }}
+        aria-hidden="true"
+      />
 
       {/* 2. Main Content Container */}
       <div className="relative z-20 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -34,69 +110,12 @@ export function SoundFamiliar() {
           For everyone who misses Odisha without saying it.
         </h2>
 
-        {/* 4 Cards Bento Grid Layout */}
-        <div className="reveal-spring-stagger mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-4 md:gap-5">
-          {/* CARD 1: Raja Festival (Wide Banner spanning 2 columns) */}
-          <div className="group col-span-2 relative overflow-hidden rounded-xl drop-shadow-md transition-[filter] duration-300 hover:drop-shadow-[0_8px_25px_rgba(224,165,38,0.25)]">
-            <span className="sr-only">
-              Raja came and went, and you found out from someone&apos;s story.
-            </span>
-            <Image
-              src="/assets/bento/odia_bento_card_pngs/bento_01_raja_swing_clean.png"
-              alt="Raja came and went, and you found out from someone's story."
-              width={949}
-              height={336}
-              className="w-full h-auto block select-none transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              priority
-            />
-          </div>
-
-          {/* CARD 2: Manda Pitha on Gamha (Tall Card on Left Column) */}
-          <div className="group col-span-1 relative flex items-start overflow-hidden rounded-xl drop-shadow-md transition-[filter] duration-300 hover:drop-shadow-[0_8px_25px_rgba(224,165,38,0.25)]">
-            <span className="sr-only">
-              Maa asked, &quot;Pitha khailu?&quot; You said yes. Your last pitha was months ago.
-            </span>
-            <Image
-              src="/assets/bento/odia_bento_card_pngs/bento_02_manda_pitha_clean.png"
-              alt="Maa asked, 'Pitha khailu?' You said yes. Your last pitha was months ago."
-              width={476}
-              height={691}
-              className="w-full h-auto block select-none transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            />
-          </div>
-
-          {/* RIGHT COLUMN: Stack of Card 3 and Card 4 */}
-          <div className="col-span-1 flex flex-col justify-between gap-2 sm:gap-3.5 md:gap-4">
-            {/* CARD 3: Rath Yatra in July */}
-            <div className="group relative overflow-hidden rounded-xl drop-shadow-md transition-[filter] duration-300 hover:drop-shadow-[0_8px_25px_rgba(224,165,38,0.25)]">
-              <span className="sr-only">
-                You watched Rath Yatra on reels. From 1,000 km away. Again.
-              </span>
-              <Image
-                src="/assets/bento/odia_bento_card_pngs/bento_03_rath_yatra_clean.png"
-                alt="You watched Rath Yatra on reels. From 1,000 km away. Again."
-                width={474}
-                height={373}
-                className="w-full h-auto block select-none transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              />
-            </div>
-
-            {/* CARD 4: Boita Bandana */}
-            <div className="group relative overflow-hidden rounded-xl drop-shadow-md transition-[filter] duration-300 hover:drop-shadow-[0_8px_25px_rgba(224,165,38,0.25)]">
-              {/* Copy is the Pana Sankranti line; this still shows the Boita
-                  Bandana art until Soubh supplies the bela pana card. */}
-              <span className="sr-only">
-                You wished Maa for Pana Sankranti. A day late.
-              </span>
-              <Image
-                src="/assets/bento/odia_bento_card_pngs/bento_04_boita_bandana_clean.png"
-                alt="You wished Maa for Pana Sankranti. A day late."
-                width={474}
-                height={320}
-                className="w-full h-auto block select-none transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              />
-            </div>
-          </div>
+        {/* The four lines, as cards you can open. Artwork swaps in FAMILIAR_CARDS. */}
+        <div className="mt-10 sm:mt-14">
+          <FamiliarCards cards={FAMILIAR_CARDS} />
+          <p className="mt-4 text-center text-xs font-semibold text-on-dark/60">
+            Tap a card to see it bigger
+          </p>
         </div>
 
         {/* Bottom Punchline */}

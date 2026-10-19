@@ -27,15 +27,9 @@ export const siteConfig = {
   // the policy pages render a visible TO CONFIRM marker while they are blank.
   legalName: "",
   businessAddress: "",
-  supportEmail: "",
+  supportEmail: "hello@iamsoubh.com",
   gstIncluded: true,
   instagramUrl: "https://instagram.com/iamsoubh",
-  whatsappNumber: "+919876543210",
-  whatsappWaitlistUrl:
-    "https://wa.me/919876543210?text=Hi%20Soubh%2C%20please%20add%20me%20to%20the%20Odia%20Calendar%202027%20waitlist",
-  whatsappBulkUrl:
-    "https://wa.me/919876543210?text=Hi%20Soubh%2C%20I%27d%20like%20a%20quote%20for%20bulk%20boxes%20of%20the%202027%20calendar",
-
   razorpayKeyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_placeholder",
 } as const;
 
@@ -49,7 +43,6 @@ export const products = {
     strikePrice: 339,
     maxQty: 9,
     payButtonLabel: "Let's Odia this",
-    parcelImage: "/assets/product/parcel-1.webp",
     description: "One box for you. 12 cards and a sealed 13th.",
   },
   family: {
@@ -62,7 +55,6 @@ export const products = {
     maxQty: 3,
     badge: "Save ₹148",
     payButtonLabel: "Odia-fy the family",
-    parcelImage: "/assets/product/parcel-3.webp",
     description: "For Maa, Bapa and you.",
   },
   gift: {
@@ -75,7 +67,6 @@ export const products = {
     maxQty: 1,
     badge: "Best value · Save ₹346",
     payButtonLabel: "Odia-fy everyone",
-    parcelImage: "/assets/product/parcel-5.webp",
     description: "Keep one, gift four.",
   },
 } as const;
