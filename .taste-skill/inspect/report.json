@@ -1,6 +1,6 @@
 {
- "url": "http://localhost:3244/?nosmooth",
- "at": "2026-10-19T14:22:54.963Z",
+ "url": "http://localhost:3256/?nosmooth",
+ "at": "2026-10-19T15:09:05.737Z",
  "allow": [],
  "viewports": [
   {
@@ -13,20 +13,20 @@
     1,
     1,
     1,
+    0.98,
     1,
     1,
     1,
-    1,
-    0.92,
+    0.9,
     1,
     1,
     1
    ],
    "motion": {
-    "elements": 120,
+    "elements": 128,
     "css": 15,
     "transitions": 74,
-    "scripted": 31,
+    "scripted": 39,
     "videos": 12,
     "playingVideos": 0
    },
@@ -36,30 +36,30 @@
      "h": 900
     },
     "page": {
-     "height": 9971,
-     "screens": 11.1,
-     "words": 1220,
-     "img": 63,
+     "height": 10209,
+     "screens": 11.3,
+     "words": 1219,
+     "img": 67,
      "video": 12,
      "canvas": 0,
-     "svg": 132,
+     "svg": 130,
      "sections": 8,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 39,
+     "realPictures": 43,
      "videoCount": 12,
      "uiPictures": 0,
      "pictureSamples": [
       "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fproduct-logo-v2.png&w=828&",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FCalen",
       "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fproduct%2520mockup%2FCalen"
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
+      "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn"
      ],
      "blendText": 0,
      "sideScrollers": 4,
@@ -67,76 +67,38 @@
      "emoji": []
     },
     "hero": {
-     "text": "TERA PARBA",
-     "words": 2,
-     "chars": 10,
-     "lines": 1,
-     "size": 144,
-     "vw": 10,
-     "font": "bigdream",
-     "weight": 700,
-     "tracking": 0.03,
-     "leading": 0.82,
-     "upper": true,
-     "italic": false,
+     "text": "“The Viral Odia Calendar. Last year it went up in 1,500 homes, 22 states and the USA. It's back for 2027.”",
+     "words": 21,
+     "chars": 106,
+     "lines": 3,
+     "size": 18,
+     "vw": 1.3,
+     "font": "Inter",
+     "weight": 400,
+     "tracking": -0.012,
+     "leading": 1.6,
+     "upper": false,
+     "italic": true,
      "mono": false,
      "align": "center",
      "position": "center",
-     "widthRatio": 0.67,
-     "top": 402,
-     "tag": "span",
-     "kind": "heading"
+     "widthRatio": 0.28,
+     "top": 436,
+     "mixedFonts": [
+      "Inter italic",
+      "Inter"
+     ],
+     "tag": "p",
+     "kind": "statement"
     },
     "h1": {
-     "text": "BARA MASA The Viral Odia Calendar TERA PARBA",
-     "words": 8,
-     "lines": 3,
+     "text": "Bara Masa Tera Parba — the 2027 Odia calendar",
+     "words": 9,
+     "lines": 1,
      "size": 16,
      "font": "Inter"
     },
     "headings": [
-     {
-      "text": "BARA MASA",
-      "words": 2,
-      "chars": 9,
-      "lines": 1,
-      "size": 144,
-      "vw": 10,
-      "font": "bigdream",
-      "weight": 700,
-      "tracking": 0.03,
-      "leading": 0.82,
-      "upper": true,
-      "italic": false,
-      "mono": false,
-      "align": "center",
-      "position": "center",
-      "widthRatio": 0.67,
-      "top": 232,
-      "tag": "span",
-      "kind": "heading"
-     },
-     {
-      "text": "TERA PARBA",
-      "words": 2,
-      "chars": 10,
-      "lines": 1,
-      "size": 144,
-      "vw": 10,
-      "font": "bigdream",
-      "weight": 700,
-      "tracking": 0.03,
-      "leading": 0.82,
-      "upper": true,
-      "italic": false,
-      "mono": false,
-      "align": "center",
-      "position": "center",
-      "widthRatio": 0.67,
-      "top": 402,
-      "tag": "span",
-      "kind": "heading"
-     },
      {
       "text": "For everyone who misses Odisha without saying it.",
       "words": 8,
@@ -154,7 +116,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.67,
-      "top": 1112,
+      "top": 1350,
       "tag": "h2",
       "kind": "heading"
      },
@@ -175,7 +137,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.53,
-      "top": 2812,
+      "top": 3050,
       "tag": "p",
       "kind": "statement"
      },
@@ -196,7 +158,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.48,
-      "top": 2971,
+      "top": 3209,
       "tag": "p",
       "kind": "statement"
      },
@@ -217,7 +179,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.51,
-      "top": 3440,
+      "top": 3678,
       "tag": "h2",
       "kind": "heading"
      },
@@ -238,7 +200,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3581,
+      "top": 3819,
       "tag": "span",
       "kind": "statement"
      },
@@ -259,7 +221,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3683,
+      "top": 3921,
       "tag": "span",
       "kind": "statement"
      },
@@ -280,7 +242,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3762,
+      "top": 4000,
       "tag": "span",
       "kind": "statement"
      },
@@ -301,7 +263,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3841,
+      "top": 4079,
       "tag": "span",
       "kind": "statement"
      },
@@ -322,7 +284,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.02,
-      "top": 3920,
+      "top": 4159,
       "tag": "span",
       "kind": "statement"
      },
@@ -343,7 +305,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.53,
-      "top": 4438,
+      "top": 4676,
       "tag": "h2",
       "kind": "heading"
      },
@@ -364,7 +326,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.52,
-      "top": 5664,
+      "top": 5902,
       "tag": "h2",
       "kind": "heading"
      },
@@ -385,7 +347,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.36,
-      "top": 6853,
+      "top": 7091,
       "tag": "h2",
       "kind": "heading"
      },
@@ -406,7 +368,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.07,
-      "top": 7014,
+      "top": 7252,
       "tag": "span",
       "kind": "heading"
      },
@@ -427,7 +389,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.47,
-      "top": 8322,
+      "top": 8560,
       "tag": "h2",
       "kind": "heading"
      },
@@ -448,17 +410,17 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.47,
-      "top": 9141,
+      "top": 9379,
       "tag": "h2",
       "kind": "heading"
      }
     ],
     "headingSummary": {
-     "count": 17,
+     "count": 15,
      "maxLines": 3,
      "over2Lines": 0,
      "statements": 7,
-     "centered": 2,
+     "centered": 0,
      "medianWords": 4,
      "mixedFontHeadings": 0
     },
@@ -466,7 +428,7 @@
      "families": [
       {
        "family": "Inter",
-       "share": 0.9,
+       "share": 0.91,
        "mono": false
       },
       {
@@ -475,18 +437,14 @@
        "mono": false
       },
       {
-       "family": "bigdream",
-       "share": 0,
-       "mono": false
-      },
-      {
        "family": "jaya",
        "share": 0,
        "mono": false
       }
      ],
-     "familyCount": 4,
+     "familyCount": 3,
      "sizes": [
+      11,
       13,
       14,
       15,
@@ -498,8 +456,7 @@
       32,
       48,
       60,
-      68,
-      144
+      68
      ],
      "sizeCount": 13,
      "notLoaded": [],
@@ -513,40 +470,30 @@
      },
      "measureChars": 73,
      "max": {
-      "size": 144,
-      "vw": 10,
-      "font": "bigdream",
-      "text": "BARA MASA"
+      "size": 68,
+      "vw": 4.7,
+      "font": "gazpacho",
+      "text": "For everyone who misses Odisha without s"
      },
      "monoShare": 0,
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 6,
-     "microLabelShare": 0.012,
+     "microLabels": 7,
+     "microLabelShare": 0.014,
      "microSamples": [
+      "2027 Edition",
       "Sound familiar?",
       "Inside the box",
       "Stories",
       "From the creators",
-      "Order now",
-      "BULK AND GIFTING"
+      "Order now"
      ],
      "upperShare": 0.02,
      "centerShare": 0.06,
-     "smallText": 0
+     "smallText": 1
     },
     "eyebrows": [
-     {
-      "text": "2027 · 500 boxes",
-      "above": "BARA MASA",
-      "upper": false,
-      "tracked": true,
-      "mono": false,
-      "pill": false,
-      "size": 14,
-      "top": 184
-     },
      {
       "text": "Sound familiar?",
       "above": "For everyone who misses Odisha without s",
@@ -555,7 +502,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 1078
+      "top": 1316
      },
      {
       "text": "Inside the box",
@@ -565,7 +512,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 3410
+      "top": 3648
      },
      {
       "text": "Stories",
@@ -575,7 +522,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4408
+      "top": 4646
      },
      {
       "text": "From the creators",
@@ -585,7 +532,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5634
+      "top": 5872
      },
      {
       "text": "BULK AND GIFTING",
@@ -595,44 +542,44 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 8292
+      "top": 8530
      }
     ],
     "numbered": [
      {
       "text": "02",
       "size": 24,
-      "top": 1068
+      "top": 1306
      },
      {
       "text": "03",
       "size": 24,
-      "top": 3400
+      "top": 3638
      },
      {
       "text": "04",
       "size": 24,
-      "top": 4398
+      "top": 4636
      },
      {
       "text": "05",
       "size": 24,
-      "top": 5624
+      "top": 5862
      },
      {
       "text": "06",
       "size": 24,
-      "top": 6797
+      "top": 7035
      },
      {
       "text": "07",
       "size": 24,
-      "top": 8282
+      "top": 8520
      },
      {
       "text": "08",
       "size": 24,
-      "top": 9105
+      "top": 9343
      }
     ],
     "color": {
@@ -654,17 +601,8 @@
        }
       },
       {
-       "color": "#f2b035",
-       "top": 0,
-       "hsl": {
-        "h": 39,
-        "s": 0.88,
-        "l": 0.58
-       }
-      },
-      {
        "color": "#1f2d66",
-       "top": 924,
+       "top": 1162,
        "hsl": {
         "h": 228,
         "s": 0.53,
@@ -673,7 +611,7 @@
       },
       {
        "color": "#0f4c5c",
-       "top": 5480,
+       "top": 5718,
        "hsl": {
         "h": 192,
         "s": 0.72,
@@ -682,11 +620,20 @@
       },
       {
        "color": "#8e1b1b",
-       "top": 8138,
+       "top": 8376,
        "hsl": {
         "h": 0,
         "s": 0.68,
         "l": 0.33
+       }
+      },
+      {
+       "color": "#f2b035",
+       "top": 9199,
+       "hsl": {
+        "h": 39,
+        "s": 0.88,
+        "l": 0.58
        }
       }
      ],
@@ -701,11 +648,11 @@
       },
       {
        "color": "#5a0f14",
-       "share": 0.11
+       "share": 0.1
       },
       {
        "color": "#5a1014",
-       "share": 0.11
+       "share": 0.1
       },
       {
        "color": "#fffdf7",
@@ -724,26 +671,24 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 10,
-     "inHero": 1,
+     "count": 9,
+     "inHero": 0,
      "radius": "pill",
      "height": 32,
      "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
-     "heroLabels": [
-      "Pre-book now"
-     ]
+     "heroLabels": []
     },
     "surfaces": {
-     "shadowStatic": 100,
+     "shadowStatic": 99,
      "shadowOverlay": 0,
      "shadowSamples": [
-      "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
-      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.relative.w-[76vw] → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
      ],
      "gradients": 93,
      "scrims": 1,
@@ -767,7 +712,7 @@
      "blurred": 45,
      "roundedBoxes": 66,
      "boxRadius": 24,
-     "squareMedia": 18,
+     "squareMedia": 22,
      "roundedMedia": 62,
      "mediaRadius": 24,
      "textShadow": 0,
@@ -776,7 +721,7 @@
        "count": 45,
        "iconTopped": false,
        "rounded": true,
-       "top": 4727
+       "top": 4965
       }
      ]
     },
@@ -790,8 +735,8 @@
       "ratio": 1
      },
      {
-      "type": "svg",
-      "ratio": 0.15
+      "type": "img",
+      "ratio": 0.18
      }
     ],
     "nav": {
@@ -809,9 +754,7 @@
      "jaya",
      "jaya fallback",
      "gazpacho",
-     "gazpacho fallback",
-     "bigdream",
-     "bigdream fallback"
+     "gazpacho fallback"
     ]
    },
    "consoleErrors": []
@@ -835,10 +778,10 @@
     1
    ],
    "motion": {
-    "elements": 120,
+    "elements": 128,
     "css": 15,
     "transitions": 74,
-    "scripted": 31,
+    "scripted": 39,
     "videos": 12,
     "playingVideos": 0
    },
@@ -850,28 +793,28 @@
     "page": {
      "height": 11160,
      "screens": 10.9,
-     "words": 1220,
-     "img": 63,
+     "words": 1219,
+     "img": 67,
      "video": 12,
      "canvas": 0,
-     "svg": 132,
+     "svg": 130,
      "sections": 8,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 37,
+     "realPictures": 39,
      "videoCount": 12,
      "uiPictures": 0,
      "pictureSamples": [
       "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fproduct-logo-v2.png&w=828&",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FCalen",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%"
      ],
      "blendText": 0,
      "sideScrollers": 4,
@@ -879,76 +822,38 @@
      "emoji": []
     },
     "hero": {
-     "text": "TERA PARBA",
-     "words": 2,
-     "chars": 10,
-     "lines": 1,
-     "size": 115.2,
-     "vw": 15,
-     "font": "bigdream",
-     "weight": 700,
-     "tracking": 0.03,
-     "leading": 0.82,
-     "upper": true,
-     "italic": false,
+     "text": "“The Viral Odia Calendar. Last year it went up in 1,500 homes, 22 states and the USA. It's back for 2027.”",
+     "words": 21,
+     "chars": 106,
+     "lines": 3,
+     "size": 18,
+     "vw": 2.3,
+     "font": "Inter",
+     "weight": 400,
+     "tracking": -0.012,
+     "leading": 1.6,
+     "upper": false,
+     "italic": true,
      "mono": false,
      "align": "center",
      "position": "center",
-     "widthRatio": 0.92,
-     "top": 462,
-     "tag": "span",
-     "kind": "heading"
+     "widthRatio": 0.53,
+     "top": 402,
+     "mixedFonts": [
+      "Inter italic",
+      "Inter"
+     ],
+     "tag": "p",
+     "kind": "statement"
     },
     "h1": {
-     "text": "BARA MASA The Viral Odia Calendar TERA PARBA",
-     "words": 8,
-     "lines": 3,
+     "text": "Bara Masa Tera Parba — the 2027 Odia calendar",
+     "words": 9,
+     "lines": 1,
      "size": 16,
      "font": "Inter"
     },
     "headings": [
-     {
-      "text": "BARA MASA",
-      "words": 2,
-      "chars": 9,
-      "lines": 1,
-      "size": 115.2,
-      "vw": 15,
-      "font": "bigdream",
-      "weight": 700,
-      "tracking": 0.03,
-      "leading": 0.82,
-      "upper": true,
-      "italic": false,
-      "mono": false,
-      "align": "center",
-      "position": "center",
-      "widthRatio": 0.92,
-      "top": 320,
-      "tag": "span",
-      "kind": "heading"
-     },
-     {
-      "text": "TERA PARBA",
-      "words": 2,
-      "chars": 10,
-      "lines": 1,
-      "size": 115.2,
-      "vw": 15,
-      "font": "bigdream",
-      "weight": 700,
-      "tracking": 0.03,
-      "leading": 0.82,
-      "upper": true,
-      "italic": false,
-      "mono": false,
-      "align": "center",
-      "position": "center",
-      "widthRatio": 0.92,
-      "top": 462,
-      "tag": "span",
-      "kind": "heading"
-     },
      {
       "text": "For everyone who misses Odisha without saying it.",
       "words": 8,
@@ -1245,19 +1150,19 @@
      }
     ],
     "headingSummary": {
-     "count": 16,
+     "count": 14,
      "maxLines": 2,
      "over2Lines": 0,
      "statements": 6,
-     "centered": 2,
-     "medianWords": 2,
+     "centered": 0,
+     "medianWords": 4,
      "mixedFontHeadings": 0
     },
     "type": {
      "families": [
       {
        "family": "Inter",
-       "share": 0.9,
+       "share": 0.91,
        "mono": false
       },
       {
@@ -1266,18 +1171,14 @@
        "mono": false
       },
       {
-       "family": "bigdream",
-       "share": 0,
-       "mono": false
-      },
-      {
        "family": "jaya",
        "share": 0,
        "mono": false
       }
      ],
-     "familyCount": 4,
+     "familyCount": 3,
      "sizes": [
+      11,
       13,
       14,
       15,
@@ -1289,8 +1190,7 @@
       28,
       46,
       48,
-      60,
-      115
+      60
      ],
      "sizeCount": 13,
      "notLoaded": [],
@@ -1304,40 +1204,30 @@
      },
      "measureChars": 42,
      "max": {
-      "size": 115.2,
-      "vw": 15,
-      "font": "bigdream",
-      "text": "BARA MASA"
+      "size": 60,
+      "vw": 7.8,
+      "font": "gazpacho",
+      "text": "QUESTIONS"
      },
      "monoShare": 0,
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 6,
-     "microLabelShare": 0.012,
+     "microLabels": 7,
+     "microLabelShare": 0.014,
      "microSamples": [
+      "2027 Edition",
       "Sound familiar?",
       "Inside the box",
       "Stories",
       "From the creators",
-      "Order now",
-      "BULK AND GIFTING"
+      "Order now"
      ],
      "upperShare": 0.02,
      "centerShare": 0.08,
-     "smallText": 0
+     "smallText": 1
     },
     "eyebrows": [
-     {
-      "text": "2027 · 500 boxes",
-      "above": "BARA MASA",
-      "upper": false,
-      "tracked": true,
-      "mono": false,
-      "pill": false,
-      "size": 14,
-      "top": 272
-     },
      {
       "text": "Sound familiar?",
       "above": "For everyone who misses Odisha without s",
@@ -1445,15 +1335,6 @@
        }
       },
       {
-       "color": "#f2b035",
-       "top": 0,
-       "hsl": {
-        "h": 39,
-        "s": 0.88,
-        "l": 0.58
-       }
-      },
-      {
        "color": "#1f2d66",
        "top": 1048,
        "hsl": {
@@ -1479,6 +1360,15 @@
         "s": 0.68,
         "l": 0.33
        }
+      },
+      {
+       "color": "#f2b035",
+       "top": 10167,
+       "hsl": {
+        "h": 39,
+        "s": 0.88,
+        "l": 0.58
+       }
       }
      ],
      "textColors": [
@@ -1492,11 +1382,11 @@
       },
       {
        "color": "#5a0f14",
-       "share": 0.11
+       "share": 0.1
       },
       {
        "color": "#5a1014",
-       "share": 0.11
+       "share": 0.1
       },
       {
        "color": "#fffdf7",
@@ -1515,26 +1405,24 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 10,
-     "inHero": 1,
+     "count": 9,
+     "inHero": 0,
      "radius": "pill",
      "height": 32,
      "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
-     "heroLabels": [
-      "Pre-book now"
-     ]
+     "heroLabels": []
     },
     "surfaces": {
-     "shadowStatic": 98,
+     "shadowStatic": 97,
      "shadowOverlay": 0,
      "shadowSamples": [
-      "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
-      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.relative.w-[76vw] → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
      ],
      "gradients": 93,
      "scrims": 1,
@@ -1558,7 +1446,7 @@
      "blurred": 45,
      "roundedBoxes": 66,
      "boxRadius": 24,
-     "squareMedia": 18,
+     "squareMedia": 20,
      "roundedMedia": 62,
      "mediaRadius": 24,
      "textShadow": 0,
@@ -1581,8 +1469,12 @@
       "ratio": 1
      },
      {
-      "type": "svg",
-      "ratio": 0.36
+      "type": "img",
+      "ratio": 0.31
+     },
+     {
+      "type": "img",
+      "ratio": 0.09
      }
     ],
     "nav": {
@@ -1600,8 +1492,7 @@
      "jaya",
      "jaya fallback",
      "gazpacho",
-     "gazpacho fallback",
-     "bigdream"
+     "gazpacho fallback"
     ]
    },
    "consoleErrors": []
@@ -1619,17 +1510,17 @@
     1,
     1,
     1,
-    0.95,
-    0.8,
+    0.97,
+    0.78,
     1,
     1,
     1
    ],
    "motion": {
-    "elements": 117,
+    "elements": 125,
     "css": 17,
     "transitions": 69,
-    "scripted": 31,
+    "scripted": 39,
     "videos": 12,
     "playingVideos": 0
    },
@@ -1639,107 +1530,45 @@
      "h": 844
     },
     "page": {
-     "height": 9816,
+     "height": 9830,
      "screens": 11.6,
-     "words": 1192,
-     "img": 63,
+     "words": 1191,
+     "img": 67,
      "video": 12,
      "canvas": 0,
-     "svg": 132,
+     "svg": 130,
      "sections": 8,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 37,
+     "realPictures": 39,
      "videoCount": 12,
      "uiPictures": 0,
      "pictureSamples": [
       "image?url=%2Fassets%2Fscene%2Ftala-pata-chitra-m",
+      "image?url=%2Fassets%2Fproduct-logo-v2.png&w=828&",
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FCalen",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
       "image?url=%2Fassets%2Fbento%2Fodia_bento_card_pn",
-      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%",
-      "image?url=%2Fassets%2Fmotifs%2Fodia-jhoti-mandal"
+      "image?url=%2Fassets%2Fproduct%2520mockup%2FView%"
      ],
      "blendText": 0,
      "sideScrollers": 4,
      "brokenImages": [],
      "emoji": []
     },
-    "hero": {
-     "text": "TERA PARBA",
-     "words": 2,
-     "chars": 10,
-     "lines": 1,
-     "size": 58.5,
-     "vw": 15,
-     "font": "bigdream",
-     "weight": 700,
-     "tracking": 0.03,
-     "leading": 0.82,
-     "upper": true,
-     "italic": false,
-     "mono": false,
-     "align": "center",
-     "position": "center",
-     "widthRatio": 0.92,
-     "top": 361,
-     "tag": "span",
-     "kind": "heading"
-    },
+    "hero": null,
     "h1": {
-     "text": "BARA MASA The Viral Odia Calendar TERA PARBA",
-     "words": 8,
-     "lines": 3,
+     "text": "Bara Masa Tera Parba — the 2027 Odia calendar",
+     "words": 9,
+     "lines": 1,
      "size": 16,
      "font": "Inter"
     },
     "headings": [
-     {
-      "text": "BARA MASA",
-      "words": 2,
-      "chars": 9,
-      "lines": 1,
-      "size": 58.5,
-      "vw": 15,
-      "font": "bigdream",
-      "weight": 700,
-      "tracking": 0.03,
-      "leading": 0.82,
-      "upper": true,
-      "italic": false,
-      "mono": false,
-      "align": "center",
-      "position": "center",
-      "widthRatio": 0.92,
-      "top": 281,
-      "tag": "span",
-      "kind": "heading"
-     },
-     {
-      "text": "TERA PARBA",
-      "words": 2,
-      "chars": 10,
-      "lines": 1,
-      "size": 58.5,
-      "vw": 15,
-      "font": "bigdream",
-      "weight": 700,
-      "tracking": 0.03,
-      "leading": 0.82,
-      "upper": true,
-      "italic": false,
-      "mono": false,
-      "align": "center",
-      "position": "center",
-      "widthRatio": 0.92,
-      "top": 361,
-      "tag": "span",
-      "kind": "heading"
-     },
      {
       "text": "For everyone who misses Odisha without saying it.",
       "words": 8,
@@ -1757,7 +1586,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 1004,
+      "top": 1018,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1778,7 +1607,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 1712,
+      "top": 1727,
       "tag": "p",
       "kind": "statement"
      },
@@ -1799,7 +1628,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 1806,
+      "top": 1820,
       "tag": "p",
       "kind": "statement"
      },
@@ -1820,7 +1649,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 2154,
+      "top": 2169,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1841,7 +1670,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2672,
+      "top": 2686,
       "tag": "span",
       "kind": "statement"
      },
@@ -1862,7 +1691,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2773,
+      "top": 2788,
       "tag": "span",
       "kind": "statement"
      },
@@ -1883,7 +1712,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2875,
+      "top": 2889,
       "tag": "span",
       "kind": "statement"
      },
@@ -1904,7 +1733,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 2977,
+      "top": 2991,
       "tag": "span",
       "kind": "statement"
      },
@@ -1925,7 +1754,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.08,
-      "top": 3056,
+      "top": 3070,
       "tag": "span",
       "kind": "statement"
      },
@@ -1946,7 +1775,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 3513,
+      "top": 3527,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1967,7 +1796,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 4719,
+      "top": 4734,
       "tag": "h2",
       "kind": "heading"
      },
@@ -1988,7 +1817,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 6324,
+      "top": 6338,
       "tag": "h2",
       "kind": "heading"
      },
@@ -2009,7 +1838,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.28,
-      "top": 6459,
+      "top": 6473,
       "tag": "span",
       "kind": "heading"
      },
@@ -2030,7 +1859,7 @@
       "align": "center",
       "position": "right",
       "widthRatio": 0.37,
-      "top": 6588,
+      "top": 6602,
       "mixedFonts": [
        "Inter",
        "gazpacho"
@@ -2055,7 +1884,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 7726,
+      "top": 7740,
       "tag": "h2",
       "kind": "heading"
      },
@@ -2076,18 +1905,18 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.92,
-      "top": 8803,
+      "top": 8817,
       "tag": "h2",
       "kind": "heading"
      }
     ],
     "headingSummary": {
-     "count": 18,
+     "count": 16,
      "maxLines": 3,
      "over2Lines": 0,
      "statements": 7,
-     "centered": 3,
-     "medianWords": 3,
+     "centered": 1,
+     "medianWords": 4,
      "mixedFontHeadings": 1
     },
     "type": {
@@ -2099,12 +1928,7 @@
       },
       {
        "family": "gazpacho",
-       "share": 0.1,
-       "mono": false
-      },
-      {
-       "family": "bigdream",
-       "share": 0,
+       "share": 0.09,
        "mono": false
       },
       {
@@ -2113,12 +1937,14 @@
        "mono": false
       }
      ],
-     "familyCount": 4,
+     "familyCount": 3,
      "sizes": [
+      11,
       13,
       14,
       15,
       16,
+      17,
       18,
       20,
       22,
@@ -2127,65 +1953,44 @@
       28,
       30,
       36,
-      48,
-      59
+      48
      ],
-     "sizeCount": 14,
+     "sizeCount": 15,
      "notLoaded": [],
      "body": {
       "font": "Inter",
       "size": 15,
       "leading": 1.63,
-      "weight": 400,
-      "tracking": -0.012,
-      "contrast": 7.3
+      "weight": 500,
+      "tracking": 0,
+      "contrast": 9.1
      },
      "measureChars": 48,
      "max": {
-      "size": 58.5,
-      "vw": 15,
-      "font": "bigdream",
-      "text": "BARA MASA"
+      "size": 48,
+      "vw": 12.3,
+      "font": "gazpacho",
+      "text": "₹749"
      },
      "monoShare": 0,
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 6,
-     "microLabelShare": 0.012,
+     "microLabels": 7,
+     "microLabelShare": 0.014,
      "microSamples": [
+      "2027 Edition",
       "Sound familiar?",
       "Inside the box",
       "Stories",
       "From the creators",
-      "Order now",
-      "BULK AND GIFTING"
+      "Order now"
      ],
      "upperShare": 0.02,
-     "centerShare": 0.08,
-     "smallText": 0
+     "centerShare": 0.07,
+     "smallText": 1
     },
     "eyebrows": [
-     {
-      "text": "2027 · 500 boxes",
-      "above": "BARA MASA",
-      "upper": false,
-      "tracked": true,
-      "mono": false,
-      "pill": false,
-      "size": 14,
-      "top": 241
-     },
-     {
-      "text": "The Viral Odia Calendar",
-      "above": "TERA PARBA",
-      "upper": false,
-      "tracked": false,
-      "mono": false,
-      "pill": false,
-      "size": 14,
-      "top": 335
-     },
      {
       "text": "Tap a card to see it bigger",
       "above": "This calendar keeps the dates for you.",
@@ -2194,7 +1999,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 1631
+      "top": 1645
      },
      {
       "text": "Inside the box",
@@ -2204,7 +2009,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 2127
+      "top": 2142
      },
      {
       "text": "Stories",
@@ -2214,7 +2019,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 3486
+      "top": 3500
      },
      {
       "text": "From the creators",
@@ -2224,7 +2029,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4692
+      "top": 4707
      },
      {
       "text": "BULK AND GIFTING",
@@ -2234,44 +2039,44 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 7699
+      "top": 7713
      }
     ],
     "numbered": [
      {
       "text": "02",
       "size": 20,
-      "top": 964
+      "top": 978
      },
      {
       "text": "03",
       "size": 20,
-      "top": 2118
+      "top": 2133
      },
      {
       "text": "04",
       "size": 20,
-      "top": 3477
+      "top": 3491
      },
      {
       "text": "05",
       "size": 20,
-      "top": 4683
+      "top": 4698
      },
      {
       "text": "06",
       "size": 20,
-      "top": 5774
+      "top": 5788
      },
      {
       "text": "07",
       "size": 20,
-      "top": 7690
+      "top": 7704
      },
      {
       "text": "08",
       "size": 20,
-      "top": 8771
+      "top": 8785
      }
     ],
     "color": {
@@ -2293,17 +2098,8 @@
        }
       },
       {
-       "color": "#f2b035",
-       "top": 0,
-       "hsl": {
-        "h": 39,
-        "s": 0.88,
-        "l": 0.58
-       }
-      },
-      {
        "color": "#1f2d66",
-       "top": 868,
+       "top": 882,
        "hsl": {
         "h": 228,
         "s": 0.53,
@@ -2312,7 +2108,7 @@
       },
       {
        "color": "#8a1717",
-       "top": 3222,
+       "top": 3238,
        "hsl": {
         "h": 0,
         "s": 0.71,
@@ -2321,7 +2117,7 @@
       },
       {
        "color": "#1b1b1b",
-       "top": 3842,
+       "top": 3856,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -2330,7 +2126,7 @@
       },
       {
        "color": "#0f4c5c",
-       "top": 4587,
+       "top": 4602,
        "hsl": {
         "h": 192,
         "s": 0.72,
@@ -2339,7 +2135,7 @@
       },
       {
        "color": "#0f0f0f",
-       "top": 4957,
+       "top": 4971,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -2348,7 +2144,7 @@
       },
       {
        "color": "#8e1b1b",
-       "top": 7594,
+       "top": 7608,
        "hsl": {
         "h": 0,
         "s": 0.68,
@@ -2356,8 +2152,17 @@
        }
       },
       {
+       "color": "#f2b035",
+       "top": 8689,
+       "hsl": {
+        "h": 39,
+        "s": 0.88,
+        "l": 0.58
+       }
+      },
+      {
        "color": "#e69e32",
-       "top": 8516,
+       "top": 8532,
        "hsl": {
         "h": 36,
         "s": 0.78,
@@ -2372,15 +2177,15 @@
       },
       {
        "color": "#ffffff",
-       "share": 0.22
+       "share": 0.23
       },
       {
        "color": "#5a1014",
-       "share": 0.11
+       "share": 0.1
       },
       {
        "color": "#5a0f14",
-       "share": 0.1
+       "share": 0.09
       },
       {
        "color": "#fffdf7",
@@ -2399,26 +2204,24 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 5,
-     "inHero": 1,
+     "count": 4,
+     "inHero": 0,
      "radius": "pill",
-     "height": 56,
+     "height": 54,
      "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
-     "heroLabels": [
-      "Pre-book now"
-     ]
+     "heroLabels": []
     },
     "surfaces": {
-     "shadowStatic": 100,
+     "shadowStatic": 99,
      "shadowOverlay": 0,
      "shadowSamples": [
-      "button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
       "div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
-      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+      "div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.relative.w-[76vw] → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
      ],
      "gradients": 93,
      "scrims": 1,
@@ -2442,7 +2245,7 @@
      "blurred": 45,
      "roundedBoxes": 64,
      "boxRadius": 16,
-     "squareMedia": 16,
+     "squareMedia": 17,
      "roundedMedia": 58,
      "mediaRadius": 16,
      "textShadow": 0,
@@ -2451,7 +2254,7 @@
        "count": 45,
        "iconTopped": false,
        "rounded": true,
-       "top": 3842
+       "top": 3856
       }
      ]
     },
@@ -2465,8 +2268,12 @@
       "ratio": 1
      },
      {
-      "type": "svg",
-      "ratio": 0.19
+      "type": "img",
+      "ratio": 0.45
+     },
+     {
+      "type": "img",
+      "ratio": 0.1
      }
     ],
     "nav": {
@@ -2484,8 +2291,7 @@
      "jaya",
      "jaya fallback",
      "gazpacho",
-     "gazpacho fallback",
-     "bigdream"
+     "gazpacho fallback"
     ]
    },
    "consoleErrors": []
@@ -2493,10 +2299,20 @@
  ],
  "findings": [
   {
+   "level": "WARN",
+   "id": "hero-words",
+   "width": 1440,
+   "message": "Hero headline is 21 words (\"“The Viral Odia Calendar. Last year it went up in 1,500 home\"). Gallery median is 5.",
+   "fix": "Say the one thing. Move the rest to the supporting line.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
    "level": "FAIL",
    "id": "eyebrow",
    "width": 1440,
-   "message": "6 eyebrow/kicker label(s) above headings: \"2027 · 500 boxes\" above \"BARA MASA\"; \"Sound familiar?\" above \"For everyone who misses Odisha without s\"; \"Inside the box\" above \"12 months. 13 festivals.\"; \"Stories\" above \"Last year, 2,000+ people loved it.\"; \"From the creators\" above \"Hear it from the creators.\"",
+   "message": "5 eyebrow/kicker label(s) above headings: \"Sound familiar?\" above \"For everyone who misses Odisha without s\"; \"Inside the box\" above \"12 months. 13 festivals.\"; \"Stories\" above \"Last year, 2,000+ people loved it.\"; \"From the creators\" above \"Hear it from the creators.\"; \"BULK AND GIFTING\" above \"For your parivar. Or your office.\"",
    "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
    "alsoAt": [
     768,
@@ -2518,7 +2334,7 @@
    "level": "FAIL",
    "id": "micro-label",
    "width": 1440,
-   "message": "6 tiny uppercase letter-spaced labels (e.g. \"Sound familiar?\", \"Inside the box\", \"Stories\", \"From the creators\").",
+   "message": "7 tiny uppercase letter-spaced labels (e.g. \"2027 Edition\", \"Sound familiar?\", \"Inside the box\", \"Stories\").",
    "fix": "Use sentence-case text at a readable size, or delete the label.",
    "alsoAt": [
     768,
@@ -2540,7 +2356,7 @@
    "level": "FAIL",
    "id": "shadow",
    "width": 1440,
-   "message": "100 box-shadow(s) on elements at rest: button.group.relative → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+   "message": "99 box-shadow(s) on elements at rest: a.mt-6.flex → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | div.-rotate-1.sm:-rotate-2 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0 | div.bg-cream.text-ink → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
    "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
    "alsoAt": [
     768,
@@ -2595,8 +2411,19 @@
    "level": "WARN",
    "id": "size-count",
    "width": 1440,
-   "message": "13 different font sizes (13, 14, 15, 16, 18, 20, 24, 28, 32, 48, 60, 68, 144).",
+   "message": "13 different font sizes (11, 13, 14, 15, 16, 18, 20, 24, 28, 32, 48, 60, 68).",
    "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "first-action",
+   "width": 1440,
+   "message": "No visible button in the first screen.",
+   "fix": "Give the one primary action a real button in the first screen (a filled or solid-bordered control, 44px or taller), not only a link in the navigation.",
    "alsoAt": [
     768,
     390
@@ -2615,10 +2442,28 @@
   },
   {
    "level": "WARN",
+   "id": "small-text",
+   "width": 1440,
+   "message": "1 text block(s) under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
    "id": "mixed-font-headline",
    "width": 390,
    "message": "1 headline(s) switch typeface or to italic mid-line (the \"one italic serif word\" move).",
    "fix": "Set the whole headline in one face. Emphasis comes from the words."
+  },
+  {
+   "level": "WARN",
+   "id": "no-hero",
+   "width": 390,
+   "message": "No headline found in the first viewport.",
+   "fix": "The first screen needs a clear focal statement or image."
   }
  ],
  "images": [
