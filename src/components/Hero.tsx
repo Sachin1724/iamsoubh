@@ -1,94 +1,252 @@
 "use client";
 
-import React from "react";
-import { ArrowRight, Truck } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import { AmbientFestiveLayer } from "@/components/AmbientFestiveLayer";
 import { scrollToTarget } from "@/components/SmoothScroll";
-import { SectionArt } from "@/components/SectionArt";
-import { siteConfig } from "@/config/site-config";
 
-interface HeroProps {
-  onOrderClick?: () => void;
-}
+// The product, and the two views that flank it. The outer pair is cropped by
+// the fold on purpose: something is always left to scroll to.
+const SHELF = [
+  { src: "/assets/product%20mockup/View%201.png", alt: "The cards, fanned out" },
+  { src: "/assets/product%20mockup/Calendar%20PNG.png", alt: "The 2027 festival cards" },
+  { src: "/assets/product%20mockup/View%204.png", alt: "The cards, stacked" },
+];
 
-const HEADLINE =
-  "font-bigdream text-[clamp(3.6rem,15vw,9rem)] font-bold tracking-tight leading-[0.82] text-on-light select-none text-center w-full block";
+export function Hero() {
+  const root = useRef<HTMLElement>(null);
 
-export function Hero({ onOrderClick }: HeroProps) {
-  const handleOrder = () => {
-    if (onOrderClick) {
-      onOrderClick();
-    } else {
-      scrollToTarget("#preorder");
-    }
-  };
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let cleanup: (() => void) | undefined;
+
+    (async () => {
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      gsap.registerPlugin(ScrollTrigger);
+
+      // A context so every tween and its inline styles are reverted together.
+      const ctx = gsap.context(() => {
+        const q = gsap.utils.selector(el);
+        const parts = q("[data-hero-part]");
+        const lettering = q("[data-hero-lettering]");
+        const cards = q("[data-hero-card]");
+        const copy = q("[data-hero-copy]");
+
+        const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        intro
+          .fromTo(
+            parts,
+            { y: 14, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.07, clearProps: "transform" }
+          )
+          .fromTo(
+            lettering,
+            { clipPath: "inset(100% 0% 0% 0%)", y: 18, autoAlpha: 0 },
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.7,
+              clearProps: "clipPath,transform",
+            },
+            0.08
+          )
+          .fromTo(
+            cards,
+            { y: 32, scale: 0.97, autoAlpha: 0 },
+            { y: 0, scale: 1, autoAlpha: 1, duration: 0.65, stagger: 0.06 },
+            0.32
+          );
+
+        // The three shots leave at different rates, so the shelf has depth.
+        cards.forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            { y: 0 },
+            {
+              y: [-30, -60, -90][i] ?? -50,
+              ease: "none",
+              scrollTrigger: {
+                trigger: el,
+                start: "top top",
+                end: "bottom top",
+                scrub: 0.5,
+              },
+            }
+          );
+        });
+
+        // The words step back as the section leaves.
+        gsap.fromTo(
+          copy,
+          { y: 0, opacity: 1 },
+          {
+            y: -36,
+            opacity: 0.25,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.5,
+            },
+          }
+        );
+      }, el);
+
+      cleanup = () => ctx.revert();
+    })();
+
+    return () => cleanup?.();
+  }, []);
 
   return (
     <section
+      ref={root}
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col justify-center pt-24 pb-10 sm:pt-28 sm:pb-12 bg-pipili-yellow text-on-light overflow-hidden"
+      className="relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-pipili-cream pt-14 sm:pt-20 md:pt-24 text-on-light"
     >
-      {/* Konark wheel, half off the right edge */}
-      <SectionArt name="wheel" className="z-0 text-line-yellow opacity-70" />
+      {/* Background festive linework */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-35" aria-hidden="true">
+        <AmbientFestiveLayer />
+      </div>
 
-      {/* Living Cultural Ambient Layer (Warm Temple Glow, Sun Sparks, Heritage Art) */}
-      <AmbientFestiveLayer />
+      <div
+        data-hero-copy
+        className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6 md:px-8"
+      >
+        {/* Archival Catalog Registration Badge */}
+        <div data-hero-part className="flex items-center justify-center">
+          <div className="inline-flex items-center gap-2 border border-[#1B1B1B]/40 bg-[#FAF6EE] px-3 py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#1B1B1B]/85 shadow-[1px_1px_0_0_#1B1B1B] rounded-none">
+            <span className="inline-block h-1.5 w-1.5 bg-[#8A1717]" />
+            <span>EDITION ୨୦୨୭ · FIRST FOLIO PRINTING</span>
+          </div>
+        </div>
 
-      {/* The whole poster sits on the optical centre of the viewport */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 w-full flex flex-col items-center text-center">
-        {/* No pill, no dot: two facts, set small. */}
-        <p className="text-sm font-semibold tracking-[0.08em] text-on-light/75">
-          2027 · {siteConfig.batchCap} boxes
-        </p>
-
-        {/* BARA MASA · The Viral Odia Calendar · TERA PARBA */}
-        <h1 className="mt-5 w-full sm:mt-7">
-          <span className={HEADLINE}>BARA MASA</span>
-
-          {/* A 1fr-auto-1fr grid, so the two rules are always the same length
-              and the italic sits dead centre whatever its width renders at. */}
-          <span className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-4 md:gap-5 w-full max-w-[20rem] sm:max-w-[24rem] md:max-w-[27rem] mx-auto my-1.5 sm:my-2 md:my-2.5">
-            <span className="h-px w-full bg-on-light/50" aria-hidden="true" />
-            <span className="font-editorial italic font-bold text-sm sm:text-lg md:text-xl lg:text-2xl text-on-light select-none whitespace-nowrap text-center tracking-wide">
-              The Viral Odia Calendar
-            </span>
-            <span className="h-px w-full bg-on-light/50" aria-hidden="true" />
-          </span>
-
-          <span className={HEADLINE}>TERA PARBA</span>
+        {/* Drawn Odia lettering mark */}
+        <h1 className="mt-2.5 sm:mt-3 w-full">
+          <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
+          <Image
+            data-hero-lettering
+            src="/assets/product-logo-v2.png"
+            alt="Bara Masa Tera Parba"
+            width={782}
+            height={383}
+            priority
+            className="mx-auto h-auto w-[60%] max-w-[260px] select-none sm:w-[46%] sm:max-w-[340px]"
+          />
         </h1>
 
-        <p className="mt-5 max-w-sm text-[15px] sm:text-base md:text-lg text-on-light/90 font-subtext font-normal leading-relaxed text-center text-balance">
-          Last year it went viral.{" "}
-          <strong className="text-on-light font-bold not-italic">1,500 homes</strong>, 22 states and
-          the USA later, it&apos;s back.
+        {/* Hairline-framed Romanized Subtitle */}
+        <div
+          data-hero-part
+          className="mt-1 flex items-center justify-center gap-2.5 font-mono text-[9px] sm:text-[11px] uppercase tracking-[0.24em] text-[#1B1B1B]/65"
+        >
+          <span className="h-px w-5 sm:w-8 bg-[#1B1B1B]/25" />
+          <span>BARA MASA · TERA PARBA</span>
+          <span className="h-px w-5 sm:w-8 bg-[#1B1B1B]/25" />
+        </div>
+
+        {/* Archival provenance text */}
+        <p
+          data-hero-part
+          className="mt-2 max-w-[36ch] sm:max-w-[42ch] text-balance text-center font-subtext text-xs sm:text-[14px] leading-snug text-on-light/85"
+        >
+          In <strong className="font-bold text-on-light">1,500+ homes</strong> across 22 states & the USA. The original Odia festival desk calendar, in letterpress print for 2027.
         </p>
 
-        <button
-          type="button"
-          onClick={handleOrder}
-          className="group relative mt-6 inline-flex w-full max-w-xs items-center justify-center gap-3 bg-on-light hover:bg-[#75161c] active:bg-[#450b0f] text-pipili-cream font-bold text-base pl-6 pr-2 py-2 min-h-[54px] rounded-full border-2 border-ink shadow-[4px_4px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-[3px] active:translate-y-[3px] cursor-pointer transition-all select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:w-auto"
-        >
-          <span>Pre-book now</span>
-          <span className="w-9 h-9 rounded-full bg-pipili-cream text-on-light flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 shadow-xs">
-            <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-          </span>
-        </button>
+        {/* Sharp Letterpress CTA & Dispatch Plate */}
+        <div data-hero-part className="mt-3 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => scrollToTarget("#preorder")}
+            className="inline-flex items-center gap-2 px-5 py-2 sm:py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] border border-[#1B1B1B] font-mono text-xs uppercase tracking-widest shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-none select-none"
+          >
+            <span className="font-bold">PRE-ORDER · ₹250</span>
+            <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
+          </button>
+          
+          <div className="inline-flex items-center border border-[#1B1B1B]/30 bg-[#FAF6EE]/90 px-3 py-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.16em] text-[#1B1B1B]/75 rounded-none">
+            <span>FREE SHIPPING INDIA</span>
+          </div>
+        </div>
 
-        {/* The delivery promise is always on screen, never on a rotation */}
-        <p className="mt-3 inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-on-light/25 bg-pipili-cream/80 px-3 py-1.5 text-xs font-bold text-on-light sm:text-xs">
-          <Truck className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-          Free shipping all over India
-        </p>
-
-        <button
-          type="button"
-          onClick={() => scrollToTarget("#inside-calendar")}
-          className="mt-10 text-xs font-bold uppercase tracking-widest text-on-light/70 transition-colors hover:text-on-light"
+        {/* Architectural Specification Ledger: Fills the vertical void with intentional editorial craftsmanship */}
+        <div
+          data-hero-part
+          className="mt-3.5 sm:mt-4 w-full max-w-md border border-[#1B1B1B]/25 bg-[#FAF6EE]/85 shadow-[2px_2px_0_0_rgba(27,27,27,0.06)] rounded-none"
         >
-          See what&apos;s inside ↓
-        </button>
+          {/* Ledger Index Strip */}
+          <div className="flex items-center justify-between border-b border-[#1B1B1B]/15 px-3 py-1 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-[#1B1B1B]/60">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-1 w-1 bg-[#8A1717]" />
+              SPECIFICATION LEDGER
+            </span>
+            <span>REF: OD-CAL-2027</span>
+          </div>
+
+          {/* 3-Column Architectural Specs */}
+          <div className="grid grid-cols-3 divide-x divide-[#1B1B1B]/15 text-center font-mono">
+            <div className="px-2 py-1.5 sm:py-2">
+              <div className="text-[11px] sm:text-xs font-bold text-[#8A1717] tracking-tight">12 PLATES</div>
+              <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#1B1B1B]/65">Linen Texture</div>
+            </div>
+            <div className="px-2 py-1.5 sm:py-2">
+              <div className="text-[11px] sm:text-xs font-bold text-[#8A1717] tracking-tight">13TH PARBA</div>
+              <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#1B1B1B]/65">Wax Sealed</div>
+            </div>
+            <div className="px-2 py-1.5 sm:py-2">
+              <div className="text-[11px] sm:text-xs font-bold text-[#8A1717] tracking-tight">SOLID WOOD</div>
+              <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#1B1B1B]/65">Teak Easel</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Folio Plate Marker above Cards */}
+        <div
+          data-hero-part
+          className="mt-2.5 flex items-center justify-center gap-2 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-[#1B1B1B]/50"
+        >
+          <span>┌</span>
+          <span>PLATE 01 : MAKAR SANKRANTI · ୨୦୨୭</span>
+          <span>┐</span>
+        </div>
+      </div>
+
+      {/* The shelf: the product centred, its two views cropped by the fold */}
+      <div className="relative z-10 flex w-full flex-1 items-end justify-center gap-0 sm:gap-2">
+        {SHELF.map((shot, i) => {
+          const middle = i === 1;
+          return (
+            <div
+              key={shot.src}
+              data-hero-card
+              className={`relative ${
+                middle
+                  ? "aspect-square w-[104%] translate-y-1 sm:aspect-4/3 sm:w-[74%] sm:translate-y-4 lg:w-[66%]"
+                  : "hidden aspect-4/3 w-[30%] translate-y-20 opacity-90 lg:block"
+              }`}
+            >
+              <Image
+                src={shot.src}
+                alt={shot.alt}
+                fill
+                priority={middle}
+                sizes={middle ? "(max-width: 640px) 104vw, 700px" : "36vw"}
+                className="object-contain object-bottom drop-shadow-[0_20px_36px_rgba(90,15,20,0.22)]"
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
 }
+

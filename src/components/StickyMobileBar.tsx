@@ -53,15 +53,15 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         {/* Smart Auto-sizing Price & Batch Info */}
         <div className="flex flex-col min-w-0 justify-center">
           {soldOut ? (
-            <div className="flex items-center gap-1.5 text-xs font-bold text-turmeric">
-              <span className="w-2 h-2 rounded-full bg-turmeric animate-pulse" />
+            <div className="flex items-center gap-1.5 text-xs font-bold text-turmeric font-mono uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 bg-turmeric shrink-0" />
               <span className="truncate">Batch 1 Sold Out</span>
             </div>
           ) : (
             <>
               {/* Status Eyebrow */}
-              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-turmeric leading-none mb-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-parrot animate-pulse shrink-0" />
+              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-turmeric leading-none mb-0.5 font-mono">
+                <span className="w-1.5 h-1.5 bg-parrot shrink-0" />
                 <span className="truncate">
                   {showCounter && stock ? `${stock.remaining} left in Batch 1` : "Batch 1 · Fast Selling"}
                 </span>
@@ -83,14 +83,14 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
           )}
         </div>
 
-        {/* Smart Responsive Action Button: Guaranteed single-line, auto-scales padding */}
+        {/* Smart Responsive Action Button: Crisp rectangular letterpress plate */}
         <button
           type="button"
           onClick={handleOrder}
-          className="shrink-0 whitespace-nowrap bg-chandua hover:bg-[#A31812] active:scale-95 text-rice font-gazpacho text-sm sm:text-base font-bold px-5 py-2.5 rounded-full border border-on-dark/20 transition-all duration-200 flex items-center gap-1.5 cursor-pointer"
+          className="shrink-0 whitespace-nowrap bg-chandua hover:bg-[#A31812] active:translate-x-[1px] active:translate-y-[1px] text-rice font-mono uppercase tracking-widest text-xs font-bold px-4 py-2.5 rounded-none border border-turmeric shadow-[2px_2px_0_0_#000] transition-all duration-200 flex items-center gap-1.5 cursor-pointer select-none"
         >
           <span>{soldOut ? "Join Batch 2" : "Pre-order"}</span>
-          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+          <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
         </button>
       </div>
     </aside>
