@@ -121,18 +121,18 @@ export function Hero() {
 
       <div
         data-hero-copy
-        className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6 md:px-8"
+        className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center sm:px-6 md:px-8"
       >
-        {/* Edition 2027 and the red dot: no border, no box, centered */}
-        <div data-hero-part className="flex items-center justify-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#8A1717]" />
+        {/* Edition 2027 and the red dot: centered */}
+        <div data-hero-part className="flex items-center justify-center gap-2 text-center">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#8A1717] shrink-0" />
           <span className="font-mono text-xs uppercase tracking-[0.14em] text-on-light/80">
             Edition 2027
           </span>
         </div>
 
-        {/* Drawn Odia lettering mark */}
-        <h1 className="mt-2.5 sm:mt-3 w-full">
+        {/* Drawn Odia lettering mark: centered */}
+        <h1 className="mt-2.5 sm:mt-3 w-full flex justify-center text-center">
           <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
           <Image
             data-hero-lettering
@@ -145,26 +145,26 @@ export function Hero() {
           />
         </h1>
 
-        {/* Clean copy text */}
+        {/* Clean copy text: strictly center-aligned */}
         <p
           data-hero-part
-          className="mt-2.5 max-w-[36ch] sm:max-w-[42ch] text-balance text-center font-subtext text-xs sm:text-[14px] leading-snug text-on-light/85"
+          className="mx-auto mt-2.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-xs sm:text-[14px] leading-snug text-on-light/85"
         >
-          In <strong className="font-bold text-on-light">1,500+ homes</strong> across 22 states & the USA. The viral calendar is back for 2027.
+          In <strong className="font-bold text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
         </p>
 
-        {/* CTA and Free Shipping with cart logo: no border, no box */}
-        <div data-hero-part className="mt-3.5 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+        {/* CTA and Free Shipping: strictly column-centered on mobile & desktop */}
+        <div data-hero-part className="mt-3.5 flex flex-col items-center justify-center gap-2 text-center w-full">
           <button
             type="button"
             onClick={() => scrollToTarget("#preorder")}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-none select-none"
+            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-none select-none text-center"
           >
             <span>Pre-order · ₹250</span>
             <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
           </button>
           
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-on-light/75">
+          <span className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-on-light/75 text-center">
             <ShoppingCart className="h-3.5 w-3.5 shrink-0 text-[#8A1717]" aria-hidden="true" />
             <span>Free shipping India</span>
           </span>
