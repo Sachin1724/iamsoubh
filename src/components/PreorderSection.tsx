@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ShieldCheck, MapPin, Truck } from "lucide-react";
+import { ShieldCheck, MapPin, Truck, GraduationCap } from "lucide-react";
+import { MockupSlider } from "@/components/MockupSlider";
 import { siteConfig, products, ProductId } from "@/config/site-config";
 import { startCheckout } from "@/lib/checkout";
 import { useStock } from "@/lib/useStock";
@@ -34,8 +35,6 @@ const OPTIONS = (Object.keys(products) as ProductId[]).flatMap((id) =>
   }))
 );
 
-const MAX_BOXES = Math.max(...OPTIONS.map((o) => o.boxes));
-
 /**
  * Cheapest way to get at least `wanted` boxes. Asking for 4 is answered with
  * the 5-box Gift Pack, because it costs less than four singles — so the extra
@@ -59,7 +58,7 @@ function nextDeal(current: { boxes: number; price: number }) {
   )[0];
 }
 
-const QUICK_PICKS = [1, 2, 3, 5, 9];
+const MAX_BOXES = Math.max(...OPTIONS.map((o) => o.boxes));
 
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   const { stock, showCounter } = useStock();
@@ -124,16 +123,11 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           {/* The product, unframed, and it stays with you while you choose */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <div className="relative -mx-4 aspect-square sm:mx-0 sm:aspect-4/3 lg:aspect-square">
-              <Image
-                key={boxes}
-                src="/assets/product%20mockup/View%204.png"
-                alt="The 2027 festival cards"
-                fill
-                sizes="(max-width: 1024px) 100vw, 560px"
-                className="animate-parcel-drop scale-[1.35] object-contain drop-shadow-[0_24px_40px_rgba(90,15,20,0.18)] lg:scale-[1.5]"
-              />
-            </div>
+            <MockupSlider
+              className="-mx-4 sm:mx-0"
+              imageClassName="aspect-square sm:aspect-4/3 lg:aspect-square"
+            />
+
             <p className="text-center text-sm text-on-light/70 lg:text-left">
               12 festival cards, a sealed 13th parba, a postcard, stickers and a note.
             </p>
@@ -171,32 +165,34 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
             )}
 
             {/* Step one: how many */}
-            <p className="mt-9 text-sm font-bold">How many boxes?</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {QUICK_PICKS.map((n) => (
+            <div className="mt-9 flex items-center justify-between">
+              <span className="text-sm font-bold">How many boxes?</span>
+              <div className="flex items-center gap-4">
                 <button
-                  key={n}
                   type="button"
-                  onClick={() => setWanted(n)}
-                  aria-pressed={wanted === n}
-                  className={`h-12 min-w-[56px] rounded-xl border px-4 font-gazpacho text-lg font-bold transition-colors ${
-                    wanted === n
-                      ? "border-pipili-red bg-pipili-red text-on-dark"
-                      : "border-on-light/25 hover:border-on-light/60"
-                  }`}
+                  aria-label="One fewer box"
+                  onClick={() => setWanted((n) => Math.max(1, n - 1))}
+                  disabled={wanted <= 1}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-on-light/30 text-xl transition-colors hover:border-on-light/60 disabled:opacity-35"
                 >
-                  {n}
+                  −
                 </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => setWanted((n) => Math.min(MAX_BOXES, n + 1))}
-                disabled={wanted >= MAX_BOXES}
-                className="h-12 rounded-xl border border-on-light/25 px-4 text-sm font-semibold transition-colors hover:border-on-light/60 disabled:opacity-40"
-              >
-                More
-              </button>
+                <span className="w-6 text-center font-gazpacho text-2xl font-bold">{wanted}</span>
+                <button
+                  type="button"
+                  aria-label="One more box"
+                  onClick={() => setWanted((n) => Math.min(MAX_BOXES, n + 1))}
+                  disabled={wanted >= MAX_BOXES}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-on-light/30 text-xl transition-colors hover:border-on-light/60 disabled:opacity-35"
+                >
+                  +
+                </button>
+              </div>
             </div>
+
+            <p className="mt-1 text-sm text-on-light/70">
+              {boxes} at ₹{perBox} each
+            </p>
 
             {/* Step two: what that works out as, and the one upgrade worth it */}
             <div className="mt-6 space-y-3">
@@ -292,6 +288,17 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               {payError && (
                 <p className="mt-4 text-sm font-semibold text-red-700">{payError}</p>
               )}
+
+              {/* What the order gives, stated as the real number for this order */}
+              <div className="mt-8 flex items-start gap-3 rounded-2xl bg-parrot/10 p-4">
+                <GraduationCap className="mt-0.5 h-5 w-5 shrink-0 text-parrot" aria-hidden="true" />
+                <p className="text-sm leading-relaxed text-on-light">
+                  <span className="font-bold">
+                    ₹{siteConfig.donationPerBox} from every box goes to {siteConfig.donationCause}.
+                  </span>{" "}
+                  This order gives ₹{(boxes * siteConfig.donationPerBox).toLocaleString("en-IN")}.
+                </p>
+              </div>
 
               <button
                 type="submit"

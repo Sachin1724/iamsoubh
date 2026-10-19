@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { MockupSlider } from "@/components/MockupSlider";
 import { Lock, ArrowDown } from "lucide-react";
 import { siteConfig } from "@/config/site-config";
 
@@ -36,17 +36,12 @@ export function InsideTheBox() {
 
         <div className="mt-10 grid grid-cols-1 items-start gap-8 sm:mt-14 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
           {/* The cards, as large as the column allows */}
-          <div
-            data-scroll-media
-            className="relative -mx-4 aspect-[5/4] sm:mx-0 sm:aspect-4/3 lg:sticky lg:top-28"
-          >
-            <Image
-              src="/assets/product%20mockup/View%204.png"
-              alt="The 2027 festival cards"
-              fill
-              priority
+          <div data-scroll-media className="lg:sticky lg:top-28">
+            <MockupSlider
+              className="-mx-4 sm:mx-0"
+              imageClassName="aspect-[5/4] sm:aspect-4/3"
               sizes="(max-width: 1024px) 100vw, 620px"
-              className="scale-[1.3] object-contain drop-shadow-[0_18px_30px_rgba(90,15,20,0.2)] sm:scale-[1.4] lg:scale-[1.55]"
+              priority
             />
           </div>
 

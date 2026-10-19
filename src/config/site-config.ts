@@ -16,6 +16,9 @@ export const siteConfig = {
   freeShippingIndia: true,
   indiaOnly: true,
   freeDeliveryLabel: "Free delivery anywhere in India",
+  // Goes on every order line and in the checkout copy. One number, one place.
+  donationPerBox: 10,
+  donationCause: "children's education",
 
   author: "Soubhagya Ranjan",
   handle: "@iamsoubh",
