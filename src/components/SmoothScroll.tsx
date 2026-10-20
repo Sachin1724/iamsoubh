@@ -52,12 +52,31 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
     lenisRef.current = lenis;
     globalLenis = lenis;
 
-    let rafId: number;
+    // Own rAF until GSAP arrives, then Lenis rides GSAP's ticker so the pinned
+    // story stages and Lenis read the same scroll position on the same frame.
+    let rafId = 0;
     function raf(time: number) {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
+
+    let stopTicker: (() => void) | undefined;
+    let cancelled = false;
+    (async () => {
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
+      cancelAnimationFrame(rafId);
+      const tick = (t: number) => lenis.raf(t * 1000);
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
+      lenis.on("scroll", ScrollTrigger.update);
+      stopTicker = () => gsap.ticker.remove(tick);
+    })();
 
     // Smoothly route native hash anchor link clicks through Lenis
     const handleAnchorClick = (e: MouseEvent) => {
@@ -77,7 +96,9 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
 
     return () => {
       document.removeEventListener("click", handleAnchorClick);
+      cancelled = true;
       cancelAnimationFrame(rafId);
+      stopTicker?.();
       lenis.destroy();
       lenisRef.current = null;
       globalLenis = null;

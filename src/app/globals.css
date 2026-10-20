@@ -109,6 +109,14 @@
   font-family: var(--font-odia-display), var(--font-odia), "Noto Sans Oriya", sans-serif;
 }
 
+.font-odia-heading {
+  font-family: var(--font-odia-heading), var(--font-odia-display), var(--font-odia), "Noto Sans Oriya", sans-serif;
+}
+
+.font-odia-body {
+  font-family: var(--font-odia-body), var(--font-odia), "Noto Sans Oriya", sans-serif;
+}
+
 .font-sans {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
 }

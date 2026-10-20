@@ -446,7 +446,6 @@ export function BuyerStories() {
                   fill
                   sizes="(max-width: 640px) 80vw, (max-width: 1024px) 280px, 310px"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  priority={idx < 4}
                 />
 
                 {/* Top Vignette Gradient */}

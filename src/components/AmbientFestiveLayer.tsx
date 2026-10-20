@@ -36,7 +36,6 @@ export function AmbientFestiveLayer() {
           src="/assets/scene/tala-pata-chitra-mural.jpg"
           alt=""
           fill
-          priority
           sizes="100vw"
           className="object-cover object-center opacity-[0.18] sm:opacity-[0.20] md:opacity-[0.22] mix-blend-multiply filter contrast-[1.08] sepia-[0.25]"
         />

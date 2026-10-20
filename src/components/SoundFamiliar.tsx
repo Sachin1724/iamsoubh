@@ -1,135 +1,84 @@
-import { FamiliarCards, type FamiliarCard } from "@/components/FamiliarCards";
+import { StoryStage, type StoryBeat } from "@/components/StoryStage";
 
-// Placeholder artwork: the bento cards already in the project. Soubh's four
-// new ones drop straight in here, nothing else changes.
-const FAMILIAR_CARDS: FamiliarCard[] = [
+const BEATS: StoryBeat[] = [
   {
-    id: "raja",
-    line: "Raja came and went. You found out from someone's story.",
-    image: "/assets/bento/odia_bento_card_pngs/bento_01_raja_swing_clean.png",
-    width: 949,
-    height: 336,
-    wide: true,
+    image: "/assets/story/street.jpg",
+    position: "50% 35%",
+    title: "Where the Parba Begins",
+    titleOr: "ପରବର ପ୍ରେରଣା",
+    body: "Every place has a story. Sometimes, it is found in a temple, a familiar street, a festival, or a quiet moment by the water. These little details are what make Odisha feel like home.",
+    bodyOr:
+      "ପ୍ରତ୍ୟେକ ଜାଗାର ନିଜର ଏକ କାହାଣୀ ଅଛି। କେବେ ମନ୍ଦିରରେ, କେବେ ପରିଚିତ ଗଳିରେ, କେବେ ପର୍ବପର୍ବାଣୀରେ, ଆଉ କେବେ ନଦୀକୂଳର ନିରବ ମୁହୂର୍ତ୍ତରେ। ଏହି ଛୋଟ ଛୋଟ ଦୃଶ୍ୟ ଓ ସ୍ମୃତି ହିଁ ଓଡ଼ିଶାକୁ ଆମ ମନରେ ଘର କରି ରଖେ।",
   },
   {
-    id: "pitha",
-    line: "Maa asked, 'Pitha khailu?' You said yes. Your last pitha was months ago.",
-    image: "/assets/bento/odia_bento_card_pngs/bento_02_manda_pitha_clean.png",
-    width: 476,
-    height: 691,
+    image: "/assets/story/temple.jpg",
+    position: "50% 40%",
+    kicker: "01 · The temple",
+    title: "It starts with noticing.",
+    titleOr: "ଦେଖିବାରୁ ହିଁ ଆରମ୍ଭ।",
+    body: "The beauty of a temple in morning light, leaves moving in the breeze, and familiar surroundings. Ordinary moments often hold beautiful stories.",
+    bodyOr:
+      "ସକାଳର ଆଲୋକରେ ମନ୍ଦିରର ରୂପ, ପବନରେ ହଲୁଥିବା ପତ୍ର ଓ ଚାରିପାଖର ପରିଚିତ ଦୃଶ୍ୟ। ଆମ ଚାରିପାଖରେ ଥିବା ଏହି ସାଧାରଣ ମୁହୂର୍ତ୍ତଗୁଡ଼ିକ ମଧ୍ୟରେ ଲୁଚି ରହିଥାଏ ଅନେକ ସୁନ୍ଦର କାହାଣୀ।",
   },
   {
-    id: "rath",
-    line: "You watched Rath Yatra on reels. From 1,000 km away. Again.",
-    image: "/assets/bento/odia_bento_card_pngs/bento_03_rath_yatra_clean.png",
-    width: 474,
-    height: 373,
+    image: "/assets/story/cards-hand.jpg",
+    position: "40% 60%",
+    kicker: "02 · Holding the cards",
+    title: "A little piece of home.",
+    titleOr: "ନିଜ ମାଟିର ଟିକିଏ ଝଲକ।",
+    body: "Some places stay in our hearts, and some memories deserve to stay close. Each card captures a little of Odisha's familiar warmth.",
+    bodyOr:
+      "କିଛି ଦୃଶ୍ୟ ଆମ ମନରେ ରହିଯାଏ, କିଛି ସ୍ମୃତିକୁ ଆମେ ସବୁବେଳେ ପାଖରେ ରଖିବାକୁ ଚାହୁଁ। ଏହି କ୍ୟାଲେଣ୍ଡରର ପ୍ରତ୍ୟେକ କାର୍ଡ ଓଡ଼ିଶାର ସେହି ଆତ୍ମୀୟତାର ଏକ ଛୋଟ ଝଲକ।",
   },
   {
-    id: "pana",
-    line: "You wished Maa for Pana Sankranti. A day late.",
-    image: "/assets/bento/odia_bento_card_pngs/bento_04_boita_bandana_clean.png",
-    width: 474,
-    height: 320,
+    image: "/assets/story/lake.jpg",
+    position: "40% 50%",
+    kicker: "03 · By the water",
+    title: "Some ideas arrive quietly.",
+    titleOr: "କିଛି ଭାବନା ନିରବରେ ଆସେ।",
+    body: "New ideas sometimes emerge beside a quiet river or in a moment spent alone. When we slow down and look around, ordinary things begin to feel different.",
+    bodyOr:
+      "କେବେ ନଦୀକୂଳର ଶାନ୍ତ ପରିବେଶରେ, କେବେ ନିଜ ସହ କିଛି ସମୟ ବିତାଇବା ଭିତରେ ନୂଆ ଭାବନା ଜନ୍ମ ନିଏ। ଟିକେ ରହି ଚାରିପାଖକୁ ଦେଖିଲେ, ଅନେକ ଛୋଟ ଛୋଟ ଜିନିଷ ନୂଆ ଭାବେ ଦେଖାଯାଏ।",
+  },
+  {
+    image: "/assets/story/steps.jpg",
+    position: "50% 40%",
+    kicker: "04 · The artist at work",
+    title: "Look closer. There is a story here.",
+    titleOr: "ପାଖରୁ ଦେଖ, ଏଠି ବି ଏକ କାହାଣୀ ଅଛି।",
+    body: "Terracotta pots, old walls, people, and everyday work all have their own beauty. Each detail can inspire a new drawing.",
+    bodyOr:
+      "ମାଟିର ହାଣ୍ଡି, ପୁରୁଣା କାନ୍ଥ, ଲୋକଙ୍କ ଜୀବନ ଓ ସେମାନଙ୍କ ଦୈନନ୍ଦିନ କାମରେ ମଧ୍ୟ ରହିଛି ଏକ ନିଆରା ସୌନ୍ଦର୍ଯ୍ୟ। ଏହି ସବୁକୁ ଧ୍ୟାନରେ ଦେଖିଲେ, ପ୍ରତ୍ୟେକ ଦୃଶ୍ୟ ଏକ ନୂଆ ଚିତ୍ରର ପ୍ରେରଣା ହୋଇପାରେ।",
+  },
+  {
+    image: "/assets/story/sketchbook.jpg",
+    position: "50% 30%",
+    kicker: "05 · The sketchbook",
+    title: "Every line begins somewhere.",
+    titleOr: "ପ୍ରତ୍ୟେକ ରେଖାର ଏକ ଆରମ୍ଭ ଥାଏ।",
+    body: "Scenes that stay in the mind slowly become lines and colours. Some ideas take shape on paper, while others become new illustrations. This is where the artistic journey begins.",
+    bodyOr:
+      "ମନରେ ରହିଯାଇଥିବା ଦୃଶ୍ୟ ଧୀରେ ଧୀରେ ରେଖା ଓ ରଙ୍ଗର ରୂପ ନିଏ। କିଛି ଭାବନା କାଗଜରେ ଆକାର ପାଏ, ଆଉ କିଛି ଭାବନା ନୂଆ ଚିତ୍ରରେ ପରିଣତ ହୁଏ। ଏହିଠାରୁ ଆରମ୍ଭ ହୁଏ ଏକ କଳାତ୍ମକ ଯାତ୍ରା।",
+  },
+  {
+    image: "/assets/story/cards-flat.jpg",
+    position: "40% 50%",
+    kicker: "06 · The finished cards",
+    title: "Moments become parba.",
+    titleOr: "ସ୍ମୃତିରୁ ଜନ୍ମ ନିଏ ପରବ।",
+    body: "These little inspirations become festival illustrations: twelve festival cards and one special sealed 13th parba, keeping a little of Odisha close throughout the year.",
+    bodyOr:
+      "ଏହି ଛୋଟ ଛୋଟ ପ୍ରେରଣା ଓ ଭାବନା ମିଶି ରୂପ ନିଏ ପର୍ବପର୍ବାଣୀର ଚିତ୍ରରେ। ବାରଟି ପର୍ବର କାର୍ଡ ଓ ଗୋଟିଏ ସ୍ୱତନ୍ତ୍ର, ସିଲ୍ ହୋଇଥିବା ତ୍ରୟୋଦଶ ପରବ—ଯାହା ଆମକୁ ବର୍ଷସାରା ଓଡ଼ିଶାର କିଛି ସ୍ମୃତି ନିଜ ପାଖରେ ରଖିବାର ସୁଯୋଗ ଦିଏ।",
+  },
+  {
+    image: "/assets/story/cards-hand.jpg",
+    position: "40% 60%",
+    title: "Not just dates. A little of Odisha, kept close.",
+    bodyOr: "କେବଳ ତାରିଖ ନୁହେଁ। ଓଡ଼ିଶାର ଟିକିଏ ଆତ୍ମୀୟତା, ସବୁବେଳେ ପାଖରେ।",
+    accent: true,
   },
 ];
 
 export function SoundFamiliar() {
-  return (
-    <section
-      id="sound-familiar"
-      className="relative pt-24 sm:pt-36 pb-24 sm:pb-36 bg-pipili-indigo text-on-dark scroll-mt-28 overflow-x-clip"
-    >
-      {/* Deep indigo vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(31,45,102,0) 35%, rgba(12,18,45,0.55) 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Folk pattern texture */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none bg-repeat z-0"
-        style={{ backgroundImage: "url('/assets/folk-pattern-tile.png')", backgroundSize: "180px" }}
-        aria-hidden="true"
-      />
-
-      {/* Sketch plates, cropped off the corners */}
-      <div
-        className="absolute -top-16 -right-20 sm:-right-10 md:right-0 w-[380px] sm:w-[500px] md:w-[620px] aspect-square pointer-events-none select-none z-0 opacity-[0.08] sm:opacity-[0.11]"
-        style={{
-          backgroundImage: "url('/assets/scene/sound-familiar-right-cream.png')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute -bottom-24 -left-20 sm:-left-12 md:left-2 w-[340px] sm:w-[460px] md:w-[560px] aspect-square pointer-events-none select-none z-0 opacity-[0.06] sm:opacity-[0.08]"
-        style={{
-          backgroundImage: "url('/assets/scene/sound-familiar-left-cream.png')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-0 left-0 w-[140px] sm:w-[200px] md:w-[240px] aspect-square pointer-events-none select-none z-0 opacity-[0.10] sm:opacity-[0.13]"
-        style={{
-          backgroundImage: "url('/assets/scene/sound-familiar-sketches-cream.png')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 right-0 w-[140px] sm:w-[200px] md:w-[240px] aspect-square pointer-events-none select-none z-0 opacity-[0.08] sm:opacity-[0.11] rotate-180"
-        style={{
-          backgroundImage: "url('/assets/scene/sound-familiar-sketches-gold.png')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* 2. Main Content Container */}
-      <div className="relative z-20 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="mb-3 flex items-baseline gap-3">
-          <span className="font-gazpacho text-xl font-bold text-turmeric sm:text-2xl">02</span>
-          <span className="text-xs font-bold uppercase tracking-wider text-turmeric sm:text-sm">
-            Sound familiar?
-          </span>
-        </div>
-
-        <h2 className="u-display reveal-spring max-w-[22ch] text-[1.6rem] font-gazpacho font-bold text-cream sm:max-w-[26ch] sm:text-[clamp(2.25rem,6vw,4.25rem)]">
-          For everyone who misses Odisha without saying it.
-        </h2>
-
-        {/* The four lines, as cards you can open. Artwork swaps in FAMILIAR_CARDS. */}
-        <div className="mt-10 sm:mt-14">
-          <FamiliarCards cards={FAMILIAR_CARDS} />
-          <p className="mt-4 text-center text-xs font-semibold text-on-dark/60">
-            Tap a card to see it bigger
-          </p>
-        </div>
-
-        {/* Bottom Punchline */}
-        <div className="reveal-spring mt-16 max-w-3xl sm:mt-24">
-          <p className="u-display font-gazpacho font-bold text-turmeric">
-            This calendar keeps the dates for you.
-          </p>
-          <p data-scroll-words className="u-statement mt-5 max-w-[34ch] text-on-dark/85">
-            One card for every month. Keep it on your desk, and when you celebrate, tick the box on
-            the back.
-          </p>
-        </div>
-
-      </div>
-    </section>
-  );
+  return <StoryStage id="sound-familiar" number="02" beats={BEATS} />;
 }

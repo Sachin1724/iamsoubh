@@ -84,6 +84,22 @@ export function Hero() {
           );
         });
 
+        // The phone photo drifts down against the scroll, so it trails the page.
+        gsap.fromTo(
+          q("[data-hero-bg]"),
+          { yPercent: 0 },
+          {
+            yPercent: 6,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.5,
+            },
+          }
+        );
+
         // The words step back as the section leaves.
         gsap.fromTo(
           copy,
@@ -114,14 +130,81 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-pipili-cream pt-14 sm:pt-20 md:pt-24 text-on-light"
     >
-      {/* Background festive linework */}
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-35" aria-hidden="true">
+      {/* Phone-only photo background. Cards sit at ~58% of the image width, so the
+          x position (78%) pulls them to the horizontal centre of a portrait screen. */}
+      <div data-hero-bg className="absolute inset-x-0 -top-[8%] z-0 h-[124%] sm:hidden" aria-hidden="true">
+        <Image
+          src="/assets/hero/hero-bg-mobile.jpg"
+          alt=""
+          fill
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover object-[71%_0%]"
+        />
+      </div>
+
+      {/* Desktop: the overhead shot fills the hero, cards held at the centre, and the
+          words sit in a column on the right over the bare stone. */}
+      <div className="absolute inset-0 z-0 hidden lg:block" aria-hidden="true">
+        <Image
+          src="/assets/hero/hero-bg-artisan.jpg"
+          alt=""
+          fill
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover object-[54%_34%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-black/65 via-black/20 to-transparent" />
+      </div>
+
+      <div
+        data-hero-copy
+        className="absolute inset-y-0 right-[5vw] z-20 hidden w-full max-w-[300px] xl:max-w-[380px] flex-col items-end justify-center pt-16 text-right text-white lg:flex"
+      >
+        <div data-hero-part className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E0A526]" />
+          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">Edition 2027</span>
+        </div>
+        <h1 className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</h1>
+        <Image
+          data-hero-lettering
+          src="/assets/product-logo-v2.png"
+          alt=""
+          width={782}
+          height={383}
+          preload
+          className="mt-6 h-auto w-full max-w-[260px] select-none brightness-0 invert xl:max-w-[360px]"
+        />
+        <p data-hero-part className="mt-1 font-editorial text-lg italic text-white/90">
+          by Soubh
+        </p>
+        <p data-hero-part className="mt-6 max-w-[34ch] font-subtext text-[15px] font-light italic leading-snug text-white/90">
+          In <strong className="font-semibold">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
+        </p>
+        <div data-hero-part className="mt-6 flex flex-col items-end gap-2">
+          <button
+            type="button"
+            onClick={() => scrollToTarget("#preorder")}
+            className="inline-flex cursor-pointer select-none items-center justify-center gap-2 rounded-xl bg-[#8A1717] px-7 py-3 font-gazpacho text-sm font-bold tracking-wide text-[#FAF6EE] shadow-[2px_2px_0_0_#1B1B1B] transition-all hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px]"
+          >
+            <span>Pre-order · ₹250</span>
+            <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
+          </button>
+          <span className="inline-flex items-center gap-1.5 text-xs font-light italic text-white/85">
+            <ShoppingCart className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+            <span>Free shipping India</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Background festive linework (tablets only: phones and desktop use photos) */}
+      <div className="pointer-events-none absolute inset-0 z-0 hidden opacity-35 sm:block lg:hidden" aria-hidden="true">
         <AmbientFestiveLayer />
       </div>
 
       <div
         data-hero-copy
-        className="relative z-20 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 text-center sm:px-6 md:px-8"
+        className="relative z-20 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 text-center sm:px-6 md:px-8 lg:hidden"
       >
         {/* Edition 2027 and the red dot: stays right at the top */}
         <div data-hero-part className="pt-1 flex items-center justify-center gap-2 text-center">
@@ -131,9 +214,11 @@ export function Hero() {
           </span>
         </div>
 
-        {/* The middle cluster (Logo + Text + CTA): moved down and centered in available space */}
-        <div className="my-auto flex flex-col items-center justify-center w-full py-4 sm:py-6">
-          {/* Drawn Odia lettering mark */}
+        {/* Phones: logo sits just under the edition line, text + CTA drop to the bottom.
+            sm+: one centered cluster as before. */}
+        <div className="flex w-full flex-1 flex-col items-center justify-between py-4 sm:my-auto sm:flex-none sm:justify-center sm:py-6">
+          {/* Drawn Odia lettering mark, signed underneath */}
+          <div className="w-full">
           <h1 className="w-full flex justify-center text-center">
             <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
             <Image
@@ -142,17 +227,22 @@ export function Hero() {
               alt="Bara Masa Tera Parba"
               width={782}
               height={383}
-              priority
+              preload
               className="mx-auto h-auto w-[62%] max-w-[270px] select-none sm:w-[48%] sm:max-w-[340px]"
             />
           </h1>
+          <p data-hero-part className="mt-1 text-center font-editorial text-sm italic text-[#8A1717]/85 sm:text-base">
+            by Soubh
+          </p>
+          </div>
 
-          {/* Clean copy text */}
+          <div className="flex w-full flex-col items-center pb-10 sm:pb-0">
+          {/* Clean copy text: white italic over the photo on phones */}
           <p
             data-hero-part
-            className="mx-auto mt-3 sm:mt-3.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-xs sm:text-[14px] leading-snug text-on-light/85"
+            className="mx-auto mt-3 sm:mt-3.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-xs sm:text-[14px] leading-snug font-light italic text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.55)] sm:font-normal sm:not-italic sm:text-on-light/85 sm:[text-shadow:none]"
           >
-            In <strong className="font-bold text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
+            In <strong className="font-normal sm:font-bold sm:text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
           </p>
 
           {/* CTA and Free Shipping */}
@@ -160,22 +250,23 @@ export function Hero() {
             <button
               type="button"
               onClick={() => scrollToTarget("#preorder")}
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-none select-none text-center"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-xl select-none text-center"
             >
               <span>Pre-order · ₹250</span>
               <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
             </button>
             
-            <span className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-on-light/75 text-center">
-              <ShoppingCart className="h-3.5 w-3.5 shrink-0 text-[#8A1717]" aria-hidden="true" />
+            <span className="inline-flex items-center justify-center gap-1.5 text-xs font-light italic text-white sm:font-medium [text-shadow:0_1px_6px_rgba(0,0,0,0.55)] sm:not-italic sm:text-on-light/75 sm:[text-shadow:none] text-center">
+              <ShoppingCart className="h-3.5 w-3.5 shrink-0 text-white sm:text-[#8A1717]" aria-hidden="true" />
               <span>Free shipping India</span>
             </span>
+          </div>
           </div>
         </div>
       </div>
 
       {/* The shelf: the product centred, its two views cropped by the fold */}
-      <div className="relative z-10 flex w-full shrink-0 items-end justify-center gap-0 sm:gap-2">
+      <div className="relative z-10 hidden w-full shrink-0 items-end sm:flex lg:hidden justify-center gap-0 sm:gap-2">
         {SHELF.map((shot, i) => {
           const middle = i === 1;
           return (
@@ -192,7 +283,6 @@ export function Hero() {
                 src={shot.src}
                 alt={shot.alt}
                 fill
-                priority={middle}
                 sizes={middle ? "(max-width: 640px) 100vw, 700px" : "36vw"}
                 className="object-contain object-bottom drop-shadow-[0_20px_36px_rgba(90,15,20,0.22)]"
               />

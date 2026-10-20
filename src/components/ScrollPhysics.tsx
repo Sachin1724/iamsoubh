@@ -95,10 +95,8 @@ export function ScrollPhysics() {
             }
           );
         });
-
-        return () => {
-          ScrollTrigger.getAll().forEach((t) => t.kill());
-        };
+        // No kill-all here: mm.revert() already reverts what this context made,
+        // and killing every trigger also took down the pinned story stages.
       });
 
       cleanup = () => mm.revert();

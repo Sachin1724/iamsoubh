@@ -7,6 +7,13 @@ import { Menu, X, Mail, AtSign } from "lucide-react";
 import { siteConfig, products } from "@/config/site-config";
 import { trackGA } from "@/lib/track";
 
+// A pinned section's own offsetTop is meaningless while GSAP holds it in place;
+// its pin-spacer keeps the real position in the page.
+export function pageTop(el: HTMLElement) {
+  const box = el.parentElement?.classList.contains("pin-spacer") ? el.parentElement : el;
+  return box.getBoundingClientRect().top + window.scrollY;
+}
+
 export interface NavItem {
   name: string;
   href: string;
@@ -96,7 +103,7 @@ const Navbar1 = ({
         const id = item.href.slice(1);
         const element = document.getElementById(id);
         if (element) {
-          const top = element.offsetTop;
+          const top = pageTop(element);
           if (top <= triggerY) {
             matchedHref = item.href;
           }
@@ -145,7 +152,7 @@ const Navbar1 = ({
         const element = document.getElementById(id);
         if (element) {
           const yOffset = -96;
-          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          const y = pageTop(element) + yOffset;
           window.scrollTo({ top: y, behavior: "smooth" });
           setActiveHref(href);
         }
@@ -196,7 +203,7 @@ const Navbar1 = ({
         </div>
 
         {/* Desktop Navigation with animated active highlight */}
-        <nav className="hidden items-center gap-4 md:flex lg:gap-6" aria-label="Main Navigation">
+        <nav className="hidden items-center gap-1 lg:flex xl:gap-4" aria-label="Main Navigation">
           {items.map((item) => {
             const isActive = activeHref === item.href;
             return (
@@ -204,7 +211,7 @@ const Navbar1 = ({
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className={`relative flex items-center gap-1.5 px-2 py-1.5 text-sm font-semibold transition-opacity select-none cursor-pointer lg:px-2.5 ${
+                className={`relative flex items-center gap-1.5 whitespace-nowrap px-2 py-1.5 text-sm font-semibold transition-opacity select-none cursor-pointer lg:px-2.5 ${
                   isActive ? "opacity-100" : "opacity-65 hover:opacity-100"
                 }`}
                 aria-current={isActive ? "page" : undefined}
@@ -227,7 +234,7 @@ const Navbar1 = ({
         {/* Desktop CTA Button */}
         {ctaText && (
           <motion.div
-            className="hidden md:block shrink-0"
+            className="hidden lg:block shrink-0"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: 0.15 }}
@@ -245,7 +252,7 @@ const Navbar1 = ({
         )}
 
         {/* Mobile Action Cluster: Hamburger Toggle */}
-        <div className="flex md:hidden items-center shrink-0">
+        <div className="flex lg:hidden items-center shrink-0">
           <motion.button
             className="flex items-center p-1.5 text-current transition-opacity hover:opacity-70 cursor-pointer"
             onClick={toggleMenu}
@@ -261,7 +268,7 @@ const Navbar1 = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-white/98 backdrop-blur-xl z-50 pt-5 px-6 md:hidden pointer-events-auto flex flex-col justify-between pb-8 shadow-2xl"
+            className="fixed inset-0 bg-white/98 backdrop-blur-xl z-50 pt-5 px-6 lg:hidden pointer-events-auto flex flex-col justify-between pb-8 shadow-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

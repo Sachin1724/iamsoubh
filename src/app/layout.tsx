@@ -28,6 +28,22 @@ const jaya = localFont({
   preload: true,
 });
 
+// Story section (below the fold, so not preloaded): handwritten Odia headings
+// and a plain Odia text face for the paragraphs.
+const hatalekha = localFont({
+  src: "./fonts/hatalekha.woff2",
+  variable: "--font-odia-heading",
+  display: "swap",
+  preload: false,
+});
+
+const lohitOriya = localFont({
+  src: "./fonts/Lohit-Oriya.woff2",
+  variable: "--font-odia-body",
+  display: "swap",
+  preload: false,
+});
+
 const gazpacho = localFont({
   src: [
     {
@@ -112,7 +128,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable}`}
+      className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${hatalekha.variable} ${lohitOriya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable}`}
     >
       <body className="min-h-screen overflow-x-hidden bg-rice text-ink font-sans antialiased selection:bg-turmeric selection:text-ink">
         <SmoothScroll>{children}</SmoothScroll>

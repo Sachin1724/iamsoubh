@@ -2,16 +2,17 @@
 
 import React from "react";
 import Image from "next/image";
-import { Navbar1, NavItem } from "@/components/ui/navbar-1";
+import { Navbar1, NavItem, pageTop } from "@/components/ui/navbar-1";
 import { scrollToTarget } from "@/components/SmoothScroll";
 
 interface HeaderProps {
   onOrderClick?: () => void;
 }
 
-// Page order. No "Hero" - the logo already takes you to the top - and no
-// "Order", because the drawer button below the links is the order link.
+// Page order. The order link is the CTA button, not a nav item.
 const navItems: NavItem[] = [
+  { name: "Home", href: "#hero" },
+  { name: "The making", href: "#sound-familiar" },
   { name: "Inside the box", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
   { name: "Creators", href: "#creators" },
@@ -21,7 +22,7 @@ const navItems: NavItem[] = [
 
 // The header has no bar of its own, so its marks take their colour from
 // whichever section is passing underneath.
-const DARK_SECTIONS = new Set(["sound-familiar", "creators", "bulk"]);
+const DARK_SECTIONS = new Set(["sound-familiar", "inside-calendar", "creators", "bulk"]);
 
 export function Header({ onOrderClick }: HeaderProps) {
   const [onDark, setOnDark] = React.useState(false);
@@ -31,6 +32,7 @@ export function Header({ onOrderClick }: HeaderProps) {
       "hero",
       "sound-familiar",
       "inside-calendar",
+      "inside-list",
       "stories",
       "creators",
       "preorder",
@@ -44,9 +46,11 @@ export function Header({ onOrderClick }: HeaderProps) {
       let current = "hero";
       for (const id of ids) {
         const el = document.getElementById(id);
-        if (el && el.offsetTop <= y) current = id;
+        if (el && pageTop(el) <= y) current = id;
       }
-      setOnDark(DARK_SECTIONS.has(current));
+      // The desktop hero sits on a photo, so its marks go white there too.
+      const darkHero = current === "hero" && window.matchMedia("(min-width: 1024px)").matches;
+      setOnDark(DARK_SECTIONS.has(current) || darkHero);
     };
 
     update();
@@ -71,6 +75,8 @@ export function Header({ onOrderClick }: HeaderProps) {
       <Navbar1
         navItems={navItems}
         onCtaClick={handleCtaClick}
+        ctaText="Pre-order"
+        ctaHref="#preorder"
         containerClassName="pointer-events-none px-4 py-3 sm:px-6 sm:py-4 lg:px-8 w-full max-w-7xl mx-auto"
         className={`pointer-events-auto transition-colors duration-500 ${
           onDark ? "text-on-dark" : "text-on-light"
