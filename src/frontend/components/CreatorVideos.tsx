@@ -20,6 +20,13 @@ export function CreatorVideos() {
   const scrollLeft = useRef(0);
 
   const paused = useRef(false);
+  // Auto-drift stays off until this time, so an arrow press or a swipe is not
+  // fought by the next animation frame.
+  const holdUntil = useRef(0);
+  const hold = (ms = 4000) => {
+    holdUntil.current = performance.now() + ms;
+  };
+
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
@@ -36,12 +43,16 @@ export function CreatorVideos() {
 
     let raf = 0;
     let last = performance.now();
+    // Kept as a float: at 25px/s a frame is ~0.4px, which scrollLeft alone rounds away.
+    let pos = el.scrollLeft;
     const tick = (now: number) => {
       const dt = now - last;
       last = now;
-      if (isVisible && !paused.current) {
+      if (Math.abs(el.scrollLeft - pos) > 2) pos = el.scrollLeft; // the user moved it
+      if (isVisible && !paused.current && now > holdUntil.current) {
         const half = el.scrollWidth / 2;
-        el.scrollLeft = (el.scrollLeft + (dt * SPEED_PX_PER_SEC) / 1000) % half;
+        pos = (pos + (dt * SPEED_PX_PER_SEC) / 1000) % half;
+        el.scrollLeft = pos;
       }
       raf = requestAnimationFrame(tick);
     };
@@ -53,15 +64,25 @@ export function CreatorVideos() {
   }, []);
 
   const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const cardWidth = 320;
-      const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
-      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    hold(5000);
+    // One card per press, measured from the real layout.
+    const first = el.children[0] as HTMLElement | undefined;
+    const second = el.children[1] as HTMLElement | undefined;
+    const step = first && second ? second.offsetLeft - first.offsetLeft : 300;
+    // The list is doubled for the endless drift; stepping back from the very
+    // start wraps to the matching spot in the second copy first.
+    if (direction === "left" && el.scrollLeft < step) el.scrollLeft += el.scrollWidth / 2;
+    el.scrollBy({ left: direction === "left" ? -step : step, behavior: "smooth" });
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (e.pointerType !== "mouse") {
+      hold(); // native touch scrolling does the work
+      return;
+    }
+    if (e.button !== 0) return;
     isDragging.current = true;
     paused.current = true;
     startX.current = e.pageX - (scrollContainerRef.current?.offsetLeft || 0);
