@@ -62,9 +62,7 @@ export async function startCheckout(
         product: order.product,
         qty: order.quantity,
         customer: {
-          name: order.fullName,
           phone: order.phone,
-          email: order.email,
         },
         utm: getUtm(),
       }),
@@ -95,8 +93,6 @@ export async function startCheckout(
       name: "IAMSOUBH",
       description: label,
       prefill: {
-        name: order.fullName || undefined,
-        email: order.email || undefined,
         contact: `+91${order.phone}`,
       },
       theme: { color: "#C8221A" },

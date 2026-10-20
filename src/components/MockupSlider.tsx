@@ -14,12 +14,12 @@ export const MOCKUPS = [
   {
     src: "/assets/product%20mockup/View%204.png",
     alt: "The 2027 festival cards",
-    zoom: "scale-[1.3] lg:scale-[1.45]",
+    zoom: "scale-[1.7] lg:scale-[1.6]",
   },
   {
     src: "/assets/product%20mockup/View%201.png",
     alt: "The 2027 festival cards, fanned out",
-    zoom: "scale-[1.3] lg:scale-[1.45]",
+    zoom: "scale-[1.7] lg:scale-[1.6]",
   },
   {
     src: "/assets/product%20mockup/Calendar%20PNG.png",
@@ -53,7 +53,31 @@ export function MockupSlider({
     return () => rail.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Drifts to the next view every few seconds until the visitor touches the rail
+  // or a dot; after that it stays where they put it.
+  const stopped = useRef(false);
+  const stop = () => {
+    stopped.current = true;
+  };
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let visible = false;
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.5 });
+    io.observe(rail);
+    const timer = setInterval(() => {
+      if (stopped.current || !visible) return;
+      const next = (Math.round(rail.scrollLeft / rail.clientWidth) + 1) % MOCKUPS.length;
+      rail.scrollTo({ left: next * rail.clientWidth, behavior: "smooth" });
+    }, 3200);
+    return () => {
+      clearInterval(timer);
+      io.disconnect();
+    };
+  }, []);
+
   const go = (i: number) => {
+    stop();
     const rail = railRef.current;
     if (!rail) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -65,10 +89,12 @@ export function MockupSlider({
     <div className={className}>
       <div
         ref={railRef}
+        onPointerDown={stop}
+        onWheel={stop}
         className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {MOCKUPS.map((m, i) => (
-          <div key={m.src} className={`relative w-full shrink-0 snap-center ${imageClassName}`}>
+          <div key={m.src} className={`relative w-full shrink-0 snap-center overflow-hidden ${imageClassName}`}>
             <Image
               src={m.src}
               alt={m.alt}

@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { SoundFamiliar } from "@/components/SoundFamiliar";
+import { FreeShipping } from "@/components/FreeShipping";
 import { PreorderSection } from "@/components/PreorderSection";
 import { FaqSection } from "@/components/FaqSection";
 import { Footer } from "@/components/Footer";
@@ -44,6 +45,10 @@ export default function HomePage() {
 
       {/* 03: Inside the Box (Dynamic Client Island) */}
       <InsideTheBox />
+      <div className="strip strip-pattachitra" aria-hidden />
+
+      {/* Free shipping, all of India */}
+      <FreeShipping />
       <div className="strip strip-pattachitra" aria-hidden />
 
       {/* 04: Stories (Dynamic Client Island) */}

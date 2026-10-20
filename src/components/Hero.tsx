@@ -190,9 +190,9 @@ export function Hero() {
             <span>Pre-order · ₹250</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
           </button>
-          <span className="inline-flex items-center gap-1.5 text-xs font-light italic text-white/85">
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
             <ShoppingCart className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            <span>Free shipping India</span>
+            <span>Free shipping all over India</span>
           </span>
         </div>
       </div>
@@ -231,9 +231,20 @@ export function Hero() {
               className="mx-auto h-auto w-[62%] max-w-[270px] select-none sm:w-[48%] sm:max-w-[340px]"
             />
           </h1>
-          <p data-hero-part className="mt-1 text-center font-editorial text-sm italic text-[#8A1717]/85 sm:text-base">
-            by Soubh
-          </p>
+          <div data-hero-part className="mt-2 flex -translate-x-5 items-center justify-center gap-1.5">
+            <span className="font-editorial text-sm italic text-[#8A1717]/85 sm:text-base">by</span>
+            <Image
+              src="/assets/brand/calogo.png"
+              alt="IAMSOUBH"
+              width={180}
+              height={50}
+              className="h-4 w-auto select-none object-contain sm:h-5"
+              style={{
+                filter:
+                  "brightness(0) saturate(100%) invert(10%) sepia(40%) saturate(4000%) hue-rotate(338deg)",
+              }}
+            />
+          </div>
           </div>
 
           <div className="flex w-full flex-col items-center pb-10 sm:pb-0">
@@ -256,9 +267,9 @@ export function Hero() {
               <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
             </button>
             
-            <span className="inline-flex items-center justify-center gap-1.5 text-xs font-light italic text-white sm:font-medium [text-shadow:0_1px_6px_rgba(0,0,0,0.55)] sm:not-italic sm:text-on-light/75 sm:[text-shadow:none] text-center">
-              <ShoppingCart className="h-3.5 w-3.5 shrink-0 text-white sm:text-[#8A1717]" aria-hidden="true" />
-              <span>Free shipping India</span>
+            <span className="inline-flex items-center justify-center gap-1.5 text-xs font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)] sm:not-italic sm:text-on-light/75 sm:[text-shadow:none] text-center">
+              <ShoppingCart className="h-3.5 w-3.5 shrink-0 sm:text-[#8A1717]" aria-hidden="true" />
+              <span>Free shipping all over India</span>
             </span>
           </div>
           </div>

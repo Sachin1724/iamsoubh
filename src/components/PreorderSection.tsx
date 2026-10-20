@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ShieldCheck, MapPin, Truck, GraduationCap } from "lucide-react";
 import { MockupSlider } from "@/components/MockupSlider";
 import { siteConfig, products, ProductId } from "@/config/site-config";
@@ -13,7 +13,7 @@ export interface OrderData {
   product: ProductId;
   quantity: number;
   boxes: number;
-  fullName: string;
+  fullName?: string;
   phone: string;
   email?: string;
   total: number;
@@ -23,43 +23,6 @@ interface PreorderSectionProps {
   onRequestQuote?: () => void;
 }
 
-// Every order Razorpay can take is one product at one quantity, so these are
-// all the ways to buy. Boxes are what the buyer chooses; the pack is the
-// cheapest row that covers them.
-const OPTIONS = (Object.keys(products) as ProductId[]).flatMap((id) =>
-  Array.from({ length: products[id].maxQty }, (_, i) => ({
-    product: id,
-    quantity: i + 1,
-    boxes: products[id].boxes * (i + 1),
-    price: products[id].price * (i + 1),
-  }))
-);
-
-/**
- * Cheapest way to get at least `wanted` boxes. Asking for 4 is answered with
- * the 5-box Gift Pack, because it costs less than four singles — so the extra
- * box is free and the page says so.
- */
-function bestFor(wanted: number) {
-  return OPTIONS.filter((o) => o.boxes >= wanted).sort(
-    (a, b) => a.price - b.price || a.boxes - b.boxes
-  )[0];
-}
-
-/**
- * The next rung up: more boxes at a meaningfully lower price per box, offered
- * as its own choosable row. Under ₹5 a box is not worth asking someone to
- * spend more, so it stays quiet.
- */
-function nextDeal(current: { boxes: number; price: number }) {
-  const perBox = current.price / current.boxes;
-  return OPTIONS.filter((o) => o.boxes > current.boxes && perBox - o.price / o.boxes >= 5).sort(
-    (a, b) => a.boxes - b.boxes || a.price - b.price
-  )[0];
-}
-
-const MAX_BOXES = Math.max(...OPTIONS.map((o) => o.boxes));
-
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   const { stock, showCounter } = useStock();
   const reduceMotion = useReducedMotion();
@@ -68,20 +31,23 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
     ? { duration: 0 }
     : { type: "spring" as const, stiffness: 420, damping: 36, mass: 0.7 };
 
-  const [wanted, setWanted] = useState(3);
-  const [fullName, setFullName] = useState("");
+  // One quantity; the page picks the pack. One order is one pack at one quantity,
+  // so it takes whichever is cheaper: that many singles, or enough packs of 3.
+  const [wanted, setWanted] = useState(1);
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
-  const best = bestFor(wanted);
-  const { product, quantity, boxes, price: total } = best;
-  const active = products[product];
+  const singles = { product: "single" as const, quantity: wanted, price: products.single.price * wanted };
+  const packs = Math.ceil(wanted / 3);
+  const family = { product: "family" as const, quantity: packs, price: products.family.price * packs };
+  const useFamily = packs <= products.family.maxQty && family.price < singles.price;
+  const { product, quantity, price: total } = useFamily ? family : singles;
+  const boxes = products[product].boxes * quantity;
   const saving = products.single.price * boxes - total;
-  const deal = nextDeal(best);
   const perBox = Math.round(total / boxes);
+  const maxWanted = products.family.maxQty * 3;
 
   const validate = () => {
     const next: Record<string, string> = {};
@@ -97,7 +63,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
     setPaying(true);
     setPayError("");
     const result = await startCheckout(
-      { product, quantity, boxes, fullName, phone, email, total },
+      { product, quantity, boxes, phone, total },
       () => setPaying(false)
     );
     if (!result.ok) {
@@ -125,7 +91,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
           <div className="lg:sticky lg:top-24 lg:self-start">
             <MockupSlider
               className="-mx-4 sm:mx-0"
-              imageClassName="aspect-square sm:aspect-4/3 lg:aspect-square"
+              imageClassName="aspect-4/3 lg:aspect-square"
             />
 
             <p className="text-center text-sm text-on-light/70 lg:text-left">
@@ -135,20 +101,20 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
 
           {/* The choices */}
           <div className="lg:py-4">
-            <h2 className="font-gazpacho text-4xl font-bold leading-[1.05] sm:text-5xl">
+            <h2 className="font-gazpacho text-[2rem] font-bold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
               Get your 2027 calendar
             </h2>
-            <p className="mt-2 font-odia text-lg text-pipili-red sm:text-xl">
+            <p className="mt-1.5 font-odia text-base text-pipili-red sm:text-lg">
               {siteConfig.odiaTitle}
             </p>
 
             {/* Price leads, the way a shop does it */}
-            <div className="mt-6 flex items-baseline gap-3">
-              <motion.span layout transition={morph} className="font-gazpacho text-5xl font-bold">
+            <div className="mt-5 flex items-baseline gap-3">
+              <motion.span layout transition={morph} className="font-gazpacho text-4xl font-bold tracking-[-0.02em]">
                 ₹{total.toLocaleString("en-IN")}
               </motion.span>
               {boxes > 1 && (
-                <span className="text-base font-semibold text-on-light/65">
+                <span className="text-sm font-semibold text-on-light/65">
                   ₹{perBox} a box
                 </span>
               )}
@@ -164,91 +130,68 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               </p>
             )}
 
-            {/* Step one: how many */}
-            <div className="mt-9 flex items-center justify-between">
-              <span className="text-sm font-bold">How many boxes?</span>
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  aria-label="One fewer box"
-                  onClick={() => setWanted((n) => Math.max(1, n - 1))}
-                  disabled={wanted <= 1}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-on-light/30 text-xl transition-colors hover:border-on-light/60 disabled:opacity-35"
-                >
-                  −
-                </button>
-                <span className="w-6 text-center font-gazpacho text-2xl font-bold">{wanted}</span>
-                <button
-                  type="button"
-                  aria-label="One more box"
-                  onClick={() => setWanted((n) => Math.min(MAX_BOXES, n + 1))}
-                  disabled={wanted >= MAX_BOXES}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-on-light/30 text-xl transition-colors hover:border-on-light/60 disabled:opacity-35"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            <p className="mt-1 text-sm text-on-light/70">
-              {boxes} at ₹{perBox} each
-            </p>
-
-            {/* Step two: what that works out as, and the one upgrade worth it */}
-            <div className="mt-6 space-y-3">
-              <div className="rounded-2xl border-2 border-pipili-red p-4">
-                <div className="flex items-baseline justify-between gap-4">
-                  <span className="font-gazpacho text-lg font-bold">
-                    {quantity > 1 ? `${quantity} × ${active.name}` : active.name}
-                  </span>
-                  <span className="font-gazpacho text-lg font-bold">₹{total.toLocaleString("en-IN")}</span>
-                </div>
-                <p className="mt-1 text-sm text-on-light/70">
-                  {boxes > wanted
-                    ? `That's ${boxes} boxes, and it costs less than ${wanted}.`
-                    : active.description}
-                </p>
-              </div>
-
-              <AnimatePresence initial={false}>
-                {deal && (
-                  <motion.button
-                    layout
-                    initial={reduceMotion ? false : { opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
-                    transition={morph}
+            {/* Step one: one grouped control. How many on top, the pack the page picked below. */}
+            <div className="mt-6 space-y-3 rounded-2xl bg-on-light/[0.04] p-3 sm:p-4">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-sm font-semibold">Boxes</span>
+                <div className="flex items-center gap-4">
+                  <button
                     type="button"
-                    onClick={() => setWanted(deal.boxes)}
-                    className="w-full overflow-hidden rounded-2xl border border-on-light/25 p-4 text-left transition-colors hover:border-on-light/60"
+                    aria-label="One fewer box"
+                    disabled={wanted <= 1}
+                    onClick={() => setWanted((n) => Math.max(1, n - 1))}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg shadow-sm transition-transform active:scale-90 disabled:opacity-35"
                   >
-                    <div className="flex items-baseline justify-between gap-4">
-                      <span className="font-gazpacho text-lg font-bold">
-                        {deal.boxes} boxes
-                      </span>
-                      <span className="font-gazpacho text-lg font-bold">
-                        ₹{deal.price.toLocaleString("en-IN")}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-on-light/70">
-                      ₹{Math.round(deal.price / deal.boxes)} a box. You save ₹
-                      {(products.single.price * deal.boxes - deal.price).toLocaleString("en-IN")} in
-                      all.
-                    </p>
-                  </motion.button>
-                )}
-              </AnimatePresence>
+                    −
+                  </button>
+                  <span className="w-5 text-center font-gazpacho text-xl font-bold tabular-nums">{wanted}</span>
+                  <button
+                    type="button"
+                    aria-label="One more box"
+                    disabled={wanted >= maxWanted}
+                    onClick={() => setWanted((n) => Math.min(maxWanted, n + 1))}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg shadow-sm transition-transform active:scale-90 disabled:opacity-35"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
 
-              {onRequestQuote && (
-                <button
-                  type="button"
-                  onClick={onRequestQuote}
-                  className="text-sm font-semibold text-pipili-red underline underline-offset-4"
-                >
-                  Need 10 or more? Get a bulk price
-                </button>
-              )}
+              <div className="grid grid-cols-2 gap-1 rounded-xl bg-on-light/[0.06] p-1">
+                {[
+                  { id: "single", label: "Buy 1", price: products.single.price, set: 1 },
+                  { id: "family", label: "Buy 3", price: products.family.price, set: 3 },
+                ].map((o) => (
+                  <button
+                    key={o.id}
+                    type="button"
+                    aria-pressed={product === o.id}
+                    onClick={() => setWanted(o.set)}
+                    className={`rounded-lg py-2.5 text-center transition-all active:scale-[0.97] ${
+                      product === o.id ? "bg-white shadow-sm" : "text-on-light/60"
+                    }`}
+                  >
+                    <span className="block text-sm font-semibold">{o.label}</span>
+                    <span className="block font-gazpacho text-base font-bold">₹{o.price}</span>
+                  </button>
+                ))}
+              </div>
             </div>
+            {boxes > wanted && (
+              <p className="mt-2 text-center text-sm text-on-light/70">
+                That's {boxes} boxes, and it costs less than {wanted}.
+              </p>
+            )}
+
+            {onRequestQuote && (
+              <button
+                type="button"
+                onClick={onRequestQuote}
+                className="mt-4 text-sm font-semibold text-pipili-red underline underline-offset-4"
+              >
+                Need 10 or more? Get a bulk price
+              </button>
+            )}
 
             {/* Step three: where it goes */}
             <form onSubmit={handleSubmit} id="shipping-form" className="mt-10">
@@ -267,22 +210,9 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                     <span className="mt-1 block text-sm text-red-600">{errors.phone}</span>
                   )}
                 </div>
-                <input
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Your name (optional)"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className={field}
-                />
-                <input
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Email (optional)"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={field}
-                />
+                <p className="text-sm text-on-light/70">
+                  Just your mobile number. Razorpay sends an OTP to it and fills in your saved address.
+                </p>
               </div>
 
               {payError && (
