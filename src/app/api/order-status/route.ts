@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getRazorpay } from "@/server/clients";
+import { getRazorpay } from "@/backend/clients";
 
 /**
  * Razorpay is the order store, so the thank-you screen reads its status

@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { RevealObserver } from "@/components/Reveal";
-import { Analytics } from "@/components/Analytics";
-import { SmoothScroll } from "@/components/SmoothScroll";
+import { RevealObserver } from "@/frontend/components/Reveal";
+import { Analytics } from "@/frontend/components/Analytics";
+import { SmoothScroll } from "@/frontend/components/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",

@@ -1,4 +1,4 @@
-import { PolicyPage } from "@/components/PolicyPage";
+import { PolicyPage } from "@/frontend/components/PolicyPage";
 import { products } from "@/config/site-config";
 
 export const metadata = { title: "Pricing · The Odia Viral Calendar 2027" };

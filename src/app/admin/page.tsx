@@ -1,6 +1,6 @@
 import React from "react";
 import { siteConfig } from "@/config/site-config";
-import { listPaidOrders, type AdminOrder } from "@/server/orders";
+import { listPaidOrders, type AdminOrder } from "@/backend/orders";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Orders · IAMSOUBH", robots: { index: false, follow: false } };

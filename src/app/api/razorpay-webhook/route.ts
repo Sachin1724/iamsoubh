@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { sendOrderEmails } from "@/server/email";
-import { alert } from "@/server/clients";
-import { fetchPaidOrder } from "@/server/magic-address";
+import { sendOrderEmails } from "@/backend/email";
+import { alert } from "@/backend/clients";
+import { fetchPaidOrder } from "@/backend/magic-address";
 
 export async function POST(req: NextRequest) {
   // The signature is over the raw body, so read text and parse by hand.

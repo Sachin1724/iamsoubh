@@ -1,30 +1,30 @@
 import dynamic from "next/dynamic";
-import { Header } from "@/components/Header";
-import { Hero } from "@/components/Hero";
-import { SoundFamiliar } from "@/components/SoundFamiliar";
-import { FreeShipping } from "@/components/FreeShipping";
-import { PreorderSection } from "@/components/PreorderSection";
-import { FaqSection } from "@/components/FaqSection";
-import { Footer } from "@/components/Footer";
-import { StickyMobileBar } from "@/components/StickyMobileBar";
-import { BulkQuoteManager } from "@/components/BulkQuoteManager";
-import { UtmTracker } from "@/components/UtmTracker";
-import { ScrollPhysics } from "@/components/ScrollPhysics";
+import { Header } from "@/frontend/components/Header";
+import { Hero } from "@/frontend/components/Hero";
+import { SoundFamiliar } from "@/frontend/components/SoundFamiliar";
+import { FreeShipping } from "@/frontend/components/FreeShipping";
+import { PreorderSection } from "@/frontend/components/PreorderSection";
+import { FaqSection } from "@/frontend/components/FaqSection";
+import { Footer } from "@/frontend/components/Footer";
+import { StickyMobileBar } from "@/frontend/components/StickyMobileBar";
+import { BulkQuoteManager } from "@/frontend/components/BulkQuoteManager";
+import { UtmTracker } from "@/frontend/components/UtmTracker";
+import { ScrollPhysics } from "@/frontend/components/ScrollPhysics";
 
 // Dynamic code splitting for below-the-fold interactive carousels:
 // Server renders the HTML while deferring non-critical JS chunks until needed.
 const InsideTheBox = dynamic(
-  () => import("@/components/InsideTheBox").then((m) => m.InsideTheBox),
+  () => import("@/frontend/components/InsideTheBox").then((m) => m.InsideTheBox),
   { ssr: true }
 );
 
 const BuyerStories = dynamic(
-  () => import("@/components/BuyerStories").then((m) => m.BuyerStories),
+  () => import("@/frontend/components/BuyerStories").then((m) => m.BuyerStories),
   { ssr: true }
 );
 
 const CreatorVideos = dynamic(
-  () => import("@/components/CreatorVideos").then((m) => m.CreatorVideos),
+  () => import("@/frontend/components/CreatorVideos").then((m) => m.CreatorVideos),
   { ssr: true }
 );
 

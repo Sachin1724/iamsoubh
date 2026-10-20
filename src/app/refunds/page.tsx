@@ -1,4 +1,4 @@
-import { PolicyPage } from "@/components/PolicyPage";
+import { PolicyPage } from "@/frontend/components/PolicyPage";
 
 export const metadata = { title: "Refunds and cancellation · The Odia Viral Calendar 2027" };
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { getRazorpay, PRICING, isProduct, forceSoldOut, alert } from "@/server/clients";
-import { boxesSold } from "@/server/orders";
+import { getRazorpay, PRICING, isProduct, forceSoldOut, alert } from "@/backend/clients";
+import { boxesSold } from "@/backend/orders";
 import { siteConfig } from "@/config/site-config";
 
 type Customer = {

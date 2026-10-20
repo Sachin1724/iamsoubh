@@ -3,7 +3,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { siteConfig } from "@/config/site-config";
-import { track, trackOnce } from "@/lib/track";
+import { track, trackOnce } from "@/frontend/lib/track";
 
 type Status = {
   status: string;
