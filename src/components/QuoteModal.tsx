@@ -1,24 +1,41 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { X, ArrowRight, Loader2 } from "lucide-react";
-import { openMail, SUPPORT_EMAIL } from "@/lib/mailto";
+import React, { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-react";
+import { submitEnquiry, SUPPORT_EMAIL } from "@/lib/mailto";
 import { track, trackGA } from "@/lib/track";
 
 const RANGES = ["10–25", "26–50", "51–100", "100+"] as const;
 
+// One question per screen.
+const STEPS = ["boxes", "date", "city", "who", "contact", "notes"] as const;
+type Step = (typeof STEPS)[number];
+
+const QUESTIONS: Record<Step, { q: string; hint?: string }> = {
+  boxes: { q: "How many boxes?", hint: "A rough range is fine." },
+  date: { q: "When do you need them?", hint: "At least a week from today." },
+  city: { q: "Where should they go?", hint: "The delivery city." },
+  who: { q: "Who is this for?", hint: "Your name, and a company or group if there is one." },
+  contact: { q: "How do we reach you?", hint: "I'll reply by email within 24 hours." },
+  notes: { q: "Anything else?", hint: "Optional. Mixed packs, a gift message, one address or many." },
+};
+
 export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const reduceMotion = useReducedMotion();
+  const [stepIdx, setStepIdx] = useState(0);
+  const [dir, setDir] = useState(1);
+  const [range, setRange] = useState<string>(RANGES[0]);
+  const [neededBy, setNeededBy] = useState("");
+  const [cityField, setCityField] = useState("");
   const [name, setName] = useState("");
   const [group, setGroup] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [range, setRange] = useState<string>(RANGES[0]);
-  const [neededBy, setNeededBy] = useState("");
-  const [cityField, setCityField] = useState("");
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
-
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const [via, setVia] = useState<"sent" | "mail">("sent");
+  const [trap, setTrap] = useState("");
 
   useEffect(() => {
     if (!open) return;
@@ -37,22 +54,48 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
   // At least seven days out, per the brief.
   const minDate = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
 
-  const submit = (e: React.FormEvent) => {
+  const step: Step = STEPS[stepIdx];
+  const last = stepIdx === STEPS.length - 1;
+  // Continue unlocks when the current question is answered. Email and notes are optional.
+  const ok: Record<Step, boolean> = {
+    boxes: true,
+    date: neededBy >= minDate,
+    city: cityField.trim().length > 1,
+    who: name.trim().length > 1,
+    contact: /^\d{10}$/.test(phone) && (email.trim() === "" || /\S+@\S+\.\S+/.test(email)),
+    notes: true,
+  };
+
+  const go = (by: number) => {
+    setDir(by);
+    setStepIdx((i) => Math.min(STEPS.length - 1, Math.max(0, i + by)));
+  };
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!ok[step] || status === "sending") return;
+    if (!last) return go(1);
     setStatus("sending");
 
-    openMail("Bulk", `${range} boxes — ${name}`, {
-      Name: name,
-      "Company or group": group,
-      Phone: phone,
-      Email: email,
-      Boxes: range,
-      "Needed by": neededBy,
-      "Delivery city": cityField,
-      Notes: notes,
-    });
+    const how = await submitEnquiry(
+      "Bulk",
+      `${range} boxes — ${name}`,
+      {
+        Name: name,
+        "Company or group": group,
+        Phone: phone,
+        Email: email,
+        Boxes: range,
+        "Needed by": neededBy,
+        "Delivery city": cityField,
+        Notes: notes,
+      },
+      email.trim() || undefined,
+      trap
+    );
 
     track("Lead", "generate_lead", { boxes: range });
+    setVia(how);
     setStatus("done");
   };
 
@@ -60,140 +103,221 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-ink/55"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 backdrop-blur-sm sm:items-center"
       onClick={onClose}
     >
       <div
-        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label="Request a bulk quote"
         onClick={(e) => e.stopPropagation()}
-        className="flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[92dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
-        style={{ boxShadow: "8px 8px 0 0 #1B1B1B" }}
+        className="flex max-h-[94dvh] w-full flex-col overflow-hidden rounded-t-[28px] bg-rice shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:max-w-[480px] sm:rounded-[28px]"
       >
-        <div className="shrink-0 bg-rice flex items-start justify-between gap-4 p-5 border-b-2 border-ink">
-          <div>
-            <h3 className="font-disko text-2xl text-ink">Let&apos;s talk numbers.</h3>
-            <p className="text-sm text-muted mt-0.5">
-              Tell me what you need. I&apos;ll reply by email within 24 hours.
-            </p>
-          </div>
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center press cursor-pointer"
-          >
-            <X className="w-4 h-4" />
-          </button>
+        <div className="flex w-full justify-center pb-1 pt-2.5 sm:hidden">
+          <div className="h-1 w-10 rounded-full bg-ink/20" />
         </div>
 
         {status === "done" ? (
-          <div className="p-6 text-center">
-            <p className="font-disko text-2xl text-ink">Got it, {firstName}.</p>
-            <p className="mt-2 text-sm text-muted">
-              Your mail app has the details filled in. Send it and I&apos;ll reply within 24 hours.
+          <div className="my-auto flex flex-col items-center p-8 pb-10 text-center">
+            <CheckCircle2 className="h-14 w-14 text-parrot" aria-hidden="true" />
+            <h4 className="mt-4 font-gazpacho text-2xl font-bold tracking-[-0.02em] text-ink">
+              Got it, {firstName}.
+            </h4>
+            <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
+              {via === "sent"
+                ? "Your request has reached me. I'll reply within 24 hours."
+                : "Your mail app has the details filled in. Send it and I'll reply within 24 hours."}
             </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-6 min-h-[48px] rounded-full bg-ink px-8 text-sm font-semibold text-rice transition-transform active:scale-[0.97]"
+            >
+              Done
+            </button>
           </div>
         ) : (
-          <form onSubmit={submit} className="flex min-h-0 flex-1 flex-col">
-            <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar p-5 space-y-4">
-            <L label="Your name *">
-              <input required value={name} onChange={(e) => setName(e.target.value)} className={inp} />
-            </L>
-            <L label="Company or group (optional)">
-              <input value={group} onChange={(e) => setGroup(e.target.value)} className={inp} />
-            </L>
-            <L label="Phone number *">
-              <input
-                required
-                type="tel"
-                inputMode="numeric"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                className={inp}
-              />
-            </L>
-            <L label="Email (optional)">
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inp} />
-            </L>
-
-            <fieldset>
-              <legend className="text-xs font-bold text-ink mb-2">How many boxes? *</legend>
-              <div className="flex flex-wrap gap-2">
-                {RANGES.map((r) => (
-                  <button
-                    type="button"
-                    key={r}
-                    onClick={() => setRange(r)}
-                    aria-pressed={range === r}
-                    className={`min-h-[36px] px-4 rounded-full border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] text-sm font-semibold press cursor-pointer ${
-                      range === r ? "bg-ink text-rice" : "bg-white text-ink"
+          <form onSubmit={submit} className="relative flex min-h-0 flex-1 flex-col">
+            {/* Honeypot: hidden from people, filled by bots */}
+            <input
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={trap}
+              onChange={(e) => setTrap(e.target.value)}
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              name="website"
+            />
+            {/* Top bar: back, progress, close */}
+            <div className="flex items-center gap-3 px-5 pt-3">
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                disabled={stepIdx === 0}
+                aria-label="Back"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink/5 text-ink transition-opacity disabled:opacity-0"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <div className="flex flex-1 gap-1.5" aria-label={`Question ${stepIdx + 1} of ${STEPS.length}`}>
+                {STEPS.map((s, i) => (
+                  <span
+                    key={s}
+                    className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
+                      i <= stepIdx ? "bg-chandua" : "bg-ink/10"
                     }`}
-                  >
-                    {r}
-                  </button>
+                  />
                 ))}
               </div>
-            </fieldset>
-
-            <L label="Need them by *">
-              <input
-                required
-                type="date"
-                min={minDate}
-                value={neededBy}
-                onChange={(e) => setNeededBy(e.target.value)}
-                className={inp}
-              />
-            </L>
-            <L label="Delivery city *">
-              <input
-                required
-                value={cityField}
-                onChange={(e) => setCityField(e.target.value)}
-                className={inp}
-              />
-            </L>
-            <L label="Anything else?">
-              <textarea
-                rows={2}
-                placeholder="Mixed packs, a gift message, one address or many"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                className={inp}
-              />
-            </L>
-
-            {status === "error" && (
-              <p className="text-sm font-bold text-chandua">
-                That didn&apos;t open your mail app. Write to{" "}
-                <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
-                  {SUPPORT_EMAIL}
-                </a>{" "}
-                instead.
-              </p>
-            )}
-
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform active:scale-90"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
 
-            {/* Action bar stays put, so the submit is never scrolled out of reach */}
-            <div className="shrink-0 border-t-2 border-ink bg-rice p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="w-full min-h-[52px] rounded-full bg-chandua text-rice font-disko text-lg flex items-center justify-center gap-2 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] press cursor-pointer disabled:opacity-60"
-              style={{ boxShadow: "5px 5px 0 0 #1B1B1B" }}
-            >
-              {status === "sending" ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <>
-                  <span>Send request</span>
-                  <ArrowRight className="w-5 h-5 stroke-[2.5]" />
-                </>
-              )}
-            </button>
+            {/* One question */}
+            <div className="no-scrollbar min-h-[300px] flex-1 overflow-y-auto px-6 pb-4 pt-7">
+              <motion.div
+                key={step}
+                initial={reduceMotion ? false : { opacity: 0, x: 24 * dir }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-chandua">
+                  Bulk quote · {stepIdx + 1} of {STEPS.length}
+                </p>
+                <h3 className="mt-2 font-gazpacho text-[1.75rem] font-bold leading-[1.1] tracking-[-0.02em] text-ink">
+                  {QUESTIONS[step].q}
+                </h3>
+                {QUESTIONS[step].hint && (
+                  <p className="mt-1.5 text-[0.95rem] text-ink/60">{QUESTIONS[step].hint}</p>
+                )}
+
+                <div className="mt-6 space-y-3">
+                  {step === "boxes" &&
+                    RANGES.map((r) => (
+                      <button
+                        type="button"
+                        key={r}
+                        aria-pressed={range === r}
+                        onClick={() => setRange(r)}
+                        className={`flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-3.5 text-left text-[0.95rem] font-semibold transition-all active:scale-[0.98] ${
+                          range === r ? "bg-chandua text-rice" : "bg-ink/[0.05] text-ink"
+                        }`}
+                      >
+                        <span>{r} boxes</span>
+                        {range === r && <Check className="h-4 w-4 shrink-0" strokeWidth={3} />}
+                      </button>
+                    ))}
+
+                  {step === "date" && (
+                    <input
+                      autoFocus
+                      type="date"
+                      min={minDate}
+                      value={neededBy}
+                      onChange={(e) => setNeededBy(e.target.value)}
+                      className={inp}
+                    />
+                  )}
+
+                  {step === "city" && (
+                    <input
+                      autoFocus
+                      autoComplete="address-level2"
+                      placeholder="e.g. Bhubaneswar"
+                      value={cityField}
+                      onChange={(e) => setCityField(e.target.value)}
+                      className={inp}
+                    />
+                  )}
+
+                  {step === "who" && (
+                    <>
+                      <input
+                        autoFocus
+                        autoComplete="name"
+                        placeholder="Your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className={inp}
+                      />
+                      <input
+                        autoComplete="organization"
+                        placeholder="Company or group (optional)"
+                        value={group}
+                        onChange={(e) => setGroup(e.target.value)}
+                        className={inp}
+                      />
+                    </>
+                  )}
+
+                  {step === "contact" && (
+                    <>
+                      <input
+                        autoFocus
+                        type="tel"
+                        inputMode="numeric"
+                        autoComplete="tel-national"
+                        placeholder="10-digit mobile number"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        className={inp}
+                      />
+                      <input
+                        type="email"
+                        autoComplete="email"
+                        placeholder="Email (optional)"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={inp}
+                      />
+                    </>
+                  )}
+
+                  {step === "notes" && (
+                    <textarea
+                      autoFocus
+                      rows={4}
+                      placeholder="Anything that helps me quote you"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      className={inp}
+                    />
+                  )}
+                </div>
+
+                {status === "error" && (
+                  <p className="mt-4 text-sm font-semibold text-chandua">
+                    That didn&apos;t open your mail app. Write to{" "}
+                    <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
+                      {SUPPORT_EMAIL}
+                    </a>{" "}
+                    instead.
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            <div className="shrink-0 px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-2">
+              <button
+                type="submit"
+                disabled={!ok[step] || status === "sending"}
+                className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-chandua font-gazpacho text-base font-bold text-rice transition-all active:scale-[0.98] disabled:bg-ink/10 disabled:text-ink/35"
+              >
+                {status === "sending" ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <span>{last ? "Send request" : "Continue"}</span>
+                    {!last && <ArrowRight className="h-4 w-4" />}
+                  </>
+                )}
+              </button>
             </div>
           </form>
         )}
@@ -202,14 +326,6 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
   );
 }
 
+// 16px so iOS does not zoom the page on focus; soft fill, ring on focus.
 const inp =
-  "w-full px-3.5 py-3 rounded-xl border-2 border-ink text-base text-ink bg-white focus:outline-none focus:border-chandua";
-
-function L({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="block text-xs font-bold text-ink mb-1">{label}</span>
-      {children}
-    </label>
-  );
-}
+  "w-full rounded-2xl bg-ink/[0.05] px-4 py-3.5 text-base text-ink placeholder:text-ink/40 outline-none transition-shadow focus:ring-2 focus:ring-chandua/60";

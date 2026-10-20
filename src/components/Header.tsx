@@ -12,7 +12,7 @@ interface HeaderProps {
 // Page order. The order link is the CTA button, not a nav item.
 const navItems: NavItem[] = [
   { name: "Home", href: "#hero" },
-  { name: "The making", href: "#sound-familiar" },
+  { name: "Sound familiar?", href: "#sound-familiar" },
   { name: "Inside the box", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
   { name: "Creators", href: "#creators" },

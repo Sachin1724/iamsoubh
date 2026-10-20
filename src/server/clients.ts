@@ -16,9 +16,9 @@ export function getRazorpay(): Razorpay {
 
 // Server-side prices. The browser never gets to say what an order costs.
 export const PRICING = {
-  single: { price: 299, boxesEach: 1, maxQty: 9 },
-  family: { price: 749, boxesEach: 3, maxQty: 3 },
-  gift: { price: 1149, boxesEach: 5, maxQty: 1 },
+  single: { price: 329, boxesEach: 1, maxQty: 9 },
+  family: { price: 849, boxesEach: 3, maxQty: 3 },
+  gift: { price: 2499, boxesEach: 10, maxQty: 1 },
 } as const;
 
 export type ServerProduct = keyof typeof PRICING;

@@ -23,6 +23,17 @@ interface PreorderSectionProps {
   onRequestQuote?: () => void;
 }
 
+const PACKS = ["single", "family", "gift"] as const;
+const ORDERS = PACKS.flatMap((id) =>
+  Array.from({ length: products[id].maxQty }, (_, i) => ({
+    product: id,
+    quantity: i + 1,
+    boxes: products[id].boxes * (i + 1),
+    price: products[id].price * (i + 1),
+  }))
+);
+const MAX_WANTED = Math.max(...ORDERS.map((o) => o.boxes));
+
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   const { stock, showCounter } = useStock();
   const reduceMotion = useReducedMotion();
@@ -31,23 +42,21 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
     ? { duration: 0 }
     : { type: "spring" as const, stiffness: 420, damping: 36, mass: 0.7 };
 
-  // One quantity; the page picks the pack. One order is one pack at one quantity,
-  // so it takes whichever is cheaper: that many singles, or enough packs of 3.
   const [wanted, setWanted] = useState(1);
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
-  const singles = { product: "single" as const, quantity: wanted, price: products.single.price * wanted };
-  const packs = Math.ceil(wanted / 3);
-  const family = { product: "family" as const, quantity: packs, price: products.family.price * packs };
-  const useFamily = packs <= products.family.maxQty && family.price < singles.price;
-  const { product, quantity, price: total } = useFamily ? family : singles;
-  const boxes = products[product].boxes * quantity;
+  // Every way to buy is one pack at one quantity. The page takes the cheapest
+  // that covers the boxes asked for, so someone asking for 8 is handed the
+  // 9-box answer when it costs less, and says so.
+  const best = ORDERS.filter((o) => o.boxes >= wanted).sort(
+    (a, b) => a.price - b.price || a.boxes - b.boxes
+  )[0];
+  const { product, quantity, boxes, price: total } = best;
   const saving = products.single.price * boxes - total;
   const perBox = Math.round(total / boxes);
-  const maxWanted = products.family.maxQty * 3;
 
   const validate = () => {
     const next: Record<string, string> = {};
@@ -148,8 +157,8 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   <button
                     type="button"
                     aria-label="One more box"
-                    disabled={wanted >= maxWanted}
-                    onClick={() => setWanted((n) => Math.min(maxWanted, n + 1))}
+                    disabled={wanted >= MAX_WANTED}
+                    onClick={() => setWanted((n) => Math.min(MAX_WANTED, n + 1))}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg shadow-sm transition-transform active:scale-90 disabled:opacity-35"
                   >
                     +
@@ -157,11 +166,13 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-1 rounded-xl bg-on-light/[0.06] p-1">
-                {[
-                  { id: "single", label: "Buy 1", price: products.single.price, set: 1 },
-                  { id: "family", label: "Buy 3", price: products.family.price, set: 3 },
-                ].map((o) => (
+              <div className="grid grid-cols-3 gap-1 rounded-xl bg-on-light/[0.06] p-1">
+                {PACKS.map((id) => ({
+                  id,
+                  label: `Buy ${products[id].boxes}`,
+                  price: products[id].price,
+                  set: products[id].boxes,
+                })).map((o) => (
                   <button
                     key={o.id}
                     type="button"

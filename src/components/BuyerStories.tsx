@@ -349,28 +349,8 @@ export function BuyerStories() {
         </div>
 
         {/* 6. Carousel Controls & Filter Tabs Bar */}
-        <div className="flex items-center justify-between gap-4 mb-4 pb-2 w-full min-w-0">
+        <div className="flex items-center justify-end gap-4 mb-4 pb-2 w-full min-w-0">
           
-          {/* Quick Filter Pill Chips: Desktop and tablet */}
-          <div className="hidden sm:flex items-center gap-2 overflow-x-auto no-scrollbar py-1 min-w-0 scroll-pl-4 sm:scroll-pl-6">
-            {STORY_HIGHLIGHTS.map((hl) => {
-              const isSelected = activeHighlightId === hl.id;
-              return (
-                <button
-                  key={hl.id}
-                  onClick={() => handleSelectHighlight(hl.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
-                    isSelected
-                      ? "bg-ink text-white border border-ink"
-                      : "bg-cream text-ink/80 hover:text-ink border border-ink/20 hover:border-ink/50"
-                  }`}
-                >
-                  {hl.name} ({hl.stories.length})
-                </button>
-              );
-            })}
-          </div>
-
           {/* Action & Navigation Chevrons: Perfectly aligned on mobile and desktop */}
           <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto shrink-0">
             {/* Watch Highlight Button */}

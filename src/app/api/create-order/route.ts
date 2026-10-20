@@ -21,7 +21,7 @@ type Customer = {
 const LABELS = {
   single: "Single Box",
   family: "Family Pack (3 boxes)",
-  gift: "Gift Pack (5 boxes)",
+  gift: "Gift Pack (10 boxes)",
 } as const;
 
 export async function POST(req: NextRequest) {

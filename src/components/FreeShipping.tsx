@@ -9,10 +9,10 @@ export function FreeShipping() {
       className="halftone relative overflow-hidden bg-pipili-red py-20 text-on-dark sm:py-32"
     >
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <h2 className="reveal-spring max-w-[16ch] text-[2.6rem] font-medium leading-[1.02] tracking-tight sm:text-7xl">
+        <h2 className="reveal-spring max-w-[16ch] font-gazpacho text-[2.4rem] font-bold leading-[1.05] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
           Free shipping anywhere in India.
         </h2>
-        <p className="reveal-spring mt-6 max-w-[22ch] text-2xl font-light leading-snug text-on-dark/90 sm:mt-8 sm:text-4xl">
+        <p className="reveal-spring mt-5 max-w-[26ch] font-gazpacho text-xl font-medium leading-snug text-on-dark/90 sm:mt-6 sm:text-3xl">
           Because home should never charge delivery fees.
         </p>
 

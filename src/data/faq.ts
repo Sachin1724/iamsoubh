@@ -17,7 +17,7 @@ export const faqs: FAQItem[] = [
     id: "faq-2",
     question: "Is delivery really free?",
     answer:
-      "Yes. Free delivery anywhere in India, whether you buy 1, 3 or 5 boxes. We don't ship outside India this year.",
+      "Yes. Free delivery anywhere in India, whether you buy 1, 3 or 10 boxes. We don't ship outside India this year.",
   },
   {
     id: "faq-3",

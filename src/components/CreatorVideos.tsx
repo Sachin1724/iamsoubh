@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight } from "lucide-react";
+import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight, ArrowUpRight } from "lucide-react";
 import { creators } from "@/data/creators";
 import { SectionArt } from "@/components/SectionArt";
 import { trackGA } from "@/lib/track";
@@ -83,7 +83,7 @@ export function CreatorVideos() {
   return (
     <section
       id="creators"
-      className="halftone [--ht-at:0%_100%] relative py-24 sm:py-36 bg-pipili-teal text-on-dark scroll-mt-24 overflow-hidden"
+      className="halftone [--ht-at:0%_100%] relative py-24 sm:py-36 bg-ink text-on-dark scroll-mt-24 overflow-hidden"
     >
 
       {/* Folk pattern texture */}
@@ -94,7 +94,7 @@ export function CreatorVideos() {
       />
 
       {/* A big lotus, half off the left edge */}
-      <SectionArt name="lotus" className="z-0 text-line-teal opacity-60" />
+      <SectionArt name="lotus" className="z-0 text-white opacity-[0.07]" />
 
       {/* 4. Main Section Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
@@ -124,14 +124,14 @@ export function CreatorVideos() {
             </span>
             <button
               onClick={() => scroll("left")}
-              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105"
+              className="w-11 h-11 rounded-full bg-white/10 text-turmeric border border-white/25 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105"
               aria-label="Previous creators"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-11 h-11 rounded-full bg-ink text-turmeric border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]/40 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105"
+              className="w-11 h-11 rounded-full bg-white/10 text-turmeric border border-white/25 hover:border-turmeric flex items-center justify-center cursor-pointer transition-all hover:scale-105"
               aria-label="Next creators"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.5]" />
@@ -241,16 +241,24 @@ function CreatorCard({
     >
       <div className="relative aspect-[9/16] bg-[#0F0F0F]">
         {creator.video ? (
-          <video
-            ref={videoRef}
-            src={creator.video}
-            poster={creator.poster}
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="w-full h-full object-cover"
-          />
+          <a
+            href={postUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full h-full cursor-pointer"
+            aria-label="Watch reel on Instagram"
+          >
+            <video
+              ref={videoRef}
+              src={creator.video}
+              poster={creator.poster}
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="w-full h-full object-cover"
+            />
+          </a>
         ) : (
           <a
             href={postUrl}
@@ -270,7 +278,7 @@ function CreatorCard({
                 />
               )}
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <span className="w-14 h-14 rounded-full bg-turmeric text-[#0D3B2E] flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform">
+                <span className="w-14 h-14 rounded-full bg-turmeric text-ink flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform">
                   <Play className="w-6 h-6 fill-current ml-1" />
                 </span>
               </div>
@@ -286,8 +294,13 @@ function CreatorCard({
 
         {creator.video && (
           <button
-            onClick={onToggleSound}
-            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-xs text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onToggleSound();
+            }}
+            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 backdrop-blur-xs text-white flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
             aria-label={unmuted ? "Mute" : "Unmute"}
           >
             {unmuted ? (
@@ -299,15 +312,25 @@ function CreatorCard({
         )}
       </div>
 
-      {/* Reaction and Handle Bar */}
-      <div className="bg-[#092D23]/95 p-4">
-        <p className="text-xs sm:text-sm font-semibold text-cream line-clamp-1 mb-1">
-          {creator.pullLine || "Feels like home on my wall"}
-        </p>
-        <span className="text-xs font-bold text-turmeric block">
-          @{creator.handle || "iamsoubh"}
+      {/* Only what is true: a line and handle if we have them, and always the real reel. */}
+      <a
+        href={postUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-between gap-3 bg-black/60 p-4 transition-colors hover:bg-black/80"
+      >
+        <span className="min-w-0">
+          {creator.pullLine && (
+            <span className="mb-1 block line-clamp-1 text-xs font-semibold text-cream sm:text-sm">
+              {creator.pullLine}
+            </span>
+          )}
+          <span className="block truncate text-xs font-bold text-turmeric">
+            {creator.handle ? `@${creator.handle.replace(/^@/, "")}` : "Watch on Instagram"}
+          </span>
         </span>
-      </div>
+        <ArrowUpRight className="h-4 w-4 shrink-0 text-turmeric" aria-hidden="true" />
+      </a>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config/site-config";
+import { products, siteConfig } from "@/config/site-config";
 import { StoryStage, type StoryBeat } from "@/components/StoryStage";
 
 /**
@@ -44,7 +44,7 @@ const BEATS: StoryBeat[] = [
     cta: {
       label: "Pre-order now",
       href: "#preorder",
-      note: `From ₹230 a box · ${siteConfig.freeDeliveryLabel}`,
+      note: `From ₹${products.gift.perBox} a box · ${siteConfig.freeDeliveryLabel}`,
     },
   },
 ];

@@ -112,7 +112,7 @@ export function renderAdminEmail(o: PaidOrder) {
   };
 }
 
-async function send(to: string, subject: string, html: string) {
+async function send(to: string, subject: string, html: string, replyTo?: string) {
   const key = process.env.RESEND_API_KEY;
   if (!key || !to) return { sent: false, reason: "unconfigured" };
 
@@ -120,7 +120,7 @@ async function send(to: string, subject: string, html: string) {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
-      body: JSON.stringify({ from: FROM, to, subject, html, reply_to: siteConfig.supportEmail || undefined }),
+      body: JSON.stringify({ from: FROM, to, subject, html, reply_to: replyTo || siteConfig.supportEmail || undefined }),
     });
     if (!res.ok) throw new Error(await res.text());
     return { sent: true };
@@ -145,4 +145,54 @@ export async function sendOrderEmails(o: PaidOrder) {
   ]);
 
   return { buyer, operator };
+}
+
+export type EnquiryKind = "Creator" | "Bulk";
+
+/**
+ * The creator and bulk forms post here instead of opening the visitor's mail
+ * app. The operator's copy carries the same `[Creator]` / `[Bulk]` subject tag
+ * as before, and Reply goes straight to the person who filled the form in.
+ * Bulk enquiries that left an email also get a short acknowledgement.
+ */
+export async function sendEnquiry(
+  kind: EnquiryKind,
+  who: string,
+  fields: Record<string, string>,
+  replyTo?: string
+) {
+  const adminTo = process.env.ADMIN_EMAIL || "";
+  const rows = Object.entries(fields)
+    .map(([label, value]) => factRow(label, value).replace("width:120px;", "width:140px;vertical-align:top;"))
+    .join("");
+
+  const admin = send(
+    adminTo,
+    `[${kind}] ${who.trim() || "Enquiry"}`,
+    layout({
+      preheader: `${kind} enquiry from ${who}`,
+      heading: kind === "Creator" ? "New creator application." : "New bulk quote request.",
+      body: facts(rows),
+    }),
+    replyTo
+  );
+
+  const thanks =
+    kind === "Bulk" && replyTo
+      ? send(
+          replyTo,
+          "We got your bulk quote request",
+          layout({
+            preheader: "I will reply within 24 hours.",
+            heading: "Got it.",
+            body:
+              p(`Namaskar ${esc(who.trim().split(" ")[0] || "there")}, your bulk quote request for the Odia Viral Calendar 2027 has reached me.`) +
+              p("I will reply by email within 24 hours with a price.") +
+              p("— Soubhagya Ranjan"),
+          })
+        )
+      : Promise.resolve({ sent: false, reason: "skipped" });
+
+  const [operator] = await Promise.all([admin, thanks]);
+  return operator;
 }

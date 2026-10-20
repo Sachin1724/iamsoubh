@@ -2,34 +2,39 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { X, ArrowRight, Loader2, Plus, Trash2, Sparkles, CheckCircle2 } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-react";
 import { trackGA } from "@/lib/track";
-import { openMail, SUPPORT_EMAIL } from "@/lib/mailto";
+import { submitEnquiry, SUPPORT_EMAIL } from "@/lib/mailto";
 
-const SOCIAL_PLATFORMS = [
-  "Instagram",
-  "YouTube",
-  "X (Twitter)",
-  "LinkedIn",
-  "Facebook",
-  "Threads",
-  "Other",
-] as const;
+const PLATFORMS = ["Instagram", "YouTube", "Facebook", "X", "LinkedIn"] as const;
+
+// A full profile link, not a handle: https://instagram.com/yourname
+const isProfileLink = (v: string) => /^https?:\/\/[^\s/]+\.[^\s/]+\/?\S*$/i.test(v.trim());
 
 const PLAN_TAGS = [
-  "Unboxing Reel",
-  "Desk Setup Tour",
-  "Odia Tradition Breakdown",
-  "Cultural Storytelling",
-  "Gift Guide Feature",
+  "Unboxing reel",
+  "Desk setup tour",
+  "Odia tradition breakdown",
+  "Cultural storytelling",
+  "Gift guide feature",
   "Shorts / TikTok",
 ] as const;
 
-interface SocialAccount {
-  id: string;
-  platform: string;
-  url: string;
-}
+const HOOKS = ["The art style", "The 13 festivals", "Odia nostalgia", "The craftsmanship"] as const;
+
+// One question per screen.
+const STEPS = ["name", "social", "plan", "hook", "contact", "address"] as const;
+type Step = (typeof STEPS)[number];
+
+const QUESTIONS: Record<Step, { q: string; hint?: string }> = {
+  name: { q: "What should we call you?", hint: "Your name or your creator handle." },
+  social: { q: "Where do you post?", hint: "Pick every place you post. We will ask for the profile link." },
+  plan: { q: "How would you feature it?", hint: "Pick all that fit." },
+  hook: { q: "What made you stop at this calendar?", hint: "Pick all that fit." },
+  contact: { q: "How do we reach you?", hint: "Only for dispatch updates." },
+  address: { q: "Where should we send the box?" },
+};
 
 export function CreatorGiftModal({
   open,
@@ -38,20 +43,24 @@ export function CreatorGiftModal({
   open: boolean;
   onClose: () => void;
 }) {
+  const reduceMotion = useReducedMotion();
+  const [stepIdx, setStepIdx] = useState(0);
+  const [dir, setDir] = useState(1);
   const [name, setName] = useState("");
+  const [socials, setSocials] = useState<Record<string, string>>({});
+  const [editing, setEditing] = useState<string | null>(null);
+  const [draft, setDraft] = useState("");
+  const [plans, setPlans] = useState<string[]>([]);
+  const [hooks, setHooks] = useState<string[]>([]);
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [socials, setSocials] = useState<SocialAccount[]>([
-    { id: "1", platform: "Instagram", url: "" },
-  ]);
-  const [streetAddress, setStreetAddress] = useState("");
+  const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [stateName, setStateName] = useState("");
   const [pincode, setPincode] = useState("");
-  const [whatMadeYouStop, setWhatMadeYouStop] = useState("");
-  const [selectedPlanTags, setSelectedPlanTags] = useState<string[]>([]);
-  const [contentPlan, setContentPlan] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [via, setVia] = useState<"sent" | "mail">("sent");
+  const [trap, setTrap] = useState("");
   const [isClosing, setIsClosing] = useState(false);
   const [dragY, setDragY] = useState(0);
 
@@ -83,68 +92,69 @@ export function CreatorGiftModal({
 
   if (!open || typeof document === "undefined") return null;
 
-  const addSocial = () => {
-    setSocials((prev) => [
-      ...prev,
-      { id: Date.now().toString(), platform: "Instagram", url: "" },
-    ]);
+  const step: Step = STEPS[stepIdx];
+  const last = stepIdx === STEPS.length - 1;
+  // Continue unlocks when the current question is answered.
+  const ok: Record<Step, boolean> = {
+    name: name.trim().length > 1,
+    social: Object.keys(socials).length > 0,
+    plan: plans.length > 0,
+    hook: hooks.length > 0,
+    contact: /^\d{10}$/.test(phone) && /\S+@\S+\.\S+/.test(email),
+    address:
+      street.trim().length > 2 && city.trim().length > 0 && stateName.trim().length > 0 && /^\d{6}$/.test(pincode),
   };
 
-  const removeSocial = (id: string) => {
-    if (socials.length <= 1) return;
-    setSocials((prev) => prev.filter((s) => s.id !== id));
-  };
+  const toggle = (list: string[], set: (v: string[]) => void, v: string) =>
+    set(list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
 
-  const updateSocial = (id: string, field: "platform" | "url", val: string) => {
-    setSocials((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, [field]: val } : s))
-    );
-  };
-
-  const togglePlanTag = (tag: string) => {
-    setSelectedPlanTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
+  const go = (by: number) => {
+    setDir(by);
+    setStepIdx((i) => Math.min(STEPS.length - 1, Math.max(0, i + by)));
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
     isDragging.current = true;
   };
-
   const handleTouchMove = (e: React.TouchEvent) => {
     if (touchStartY.current === null) return;
     const diff = e.touches[0].clientY - touchStartY.current;
-    if (diff > 0) setDragY(diff);
-    else setDragY(0);
+    setDragY(diff > 0 ? diff : 0);
   };
-
   const handleTouchEnd = () => {
-    if (dragY > 75) {
-      handleClose();
-    } else {
-      setDragY(0);
-    }
+    if (dragY > 75) handleClose();
+    else setDragY(0);
     touchStartY.current = null;
     isDragging.current = false;
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!ok[step] || status === "sending") return;
+    if (!last) return go(1);
     setStatus("sending");
 
-    openMail("Creator", name, {
+    const how = await submitEnquiry(
+      "Creator",
+      name,
+      {
       Name: name,
       Phone: phone,
       Email: email,
-      Socials: socials.map((s) => `${s.platform}: ${s.url}`).join(" | "),
-      Address: `${streetAddress}, ${city}, ${stateName} - ${pincode}`,
-      "What made you stop": whatMadeYouStop,
-      "Content formats": selectedPlanTags.join(", "),
-      "Content plan": contentPlan,
-    });
+      Socials: Object.entries(socials)
+        .map(([p, u]) => `${p}: ${u}`)
+        .join(" | "),
+      Address: `${street}, ${city}, ${stateName} - ${pincode}`,
+      "What made you stop": hooks.join(", "),
+      "Content formats": plans.join(", "),
+      },
+      email,
+      trap
+    );
 
     trackGA("creator_application_submitted");
+    setVia(how);
     setStatus("done");
   };
 
@@ -152,317 +162,312 @@ export function CreatorGiftModal({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center bg-ink/75 backdrop-blur-xs transition-opacity duration-200 ${
+      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center bg-ink/60 backdrop-blur-sm transition-opacity duration-200 ${
         isClosing ? "animate-backdrop-fade-out" : "animate-backdrop-fade-in"
       }`}
-      style={{
-        opacity: dragY > 0 ? Math.max(0.15, 1 - dragY / 350) : undefined,
-      }}
+      style={{ opacity: dragY > 0 ? Math.max(0.15, 1 - dragY / 350) : undefined }}
       onClick={handleClose}
     >
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Creator Free Calendar Application"
+        aria-label="Creator free calendar application"
         onClick={(e) => e.stopPropagation()}
         style={{
           transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
           transition: isDragging.current ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
         }}
-        className={`flex w-full flex-col overflow-hidden sm:max-w-[540px] max-h-[94dvh] bg-rice rounded-t-3xl sm:rounded-3xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] will-change-transform ${
-          isClosing
-            ? "animate-modal-slide-down"
-            : dragY === 0
-            ? "animate-modal-slide-up"
-            : ""
+        className={`relative flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[94dvh] bg-rice rounded-t-[28px] sm:rounded-[28px] shadow-[0_24px_80px_rgba(0,0,0,0.35)] will-change-transform ${
+          isClosing ? "animate-modal-slide-down" : dragY === 0 ? "animate-modal-slide-up" : ""
         }`}
       >
-        {/* Mobile Drag Handle */}
-        <div
-          className="sm:hidden w-full flex flex-col items-center pt-2 pb-1 cursor-grab active:cursor-grabbing touch-none select-none"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="w-12 h-1.5 rounded-full bg-ink/25 hover:bg-ink/40 transition-colors" />
-          <span className="text-[9px] font-semibold tracking-wider uppercase text-ink/40 mt-1">
-            Pull down to close
-          </span>
-        </div>
-
-        {/* Modal Header */}
-        <div
-          className="shrink-0 bg-rice flex items-start justify-between gap-4 p-5 pt-3 sm:pt-5 border-b-2 border-ink touch-none"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div>
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-turmeric text-ink text-[10px] font-black uppercase tracking-wider border border-ink">
-                <Sparkles className="w-3 h-3 text-brand" />
-                Creator Gifting Program
-              </span>
-            </div>
-            <h3 className="font-gazpacho text-2xl sm:text-3xl font-bold text-ink">
-              Get a free 2027 box.
-            </h3>
-            <p className="text-xs sm:text-sm text-muted mt-0.5 max-w-sm">
-              Are you a creator or storyteller? Tell us your channels and your plan to feature the calendar. We’ll courier a complimentary box.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={handleClose}
-            aria-label="Close"
-            className="shrink-0 w-11 h-11 rounded-full bg-white border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center hover:bg-[#ECE3D2] active:scale-95 cursor-pointer transition-all"
+        {/* Small pop-up: the full profile link for the platform just picked */}
+        {editing && (
+          <div
+            className="absolute inset-0 z-10 flex items-end justify-center bg-ink/40 p-4 sm:items-center"
+            onClick={() => setEditing(null)}
           >
-            <X className="w-5 h-5" />
-          </button>
+            <div
+              role="dialog"
+              aria-label={`${editing} profile link`}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full rounded-3xl bg-rice p-5 shadow-[0_16px_48px_rgba(0,0,0,0.3)]"
+            >
+              <p className="font-gazpacho text-lg font-bold text-ink">Your {editing} link</p>
+              <p className="mt-0.5 text-sm text-ink/60">Paste the full link to your profile, not just the handle.</p>
+              <input
+                autoFocus
+                autoCapitalize="none"
+                inputMode="url"
+                placeholder={`https://${editing.toLowerCase()}.com/yourname`}
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                className={`${inp} mt-3`}
+              />
+              {draft.trim() && !isProfileLink(draft) && (
+                <p className="mt-2 text-sm font-semibold text-chandua">That needs to be a full link starting with https://</p>
+              )}
+              <div className="mt-4 flex gap-2">
+                {editing in socials && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSocials(({ [editing]: _removed, ...rest }) => rest);
+                      setEditing(null);
+                    }}
+                    className="min-h-[48px] rounded-full bg-ink/5 px-5 text-sm font-semibold text-ink"
+                  >
+                    Remove
+                  </button>
+                )}
+                <button
+                  type="button"
+                  disabled={!isProfileLink(draft)}
+                  onClick={() => {
+                    setSocials((cur) => ({ ...cur, [editing]: draft.trim() }));
+                    setEditing(null);
+                  }}
+                  className="min-h-[48px] flex-1 rounded-full bg-chandua text-sm font-bold text-rice transition-transform active:scale-[0.98] disabled:bg-ink/10 disabled:text-ink/35"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Grabber: pull down to close on phones */}
+        <div
+          className="sm:hidden flex w-full touch-none select-none justify-center pt-2.5 pb-1"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="h-1 w-10 rounded-full bg-ink/20" />
         </div>
 
-        {/* Content Body */}
         {status === "done" ? (
-          <div className="p-8 text-center my-auto flex flex-col items-center">
-            <div className="w-16 h-16 rounded-full bg-ink text-turmeric border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] flex items-center justify-center mb-4">
-              <CheckCircle2 className="w-9 h-9" />
-            </div>
-            <h4 className="font-gazpacho text-3xl font-bold text-ink">
-              Application received, {firstName}!
+          <div className="my-auto flex flex-col items-center p-8 pb-10 text-center">
+            <CheckCircle2 className="h-14 w-14 text-parrot" aria-hidden="true" />
+            <h4 className="mt-4 font-gazpacho text-2xl font-bold tracking-[-0.02em] text-ink">
+              Thank you, {firstName}.
             </h4>
-            <p className="mt-2 text-sm text-muted max-w-xs leading-relaxed">
-              Your mail app has the application filled in &mdash; send it and Soubh takes it from there. If approved, tracking details come to <span className="font-bold text-ink">{email || "your email"}</span>.
+            <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
+              {via === "sent" ? (
+                <>
+                  Your application has reached Soubh. If approved, tracking details come to{" "}
+                  <span className="font-semibold text-ink">{email}</span>.
+                </>
+              ) : (
+                <>Your mail app has the application filled in. Send it and Soubh takes it from there.</>
+              )}
             </p>
             <button
               type="button"
               onClick={handleClose}
-              className="mt-6 px-6 py-2.5 rounded-full bg-ink text-rice font-bold text-sm hover:bg-[#333] transition-colors"
+              className="mt-6 min-h-[48px] rounded-full bg-ink px-8 text-sm font-semibold text-rice transition-transform active:scale-[0.97]"
             >
-              Back to Calendar
+              Done
             </button>
           </div>
         ) : (
           <form onSubmit={submit} className="flex min-h-0 flex-1 flex-col">
-            <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar p-5 space-y-4">
-              {/* Creator Name */}
-              <L label="Your Name / Creator Handle *">
-                <input
-                  required
-                  placeholder="e.g. Soubhagya Ranjan or @channel"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className={inp}
-                />
-              </L>
-
-              {/* Contact Information */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <L label="Phone number (for dispatch) *">
-                  <input
-                    required
-                    type="tel"
-                    inputMode="numeric"
-                    placeholder="10-digit number"
-                    value={phone}
-                    onChange={(e) =>
-                      setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
-                    }
-                    className={inp}
+            {/* Honeypot: hidden from people, filled by bots */}
+            <input
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={trap}
+              onChange={(e) => setTrap(e.target.value)}
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              name="website"
+            />
+            {/* Top bar: back, progress, close */}
+            <div className="flex items-center gap-3 px-5 pt-3">
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                disabled={stepIdx === 0}
+                aria-label="Back"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink/5 text-ink transition-opacity disabled:opacity-0"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <div className="flex flex-1 gap-1.5" aria-label={`Question ${stepIdx + 1} of ${STEPS.length}`}>
+                {STEPS.map((s, i) => (
+                  <span
+                    key={s}
+                    className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
+                      i <= stepIdx ? "bg-chandua" : "bg-ink/10"
+                    }`}
                   />
-                </L>
-                <L label="Email Address *">
-                  <input
-                    required
-                    type="email"
-                    placeholder="you@domain.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className={inp}
-                  />
-                </L>
+                ))}
               </div>
-
-              {/* Social Accounts with Dropdown + Link + Plus button */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-bold text-ink">
-                    Social Accounts & Links *
-                  </label>
-                  <button
-                    type="button"
-                    onClick={addSocial}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-brand hover:text-chandua cursor-pointer"
-                  >
-                    <Plus className="w-3.5 h-3.5 stroke-[3]" />
-                    <span>Add another link</span>
-                  </button>
-                </div>
-
-                <div className="space-y-2">
-                  {socials.map((s, idx) => (
-                    <div key={s.id} className="flex items-center gap-2">
-                      <select
-                        value={s.platform}
-                        onChange={(e) => updateSocial(s.id, "platform", e.target.value)}
-                        className="w-[120px] sm:w-[140px] px-2.5 py-2.5 min-h-[44px] rounded-xl border-2 border-ink text-xs font-bold bg-white text-ink focus:outline-none focus:border-chandua shrink-0"
-                      >
-                        {SOCIAL_PLATFORMS.map((p) => (
-                          <option key={p} value={p}>
-                            {p}
-                          </option>
-                        ))}
-                      </select>
-
-                      <input
-                        required
-                        type="text"
-                        placeholder="Profile link or @handle"
-                        value={s.url}
-                        onChange={(e) => updateSocial(s.id, "url", e.target.value)}
-                        className={`${inp} text-xs py-2.5 min-h-[44px] flex-1`}
-                      />
-
-                      {socials.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeSocial(s.id)}
-                          aria-label="Remove social account"
-                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-white flex items-center justify-center text-brand hover:bg-[#FBEAEA] active:scale-95 transition-all cursor-pointer"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      )}
-
-                      {idx === socials.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={addSocial}
-                          aria-label="Add account"
-                          title="Add another social link"
-                          className="shrink-0 w-11 h-11 rounded-xl border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] bg-turmeric hover:bg-[#d69819] active:scale-95 flex items-center justify-center text-ink font-bold cursor-pointer transition-all"
-                        >
-                          <Plus className="w-4 h-4 stroke-[3]" />
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Delivery Address */}
-              <div className="space-y-2 pt-1 border-t border-ink/15">
-                <span className="block text-xs font-bold text-ink">
-                  Shipping Address (Where to courier the box) *
-                </span>
-                <input
-                  required
-                  placeholder="House / Flat / Street address / Landmark"
-                  value={streetAddress}
-                  onChange={(e) => setStreetAddress(e.target.value)}
-                  className={inp}
-                />
-                <div className="grid grid-cols-3 gap-2">
-                  <input
-                    required
-                    placeholder="City"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    className={inp}
-                  />
-                  <input
-                    required
-                    placeholder="State"
-                    value={stateName}
-                    onChange={(e) => setStateName(e.target.value)}
-                    className={inp}
-                  />
-                  <input
-                    required
-                    inputMode="numeric"
-                    placeholder="Pincode"
-                    value={pincode}
-                    onChange={(e) =>
-                      setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))
-                    }
-                    className={inp}
-                  />
-                </div>
-              </div>
-
-              {/* What made you stop at this calendar? */}
-              <div className="space-y-2 pt-1 border-t border-ink/15">
-                <L label="What made you stop at this calendar? *">
-                  <textarea
-                    required
-                    rows={2}
-                    placeholder="What caught your eye? The art style, the 13 festivals, the Odia nostalgia, the craftsmanship?"
-                    value={whatMadeYouStop}
-                    onChange={(e) => setWhatMadeYouStop(e.target.value)}
-                    className={inp}
-                  />
-                </L>
-              </div>
-
-              {/* Content Format Tags & Plan */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-ink">
-                  What&apos;s your content plan to feature it? *
-                </label>
-                <div className="flex flex-wrap gap-1.5 mb-2">
-                  {PLAN_TAGS.map((tag) => {
-                    const active = selectedPlanTags.includes(tag);
-                    return (
-                      <button
-                        type="button"
-                        key={tag}
-                        onClick={() => togglePlanTag(tag)}
-                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] cursor-pointer transition-all ${
-                          active
-                            ? "bg-ink text-cream"
-                            : "bg-white text-ink hover:bg-[#ECE3D2]"
-                        }`}
-                      >
-                        {tag} {active && "✓"}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <textarea
-                  required
-                  rows={2}
-                  placeholder="Tell us what you plan to create (e.g. An unboxing reel on Grand Road Rath Yatra, showing all 13 festival art cards to my Odia audience)..."
-                  value={contentPlan}
-                  onChange={(e) => setContentPlan(e.target.value)}
-                  className={inp}
-                />
-              </div>
-
-              {status === "error" && (
-                <p className="text-xs font-bold text-chandua sm:text-sm">
-                  That didn&apos;t open your mail app. Write to{" "}
-                  <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
-                    {SUPPORT_EMAIL}
-                  </a>{" "}
-                  instead.
-                </p>
-              )}
+              <button
+                type="button"
+                onClick={handleClose}
+                aria-label="Close"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform active:scale-90"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
 
-            {/* Sticky Action Footer */}
-            <div className="shrink-0 border-t-2 border-ink bg-rice p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            {/* One question */}
+            <div className="min-h-[320px] flex-1 overflow-y-auto px-6 pb-4 pt-7 no-scrollbar">
+              <motion.div
+                key={step}
+                initial={reduceMotion ? false : { opacity: 0, x: 24 * dir }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-chandua">
+                  Free 2027 box · {stepIdx + 1} of {STEPS.length}
+                </p>
+                <h3 className="mt-2 font-gazpacho text-[1.75rem] font-bold leading-[1.1] tracking-[-0.02em] text-ink">
+                  {QUESTIONS[step].q}
+                </h3>
+                {QUESTIONS[step].hint && (
+                  <p className="mt-1.5 text-[0.95rem] text-ink/60">{QUESTIONS[step].hint}</p>
+                )}
+
+                <div className="mt-6 space-y-3">
+                  {step === "name" && (
+                    <input
+                      autoFocus
+                      autoComplete="name"
+                      placeholder="e.g. Soubhagya Ranjan or @channel"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className={inp}
+                    />
+                  )}
+
+                  {step === "social" && (
+                    <>
+                      <div className="flex flex-wrap gap-2">
+                        {PLATFORMS.map((p) => (
+                          <Option
+                            key={p}
+                            on={p in socials}
+                            compact
+                            onClick={() => {
+                              setEditing(p);
+                              setDraft(socials[p] ?? "");
+                            }}
+                          >
+                            {p}
+                            {p in socials && <Check className="ml-1.5 inline h-3.5 w-3.5" strokeWidth={3} />}
+                          </Option>
+                        ))}
+                      </div>
+                      {Object.entries(socials).map(([p, u]) => (
+                        <p key={p} className="truncate rounded-xl bg-ink/[0.05] px-3 py-2 text-sm text-ink/70">
+                          <span className="font-semibold text-ink">{p}</span> · {u}
+                        </p>
+                      ))}
+                    </>
+                  )}
+
+                  {step === "plan" &&
+                    PLAN_TAGS.map((t) => (
+                      <Option key={t} on={plans.includes(t)} onClick={() => toggle(plans, setPlans, t)}>
+                        {t}
+                      </Option>
+                    ))}
+
+                  {step === "hook" &&
+                    HOOKS.map((t) => (
+                      <Option key={t} on={hooks.includes(t)} onClick={() => toggle(hooks, setHooks, t)}>
+                        {t}
+                      </Option>
+                    ))}
+
+                  {step === "contact" && (
+                    <>
+                      <input
+                        autoFocus
+                        type="tel"
+                        inputMode="numeric"
+                        autoComplete="tel-national"
+                        placeholder="10-digit mobile number"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        className={inp}
+                      />
+                      <input
+                        type="email"
+                        autoComplete="email"
+                        placeholder="you@domain.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={inp}
+                      />
+                    </>
+                  )}
+
+                  {step === "address" && (
+                    <>
+                      <input
+                        autoFocus
+                        autoComplete="street-address"
+                        placeholder="House / flat, street, landmark"
+                        value={street}
+                        onChange={(e) => setStreet(e.target.value)}
+                        className={inp}
+                      />
+                      <div className="grid grid-cols-2 gap-3">
+                        <input
+                          autoComplete="address-level2"
+                          placeholder="City"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          className={inp}
+                        />
+                        <input
+                          autoComplete="address-level1"
+                          placeholder="State"
+                          value={stateName}
+                          onChange={(e) => setStateName(e.target.value)}
+                          className={inp}
+                        />
+                      </div>
+                      <input
+                        inputMode="numeric"
+                        autoComplete="postal-code"
+                        placeholder="Pincode"
+                        value={pincode}
+                        onChange={(e) => setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                        className={inp}
+                      />
+                    </>
+                  )}
+                </div>
+
+                {status === "error" && (
+                  <p className="mt-4 text-sm font-semibold text-chandua">
+                    That didn&apos;t open your mail app. Write to{" "}
+                    <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
+                      {SUPPORT_EMAIL}
+                    </a>{" "}
+                    instead.
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            <div className="shrink-0 px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-2">
               <button
                 type="submit"
-                disabled={status === "sending"}
-                className="w-full min-h-[50px] rounded-full bg-chandua text-rice font-disko text-base sm:text-lg flex items-center justify-center gap-2 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] press cursor-pointer disabled:opacity-60 hover:bg-[#b01c15] transition-colors"
-                style={{ boxShadow: "4px 4px 0 0 #1B1B1B" }}
+                disabled={!ok[step] || status === "sending"}
+                className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-chandua font-gazpacho text-base font-bold text-rice transition-all active:scale-[0.98] disabled:bg-ink/10 disabled:text-ink/35"
               >
                 {status === "sending" ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    <span>Submit Creator Application</span>
-                    <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                    <span>{last ? "Send application" : "Continue"}</span>
+                    {!last && <ArrowRight className="h-4 w-4" />}
                   </>
                 )}
               </button>
@@ -475,14 +480,32 @@ export function CreatorGiftModal({
   );
 }
 
+// 16px so iOS does not zoom the page on focus; soft fill, ring on focus.
 const inp =
-  "w-full px-3 py-2.5 rounded-xl border-2 border-ink text-sm text-ink bg-white focus:outline-none focus:border-chandua";
+  "w-full rounded-2xl bg-ink/[0.05] px-4 py-3.5 text-base text-ink placeholder:text-ink/40 outline-none transition-shadow focus:ring-2 focus:ring-chandua/60";
 
-function L({ label, children }: { label: string; children: React.ReactNode }) {
+function Option({
+  on,
+  onClick,
+  compact,
+  children,
+}: {
+  on: boolean;
+  onClick: () => void;
+  compact?: boolean;
+  children: React.ReactNode;
+}) {
   return (
-    <label className="block">
-      <span className="block text-xs font-bold text-ink mb-1">{label}</span>
-      {children}
-    </label>
+    <button
+      type="button"
+      aria-pressed={on}
+      onClick={onClick}
+      className={`flex items-center justify-between gap-3 rounded-2xl text-left text-[0.95rem] font-semibold transition-all active:scale-[0.98] ${
+        compact ? "px-4 py-2.5" : "w-full px-4 py-3.5"
+      } ${on ? "bg-chandua text-rice" : "bg-ink/[0.05] text-ink"}`}
+    >
+      <span>{children}</span>
+      {on && !compact && <Check className="h-4 w-4 shrink-0" strokeWidth={3} />}
+    </button>
   );
 }

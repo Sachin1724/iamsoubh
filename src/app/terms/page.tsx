@@ -35,7 +35,7 @@ export default function Terms() {
       <h2>The sealed 13th parba</h2>
       <p>
         Each box contains one sealed 13th parba card, selected at random from three: Sahi Jata
-        (Puri), Sitalsasthi (Sambalpur) and Gajalaxmi Puja (Dhenkanal). A Gift Pack counts as five boxes against the batch cap. Single boxes cannot
+        (Puri), Sitalsasthi (Sambalpur) and Gajalaxmi Puja (Dhenkanal). A Gift Pack counts as ten boxes against the batch cap. Single boxes cannot
         choose which one they receive. A Family Pack is guaranteed to contain all three.
       </p>
 

@@ -20,9 +20,9 @@ export default function Pricing() {
           {products.family.perBox} a box. For Maa, Bapa and you, plus an extra sticker sheet.
         </li>
         <li>
-          <strong>Gift Pack (x5)</strong> — <span className="rupee">₹</span>
+          <strong>Gift Pack (x10)</strong> — <span className="rupee">₹</span>
           {products.gift.price}, about <span className="rupee">₹</span>
-          {products.gift.perBox} a box. Keep one, gift four.
+          {products.gift.perBox} a box. Keep one, gift nine.
         </li>
       </ul>
 
@@ -33,7 +33,7 @@ export default function Pricing() {
       </p>
 
       <h2>Shipping</h2>
-      <p>Free anywhere in India, whether you buy 1, 3 or 5 boxes. There is no delivery charge on any order in batch 1.</p>
+      <p>Free anywhere in India, whether you buy 1, 3 or 10 boxes. There is no delivery charge on any order in batch 1.</p>
 
       <h2>Bulk orders</h2>
       <p>

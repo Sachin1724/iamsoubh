@@ -28,3 +28,32 @@ export function openMail(
 
   window.location.href = url;
 }
+
+/**
+ * Send an enquiry from the page. Returns "sent" when the server mailed it, or
+ * "mail" when it could not and the visitor's mail app was opened instead, so
+ * an enquiry is never lost to a missing key or a network blip.
+ */
+export async function submitEnquiry(
+  kind: "Creator" | "Bulk",
+  who: string,
+  fields: Record<string, string | undefined>,
+  replyTo?: string,
+  trap = ""
+): Promise<"sent" | "mail"> {
+  const clean: Record<string, string> = {};
+  for (const [k, v] of Object.entries(fields)) if (v && v.trim()) clean[k] = v.trim();
+
+  try {
+    const res = await fetch("/api/enquiry", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ kind, who, fields: clean, replyTo, website: trap }),
+    });
+    if (res.ok) return "sent";
+  } catch {
+    // fall through to the mail app
+  }
+  openMail(kind, who, fields);
+  return "mail";
+}

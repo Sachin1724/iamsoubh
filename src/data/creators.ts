@@ -72,4 +72,13 @@ export const creators: Creator[] = [
     poster: "/assets/videos/poster-06.webp",
     collab: false,
   },
+  {
+    postId: "DRJMENEEr4S",
+    name: "",
+    handle: "",
+    pullLine: "",
+    video: "/assets/videos/creator-07.mp4",
+    poster: "/assets/videos/poster-07.webp",
+    collab: false,
+  },
 ];
