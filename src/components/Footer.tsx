@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site-config";
 
 export function Footer() {
   return (
-    <footer className="bg-pipili-red text-on-dark pt-16 pb-28 sm:pb-20 md:pt-20 md:pb-16 lg:pb-20 border-t-2 border-ink relative z-20 overflow-hidden">
+    <footer className="halftone [--ht-at:100%_100%] bg-pipili-red text-on-dark pt-16 pb-28 sm:pb-20 md:pt-20 md:pb-16 lg:pb-20 border-t-2 border-ink relative z-20 overflow-hidden">
       {/* Subtle Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"

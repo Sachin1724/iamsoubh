@@ -83,7 +83,7 @@ export function CreatorVideos() {
   return (
     <section
       id="creators"
-      className="relative py-24 sm:py-36 bg-pipili-teal text-on-dark scroll-mt-24 overflow-hidden"
+      className="halftone [--ht-at:0%_100%] relative py-24 sm:py-36 bg-pipili-teal text-on-dark scroll-mt-24 overflow-hidden"
     >
 
       {/* Folk pattern texture */}

@@ -6,13 +6,8 @@ export function FreeShipping() {
   return (
     <section
       id="free-shipping"
-      className="relative overflow-hidden bg-pipili-red py-20 text-on-dark sm:py-32"
+      className="halftone relative overflow-hidden bg-pipili-red py-20 text-on-dark sm:py-32"
     >
-      <div
-        className="pointer-events-none absolute inset-0 bg-repeat opacity-[0.07]"
-        style={{ backgroundImage: "url('/assets/folk-pattern-tile.png')", backgroundSize: "180px" }}
-        aria-hidden="true"
-      />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <h2 className="reveal-spring max-w-[16ch] text-[2.6rem] font-medium leading-[1.02] tracking-tight sm:text-7xl">
           Free shipping anywhere in India.

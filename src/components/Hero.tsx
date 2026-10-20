@@ -175,9 +175,16 @@ export function Hero() {
           preload
           className="mt-6 h-auto w-full max-w-[260px] select-none brightness-0 invert xl:max-w-[360px]"
         />
-        <p data-hero-part className="mt-1 font-editorial text-lg italic text-white/90">
-          by Soubh
-        </p>
+        <div data-hero-part className="mt-2 flex items-center gap-2">
+          <span className="font-editorial text-lg italic text-white/90">by</span>
+          <Image
+            src="/assets/brand/calogo.png"
+            alt="IAMSOUBH"
+            width={180}
+            height={50}
+            className="h-6 w-auto select-none object-contain brightness-0 invert"
+          />
+        </div>
         <p data-hero-part className="mt-6 max-w-[34ch] font-subtext text-[15px] font-light italic leading-snug text-white/90">
           In <strong className="font-semibold">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
         </p>

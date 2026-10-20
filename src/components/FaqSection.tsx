@@ -16,7 +16,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="py-24 sm:py-36 bg-pipili-yellow text-on-light relative overflow-hidden scroll-mt-24"
+      className="halftone-ink [--ht-at:0%_100%] py-24 sm:py-36 bg-pipili-yellow text-on-light relative overflow-hidden scroll-mt-24"
     >
 
       {/* Mandala on the top-right corner, slowly turning */}

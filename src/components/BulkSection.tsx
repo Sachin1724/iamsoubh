@@ -14,7 +14,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
   return (
     <section
       id="bulk"
-      className="relative overflow-clip bg-pipili-red py-20 text-on-dark scroll-mt-24 sm:py-32"
+      className="halftone relative overflow-clip bg-pipili-red py-20 text-on-dark scroll-mt-24 sm:py-32"
     >
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
         <div className="reveal">

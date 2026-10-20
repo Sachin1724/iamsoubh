@@ -1094,3 +1094,30 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* Halftone dots for solid-colour sections: a dot grid that thins out from one
+   corner, so the colour stays flat where the text sits. Sits behind the content
+   (z -1 inside an isolated section). The ink variant is for light fills. */
+@layer components {
+  .halftone,
+  .halftone-ink {
+    isolation: isolate;
+  }
+  .halftone::before,
+  .halftone-ink::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--ht-dot) 1.6px, transparent 1.9px);
+    background-size: 14px 14px;
+    mask-image: radial-gradient(ellipse 90% 80% at var(--ht-at, 100% 0%), #000 0%, transparent 72%);
+  }
+  .halftone {
+    --ht-dot: rgba(255, 255, 255, 0.2);
+  }
+  .halftone-ink {
+    --ht-dot: rgba(27, 27, 27, 0.16);
+  }
+}
