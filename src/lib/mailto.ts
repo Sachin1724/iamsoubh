@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site-config";
 export const SUPPORT_EMAIL = siteConfig.supportEmail;
 
 /**
- * Both enquiry forms hand off to the visitor's mail app instead of posting to a
+ * Both enquiry forms hand off to the visitor's own mail instead of posting to a
  * form service: no API key, no backend, and the person keeps a copy of what
  * they sent in their own Sent folder.
  *
@@ -22,38 +22,18 @@ export function openMail(
     .map(([label, value]) => `${label}: ${value!.trim()}`)
     .join("\n");
 
-  const url = `mailto:${siteConfig.supportEmail}?subject=${encodeURIComponent(
-    subject
-  )}&body=${encodeURIComponent(body)}`;
+  const q = `subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-  window.location.href = url;
-}
-
-/**
- * Send an enquiry from the page. Returns "sent" when the server mailed it, or
- * "mail" when it could not and the visitor's mail app was opened instead, so
- * an enquiry is never lost to a missing key or a network blip.
- */
-export async function submitEnquiry(
-  kind: "Creator" | "Bulk",
-  who: string,
-  fields: Record<string, string | undefined>,
-  replyTo?: string,
-  trap = ""
-): Promise<"sent" | "mail"> {
-  const clean: Record<string, string> = {};
-  for (const [k, v] of Object.entries(fields)) if (v && v.trim()) clean[k] = v.trim();
-
-  try {
-    const res = await fetch("/api/enquiry", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ kind, who, fields: clean, replyTo, website: trap }),
-    });
-    if (res.ok) return "sent";
-  } catch {
-    // fall through to the mail app
+  // Desktop: straight into a Gmail compose window, filled in. Phones: mailto,
+  // which opens whichever mail app is the default (Gmail, for most people).
+  const phone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!phone) {
+    const w = window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.supportEmail)}&${q}`,
+      "_blank",
+      "noopener"
+    );
+    if (w) return;
   }
-  openMail(kind, who, fields);
-  return "mail";
+  window.location.href = `mailto:${siteConfig.supportEmail}?${q}`;
 }

@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "motion/react";
 import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-react";
 import { trackGA } from "@/lib/track";
-import { submitEnquiry, SUPPORT_EMAIL } from "@/lib/mailto";
+import { openMail, SUPPORT_EMAIL } from "@/lib/mailto";
 
 const PLATFORMS = ["Instagram", "YouTube", "Facebook", "X", "LinkedIn"] as const;
 
@@ -59,8 +59,6 @@ export function CreatorGiftModal({
   const [stateName, setStateName] = useState("");
   const [pincode, setPincode] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
-  const [via, setVia] = useState<"sent" | "mail">("sent");
-  const [trap, setTrap] = useState("");
   const [isClosing, setIsClosing] = useState(false);
   const [dragY, setDragY] = useState(0);
 
@@ -129,16 +127,13 @@ export function CreatorGiftModal({
     isDragging.current = false;
   };
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!ok[step] || status === "sending") return;
     if (!last) return go(1);
     setStatus("sending");
 
-    const how = await submitEnquiry(
-      "Creator",
-      name,
-      {
+    openMail("Creator", name, {
       Name: name,
       Phone: phone,
       Email: email,
@@ -148,13 +143,9 @@ export function CreatorGiftModal({
       Address: `${street}, ${city}, ${stateName} - ${pincode}`,
       "What made you stop": hooks.join(", "),
       "Content formats": plans.join(", "),
-      },
-      email,
-      trap
-    );
+    });
 
     trackGA("creator_application_submitted");
-    setVia(how);
     setStatus("done");
   };
 
@@ -253,14 +244,8 @@ export function CreatorGiftModal({
               Thank you, {firstName}.
             </h4>
             <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
-              {via === "sent" ? (
-                <>
-                  Your application has reached Soubh. If approved, tracking details come to{" "}
-                  <span className="font-semibold text-ink">{email}</span>.
-                </>
-              ) : (
-                <>Your mail app has the application filled in. Send it and Soubh takes it from there.</>
-              )}
+              Gmail has your application filled in. Press Send and Soubh takes it from there. If approved,
+              tracking details come to <span className="font-semibold text-ink">{email}</span>.
             </p>
             <button
               type="button"
@@ -272,16 +257,6 @@ export function CreatorGiftModal({
           </div>
         ) : (
           <form onSubmit={submit} className="flex min-h-0 flex-1 flex-col">
-            {/* Honeypot: hidden from people, filled by bots */}
-            <input
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden="true"
-              value={trap}
-              onChange={(e) => setTrap(e.target.value)}
-              className="absolute left-[-9999px] h-0 w-0 opacity-0"
-              name="website"
-            />
             {/* Top bar: back, progress, close */}
             <div className="flex items-center gap-3 px-5 pt-3">
               <button

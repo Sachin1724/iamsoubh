@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-react";
-import { submitEnquiry, SUPPORT_EMAIL } from "@/lib/mailto";
+import { openMail, SUPPORT_EMAIL } from "@/lib/mailto";
 import { track, trackGA } from "@/lib/track";
 
 const RANGES = ["10–25", "26–50", "51–100", "100+"] as const;
@@ -34,8 +34,6 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
-  const [via, setVia] = useState<"sent" | "mail">("sent");
-  const [trap, setTrap] = useState("");
 
   useEffect(() => {
     if (!open) return;
@@ -71,31 +69,24 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
     setStepIdx((i) => Math.min(STEPS.length - 1, Math.max(0, i + by)));
   };
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!ok[step] || status === "sending") return;
     if (!last) return go(1);
     setStatus("sending");
 
-    const how = await submitEnquiry(
-      "Bulk",
-      `${range} boxes — ${name}`,
-      {
-        Name: name,
-        "Company or group": group,
-        Phone: phone,
-        Email: email,
-        Boxes: range,
-        "Needed by": neededBy,
-        "Delivery city": cityField,
-        Notes: notes,
-      },
-      email.trim() || undefined,
-      trap
-    );
+    openMail("Bulk", `${range} boxes — ${name}`, {
+      Name: name,
+      "Company or group": group,
+      Phone: phone,
+      Email: email,
+      Boxes: range,
+      "Needed by": neededBy,
+      "Delivery city": cityField,
+      Notes: notes,
+    });
 
     track("Lead", "generate_lead", { boxes: range });
-    setVia(how);
     setStatus("done");
   };
 
@@ -124,9 +115,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
               Got it, {firstName}.
             </h4>
             <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
-              {via === "sent"
-                ? "Your request has reached me. I'll reply within 24 hours."
-                : "Your mail app has the details filled in. Send it and I'll reply within 24 hours."}
+              Gmail has the details filled in. Press Send and I'll reply within 24 hours.
             </p>
             <button
               type="button"
@@ -138,16 +127,6 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
           </div>
         ) : (
           <form onSubmit={submit} className="relative flex min-h-0 flex-1 flex-col">
-            {/* Honeypot: hidden from people, filled by bots */}
-            <input
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden="true"
-              value={trap}
-              onChange={(e) => setTrap(e.target.value)}
-              className="absolute left-[-9999px] h-0 w-0 opacity-0"
-              name="website"
-            />
             {/* Top bar: back, progress, close */}
             <div className="flex items-center gap-3 px-5 pt-3">
               <button

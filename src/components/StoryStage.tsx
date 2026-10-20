@@ -62,7 +62,7 @@ function Head({ beat }: { beat: StoryBeat }) {
         {beat.locked && <Lock className="ml-3 inline h-[0.6em] w-[0.6em] align-baseline text-turmeric" aria-label="sealed" />}
       </h2>
       {beat.titleOr && (
-        <p className="mt-2 font-odia-heading text-xl leading-[1.25] text-white/95 sm:text-3xl">{beat.titleOr}</p>
+        <p className="mt-2 font-odia-heading text-xl leading-[1.25] text-white/65 sm:text-3xl">{beat.titleOr}</p>
       )}
     </>
   );
