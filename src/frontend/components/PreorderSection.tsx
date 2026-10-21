@@ -36,7 +36,7 @@ const ORDERS = PACKS.flatMap((id) =>
 const MAX_WANTED = Math.max(...ORDERS.map((o) => o.boxes));
 
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
-  const { stock, soldOut, showCounter } = useStock();
+  const { stock, soldOut } = useStock();
   const reduceMotion = useReducedMotion();
 
   const morph = reduceMotion
@@ -122,6 +122,34 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               {siteConfig.odiaTitle}
             </p>
 
+            {/* Live count, straight from Razorpay's paid orders (see /api/stock) */}
+            {stock && (
+              <div
+                className="mt-5 rounded-2xl bg-on-light/[0.04] p-3.5"
+                role="status"
+                aria-live="polite"
+              >
+                <div className="flex items-center justify-between gap-3 text-sm">
+                  <span className="inline-flex items-center gap-2 font-semibold text-on-light">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-parrot opacity-60" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-parrot" />
+                    </span>
+                    Batch 1 · live
+                  </span>
+                  <span className="font-gazpacho text-base font-bold tabular-nums text-pipili-red">
+                    {stock.remaining} of {stock.cap} left
+                  </span>
+                </div>
+                <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-on-light/10">
+                  <div
+                    className="h-full rounded-full bg-pipili-red transition-[width] duration-700"
+                    style={{ width: `${Math.round(((stock.cap - stock.remaining) / stock.cap) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Price leads, the way a shop does it */}
             <div className="mt-5 flex items-baseline gap-3">
               <motion.span layout transition={morph} className="font-gazpacho text-4xl font-bold tracking-[-0.02em]">
@@ -137,12 +165,6 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               {boxes} {boxes === 1 ? "box" : "boxes"} · {siteConfig.freeDeliveryLabel}
               {saving > 0 && <span className="font-semibold text-parrot"> · you save ₹{saving}</span>}
             </p>
-
-            {showCounter && stock !== null && (
-              <p className="mt-2 text-sm font-bold text-pipili-red">
-                {stock.remaining} of {stock.cap} left.
-              </p>
-            )}
 
             {/* Step one: one grouped control. How many on top, the pack the page picked below. */}
             <div className="mt-6 space-y-3 rounded-2xl bg-on-light/[0.04] p-3 sm:p-4">

@@ -5,7 +5,8 @@ import Image from "next/image";
 import { ArrowDown, Check, Lock } from "lucide-react";
 
 export interface StoryBeat {
-  image: string;
+  /** Omit to keep the previous beat's photo and only move the copy over it. */
+  image?: string;
   /** CSS object-position, to keep the subject in frame on a portrait screen. */
   position?: string;
   kicker?: string;
@@ -30,6 +31,7 @@ interface StoryStageProps {
 }
 
 function Photo({ beat }: { beat: StoryBeat }) {
+  if (!beat.image) return null;
   return (
     <Image
       src={beat.image}
@@ -163,13 +165,15 @@ export function StoryStage({ id, number, beats, checklist }: StoryStageProps) {
         for (let i = 0; i < n; i++) {
           const hold = 2 * i;
           if (i > 0) {
-            tl.fromTo(
-              imgs[i],
-              { autoAlpha: 0, scale: 1.18, clipPath: "inset(10% 6% 10% 6% round 28px)" },
-              { autoAlpha: 1, scale: 1, clipPath: "inset(0% 0% 0% 0% round 0px)", duration: 1 },
-              hold - 1
-            )
-              .fromTo(heads[i], { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" }, hold - 0.7)
+            if (beats[i].image) {
+              tl.fromTo(
+                imgs[i],
+                { autoAlpha: 0, scale: 1.18, clipPath: "inset(10% 6% 10% 6% round 28px)" },
+                { autoAlpha: 1, scale: 1, clipPath: "inset(0% 0% 0% 0% round 0px)", duration: 1 },
+                hold - 1
+              );
+            }
+            tl.fromTo(heads[i], { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" }, hold - 0.7)
               .fromTo(bodies[i], { autoAlpha: 0, y: 110 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" }, hold - 0.7);
           }
           const row = checkOf(i);

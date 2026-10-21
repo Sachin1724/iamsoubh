@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { name: "Inside the box", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
   { name: "Creators", href: "#creators" },
+  { name: "Order", href: "#preorder" },
   { name: "Bulk and gifting", href: "#bulk" },
   { name: "Questions", href: "#faq" },
 ];
