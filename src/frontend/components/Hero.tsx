@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Truck } from "lucide-react";
 import { AmbientFestiveLayer } from "@/frontend/components/AmbientFestiveLayer";
-import { lowestBoxPrice, siteConfig } from "@/config/site-config";
+import { lowestBoxPrice, products, siteConfig } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
 import { cta } from "@/frontend/components/ui/cta";
@@ -178,7 +178,7 @@ export function Hero() {
           height={450}
           unoptimized
           preload
-          className="mt-6 h-auto w-full max-w-[370px] select-none brightness-0 invert xl:max-w-[500px]"
+          className="mt-6 h-auto w-full max-w-[370px] select-none xl:max-w-[500px]"
         />
         <div data-hero-part className="mt-2 flex items-center gap-2">
           <span className="font-editorial text-2xl italic text-white/90">by</span>
@@ -190,28 +190,36 @@ export function Hero() {
             className="h-8 w-auto select-none object-contain brightness-0 invert"
           />
         </div>
-        <p data-hero-part className="mt-6 max-w-[34ch] font-subtext text-lg xl:text-xl font-light italic leading-snug text-white/90">
+        <div data-hero-part className="mt-6 max-w-[40ch] space-y-3 font-subtext text-lg font-normal leading-snug text-white/90 xl:text-xl">
           {soldOut ? (
-            `All ${siteConfig.batchCap} are gone. Thank you, Odisha.`
+            <p>{`All ${siteConfig.batchCap} are gone. Thank you, Odisha.`}</p>
           ) : (
             <>
-              In <strong className="font-semibold">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
+              <p>The Odia festival calendar that went viral is back for 2027.</p>
+              <p>
+                Already in <strong className="font-semibold">1,500+ homes</strong> across 22 states and the USA.
+              </p>
             </>
           )}
-        </p>
-        <div data-hero-part className="mt-6 flex flex-col items-end gap-2">
-          <button
-            type="button"
-            onClick={() => scrollToTarget("#preorder")}
-            className={cta("red")}
-          >
-            <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
+        </div>
+        {!soldOut && (
+          <p data-hero-part className="mt-4 font-subtext text-sm text-white/75">
+            <span className="font-gazpacho text-xl font-bold text-white">₹{products.single.price} a box</span>{" "}
+            <s className="text-white/50">₹{products.single.strikePrice}</s> · from ₹{lowestBoxPrice} in a 10-pack
+          </p>
+        )}
+        <div data-hero-part className="mt-5 flex flex-col items-end gap-3">
+          <button type="button" onClick={() => scrollToTarget("#preorder")} className={cta("red")}>
+            <span>{soldOut ? "Join batch 2" : "Pre-order now"}</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
           </button>
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
-            <ShoppingCart className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            <span>Free shipping all over India</span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-turmeric px-5 py-2 font-subtext text-sm font-semibold text-ink">
+            <Truck className="h-4 w-4 shrink-0" aria-hidden="true" />
+            Free delivery all over India
           </span>
+          <p className="font-subtext text-xs text-white/60">
+            Ships in the first week of November · Only {siteConfig.batchCap} boxes in this batch
+          </p>
         </div>
       </div>
 
@@ -241,13 +249,13 @@ export function Hero() {
             <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
             <Image
               data-hero-lettering
-              src="/assets/brand/logo-bmtp.svg"
+              src="/assets/brand/logo-bmtp-brand.svg"
               alt="Bara Masa Tera Parba"
               width={886}
               height={450}
               unoptimized
               preload
-              className="mx-auto h-auto w-[72%] max-w-[315px] select-none sm:w-[52%] sm:max-w-[390px] sm:[filter:brightness(0)_saturate(100%)_invert(10%)_sepia(40%)_saturate(4000%)_hue-rotate(338deg)]"
+              className="mx-auto h-auto w-[72%] max-w-[315px] select-none sm:w-[52%] sm:max-w-[390px]"
             />
           </h1>
           <div data-hero-part className="mt-2 flex -translate-x-5 items-center justify-center gap-1.5">

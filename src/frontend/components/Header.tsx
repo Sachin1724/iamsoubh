@@ -27,6 +27,7 @@ const DARK_SECTIONS = new Set(["sound-familiar", "inside-calendar", "creators", 
 
 export function Header({ onOrderClick }: HeaderProps) {
   const [onDark, setOnDark] = React.useState(false);
+  const [atTop, setAtTop] = React.useState(true);
 
   React.useEffect(() => {
     const ids = [
@@ -52,6 +53,7 @@ export function Header({ onOrderClick }: HeaderProps) {
       // The desktop hero sits on a photo, so its marks go white there too.
       const darkHero = current === "hero" && window.matchMedia("(min-width: 1024px)").matches;
       setOnDark(DARK_SECTIONS.has(current) || darkHero);
+      setAtTop(window.scrollY < 40);
     };
 
     update();
@@ -73,6 +75,15 @@ export function Header({ onOrderClick }: HeaderProps) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+      {/* Announcement strip: only while the page is at the very top */}
+      <div
+        className={`pointer-events-auto bg-[#4A0010] px-3 py-1 text-center text-[11px] font-medium leading-tight text-white/90 sm:py-2 sm:text-xs transition-all duration-300 ${
+          atTop ? "max-h-8 opacity-100" : "max-h-0 overflow-hidden py-0 opacity-0"
+        }`}
+      >
+        <span className="sm:hidden">Free delivery all over India · Ships in November</span>
+        <span className="hidden sm:inline">Free delivery all over India · Ships first week of November</span>
+      </div>
       <Navbar1
         navItems={navItems}
         onCtaClick={handleCtaClick}
