@@ -6,7 +6,7 @@ import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-r
 import { openMail, SUPPORT_EMAIL } from "@/frontend/lib/mailto";
 import { track, trackGA } from "@/frontend/lib/track";
 
-const RANGES = ["10–25", "26–50", "51–100", "100+"] as const;
+const RANGES = ["10–49", "50–99", "100+"] as const;
 
 // One question per screen.
 const STEPS = ["boxes", "date", "city", "who", "contact", "notes"] as const;
