@@ -1,5 +1,5 @@
 import { PolicyPage } from "@/frontend/components/PolicyPage";
-import { products, TIERS, MAX_BOXES } from "@/config/site-config";
+import { products, siteConfig, TIERS, MAX_BOXES } from "@/config/site-config";
 
 export const metadata = { title: "Pricing · The Odia Viral Calendar 2027" };
 
@@ -30,7 +30,7 @@ export default function Pricing() {
 
       <h2>After batch 1</h2>
       <p>
-        Once the first 500 boxes are gone, a single box is <span className="rupee">₹</span>
+        Once the first {siteConfig.batchCap} boxes are gone, a single box is <span className="rupee">₹</span>
         {products.single.strikePrice}.
       </p>
 

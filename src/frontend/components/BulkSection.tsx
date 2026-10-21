@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { cta } from "@/frontend/components/ui/cta";
 
 const TIERS = [
   { count: "10+", perk: "Custom sleeve" },
@@ -43,7 +44,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
 
           <button
             onClick={onRequestQuote}
-            className="mt-8 inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2 rounded-full bg-turmeric px-7 font-gazpacho text-base font-bold text-ink transition-transform active:scale-[0.97]"
+            className={`mt-8 ${cta("gold")}`}
           >
             Request a quote
             <ArrowRight className="h-4 w-4" />

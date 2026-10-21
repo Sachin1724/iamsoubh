@@ -1,5 +1,6 @@
 import { ArrowDown, MapPin, Truck, Wallet } from "lucide-react";
 import { siteConfig } from "@/config/site-config";
+import { cta } from "@/frontend/components/ui/cta";
 
 /** Free shipping, said once and plainly, between the box and the reviews. */
 export function FreeShipping() {
@@ -42,7 +43,7 @@ export function FreeShipping() {
 
         <a
           href="#preorder"
-          className="mt-10 inline-flex min-h-[54px] items-center justify-center gap-2 rounded-full bg-turmeric px-8 font-gazpacho text-base font-bold text-ink shadow-[4px_4px_0_0_var(--color-ink)] transition-all active:translate-x-[2px] active:translate-y-[2px]"
+          className={`mt-10 ${cta("gold")}`}
         >
           Pre-order now
           <ArrowDown className="h-4 w-4" />

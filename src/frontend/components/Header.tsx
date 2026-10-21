@@ -93,14 +93,13 @@ export function Header({ onOrderClick }: HeaderProps) {
             }}
           >
             <Image
-              src="/assets/brand/calogo.png"
-              alt="IAMSOUBH"
-              width={180}
-              height={50}
+              src="/assets/brand/logo-bmtp.svg"
+              alt="Bara Masa Tera Parba"
+              width={886}
+              height={450}
+              unoptimized
               priority
-              className={`h-6 w-auto object-contain transition-opacity group-hover:opacity-85 sm:h-8 md:h-9 ${
-                onDark ? "brightness-0 invert" : ""
-              }`}
+              className="h-10 w-auto object-contain transition-opacity group-hover:opacity-85 sm:h-12 md:h-14"
               style={
                 onDark
                   ? undefined

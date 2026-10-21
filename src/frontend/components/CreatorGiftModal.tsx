@@ -9,8 +9,16 @@ import { openMail, SUPPORT_EMAIL } from "@/frontend/lib/mailto";
 
 const PLATFORMS = ["Instagram", "YouTube", "Facebook", "X", "LinkedIn"] as const;
 
-// A full profile link, not a handle: https://instagram.com/yourname
-const isProfileLink = (v: string) => /^https?:\/\/[^\s/]+\.[^\s/]+\/?\S*$/i.test(v.trim());
+// A handle, with or without the @. The profile link is built from it for the mail.
+const PROFILE_URL: Record<(typeof PLATFORMS)[number], string> = {
+  Instagram: "https://instagram.com/",
+  YouTube: "https://youtube.com/@",
+  Facebook: "https://facebook.com/",
+  X: "https://x.com/",
+  LinkedIn: "https://linkedin.com/in/",
+};
+const cleanHandle = (v: string) => v.trim().replace(/^@/, "");
+const isHandle = (v: string) => /^[\w.-]{2,40}$/.test(cleanHandle(v));
 
 const PLAN_TAGS = [
   "Unboxing reel",
@@ -28,8 +36,8 @@ const STEPS = ["name", "social", "plan", "hook", "contact", "address"] as const;
 type Step = (typeof STEPS)[number];
 
 const QUESTIONS: Record<Step, { q: string; hint?: string }> = {
-  name: { q: "What should we call you?", hint: "Your name or your creator handle." },
-  social: { q: "Where do you post?", hint: "Pick every place you post. We will ask for the profile link." },
+  name: { q: "What should we call you?", hint: "Just your name." },
+  social: { q: "Where do you post?", hint: "Pick every place you post. We will ask for your handle." },
   plan: { q: "How would you feature it?", hint: "Pick all that fit." },
   hook: { q: "What made you stop at this calendar?", hint: "Pick all that fit." },
   contact: { q: "How do we reach you?", hint: "Only for dispatch updates." },
@@ -138,7 +146,7 @@ export function CreatorGiftModal({
       Phone: phone,
       Email: email,
       Socials: Object.entries(socials)
-        .map(([p, u]) => `${p}: ${u}`)
+        .map(([p, u]) => `${p}: ${u} (${PROFILE_URL[p as (typeof PLATFORMS)[number]]}${cleanHandle(u)})`)
         .join(" | "),
       Address: `${street}, ${city}, ${stateName} - ${pincode}`,
       "What made you stop": hooks.join(", "),
@@ -180,23 +188,22 @@ export function CreatorGiftModal({
           >
             <div
               role="dialog"
-              aria-label={`${editing} profile link`}
+              aria-label={`${editing} handle`}
               onClick={(e) => e.stopPropagation()}
               className="w-full rounded-3xl bg-rice p-5 shadow-[0_16px_48px_rgba(0,0,0,0.3)]"
             >
-              <p className="font-gazpacho text-lg font-bold text-ink">Your {editing} link</p>
-              <p className="mt-0.5 text-sm text-ink/60">Paste the full link to your profile, not just the handle.</p>
+              <p className="font-gazpacho text-lg font-bold text-ink">Your {editing} handle</p>
+              <p className="mt-0.5 text-sm text-ink/60">Just the username, like @iamsoubh.</p>
               <input
                 autoFocus
                 autoCapitalize="none"
-                inputMode="url"
-                placeholder={`https://${editing.toLowerCase()}.com/yourname`}
+                placeholder="@yourname"
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 className={`${inp} mt-3`}
               />
-              {draft.trim() && !isProfileLink(draft) && (
-                <p className="mt-2 text-sm font-semibold text-chandua">That needs to be a full link starting with https://</p>
+              {draft.trim() && !isHandle(draft) && (
+                <p className="mt-2 text-sm font-semibold text-chandua">Letters, numbers, dots and underscores only.</p>
               )}
               <div className="mt-4 flex gap-2">
                 {editing in socials && (
@@ -213,9 +220,9 @@ export function CreatorGiftModal({
                 )}
                 <button
                   type="button"
-                  disabled={!isProfileLink(draft)}
+                  disabled={!isHandle(draft)}
                   onClick={() => {
-                    setSocials((cur) => ({ ...cur, [editing]: draft.trim() }));
+                    setSocials((cur) => ({ ...cur, [editing]: `@${cleanHandle(draft)}` }));
                     setEditing(null);
                   }}
                   className="min-h-[48px] flex-1 rounded-full bg-chandua text-sm font-bold text-rice transition-transform active:scale-[0.98] disabled:bg-ink/10 disabled:text-ink/35"
@@ -311,7 +318,7 @@ export function CreatorGiftModal({
                     <input
                       autoFocus
                       autoComplete="name"
-                      placeholder="e.g. Soubhagya Ranjan or @channel"
+                      placeholder="e.g. Soubhagya Ranjan"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className={inp}

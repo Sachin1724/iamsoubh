@@ -1,11 +1,15 @@
+// Stock lives in env: change NEXT_PUBLIC_BATCH_CAP and redeploy. The count of
+// boxes sold comes live from Razorpay, so the cap is the only number to set.
+const envNum = (v: string | undefined, fallback: number) => (Number(v) > 0 ? Number(v) : fallback);
+
 export const siteConfig = {
   brandName: "The Odia Viral Calendar",
   edition: 2027,
   odiaTitle: "ବାର ମାସେ ତେର ପରବ",
   tagline: "For everyone who misses Odisha without saying it.",
 
-  batchCap: 500,
-  counterThreshold: 300,
+  batchCap: envNum(process.env.NEXT_PUBLIC_BATCH_CAP, 500),
+  counterThreshold: envNum(process.env.NEXT_PUBLIC_COUNTER_THRESHOLD, 300),
   soldOut: false,
 
   shipDateLabel: "First week of November 2026",
@@ -36,17 +40,16 @@ export const siteConfig = {
 // Prices come from env (NEXT_PUBLIC_ so the page and the server agree). Each
 // reference is written out in full because Next only inlines literal names.
 // Changing one needs a rebuild/redeploy; the fallbacks are the batch 1 prices.
-const num = (v: string | undefined, fallback: number) => (Number(v) > 0 ? Number(v) : fallback);
-const PRICE_1 = num(process.env.NEXT_PUBLIC_PRICE_1_BOX, 329);
-const PRICE_3 = num(process.env.NEXT_PUBLIC_PRICE_3_PLUS, 283);
-const PRICE_10 = num(process.env.NEXT_PUBLIC_PRICE_10_PLUS, 250);
+const PRICE_1 = envNum(process.env.NEXT_PUBLIC_PRICE_1_BOX, 329);
+const PRICE_3 = envNum(process.env.NEXT_PUBLIC_PRICE_3_PLUS, 283);
+const PRICE_10 = envNum(process.env.NEXT_PUBLIC_PRICE_10_PLUS, 250);
 
 export const products = {
   single: {
     id: "single" as const,
     name: "Calendar Box",
     price: PRICE_1,
-    strikePrice: num(process.env.NEXT_PUBLIC_PRICE_AFTER_BATCH, 339),
+    strikePrice: envNum(process.env.NEXT_PUBLIC_PRICE_AFTER_BATCH, 339),
   },
 } as const;
 

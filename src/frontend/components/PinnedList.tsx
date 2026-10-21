@@ -7,16 +7,17 @@ interface PinnedListProps {
   id: string;
   /** Section number; earlier sections are measured first. */
   number: number;
-  image: string;
-  position?: string;
+  /** Bento collage behind the list; it drifts sideways in an endless loop. */
+  collage: { src: string; span: string }[];
   children: ReactNode;
 }
 
 /**
- * One pinned photo; on scroll it blurs and the children rise over it as a
- * single block (not page by page). Reduced motion: static list, no blur.
+ * A pinned section over a faded bento collage that loops sideways forever. The
+ * collage fades in as the section arrives; the children rise over it as one
+ * block. Reduced motion: static collage and list.
  */
-export function PinnedList({ id, number, image, position = "50% 50%", children }: PinnedListProps) {
+export function PinnedList({ id, number, collage, children }: PinnedListProps) {
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -40,16 +41,20 @@ export function PinnedList({ id, number, image, position = "50% 50%", children }
           scrollTrigger: {
             trigger: el,
             start: "top top",
-            end: "+=220%",
+            end: "+=200%",
             pin: true,
             pinSpacing: true,
             refreshPriority: -number,
             scrub: 0.1,
           },
         });
-        tl.to("[data-pl-img]", { filter: "blur(7px)", scale: 1.06, duration: 1 }, 0)
-          .to("[data-pl-shade]", { opacity: 1, duration: 1 }, 0)
-          .fromTo("[data-pl-list]", { y: () => window.innerHeight }, { y: 0, duration: 1.3 }, 0)
+        // Fades in over the approach, so the collage is already there when it pins.
+        gsap.fromTo(
+          "[data-pl-img]",
+          { opacity: 0 },
+          { opacity: 0.65, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top top", scrub: true } }
+        );
+        tl.fromTo("[data-pl-list]", { y: () => window.innerHeight }, { y: 0, duration: 1.3 })
           .to({}, { duration: 0.8 }); // hold: text rests at centre before the section unpins
       }, el);
 
@@ -66,13 +71,26 @@ export function PinnedList({ id, number, image, position = "50% 50%", children }
 
   return (
     <section id={id} ref={root} className="relative h-svh overflow-hidden bg-ink">
-      <div data-pl-img className="absolute inset-0 will-change-[filter]">
-        <Image src={image} alt="" fill sizes="100vw" style={{ objectPosition: position }} className="object-cover" />
+      <div data-pl-img className="absolute inset-0 flex items-center opacity-65">
+        <div className="flex h-full w-max animate-marquee-x will-change-transform">
+          {[0, 1].map((copy) => (
+            <div
+              key={copy}
+              aria-hidden="true"
+              className="grid h-full shrink-0 grid-flow-col-dense grid-rows-4 auto-cols-[23svh] sm:grid-rows-3 sm:auto-cols-[26svh] gap-1.5 p-1.5 pr-0"
+            >
+              {collage.map((c, i) => (
+                <div key={c.src} className={`relative overflow-hidden rounded-lg ${c.span}`}>
+                  <Image src={c.src} alt="" fill sizes="25svh" unoptimized priority={copy === 0 && i < 4} className="object-cover" />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/55" />
-      <div data-pl-shade className="pointer-events-none absolute inset-0 bg-black/45 opacity-0" />
-      <div className="absolute inset-0 z-10 flex items-center">
-        <div data-pl-list className="mx-auto w-full max-w-3xl px-5 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 bg-black/15" />
+      <div className="absolute inset-0 z-10 flex items-center px-4">
+        <div data-pl-list className="mx-auto w-full max-w-3xl rounded-2xl bg-black/60 p-5 backdrop-blur-md [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] sm:p-8">
           {children}
         </div>
       </div>

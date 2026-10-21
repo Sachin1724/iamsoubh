@@ -4,9 +4,10 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { AmbientFestiveLayer } from "@/frontend/components/AmbientFestiveLayer";
-import { lowestBoxPrice } from "@/config/site-config";
+import { lowestBoxPrice, siteConfig } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
+import { cta } from "@/frontend/components/ui/cta";
 
 // The product, and the two views that flank it. The outer pair is cropped by
 // the fold on purpose: something is always left to scroll to.
@@ -171,12 +172,13 @@ export function Hero() {
         <h1 className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</h1>
         <Image
           data-hero-lettering
-          src="/assets/product-logo-v2.png"
+          src="/assets/brand/logo-bmtp.svg"
           alt=""
-          width={782}
-          height={383}
+          width={886}
+          height={450}
+          unoptimized
           preload
-          className="mt-6 h-auto w-full max-w-[400px] select-none brightness-0 invert xl:max-w-[540px]"
+          className="mt-6 h-auto w-full max-w-[370px] select-none brightness-0 invert xl:max-w-[500px]"
         />
         <div data-hero-part className="mt-2 flex items-center gap-2">
           <span className="font-editorial text-2xl italic text-white/90">by</span>
@@ -190,7 +192,7 @@ export function Hero() {
         </div>
         <p data-hero-part className="mt-6 max-w-[34ch] font-subtext text-lg xl:text-xl font-light italic leading-snug text-white/90">
           {soldOut ? (
-            "All 500 are gone. Thank you, Odisha."
+            `All ${siteConfig.batchCap} are gone. Thank you, Odisha.`
           ) : (
             <>
               In <strong className="font-semibold">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
@@ -201,7 +203,7 @@ export function Hero() {
           <button
             type="button"
             onClick={() => scrollToTarget("#preorder")}
-            className="inline-flex cursor-pointer select-none items-center justify-center gap-2 rounded-xl bg-[#8A1717] px-9 py-4 font-gazpacho text-base font-bold tracking-wide text-[#FAF6EE] shadow-[2px_2px_0_0_#1B1B1B] transition-all hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px]"
+            className={cta("red")}
           >
             <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
@@ -239,12 +241,13 @@ export function Hero() {
             <span className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</span>
             <Image
               data-hero-lettering
-              src="/assets/product-logo-v2.png"
+              src="/assets/brand/logo-bmtp.svg"
               alt="Bara Masa Tera Parba"
-              width={782}
-              height={383}
+              width={886}
+              height={450}
+              unoptimized
               preload
-              className="mx-auto h-auto w-[78%] max-w-[340px] select-none sm:w-[56%] sm:max-w-[420px]"
+              className="mx-auto h-auto w-[72%] max-w-[315px] select-none sm:w-[52%] sm:max-w-[390px] sm:[filter:brightness(0)_saturate(100%)_invert(10%)_sepia(40%)_saturate(4000%)_hue-rotate(338deg)]"
             />
           </h1>
           <div data-hero-part className="mt-2 flex -translate-x-5 items-center justify-center gap-1.5">
@@ -270,7 +273,7 @@ export function Hero() {
             className="mx-auto mt-3 sm:mt-3.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-sm sm:text-base leading-snug font-light italic text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.55)] sm:font-normal sm:not-italic sm:text-on-light/85 sm:[text-shadow:none]"
           >
             {soldOut ? (
-              "All 500 are gone. Thank you, Odisha."
+              `All ${siteConfig.batchCap} are gone. Thank you, Odisha.`
             ) : (
               <>
                 In <strong className="font-normal sm:font-bold sm:text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
@@ -283,7 +286,7 @@ export function Hero() {
             <button
               type="button"
               onClick={() => scrollToTarget("#preorder")}
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-xl select-none text-center"
+              className={cta("red")}
             >
               <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
               <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>

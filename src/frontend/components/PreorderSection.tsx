@@ -9,6 +9,7 @@ import { siteConfig, products, ProductId, TIERS, MAX_BOXES, boxPrice } from "@/c
 import { startCheckout } from "@/frontend/lib/checkout";
 import { useStock } from "@/frontend/lib/useStock";
 import { openMail } from "@/frontend/lib/mailto";
+import { cta } from "@/frontend/components/ui/cta";
 
 export interface OrderData {
   product: ProductId;
@@ -253,7 +254,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               <button
                 type="submit"
                 disabled={paying}
-                className="mt-8 flex min-h-[60px] w-full items-center justify-center rounded-full bg-pipili-red px-8 font-gazpacho text-lg font-bold text-on-dark transition-opacity hover:opacity-90 disabled:opacity-60"
+                className={`mt-8 w-full ${cta("red")}`}
               >
                 {paying ? "Opening Razorpay…" : `Buy Now · ₹${total.toLocaleString("en-IN")}`}
               </button>
@@ -335,7 +336,7 @@ function Waitlist() {
           <button
             type="submit"
             disabled={!valid}
-            className="flex min-h-[52px] w-full items-center justify-center rounded-full bg-pipili-red font-gazpacho text-base font-bold text-on-dark transition-all active:scale-[0.98] disabled:bg-on-light/10 disabled:text-on-light/35"
+            className={`w-full ${cta("red")}`}
           >
             Tell me first
           </button>

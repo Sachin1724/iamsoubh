@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { sendOrderEmails } from "@/backend/email";
 import { alert } from "@/backend/clients";
 import { fetchPaidOrder } from "@/backend/magic-address";
+import { logToSheet } from "@/backend/sheet";
 
 export async function POST(req: NextRequest) {
   // The signature is over the raw body, so read text and parse by hand.
@@ -24,22 +24,37 @@ export async function POST(req: NextRequest) {
   const payload = JSON.parse(raw);
   const event: string = payload.event;
 
-  // order.paid would fire for the same money, so only payment.captured mails —
-  // two subscribed events would otherwise mean two confirmations.
+  // order.paid would fire for the same money, so only payment.captured logs the
+  // order — two subscribed events would otherwise write it twice.
   if (event === "payment.captured") {
     const entity = payload.payload.payment.entity;
     try {
       const order = await fetchPaidOrder(entity.order_id, entity.id);
-      const { buyer, operator } = await sendOrderEmails(order);
-      if (!operator.sent) {
-        await alert(`ADMIN MAIL FAILED for ${entity.order_id}: ${operator.reason}`);
-      }
-      if (!buyer.sent && order.email) {
-        await alert(`buyer mail failed for ${entity.order_id}: ${buyer.reason}`);
-      }
+      await logToSheet(
+        "Orders",
+        {
+          "Order Id": order.razorpayOrderId,
+          Status: "Paid",
+          Paid: new Date().toISOString(),
+          "Payment Id": order.paymentId ?? "",
+          Name: order.name,
+          Phone: order.phone,
+          Email: order.email,
+          Address: order.address,
+          Landmark: order.landmark,
+          City: order.city,
+          State: order.state,
+          Pincode: order.pincode,
+          Boxes: order.boxes,
+          "Amount (INR)": order.amountInr,
+          "Gift Note": order.giftNote,
+          Source: order.utm,
+        },
+        order.razorpayOrderId
+      );
     } catch (e) {
       // Razorpay retries on a non-200, so fail loudly here rather than swallowing
-      // an order that nobody was told about.
+      // an order that never reached the sheet.
       await alert(`webhook failed for ${entity.order_id}: ${String(e)}`);
       return NextResponse.json({ code: "HANDLER_FAILED" }, { status: 500 });
     }

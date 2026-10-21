@@ -5,6 +5,7 @@ import "./globals.css";
 import { RevealObserver } from "@/frontend/components/Reveal";
 import { Analytics } from "@/frontend/components/Analytics";
 import { SmoothScroll } from "@/frontend/components/SmoothScroll";
+import { siteConfig } from "@/config/site-config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -109,13 +110,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://iamsoubh.com"),
   title: "IAMSOUBH — Bara Masa Tera Parba 2027 | The Odia Viral Calendar",
   description:
-    "Pre-orders open for the first 500 boxes of the 2027 edition. 12 festival cards, sealed 13th parba, stickers, and Odisha heritage. For everyone who misses Odisha without saying it.",
+    `Pre-orders open for the first ${siteConfig.batchCap} boxes of the 2027 edition. 12 festival cards, sealed 13th parba, stickers, and Odisha heritage. For everyone who misses Odisha without saying it.`,
   // No photo of the 2027 box anywhere, including the link preview: three card
   // fronts fanned out is the share image until the first parcels ship.
   openGraph: {
     title: "The Odia Viral Calendar is back · 2027",
     description:
-      "12 festival cards, one sealed 13th parba. Only 500 in batch 1, shipping the first week of November.",
+      `12 festival cards, one sealed 13th parba. Only ${siteConfig.batchCap} in batch 1, shipping the first week of November.`,
     images: ["/assets/product%20mockup/View%204.png"],
   },
 };

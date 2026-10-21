@@ -1,5 +1,12 @@
 import { PinnedList } from "@/frontend/components/PinnedList";
 
+// Bento layout: 24 cells of area in 4 columns (2 on phones), packed densely.
+const L = "col-span-2 row-span-2", T = "row-span-2", W = "col-span-2", S = "";
+const COLLAGE = [L, S, T, S, W, T, S, S, T, W, S, S, T, S, S].map((span, i) => ({
+  src: `/assets/festival/f${String(i + 1).padStart(2, "0")}.webp`,
+  span,
+}));
+
 const LINES = [
   "For everyone who misses Odisha without saying it.",
   "Raja came and went. You found out from someone's story.",
@@ -10,7 +17,7 @@ const LINES = [
 
 export function SoundFamiliar() {
   return (
-    <PinnedList id="sound-familiar" number={2} image="/assets/story/street.jpg" position="50% 35%">
+    <PinnedList id="sound-familiar" number={2} collage={COLLAGE}>
       <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-wider text-turmeric">Sound familiar?</p>
       <ul className="space-y-3 sm:space-y-5">
         {LINES.map((line) => (

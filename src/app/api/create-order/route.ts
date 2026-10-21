@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { getRazorpay, forceSoldOut, alert } from "@/backend/clients";
 import { boxesSold } from "@/backend/orders";
+import { logToSheet } from "@/backend/sheet";
 import { siteConfig, boxPrice, MAX_BOXES } from "@/config/site-config";
 
 type Customer = {
@@ -115,6 +116,20 @@ export async function POST(req: NextRequest) {
 
     const rzpOrder = await getRazorpay().orders.create(
       orderPayload as unknown as Parameters<ReturnType<typeof getRazorpay>["orders"]["create"]>[0]
+    );
+
+    // Logged as Unpaid now; the payment webhook flips the same row to Paid.
+    await logToSheet(
+      "Orders",
+      {
+        "Order Id": rzpOrder.id,
+        Status: "Unpaid",
+        Created: new Date().toISOString(),
+        Phone: c.phone!,
+        Boxes: boxes,
+        "Amount (INR)": amount / 100,
+      },
+      rzpOrder.id
     );
 
     return NextResponse.json({

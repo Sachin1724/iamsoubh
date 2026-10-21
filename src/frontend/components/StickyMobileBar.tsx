@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { lowestBoxPrice } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
+import { cta } from "@/frontend/components/ui/cta";
 
 interface StickyMobileBarProps {
   onOrderClick?: () => void;
@@ -75,7 +76,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         type="button"
         onClick={handleOrder}
         tabIndex={visible ? 0 : -1}
-        className="relative inline-flex shrink-0 cursor-pointer select-none items-center gap-1.5 rounded-xl bg-chandua px-5 py-3 font-gazpacho text-sm font-bold text-rice transition-transform active:scale-[0.97]"
+        className={`relative shrink-0 ${cta("red", "sm")}`}
       >
         {soldOut ? "Join batch 2" : "Pre-order"}
         <ArrowRight className="h-4 w-4" />

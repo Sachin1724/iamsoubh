@@ -17,6 +17,14 @@ export function openMail(
 ) {
   const subject = `[${kind}] ${who.trim() || "Enquiry"}`;
 
+  // Also log it to the Google Sheet (best effort), in case the Gmail draft is never sent.
+  fetch("/api/sheet", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ kind, fields }),
+    keepalive: true,
+  }).catch(() => {});
+
   const body = Object.entries(fields)
     .filter(([, value]) => value && value.trim())
     .map(([label, value]) => `${label}: ${value!.trim()}`)
