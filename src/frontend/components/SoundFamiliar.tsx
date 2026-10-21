@@ -21,7 +21,7 @@ export function SoundFamiliar() {
       <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-wider text-turmeric">Sound familiar?</p>
       <ul className="space-y-3 sm:space-y-5">
         {LINES.map((line) => (
-          <li key={line} className="flex gap-3 font-gazpacho text-[1.05rem] font-bold leading-snug text-white sm:text-2xl">
+          <li key={line} className="flex gap-3 font-sans text-[1.05rem] font-semibold leading-snug text-white sm:text-2xl">
             <span className="mt-[0.55em] h-2 w-2 shrink-0 rounded-full bg-turmeric" aria-hidden="true" />
             {line}
           </li>
