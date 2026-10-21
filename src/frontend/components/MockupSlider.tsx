@@ -101,7 +101,7 @@ export function MockupSlider({
               fill
               priority={priority && i === 0}
               sizes={sizes}
-              className={`object-contain drop-shadow-[0_24px_40px_rgba(90,15,20,0.18)] ${m.zoom}`}
+              className={`object-contain ${m.zoom}`}
             />
           </div>
         ))}

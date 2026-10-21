@@ -162,11 +162,11 @@ export function Hero() {
 
       <div
         data-hero-copy
-        className="absolute inset-y-0 right-[5vw] z-20 hidden w-full max-w-[300px] xl:max-w-[380px] flex-col items-end justify-center pt-16 text-right text-white lg:flex"
+        className="absolute inset-y-0 right-[5vw] z-20 hidden w-full max-w-[420px] xl:max-w-[540px] flex-col items-end justify-center pt-16 text-right text-white lg:flex"
       >
         <div data-hero-part className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E0A526]" />
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">Edition 2027</span>
+          <span className="font-mono text-sm uppercase tracking-[0.14em] text-white/85">Edition 2027</span>
         </div>
         <h1 className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</h1>
         <Image
@@ -176,19 +176,19 @@ export function Hero() {
           width={782}
           height={383}
           preload
-          className="mt-6 h-auto w-full max-w-[260px] select-none brightness-0 invert xl:max-w-[360px]"
+          className="mt-6 h-auto w-full max-w-[400px] select-none brightness-0 invert xl:max-w-[540px]"
         />
         <div data-hero-part className="mt-2 flex items-center gap-2">
-          <span className="font-editorial text-lg italic text-white/90">by</span>
+          <span className="font-editorial text-2xl italic text-white/90">by</span>
           <Image
             src="/assets/brand/calogo.png"
             alt="IAMSOUBH"
             width={180}
             height={50}
-            className="h-6 w-auto select-none object-contain brightness-0 invert"
+            className="h-8 w-auto select-none object-contain brightness-0 invert"
           />
         </div>
-        <p data-hero-part className="mt-6 max-w-[34ch] font-subtext text-[15px] font-light italic leading-snug text-white/90">
+        <p data-hero-part className="mt-6 max-w-[34ch] font-subtext text-lg xl:text-xl font-light italic leading-snug text-white/90">
           {soldOut ? (
             "All 500 are gone. Thank you, Odisha."
           ) : (
@@ -201,12 +201,12 @@ export function Hero() {
           <button
             type="button"
             onClick={() => scrollToTarget("#preorder")}
-            className="inline-flex cursor-pointer select-none items-center justify-center gap-2 rounded-xl bg-[#8A1717] px-7 py-3 font-gazpacho text-sm font-bold tracking-wide text-[#FAF6EE] shadow-[2px_2px_0_0_#1B1B1B] transition-all hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px]"
+            className="inline-flex cursor-pointer select-none items-center justify-center gap-2 rounded-xl bg-[#8A1717] px-9 py-4 font-gazpacho text-base font-bold tracking-wide text-[#FAF6EE] shadow-[2px_2px_0_0_#1B1B1B] transition-all hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px]"
           >
-            <span>{soldOut ? "Join batch 2" : `Pre-order · ₹${products.single.price}`}</span>
+            <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${products.gift.perBox}`}</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
           </button>
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
             <ShoppingCart className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             <span>Free shipping all over India</span>
           </span>
@@ -244,7 +244,7 @@ export function Hero() {
               width={782}
               height={383}
               preload
-              className="mx-auto h-auto w-[62%] max-w-[270px] select-none sm:w-[48%] sm:max-w-[340px]"
+              className="mx-auto h-auto w-[78%] max-w-[340px] select-none sm:w-[56%] sm:max-w-[420px]"
             />
           </h1>
           <div data-hero-part className="mt-2 flex -translate-x-5 items-center justify-center gap-1.5">
@@ -267,7 +267,7 @@ export function Hero() {
           {/* Clean copy text: white italic over the photo on phones */}
           <p
             data-hero-part
-            className="mx-auto mt-3 sm:mt-3.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-xs sm:text-[14px] leading-snug font-light italic text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.55)] sm:font-normal sm:not-italic sm:text-on-light/85 sm:[text-shadow:none]"
+            className="mx-auto mt-3 sm:mt-3.5 w-full max-w-[36ch] sm:max-w-[42ch] text-center font-subtext text-sm sm:text-base leading-snug font-light italic text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.55)] sm:font-normal sm:not-italic sm:text-on-light/85 sm:[text-shadow:none]"
           >
             {soldOut ? (
               "All 500 are gone. Thank you, Odisha."
@@ -285,7 +285,7 @@ export function Hero() {
               onClick={() => scrollToTarget("#preorder")}
               className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-xl select-none text-center"
             >
-              <span>{soldOut ? "Join batch 2" : `Pre-order · ₹${products.single.price}`}</span>
+              <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${products.gift.perBox}`}</span>
               <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
             </button>
             
@@ -317,7 +317,7 @@ export function Hero() {
                 alt={shot.alt}
                 fill
                 sizes={middle ? "(max-width: 640px) 100vw, 700px" : "36vw"}
-                className="object-contain object-bottom drop-shadow-[0_20px_36px_rgba(90,15,20,0.22)]"
+                className="object-contain object-bottom"
               />
             </div>
           );
