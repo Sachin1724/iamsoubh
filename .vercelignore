@@ -1,0 +1,17 @@
+*.zip
+VIDEOPROFILE/
+Gazpacho-Font/
+archive/
+iamsoubh_iamge/
+odia-calendar-2027-build-docs/
+odia-viral-calendar-2027-assets/
+odia-viral-calendar-2027-spec/
+Review/
+.agents/
+.taste-skill/
+.git
+.vercel
+node_modules
+Screenshot_*.png
+Untitled-*.png
+vecteezy_*.png
