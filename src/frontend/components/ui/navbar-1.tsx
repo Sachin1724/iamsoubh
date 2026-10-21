@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Mail, AtSign } from "lucide-react";
-import { siteConfig, products } from "@/config/site-config";
+import { siteConfig, lowestBoxPrice } from "@/config/site-config";
 import { trackGA } from "@/frontend/lib/track";
 
 // A pinned section's own offsetTop is meaningless while GSAP holds it in place;
@@ -337,7 +337,7 @@ const Navbar1 = ({
                   className="inline-flex items-center justify-center w-full px-5 py-3 text-base font-bold text-ink bg-turmeric hover:bg-[#E5B23F] active:translate-x-[1px] active:translate-y-[1px] rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)] transition-all cursor-pointer"
                   onClick={handleCtaClick}
                 >
-                  {ctaText ?? "Pre-book now"} &middot; from &#8377;{products.gift.perBox}
+                  {ctaText ?? "Pre-book now"} &middot; from &#8377;{lowestBoxPrice}
                 </a>
               </motion.div>
             </div>

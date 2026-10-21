@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { AmbientFestiveLayer } from "@/frontend/components/AmbientFestiveLayer";
-import { products } from "@/config/site-config";
+import { lowestBoxPrice } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
 
@@ -203,7 +203,7 @@ export function Hero() {
             onClick={() => scrollToTarget("#preorder")}
             className="inline-flex cursor-pointer select-none items-center justify-center gap-2 rounded-xl bg-[#8A1717] px-9 py-4 font-gazpacho text-base font-bold tracking-wide text-[#FAF6EE] shadow-[2px_2px_0_0_#1B1B1B] transition-all hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px]"
           >
-            <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${products.gift.perBox}`}</span>
+            <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
           </button>
           <span className="inline-flex items-center gap-1.5 text-sm font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
@@ -285,7 +285,7 @@ export function Hero() {
               onClick={() => scrollToTarget("#preorder")}
               className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#8A1717] hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] text-[#FAF6EE] font-gazpacho font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0_0_#1B1B1B] transition-all cursor-pointer rounded-xl select-none text-center"
             >
-              <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${products.gift.perBox}`}</span>
+              <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
               <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
             </button>
             

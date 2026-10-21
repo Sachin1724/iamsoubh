@@ -5,7 +5,7 @@ component is a build error, not a leaked secret.
 
 | File | Holds |
 | --- | --- |
-| `clients.ts` | Razorpay client, server-side `PRICING`, `forceSoldOut`, `alert` |
+| `clients.ts` | Razorpay client, `forceSoldOut`, `alert` |
 | `orders.ts` | Paid orders and the box count, read from Razorpay (cached 60s); admin CSV |
 | `magic-address.ts` | Maps a Razorpay Magic Checkout order to our `PaidOrder` |
 | `email.ts` | Order and admin email templates, sent through Resend |

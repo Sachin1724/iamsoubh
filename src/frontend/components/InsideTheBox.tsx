@@ -1,5 +1,5 @@
-import { products, siteConfig } from "@/config/site-config";
-import { PinnedList } from "@/frontend/components/PinnedList";
+import { lowestBoxPrice, siteConfig } from "@/config/site-config";
+import Image from "next/image";
 
 const ITEMS = [
   { count: "12", title: "festival cards", body: "A painting on the front, the month's dates on the back." },
@@ -12,10 +12,20 @@ const ITEMS = [
   },
 ];
 
-/** Section 03. The contents of the box as one list over a single photo. */
+/** Section 03. The contents of the box as one list over a single photo, no scroll effects. */
 export function InsideTheBox() {
   return (
-    <PinnedList id="inside-calendar" number={3} image="/assets/story/flatlay.jpg" position="55% 40%">
+    <section id="inside-calendar" className="relative overflow-hidden bg-ink py-20 sm:py-28">
+      <Image
+        src="/assets/story/flatlay.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        style={{ objectPosition: "55% 40%" }}
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-black/60" />
+      <div className="relative mx-auto w-full max-w-3xl px-5 sm:px-6">
       <h2 className="font-gazpacho text-3xl font-bold leading-tight text-white sm:text-5xl">What you get inside.</h2>
       <p className="mb-5 mt-1 text-[0.85rem] font-light italic text-white/80 sm:text-base">
         Everything in the box, in the order you will find it.
@@ -35,13 +45,15 @@ export function InsideTheBox() {
       </ul>
       <a
         href="#preorder"
-        className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full bg-pipili-red px-7 font-gazpacho text-base font-bold text-on-dark shadow-[3px_3px_0_0_var(--color-ink)] transition-all active:translate-x-[2px] active:translate-y-[2px]"
+        className="mt-8 inline-flex min-h-[60px] w-full items-center justify-center gap-3 rounded-xl bg-[#8A1717] px-10 py-4 font-gazpacho text-lg font-bold tracking-wide text-[#FAF6EE] shadow-[3px_3px_0_0_#1B1B1B] transition-all hover:bg-[#6E1212] active:translate-x-[1px] active:translate-y-[1px] sm:w-auto sm:min-h-[68px] sm:text-xl"
       >
-        Pre-order now
+        <span>Pre-order now</span>
+        <span className="font-mono text-lg leading-none text-[#E0A526]">→</span>
       </a>
-      <p className="mt-2 text-xs font-semibold text-white/80">
-        From ₹{products.gift.perBox} a box · {siteConfig.freeDeliveryLabel}
+      <p className="mt-3 text-sm font-semibold text-white/85">
+        From ₹{lowestBoxPrice} a box · {siteConfig.freeDeliveryLabel}
       </p>
-    </PinnedList>
+      </div>
+    </section>
   );
 }

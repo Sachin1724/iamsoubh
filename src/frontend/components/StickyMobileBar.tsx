@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-import { products } from "@/config/site-config";
+import { lowestBoxPrice } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
 
@@ -64,7 +64,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         ) : (
           <>
             <p className="truncate text-sm font-bold leading-tight text-ink">
-              {showCounter && stock ? `${stock.remaining} left` : "Batch 1"} · from ₹{products.gift.perBox} a box
+              {showCounter && stock ? `${stock.remaining} left` : "Batch 1"} · from ₹{lowestBoxPrice} a box
             </p>
             <p className="mt-0.5 truncate text-xs text-ink/60">Free delivery all over India</p>
           </>

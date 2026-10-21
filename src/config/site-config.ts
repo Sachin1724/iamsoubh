@@ -33,43 +33,32 @@ export const siteConfig = {
   razorpayKeyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_placeholder",
 } as const;
 
+// Prices come from env (NEXT_PUBLIC_ so the page and the server agree). Each
+// reference is written out in full because Next only inlines literal names.
+// Changing one needs a rebuild/redeploy; the fallbacks are the batch 1 prices.
+const num = (v: string | undefined, fallback: number) => (Number(v) > 0 ? Number(v) : fallback);
+const PRICE_1 = num(process.env.NEXT_PUBLIC_PRICE_1_BOX, 329);
+const PRICE_3 = num(process.env.NEXT_PUBLIC_PRICE_3_PLUS, 283);
+const PRICE_10 = num(process.env.NEXT_PUBLIC_PRICE_10_PLUS, 250);
+
 export const products = {
   single: {
     id: "single" as const,
-    name: "Single Box",
-    boxes: 1,
-    price: 329,
-    pricePaise: 32900,
-    strikePrice: 339,
-    maxQty: 9,
-    payButtonLabel: "Let's Odia this",
-    description: "One box for you. 12 cards and a sealed 13th.",
-  },
-  family: {
-    id: "family" as const,
-    name: "Family Pack (x3)",
-    boxes: 3,
-    price: 849,
-    pricePaise: 84900,
-    perBox: 283,
-    maxQty: 3,
-    badge: "Save ₹138",
-    payButtonLabel: "Odia-fy the family",
-    description: "For Maa, Bapa and you.",
-  },
-  gift: {
-    id: "gift" as const,
-    name: "Gift Pack (x10)",
-    boxes: 10,
-    price: 2499,
-    pricePaise: 249900,
-    perBox: 250,
-    maxQty: 1,
-    badge: "Best value · Save ₹791",
-    payButtonLabel: "Odia-fy everyone",
-    description: "Keep one, gift nine.",
+    name: "Calendar Box",
+    price: PRICE_1,
+    strikePrice: num(process.env.NEXT_PUBLIC_PRICE_AFTER_BATCH, 339),
   },
 } as const;
+
+/** Per-box price by how many boxes are in the order: it steps down, never resets. */
+export const TIERS = [
+  { from: 10, price: PRICE_10 },
+  { from: 3, price: PRICE_3 },
+  { from: 1, price: PRICE_1 },
+] as const;
+export const boxPrice = (boxes: number) => TIERS.find((t) => boxes >= t.from)!.price;
+export const lowestBoxPrice = TIERS[0].price;
+export const MAX_BOXES = 20;
 
 export type ProductId = keyof typeof products;
 export type SiteConfig = typeof siteConfig;

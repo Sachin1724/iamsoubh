@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { getRazorpay, PRICING, isProduct, forceSoldOut, alert } from "@/backend/clients";
+import { getRazorpay, forceSoldOut, alert } from "@/backend/clients";
 import { boxesSold } from "@/backend/orders";
-import { siteConfig } from "@/config/site-config";
+import { siteConfig, boxPrice, MAX_BOXES } from "@/config/site-config";
 
 type Customer = {
   name?: string;
@@ -16,14 +16,6 @@ type Customer = {
   giftNote?: string;
 };
 
-// The box stays secret until it ships, so the checkout line item shows the
-// gamuchha-wrapped parcel instead.
-const LABELS = {
-  single: "Single Box",
-  family: "Family Pack (3 boxes)",
-  gift: "Gift Pack (10 boxes)",
-} as const;
-
 export async function POST(req: NextRequest) {
   if (forceSoldOut()) {
     return NextResponse.json({ code: "SOLD_OUT" }, { status: 409 });
@@ -32,23 +24,19 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   if (!body) return NextResponse.json({ code: "BAD_REQUEST" }, { status: 400 });
 
-  const { product, qty, customer, utm } = body as {
-    product: unknown;
+  const { qty, customer, utm } = body as {
     qty: unknown;
     customer?: Customer;
     utm?: Record<string, string>;
   };
 
-  if (!isProduct(product)) {
-    return NextResponse.json({ code: "BAD_PRODUCT" }, { status: 400 });
-  }
-
-  const rules = PRICING[product];
-  if (!Number.isInteger(qty) || (qty as number) < 1 || (qty as number) > rules.maxQty) {
+  if (!Number.isInteger(qty) || (qty as number) < 1 || (qty as number) > MAX_BOXES) {
     return NextResponse.json({ code: "BAD_QTY" }, { status: 400 });
   }
 
+  // One box type; qty is the number of boxes, and the per-box price follows it.
   const quantity = qty as number;
+  const product = "single";
   const c = customer ?? {};
 
   // Magic Checkout collects the delivery address itself, so the phone number is
@@ -59,7 +47,8 @@ export async function POST(req: NextRequest) {
   }
 
   // Price and box count come from server config only.
-  const boxes = rules.boxesEach * quantity;
+  const boxes = quantity;
+  const unit = boxPrice(boxes);
 
   // The batch is capped, and the count is a sum over Razorpay's own paid
   // orders — no store to drift out of sync with the money.
@@ -76,12 +65,13 @@ export async function POST(req: NextRequest) {
     await alert("stock check failed; order allowed through without a cap check");
   }
 
-  const amount = rules.price * quantity * 100;
+  const amount = unit * boxes * 100;
   const receipt = crypto.randomUUID();
 
   try {
     const site = process.env.NEXT_PUBLIC_SITE_URL || "https://iamsoubh.com";
-    const label = `Odia Viral Calendar 2027 · ${LABELS[product]}`;
+    // The box stays secret until it ships, so the line item shows the gamuchha-wrapped parcel.
+    const label = `Odia Viral Calendar 2027 · ${boxes} box${boxes > 1 ? "es" : ""}`;
 
     // The SDK's types predate Magic Checkout's line_items, so the payload is
     // built loosely and cast back to what orders.create accepts.
@@ -96,12 +86,12 @@ export async function POST(req: NextRequest) {
         {
           sku: product,
           variant_id: product,
-          price: rules.price * 100,
-          offer_price: rules.price * 100,
+          price: unit * 100,
+          offer_price: unit * 100,
           quantity,
           name: label,
           description: `${boxes} box${boxes > 1 ? "es" : ""} · 12 festival cards, a sealed 13th parba, stickers and a note.`,
-          image_url: `${site}/assets/product/parcel-${rules.boxesEach}.webp`,
+          image_url: `${site}/assets/product/parcel-${boxes >= 10 ? 10 : boxes >= 3 ? 3 : 1}.webp`,
         },
       ],
       // Razorpay is the only order store now, so everything the admin mail and

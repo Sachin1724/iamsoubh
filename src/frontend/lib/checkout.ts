@@ -49,7 +49,7 @@ export async function startCheckout(
   track("InitiateCheckout", "begin_checkout", {
     value: order.total,
     currency: "INR",
-    contents: [{ id: order.product, quantity: order.quantity }],
+    contents: [{ id: order.product, quantity: order.boxes }],
   });
 
   try {
@@ -59,8 +59,7 @@ export async function startCheckout(
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        product: order.product,
-        qty: order.quantity,
+        qty: order.boxes,
         customer: {
           phone: order.phone,
         },

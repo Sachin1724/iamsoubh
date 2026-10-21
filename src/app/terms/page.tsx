@@ -1,5 +1,5 @@
 import { PolicyPage, Confirm } from "@/frontend/components/PolicyPage";
-import { siteConfig, products } from "@/config/site-config";
+import { siteConfig, TIERS } from "@/config/site-config";
 
 export const metadata = { title: "Terms · The Odia Viral Calendar 2027" };
 
@@ -35,18 +35,18 @@ export default function Terms() {
       <h2>The sealed 13th parba</h2>
       <p>
         Each box contains one sealed 13th parba card, selected at random from three: Sahi Jata
-        (Puri), Sitalsasthi (Sambalpur) and Gajalaxmi Puja (Dhenkanal). A Gift Pack counts as ten boxes against the batch cap. Single boxes cannot
-        choose which one they receive. A Family Pack is guaranteed to contain all three.
+        (Puri), Sitalsasthi (Sambalpur) and Gajalaxmi Puja (Dhenkanal). Each box counts against the batch cap. A single box cannot
+        choose which one they receive. An order of 3 or more boxes is guaranteed to contain all three.
       </p>
 
       <h2>Prices and taxes</h2>
       <p>
         Prices are in Indian Rupees and{" "}
         {siteConfig.gstIncluded ? "include applicable taxes" : "are exclusive of applicable taxes"}.
-        A Single Box is <span className="rupee">₹</span>
-        {products.single.price}, a Family Pack is <span className="rupee">₹</span>
-        {products.family.price} and a Gift Pack is <span className="rupee">₹</span>
-        {products.gift.price} during batch 1. The order total is calculated on our servers at
+        During batch 1 a box is <span className="rupee">₹</span>
+        {TIERS[2].price} for 1 or 2 boxes, <span className="rupee">₹</span>
+        {TIERS[1].price} a box for 3 to 9 boxes and <span className="rupee">₹</span>
+        {TIERS[0].price} a box for 10 or more. The order total is calculated on our servers at
         the moment of payment.
       </p>
 

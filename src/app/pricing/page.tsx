@@ -1,5 +1,5 @@
 import { PolicyPage } from "@/frontend/components/PolicyPage";
-import { products } from "@/config/site-config";
+import { products, TIERS, MAX_BOXES } from "@/config/site-config";
 
 export const metadata = { title: "Pricing · The Odia Viral Calendar 2027" };
 
@@ -9,20 +9,22 @@ export default function Pricing() {
       <p>All prices are in Indian Rupees and include applicable taxes.</p>
 
       <h2>Batch 1 pre-order</h2>
+      <p>
+        One box is 12 festival cards and one sealed 13th parba. The price per box steps down as you add
+        boxes, and the lower price applies to every box in the order:
+      </p>
       <ul>
         <li>
-          <strong>Single Box</strong> — <span className="rupee">₹</span>
-          {products.single.price}. One box, twelve festival cards and one sealed 13th parba.
+          <strong>1 or 2 boxes</strong> — <span className="rupee">₹</span>
+          {TIERS[2].price} a box
         </li>
         <li>
-          <strong>Family Pack (x3)</strong> — <span className="rupee">₹</span>
-          {products.family.price}, which works out at <span className="rupee">₹</span>
-          {products.family.perBox} a box. For Maa, Bapa and you, plus an extra sticker sheet.
+          <strong>3 to 9 boxes</strong> — <span className="rupee">₹</span>
+          {TIERS[1].price} a box
         </li>
         <li>
-          <strong>Gift Pack (x10)</strong> — <span className="rupee">₹</span>
-          {products.gift.price}, about <span className="rupee">₹</span>
-          {products.gift.perBox} a box. Keep one, gift nine.
+          <strong>10 boxes or more</strong> — <span className="rupee">₹</span>
+          {TIERS[0].price} a box
         </li>
       </ul>
 
@@ -37,7 +39,7 @@ export default function Pricing() {
 
       <h2>Bulk orders</h2>
       <p>
-        Ten boxes or more are priced on request and invoiced separately. Use the
+        For more than {MAX_BOXES} boxes, we price on request and invoice separately. Use the
         &ldquo;Request a quote&rdquo; form on the main page.
       </p>
 

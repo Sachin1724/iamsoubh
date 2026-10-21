@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { ShieldCheck, MapPin, Truck, GraduationCap } from "lucide-react";
 import { MockupSlider } from "@/frontend/components/MockupSlider";
-import { siteConfig, products, ProductId } from "@/config/site-config";
+import { siteConfig, products, ProductId, TIERS, MAX_BOXES, boxPrice } from "@/config/site-config";
 import { startCheckout } from "@/frontend/lib/checkout";
 import { useStock } from "@/frontend/lib/useStock";
 import { openMail } from "@/frontend/lib/mailto";
@@ -24,16 +24,12 @@ interface PreorderSectionProps {
   onRequestQuote?: () => void;
 }
 
-const PACKS = ["single", "family", "gift"] as const;
-const ORDERS = PACKS.flatMap((id) =>
-  Array.from({ length: products[id].maxQty }, (_, i) => ({
-    product: id,
-    quantity: i + 1,
-    boxes: products[id].boxes * (i + 1),
-    price: products[id].price * (i + 1),
-  }))
-);
-const MAX_WANTED = Math.max(...ORDERS.map((o) => o.boxes));
+// Shortcut buttons, one per price step, cheapest-per-box last.
+const STEPS = [...TIERS].reverse().map((t, i, all) => ({
+  from: t.from,
+  price: t.price,
+  label: i === all.length - 1 ? `${t.from}+` : t.from === all[i + 1].from - 1 ? `${t.from}` : `${t.from}–${all[i + 1].from - 1}`,
+}));
 
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   const { stock, soldOut } = useStock();
@@ -49,15 +45,12 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
-  // Every way to buy is one pack at one quantity. The page takes the cheapest
-  // that covers the boxes asked for, so someone asking for 8 is handed the
-  // 9-box answer when it costs less, and says so.
-  const best = ORDERS.filter((o) => o.boxes >= wanted).sort(
-    (a, b) => a.price - b.price || a.boxes - b.boxes
-  )[0];
-  const { product, quantity, boxes, price: total } = best;
+  // The per-box price steps down at 3 and again at 10, and applies to every box.
+  const product: ProductId = products.single.id;
+  const boxes = wanted;
+  const perBox = boxPrice(boxes);
+  const total = perBox * boxes;
   const saving = products.single.price * boxes - total;
-  const perBox = Math.round(total / boxes);
 
   const validate = () => {
     const next: Record<string, string> = {};
@@ -73,7 +66,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
     setPaying(true);
     setPayError("");
     const result = await startCheckout(
-      { product, quantity, boxes, phone, total },
+      { product, quantity: boxes, boxes, phone, total },
       () => setPaying(false)
     );
     if (!result.ok) {
@@ -184,8 +177,8 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                   <button
                     type="button"
                     aria-label="One more box"
-                    disabled={wanted >= MAX_WANTED}
-                    onClick={() => setWanted((n) => Math.min(MAX_WANTED, n + 1))}
+                    disabled={wanted >= MAX_BOXES}
+                    onClick={() => setWanted((n) => Math.min(MAX_BOXES, n + 1))}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg shadow-sm transition-transform active:scale-90 disabled:opacity-35"
                   >
                     +
@@ -194,40 +187,29 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               </div>
 
               <div className="grid grid-cols-3 gap-1 rounded-xl bg-on-light/[0.06] p-1">
-                {PACKS.map((id) => ({
-                  id,
-                  label: `Buy ${products[id].boxes}`,
-                  price: products[id].price,
-                  set: products[id].boxes,
-                })).map((o) => (
+                {STEPS.map((o) => (
                   <button
-                    key={o.id}
+                    key={o.from}
                     type="button"
-                    aria-pressed={product === o.id}
-                    onClick={() => setWanted(o.set)}
+                    aria-pressed={perBox === o.price}
+                    onClick={() => setWanted(o.from)}
                     className={`rounded-lg py-2.5 text-center transition-all active:scale-[0.97] ${
-                      product === o.id ? "bg-white shadow-sm" : "text-on-light/60"
+                      perBox === o.price ? "bg-white shadow-sm" : "text-on-light/60"
                     }`}
                   >
-                    <span className="block text-sm font-semibold">{o.label}</span>
-                    <span className="block font-gazpacho text-base font-bold">₹{o.price}</span>
+                    <span className="block text-sm font-semibold">{o.label} boxes</span>
+                    <span className="block font-gazpacho text-base font-bold">₹{o.price} each</span>
                   </button>
                 ))}
               </div>
             </div>
-            {boxes > wanted && (
-              <p className="mt-2 text-center text-sm text-on-light/70">
-                That's {boxes} boxes, and it costs less than {wanted}.
-              </p>
-            )}
-
             {onRequestQuote && (
               <button
                 type="button"
                 onClick={onRequestQuote}
                 className="mt-4 text-sm font-semibold text-pipili-red underline underline-offset-4"
               >
-                Need 10 or more? Get a bulk price
+                Need more than {MAX_BOXES}? Get a bulk price
               </button>
             )}
 
