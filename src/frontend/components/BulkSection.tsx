@@ -5,9 +5,9 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 const TIERS = [
-  { count: "10+", perk: "Custom sleeve" },
-  { count: "25+", perk: "Your logo on the box" },
-  { count: "50+", perk: "Best price, one invoice" },
+  { count: "10+", perk: "A price that makes sense" },
+  { count: "50+", perk: "Bulk price, one invoice" },
+  { count: "100+", perk: "Our best price. We sort the rest on WhatsApp" },
 ];
 
 export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) {
@@ -24,12 +24,13 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
           </div>
 
           <h2 className="max-w-[16ch] font-gazpacho text-[2rem] font-bold leading-[1.05] tracking-[-0.02em] text-cream sm:text-5xl lg:text-6xl">
-            For your parivar. Or your office.
+            Ordering for the whole parivar? Or the whole office?
           </h2>
 
           <p className="mt-5 max-w-[42ch] text-base leading-relaxed text-on-dark/85">
-            Corporate teams, Odia associations, wedding return-gifts. Ten boxes or more, and I&apos;ll send you a
-            price that makes sense.
+            Your office has 40 Odias and zero festival vibes. Fix that. For teams, Odia associations, housing
+            societies, wedding return gifts, and a new-year gift that isn&apos;t another diary. Ten boxes or more, and
+            I&apos;ll send you a price that makes sense.
           </p>
 
           <dl className="mt-8 grid max-w-md grid-cols-3 gap-6 border-t border-white/20 pt-6">
