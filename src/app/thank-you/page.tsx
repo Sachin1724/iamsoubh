@@ -110,16 +110,16 @@ function ParbaGuess() {
 
 function ThankYouBody() {
   const orderId = useSearchParams().get("o");
-  const [data, setData] = useState<Status | null>(null);
+  const [fetched, setData] = useState<Status | null>(null);
+  // Local preview of the paid screen: /thank-you?o=preview (never in production).
+  const preview = orderId === "preview" && process.env.NODE_ENV !== "production";
+  const data: Status | null = preview
+    ? { status: "paid", orderNumber: null, boxes: 1, product: "single", amountInr: 329 }
+    : fetched;
   const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
-    if (!orderId) return;
-    // Local preview of the paid screen: /thank-you?o=preview (never in production).
-    if (orderId === "preview" && process.env.NODE_ENV !== "production") {
-      setData({ status: "paid", orderNumber: null, boxes: 1, product: "single", amountInr: 329 });
-      return;
-    }
+    if (!orderId || preview) return;
     let tries = 0;
     let stop = false;
 
@@ -147,7 +147,7 @@ function ThankYouBody() {
     return () => {
       stop = true;
     };
-  }, [orderId]);
+  }, [orderId, preview]);
 
   const paid = data?.status === "paid";
   const overflow = data?.status === "overflow";

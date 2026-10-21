@@ -71,7 +71,7 @@ export function CreatorGiftModal({
   const [dragY, setDragY] = useState(0);
 
   const touchStartY = useRef<number | null>(null);
-  const isDragging = useRef(false);
+  const [dragging, setDragging] = useState(false);
 
   const handleClose = React.useCallback(() => {
     if (isClosing) return;
@@ -121,7 +121,7 @@ export function CreatorGiftModal({
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
-    isDragging.current = true;
+    setDragging(true);
   };
   const handleTouchMove = (e: React.TouchEvent) => {
     if (touchStartY.current === null) return;
@@ -132,7 +132,7 @@ export function CreatorGiftModal({
     if (dragY > 75) handleClose();
     else setDragY(0);
     touchStartY.current = null;
-    isDragging.current = false;
+    setDragging(false);
   };
 
   const submit = async (e: React.FormEvent) => {
@@ -175,7 +175,7 @@ export function CreatorGiftModal({
         onClick={(e) => e.stopPropagation()}
         style={{
           transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
-          transition: isDragging.current ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
+          transition: dragging ? "none" : dragY > 0 ? "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
         }}
         className={`relative flex w-full flex-col overflow-hidden sm:max-w-[480px] max-h-[94dvh] bg-rice rounded-t-[28px] sm:rounded-[28px] shadow-[0_24px_80px_rgba(0,0,0,0.35)] will-change-transform ${
           isClosing ? "animate-modal-slide-down" : dragY === 0 ? "animate-modal-slide-up" : ""

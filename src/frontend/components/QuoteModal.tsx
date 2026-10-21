@@ -23,6 +23,8 @@ const QUESTIONS: Record<Step, { q: string; hint?: string }> = {
 
 export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const reduceMotion = useReducedMotion();
+  // At least seven days out, per the brief. Fixed when the modal mounts.
+  const [minDate] = useState(() => new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10));
   const [stepIdx, setStepIdx] = useState(0);
   const [dir, setDir] = useState(1);
   const [range, setRange] = useState<string>(RANGES[0]);
@@ -49,8 +51,6 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 
   if (!open) return null;
 
-  // At least seven days out, per the brief.
-  const minDate = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
 
   const step: Step = STEPS[stepIdx];
   const last = stepIdx === STEPS.length - 1;
@@ -116,7 +116,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
               Got it, {firstName}.
             </h4>
             <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
-              Your request is in. I'll reply within 24 hours.
+              Your request is in. I&apos;ll reply within 24 hours.
             </p>
             <button
               type="button"

@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const noop = () => () => {};
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
@@ -24,12 +26,9 @@ export function StoryViewer({
   const [index, setIndex] = useState(startIndex);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [mounted, setMounted] = useState(false);
+  // false on the server, true in the browser: the portal needs document.body.
+  const mounted = useSyncExternalStore(noop, () => true, () => false);
   const reduced = useRef(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

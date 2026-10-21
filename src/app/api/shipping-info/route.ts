@@ -1,58 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * Razorpay Magic Checkout Shipping Info API.
- * Called by Razorpay to check if a delivery pincode is serviceable and calculate shipping fees.
+ * Razorpay Magic Checkout Shipping Info API. Razorpay posts the buyer's
+ * addresses; we answer per address. Shipping is free and prepaid-only across
+ * India, so every Indian address is serviceable at ₹0 and nothing else is.
+ * Set this URL in Razorpay Dashboard → Magic Checkout → Shipping Setup.
+ *
+ * Fees are in paise. Each address carries both the flat fields of the older
+ * spec and `shipping_methods` of the newer one, so either parser accepts it.
  */
+type Address = { id?: string | number; zipcode?: string; state_code?: string; country?: string };
+
 export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json().catch(() => ({}));
+  const body = await req.json().catch(() => null);
+  const addresses: Address[] = Array.isArray(body?.addresses) ? body.addresses.slice(0, 20) : [];
 
-    // Handle both single address and multiple addresses payload from Razorpay
-    const addresses = Array.isArray(body?.addresses)
-      ? body.addresses
-      : body?.address
-        ? [body.address]
-        : [];
-
-    const data = addresses.map((addr: { id?: string | number }, idx: number) => ({
-      id: String(addr?.id ?? idx + 1),
-      shipping_fee: 0, // Free shipping
-      cod: false,      // Prepaid only (or true if COD enabled)
-      cod_fee: 0,
-      serviceable: true,
-    }));
-
-    return NextResponse.json({
-      success: true,
-      serviceable: true,
-      cod_serviceable: false,
-      shipping_fee: 0,
-      cod_fee: 0,
-      estimated_delivery_days: 5,
-      message: "Delivery available across India",
-      data: data.length > 0 ? data : [{ id: "1", shipping_fee: 0, cod: false, cod_fee: 0, serviceable: true }],
-    });
-  } catch {
-    return NextResponse.json({
-      success: true,
-      serviceable: true,
-      cod_serviceable: false,
-      shipping_fee: 0,
-      cod_fee: 0,
-      estimated_delivery_days: 5,
-      message: "Delivery available across India",
-    });
-  }
-}
-
-export async function GET() {
   return NextResponse.json({
-    success: true,
-    serviceable: true,
-    shipping_fee: 0,
-    cod_serviceable: false,
-    cod_fee: 0,
-    message: "Shipping service active",
+    addresses: addresses.map((a, i) => {
+      const serviceable = (a.country ?? "IN").toUpperCase() === "IN" && /^\d{6}$/.test(String(a.zipcode ?? ""));
+      return {
+        id: String(a.id ?? i),
+        zipcode: a.zipcode ?? "",
+        state_code: a.state_code ?? "",
+        country: a.country ?? "IN",
+        serviceable,
+        cod: false,
+        cod_fee: 0,
+        shipping_fee: 0,
+        shipping_methods: [
+          {
+            id: "free",
+            name: "Free shipping",
+            description: "Delivered across India",
+            serviceable,
+            shipping_fee: 0,
+            cod: false,
+            cod_fee: 0,
+          },
+        ],
+      };
+    }),
   });
 }

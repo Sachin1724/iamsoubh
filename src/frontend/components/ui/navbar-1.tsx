@@ -68,13 +68,6 @@ const Navbar1 = ({
     );
   }, [navItems]);
 
-  // Set default active to first item
-  React.useEffect(() => {
-    if (items.length > 0 && !activeHref) {
-      setActiveHref(items[0].href);
-    }
-  }, [items, activeHref]);
-
   // Scroll spy tracking which section the user is currently viewing
   React.useEffect(() => {
     const handleScroll = () => {

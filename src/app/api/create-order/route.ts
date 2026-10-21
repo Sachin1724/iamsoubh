@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { getRazorpay, forceSoldOut, alert } from "@/backend/clients";
 import { boxesSold } from "@/backend/orders";
 import { logToSheet } from "@/backend/sheet";
+import { clientIp, tooMany } from "@/backend/rate-limit";
 import { siteConfig, boxPrice, MAX_BOXES } from "@/config/site-config";
 
 type Customer = {
@@ -18,6 +19,11 @@ type Customer = {
 };
 
 export async function POST(req: NextRequest) {
+  // A real buyer retries a few times at most; this stops one script minting orders.
+  if (tooMany("order", clientIp(req), 10)) {
+    return NextResponse.json({ code: "RATE_LIMITED" }, { status: 429 });
+  }
+
   if (forceSoldOut()) {
     return NextResponse.json({ code: "SOLD_OUT" }, { status: 409 });
   }
@@ -92,7 +98,7 @@ export async function POST(req: NextRequest) {
           quantity,
           name: label,
           description: `${boxes} box${boxes > 1 ? "es" : ""} · 12 festival cards, a sealed 13th parba, stickers and a note.`,
-          image_url: `${site}/assets/product/parcel-${boxes >= 10 ? 10 : boxes >= 3 ? 3 : 1}.webp`,
+          image_url: `${site}/icon.png`,
         },
       ],
       // Razorpay is the only order store now, so everything the admin mail and
