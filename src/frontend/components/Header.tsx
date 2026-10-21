@@ -77,12 +77,13 @@ export function Header({ onOrderClick }: HeaderProps) {
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       {/* Announcement strip: only while the page is at the very top */}
       <div
-        className={`pointer-events-auto bg-[#4A0010] px-3 py-1 text-center text-[11px] font-medium leading-tight text-white/90 sm:py-2 sm:text-xs transition-all duration-300 ${
+        onClick={() => scrollToTarget("#preorder")}
+        className={`pointer-events-auto cursor-pointer bg-[#4A0010] px-3 py-1 text-center text-[11px] font-medium leading-tight text-white/90 sm:py-2 sm:text-xs transition-all duration-300 hover:bg-[#5C0014] ${
           atTop ? "max-h-8 opacity-100" : "max-h-0 overflow-hidden py-0 opacity-0"
         }`}
       >
-        <span className="sm:hidden">Free delivery all over India · Ships in November</span>
-        <span className="hidden sm:inline">Free delivery all over India · Ships first week of November</span>
+        <span className="sm:hidden">Shipping from 1st of November · Free delivery across India</span>
+        <span className="hidden sm:inline">Free delivery all over India · Shipping from 1st of November</span>
       </div>
       <Navbar1
         navItems={navItems}
