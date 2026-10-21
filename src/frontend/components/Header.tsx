@@ -51,7 +51,7 @@ export function Header({ onOrderClick }: HeaderProps) {
         if (el && pageTop(el) <= y) current = id;
       }
       // The desktop hero sits on a photo, so its marks go white there too.
-      const darkHero = current === "hero" && window.matchMedia("(min-width: 1024px)").matches;
+      const darkHero = current === "hero" && window.matchMedia("(min-width: 640px)").matches;
       setOnDark(DARK_SECTIONS.has(current) || darkHero);
       setAtTop(window.scrollY < 40);
     };

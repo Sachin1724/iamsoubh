@@ -37,7 +37,7 @@ const SCATTER = [
 ];
 
 /**
- * A pinned section over a loose stack of photos that loops sideways forever that loops sideways forever. The
+ * A pinned section over a loose scatter of photos, two rows deep, looping sideways forever. The
  * collage fades in as the section arrives; the children rise over it as one
  * block. Reduced motion: static collage and list.
  */
@@ -100,30 +100,42 @@ export function PinnedList({ id, number, collage, children }: PinnedListProps) {
         data-pl-img
         className="absolute inset-0 opacity-90 [--s:0.6] sm:[--s:1] [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:18px_18px]"
       >
-        {/* Only transform animates, on its own layer: the compositor runs it at the display's frame rate. */}
-        <div className="flex h-full w-max animate-marquee-x [backface-visibility:hidden] will-change-transform">
-          {[0, 1].map((copy) => (
-            <div key={copy} aria-hidden="true" className="relative h-full w-[calc(220svh*var(--s))] shrink-0">
-              {SCATTER.map((t, i) => (
-                <div
-                  key={i}
-                  className="absolute overflow-hidden rounded-md"
-                  style={{
-                    left: `calc(${t.x}svh * var(--s))`,
-                    top: `${t.y}%`,
-                    width: `calc(${t.w}svh * var(--s))`,
-                    aspectRatio: t.a,
-                  }}
-                >
-                  <Image
-                    src={collage[i % collage.length]}
-                    alt=""
-                    fill
-                    sizes="25svh"
-                    unoptimized
-                    priority={copy === 0 && i < 4}
-                    className="object-cover"
-                  />
+        {/* Two copies of the scatter, stacked: the lower half is filled too. Only
+            transform animates, on its own layer, so it runs at the display's frame rate. */}
+        <div
+          className="flex h-full w-max animate-marquee-x flex-col [--dist:calc(-220svh*var(--s))] [backface-visibility:hidden] will-change-transform"
+        >
+          {[0, 1].map((row) => (
+            <div
+              key={row}
+              aria-hidden="true"
+              className="flex h-1/2 w-max shrink-0"
+              style={{ marginLeft: row ? "calc(-110svh * var(--s))" : undefined }}
+            >
+              {[0, 1, 2].map((copy) => (
+                <div key={copy} className="relative h-full w-[calc(220svh*var(--s))] shrink-0">
+                  {SCATTER.map((t, i) => (
+                    <div
+                      key={i}
+                      className="absolute overflow-hidden rounded-md"
+                      style={{
+                        left: `calc(${t.x}svh * var(--s))`,
+                        top: `${t.y}%`,
+                        width: `calc(${t.w}svh * var(--s))`,
+                        aspectRatio: t.a,
+                      }}
+                    >
+                      <Image
+                        src={collage[(i + row * 7) % collage.length]}
+                        alt=""
+                        fill
+                        sizes="25svh"
+                        unoptimized
+                        priority={row === 0 && copy === 0 && i < 4}
+                        className="object-cover"
+                      />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>

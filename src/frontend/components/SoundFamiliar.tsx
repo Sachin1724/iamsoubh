@@ -24,7 +24,7 @@ export function SoundFamiliar() {
       </ul>
       <div className="mt-6 border-t border-white/25 pt-4 sm:mt-8 sm:pt-6">
         <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-wider text-turmeric">This is why we made it</p>
-        <p className="font-gazpacho text-2xl font-normal leading-tight text-turmeric sm:text-4xl">
+        <p className="font-gazpacho text-3xl font-bold leading-[1.1] text-turmeric sm:text-5xl">
           This calendar keeps the dates for you.
         </p>
         <p className="mt-2 max-w-[44ch] text-[0.85rem] font-normal leading-snug text-white/85 sm:text-base">

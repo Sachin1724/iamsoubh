@@ -2,20 +2,11 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ShoppingCart, Truck } from "lucide-react";
-import { AmbientFestiveLayer } from "@/frontend/components/AmbientFestiveLayer";
-import { lowestBoxPrice, products, siteConfig } from "@/config/site-config";
+import { ShoppingCart } from "lucide-react";
+import { lowestBoxPrice, siteConfig } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
 import { cta } from "@/frontend/components/ui/cta";
-
-// The product, and the two views that flank it. The outer pair is cropped by
-// the fold on purpose: something is always left to scroll to.
-const SHELF = [
-  { src: "/assets/product%20mockup/View%201.png", alt: "The cards, fanned out" },
-  { src: "/assets/product%20mockup/Calendar%20PNG.png", alt: "The 2027 festival cards" },
-  { src: "/assets/product%20mockup/View%204.png", alt: "The cards, stacked" },
-];
 
 export function Hero() {
   const { soldOut } = useStock();
@@ -40,7 +31,7 @@ export function Hero() {
         const q = gsap.utils.selector(el);
         const parts = q("[data-hero-part]");
         const lettering = q("[data-hero-lettering]");
-        const cards = q("[data-hero-card]");
+        const cards: Element[] = [];
         const copy = q("[data-hero-copy]");
 
         const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -149,25 +140,25 @@ export function Hero() {
 
       {/* Desktop: the overhead shot fills the hero, cards held at the centre, and the
           words sit in a column on the right over the bare stone. */}
-      <div className="absolute inset-0 z-0 hidden lg:block" aria-hidden="true">
+      <div className="absolute inset-0 z-0 hidden sm:block" aria-hidden="true">
         <Image
           src="/assets/hero/hero-bg-artisan.jpg"
           alt=""
           fill
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover object-[54%_34%]"
+          className="object-cover object-[38%_34%] lg:object-[46%_34%] xl:object-[54%_34%]"
         />
         <div className="absolute inset-0 bg-gradient-to-l from-black/65 via-black/20 to-transparent" />
       </div>
 
       <div
         data-hero-copy
-        className="absolute inset-y-0 right-[5vw] z-20 hidden w-full max-w-[420px] xl:max-w-[540px] flex-col items-end justify-center pt-16 text-right text-white lg:flex"
+        className="absolute inset-y-0 right-[4vw] z-20 hidden w-[clamp(240px,40vw,540px)] flex-col items-end justify-center pt-16 text-right text-white sm:flex"
       >
         <div data-hero-part className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E0A526]" />
-          <span className="font-mono text-sm uppercase tracking-[0.14em] text-white/85">Edition 2027</span>
+          <span className="font-mono text-[clamp(0.65rem,1.1vw,0.875rem)] uppercase tracking-[0.14em] text-white/85">Edition 2027</span>
         </div>
         <h1 className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</h1>
         <Image
@@ -178,59 +169,42 @@ export function Hero() {
           height={450}
           unoptimized
           preload
-          className="mt-6 h-auto w-full max-w-[370px] select-none xl:max-w-[500px]"
+          className="mt-[2vh] h-auto w-full select-none"
         />
         <div data-hero-part className="mt-2 flex items-center gap-2">
-          <span className="font-editorial text-2xl italic text-white/90">by</span>
+          <span className="font-editorial text-[clamp(1rem,2vw,1.5rem)] italic text-white/90">by</span>
           <Image
             src="/assets/brand/calogo.png"
             alt="IAMSOUBH"
             width={180}
             height={50}
-            className="h-8 w-auto select-none object-contain brightness-0 invert"
+            className="h-[clamp(1.25rem,2.4vw,2rem)] w-auto select-none object-contain brightness-0 invert"
           />
         </div>
-        <div data-hero-part className="mt-6 max-w-[40ch] space-y-3 font-subtext text-lg font-normal leading-snug text-white/90 xl:text-xl">
+        <p data-hero-part className="mt-[2.5vh] max-w-[34ch] font-subtext text-[clamp(0.85rem,1.6vw,1.25rem)] font-normal leading-snug text-white/90">
           {soldOut ? (
-            <p>{`All ${siteConfig.batchCap} are gone. Thank you, Odisha.`}</p>
+            `All ${siteConfig.batchCap} are gone. Thank you, Odisha.`
           ) : (
             <>
-              <p>The Odia festival calendar that went viral is back for 2027.</p>
-              <p>
-                Already in <strong className="font-semibold">1,500+ homes</strong> across 22 states and the USA.
-              </p>
+              In <strong className="font-semibold">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
             </>
           )}
-        </div>
-        {!soldOut && (
-          <p data-hero-part className="mt-4 font-subtext text-sm text-white/75">
-            <span className="font-gazpacho text-xl font-bold text-white">₹{products.single.price} a box</span>{" "}
-            <s className="text-white/50">₹{products.single.strikePrice}</s> · from ₹{lowestBoxPrice} in a 10-pack
-          </p>
-        )}
-        <div data-hero-part className="mt-5 flex flex-col items-end gap-3">
+        </p>
+        <div data-hero-part className="mt-6 flex flex-col items-end gap-2">
           <button type="button" onClick={() => scrollToTarget("#preorder")} className={cta("red")}>
-            <span>{soldOut ? "Join batch 2" : "Pre-order now"}</span>
+            <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
           </button>
-          <span className="inline-flex items-center gap-2 rounded-full bg-turmeric px-5 py-2 font-subtext text-sm font-semibold text-ink">
-            <Truck className="h-4 w-4 shrink-0" aria-hidden="true" />
-            Free delivery all over India
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
+            <ShoppingCart className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+            <span>Free shipping all over India</span>
           </span>
-          <p className="font-subtext text-xs text-white/60">
-            Ships in the first week of November · Only {siteConfig.batchCap} boxes in this batch
-          </p>
         </div>
-      </div>
-
-      {/* Background festive linework (tablets only: phones and desktop use photos) */}
-      <div className="pointer-events-none absolute inset-0 z-0 hidden opacity-35 sm:block lg:hidden" aria-hidden="true">
-        <AmbientFestiveLayer />
       </div>
 
       <div
         data-hero-copy
-        className="relative z-20 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 text-center sm:px-6 md:px-8 lg:hidden"
+        className="relative z-20 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 text-center sm:px-6 md:px-8 sm:hidden"
       >
         {/* Edition 2027 and the red dot: stays right at the top */}
         <div data-hero-part className="pt-1 flex items-center justify-center gap-2 text-center">
@@ -307,32 +281,6 @@ export function Hero() {
           </div>
           </div>
         </div>
-      </div>
-
-      {/* The shelf: the product centred, its two views cropped by the fold */}
-      <div className="relative z-10 hidden w-full shrink-0 items-end sm:flex lg:hidden justify-center gap-0 sm:gap-2">
-        {SHELF.map((shot, i) => {
-          const middle = i === 1;
-          return (
-            <div
-              key={shot.src}
-              data-hero-card
-              className={`relative ${
-                middle
-                  ? "aspect-square w-[100%] translate-y-1 sm:aspect-4/3 sm:w-[74%] sm:translate-y-4 lg:w-[66%]"
-                  : "hidden aspect-4/3 w-[30%] translate-y-20 opacity-90 lg:block"
-              }`}
-            >
-              <Image
-                src={shot.src}
-                alt={shot.alt}
-                fill
-                sizes={middle ? "(max-width: 640px) 100vw, 700px" : "36vw"}
-                className="object-contain object-bottom"
-              />
-            </div>
-          );
-        })}
       </div>
     </section>
   );
