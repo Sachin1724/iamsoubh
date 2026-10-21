@@ -11,13 +11,9 @@ interface HeaderProps {
 
 // Page order. The order link is the CTA button, not a nav item.
 const navItems: NavItem[] = [
-  { name: "Home", href: "#hero" },
-  { name: "Sound familiar?", href: "#sound-familiar" },
   { name: "Inside the box", href: "#inside-calendar" },
   { name: "Stories", href: "#stories" },
-  { name: "Creators", href: "#creators" },
-  { name: "Order", href: "#preorder" },
-  { name: "Bulk and gifting", href: "#bulk" },
+  { name: "Bulk orders", href: "#bulk" },
   { name: "Questions", href: "#faq" },
 ];
 
@@ -27,6 +23,7 @@ const DARK_SECTIONS = new Set(["sound-familiar", "inside-calendar", "creators", 
 
 export function Header({ onOrderClick }: HeaderProps) {
   const [onDark, setOnDark] = React.useState(false);
+  const [onPhoto, setOnPhoto] = React.useState(false);
 
   React.useEffect(() => {
     const ids = [
@@ -52,6 +49,7 @@ export function Header({ onOrderClick }: HeaderProps) {
       // The desktop hero sits on a photo, so its marks go white there too.
       const darkHero = current === "hero" && window.matchMedia("(min-width: 1024px)").matches;
       setOnDark(DARK_SECTIONS.has(current) || darkHero);
+      setOnPhoto(darkHero);
     };
 
     update();
@@ -73,6 +71,10 @@ export function Header({ onOrderClick }: HeaderProps) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+      {/* Free delivery, on every screen */}
+      <div className="pointer-events-auto flex h-9 items-center justify-center overflow-hidden whitespace-nowrap bg-[#480012] px-2 text-center text-[12px] leading-none min-[375px]:text-[13px] tracking-[-0.01em] text-white">
+        Free delivery all over India · Ships first week of November
+      </div>
       <Navbar1
         navItems={navItems}
         onCtaClick={handleCtaClick}
@@ -80,7 +82,7 @@ export function Header({ onOrderClick }: HeaderProps) {
         ctaHref="#preorder"
         containerClassName="pointer-events-none px-4 py-3 sm:px-6 sm:py-4 lg:px-8 w-full max-w-7xl mx-auto"
         className={`pointer-events-auto transition-colors duration-500 ${
-          onDark ? "text-on-dark" : "text-on-light"
+          onPhoto ? "text-white/90" : onDark ? "text-on-dark" : "text-on-light"
         }`}
         brandLogo={
           <a

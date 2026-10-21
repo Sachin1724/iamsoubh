@@ -17,7 +17,7 @@ export function scrollToTarget(target: string | HTMLElement, options?: { offset?
 
   if (globalLenis) {
     globalLenis.scrollTo(el as HTMLElement, {
-      offset: options?.offset ?? -40,
+      offset: options?.offset ?? -76,
       duration: options?.duration ?? 1.2,
     });
   } else {
@@ -87,7 +87,7 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
         const targetElement = document.querySelector(href);
         if (targetElement) {
           e.preventDefault();
-          lenis.scrollTo(targetElement as HTMLElement, { offset: -40, duration: 1.3 });
+          lenis.scrollTo(targetElement as HTMLElement, { offset: -76, duration: 1.3 });
         }
       }
     };

@@ -77,11 +77,9 @@ const Navbar1 = ({
   // Scroll spy tracking which section the user is currently viewing
   React.useEffect(() => {
     const handleScroll = () => {
-      // If close to top of page, activate the first item
+      // On the hero, nothing in the nav is the current section yet.
       if (window.scrollY < 120) {
-        if (items.length > 0) {
-          setActiveHref(items[0].href);
-        }
+        setActiveHref("#hero");
         return;
       }
 
@@ -151,7 +149,7 @@ const Navbar1 = ({
       } else {
         const element = document.getElementById(id);
         if (element) {
-          const yOffset = -96;
+          const yOffset = -132;
           const y = pageTop(element) + yOffset;
           window.scrollTo({ top: y, behavior: "smooth" });
           setActiveHref(href);
@@ -212,7 +210,7 @@ const Navbar1 = ({
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 className={`relative flex items-center gap-1.5 whitespace-nowrap px-2 py-1.5 text-sm font-semibold transition-opacity select-none cursor-pointer lg:px-2.5 ${
-                  isActive ? "opacity-100" : "opacity-65 hover:opacity-100"
+                  isActive ? "opacity-100" : "opacity-90 hover:opacity-100"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
