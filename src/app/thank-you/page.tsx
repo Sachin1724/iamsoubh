@@ -1,9 +1,12 @@
 "use client";
 
 import React, { Suspense, useEffect, useState } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { X } from "lucide-react";
 import { siteConfig } from "@/config/site-config";
 import { track, trackOnce } from "@/frontend/lib/track";
+import { cta } from "@/frontend/components/ui/cta";
 
 type Status = {
   status: string;
@@ -16,6 +19,60 @@ type Status = {
 // Every box gets one of three sealed 13th parbas at random. Guessing which one
 // is the one thing there is left to do while waiting for November.
 const PARBAS = ["Sahi Jata", "Sitalsasthi", "Gajalaxmi Puja"];
+
+/** Shown once the payment lands: a thank-you from Soubh and a nudge to follow. */
+function ThanksPopup({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-5 backdrop-blur-sm" onClick={onClose}>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="thanks-title"
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-sm rounded-3xl bg-white p-7 text-center text-ink shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-ink/5"
+        >
+          <X className="h-4 w-4" />
+        </button>
+        <Image
+          src="/assets/brand/soubh-avatar.png"
+          alt="Soubh"
+          width={88}
+          height={88}
+          className="mx-auto h-[88px] w-[88px] rounded-full object-cover ring-4 ring-turmeric"
+        />
+        <h2 id="thanks-title" className="mt-4 font-gazpacho text-2xl font-bold leading-tight">
+          Thank you for purchasing from us!
+        </h2>
+        <p className="mt-2 text-[0.95rem] leading-relaxed text-ink/65">
+          Thank you for buying the calendar. Stay following @iamsoubh so you don&apos;t miss any new updates.
+        </p>
+        <a
+          href={siteConfig.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`mt-6 w-full ${cta("red")}`}
+        >
+          Follow @iamsoubh on Instagram
+        </a>
+        <button type="button" onClick={onClose} className="mt-3 text-sm font-medium text-ink/55 underline underline-offset-4">
+          Maybe later
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function ParbaGuess() {
   const [guess, setGuess] = useState<string | null>(null);
@@ -58,6 +115,11 @@ function ThankYouBody() {
 
   useEffect(() => {
     if (!orderId) return;
+    // Local preview of the paid screen: /thank-you?o=preview (never in production).
+    if (orderId === "preview" && process.env.NODE_ENV !== "production") {
+      setData({ status: "paid", orderNumber: null, boxes: 1, product: "single", amountInr: 329 });
+      return;
+    }
     let tries = 0;
     let stop = false;
 
@@ -108,6 +170,8 @@ function ThankYouBody() {
     );
   }, [paid, orderId, data]);
 
+  const [thanksClosed, setThanksClosed] = useState(false);
+
   return (
     <main className="min-h-screen bg-brand text-rice flex items-center justify-center px-5 py-20">
       <div className="w-full max-w-lg text-center">
@@ -128,16 +192,17 @@ function ThankYouBody() {
               </p>
             )}
             <p className="mt-4 text-base text-rice/90">
-              Ships from the {siteConfig.shipDateInline}. Your tracking link reaches
-              you by email the day it leaves.
+              Ships from the {siteConfig.shipDateInline}. We will message your tracking link
+              the day it leaves.
             </p>
             <ParbaGuess />
+            {!thanksClosed && <ThanksPopup onClose={() => setThanksClosed(true)} />}
           </>
         ) : timedOut ? (
           <>
             <h1 className="font-disko text-4xl sm:text-5xl">Still confirming.</h1>
             <p className="mt-4 text-base text-rice/90">
-              Your payment is going through. You&apos;ll get an email from Soubh once it lands.
+              Your payment is going through. Razorpay will send your receipt once it lands.
               Nothing more to do here.
             </p>
           </>

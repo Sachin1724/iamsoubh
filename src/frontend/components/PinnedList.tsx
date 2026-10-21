@@ -54,6 +54,7 @@ export function PinnedList({ id, number, collage, children }: PinnedListProps) {
           { opacity: 0 },
           { opacity: 0.65, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top top", scrub: true } }
         );
+        tl.to("[data-pl-hint]", { autoAlpha: 0, duration: 0.3 }, 0);
         tl.fromTo("[data-pl-list]", { y: () => window.innerHeight }, { y: 0, duration: 1.3 })
           .to({}, { duration: 0.8 }); // hold: text rests at centre before the section unpins
       }, el);
@@ -89,6 +90,16 @@ export function PinnedList({ id, number, collage, children }: PinnedListProps) {
         </div>
       </div>
       <div className="pointer-events-none absolute inset-0 bg-black/15" />
+      {/* Until the copy rises, the collage alone can read as the whole section. */}
+      <p
+        data-pl-hint
+        className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 flex-col items-center gap-1 text-sm font-medium uppercase tracking-[0.2em] text-white/80 [text-shadow:0_1px_8px_rgba(0,0,0,0.7)] motion-reduce:hidden"
+        aria-hidden="true"
+      >
+        <span className="animate-bounce text-lg">↑</span>
+        <span className="sm:hidden">Swipe up</span>
+        <span className="hidden sm:inline">Scroll</span>
+      </p>
       <div className="absolute inset-0 z-10 flex items-center px-4">
         <div data-pl-list className="mx-auto w-full max-w-3xl rounded-2xl bg-black/60 p-5 backdrop-blur-md [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] sm:p-8">
           {children}

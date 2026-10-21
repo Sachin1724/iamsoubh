@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-react";
-import { openMail, SUPPORT_EMAIL } from "@/frontend/lib/mailto";
+import { submitForm, SUPPORT_EMAIL } from "@/frontend/lib/mailto";
 import { track, trackGA } from "@/frontend/lib/track";
 
 const RANGES = ["10–25", "26–50", "51–100", "100+"] as const;
@@ -69,13 +69,13 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
     setStepIdx((i) => Math.min(STEPS.length - 1, Math.max(0, i + by)));
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!ok[step] || status === "sending") return;
     if (!last) return go(1);
     setStatus("sending");
 
-    openMail("Bulk", `${range} boxes — ${name}`, {
+    const saved = await submitForm("Bulk", {
       Name: name,
       "Company or group": group,
       Phone: phone,
@@ -86,6 +86,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
       Notes: notes,
     });
 
+    if (!saved) return setStatus("error");
     track("Lead", "generate_lead", { boxes: range });
     setStatus("done");
   };
@@ -115,7 +116,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
               Got it, {firstName}.
             </h4>
             <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
-              Gmail has the details filled in. Press Send and I'll reply within 24 hours.
+              Your request is in. I'll reply within 24 hours.
             </p>
             <button
               type="button"
@@ -272,7 +273,7 @@ export function QuoteModal({ open, onClose }: { open: boolean; onClose: () => vo
 
                 {status === "error" && (
                   <p className="mt-4 text-sm font-semibold text-chandua">
-                    That didn&apos;t open your mail app. Write to{" "}
+                    That didn&apos;t go through. Try again, or write to{" "}
                     <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
                       {SUPPORT_EMAIL}
                     </a>{" "}

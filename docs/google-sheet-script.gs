@@ -1,7 +1,7 @@
 // Paste into the Google Sheet: Extensions > Apps Script. Set SECRET, then
 // Deploy > New deployment > Web app > Execute as: Me, Access: Anyone.
 // Copy the web app URL into GOOGLE_SHEET_WEBHOOK_URL, and SECRET into GOOGLE_SHEET_SECRET.
-var SECRET = "change-me";
+var SECRET = "gsheet_sec_7x9k2m4p8q1v5w3z";
 
 function doPost(e) {
   var d = JSON.parse(e.postData.contents);
@@ -25,10 +25,14 @@ function doPost(e) {
     if (line < 0) line = sh.getLastRow() + 1;
 
     Object.keys(d.row).forEach(function (k) {
-      sh.getRange(line, cols.indexOf(k) + 1).setValue(d.row[k]);
+      sh.getRange(line, cols.indexOf(k) + 1).setValue(safe(d.row[k]));
     });
   } finally { lock.releaseLock(); }
   return out("ok");
 }
+
+// Visitor text starting with = + - @ would run as a formula (e.g. IMPORTXML
+// sending other rows to an outside server). A leading ' keeps it plain text.
+function safe(v) { return typeof v === "string" && /^[=+\-@\t\r]/.test(v) ? "'" + v : v; }
 
 function out(s) { return ContentService.createTextOutput(s); }

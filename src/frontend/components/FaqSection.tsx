@@ -16,13 +16,13 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="halftone-ink [--ht-at:0%_100%] py-24 sm:py-36 bg-pipili-yellow text-on-light relative overflow-hidden scroll-mt-24"
+      className="py-24 sm:py-36 bg-white text-on-light relative overflow-hidden scroll-mt-24"
     >
 
       {/* Mandala on the top-right corner, slowly turning */}
       <div className="absolute top-0 right-0 w-[240px] sm:w-[340px] aspect-square translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
         <div
-          className="w-full h-full opacity-30 bg-line-yellow animate-spin-slow"
+          className="w-full h-full opacity-15 bg-line-yellow animate-spin-slow"
           style={{
             maskImage: "url('/assets/motifs/mandala-laser-1200.png')",
             WebkitMaskImage: "url('/assets/motifs/mandala-laser-1200.png')",

@@ -6,10 +6,10 @@ import { siteConfig } from "@/config/site-config";
 
 export function Footer() {
   return (
-    <footer className="halftone [--ht-at:100%_100%] bg-pipili-red text-on-dark pt-16 pb-28 sm:pb-20 md:pt-20 md:pb-16 lg:pb-20 border-t-2 border-ink relative z-20 overflow-hidden">
+    <footer className="halftone [--ht-at:100%_100%] [--ht-dot:rgba(255,255,255,0.07)] bg-pipili-red text-on-dark pt-16 pb-28 sm:pb-20 md:pt-20 md:pb-16 lg:pb-20 border-t-2 border-ink relative z-20 overflow-hidden">
       {/* Subtle Odia Folk Pattern Texture with Crimson Red Tint */}
       <div
-        className="absolute inset-0 opacity-10 pointer-events-none bg-repeat z-0"
+        className="absolute inset-0 opacity-[0.04] pointer-events-none bg-repeat z-0"
         style={{
           backgroundImage: "url('/assets/folk-pattern-tile.png')",
           backgroundSize: "180px",
@@ -22,9 +22,9 @@ export function Footer() {
         aria-hidden="true"
       >
         <div
-          className="w-[200%] sm:w-[150%] md:w-full min-w-[900px] md:min-w-0 h-[220px] sm:h-[280px] md:h-[340px] lg:h-[380px] xl:h-[420px] mx-auto relative left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 opacity-25 md:opacity-35 transition-opacity duration-300"
+          className="w-[200%] sm:w-[150%] md:w-full min-w-[900px] md:min-w-0 h-[220px] sm:h-[280px] md:h-[340px] lg:h-[380px] xl:h-[420px] mx-auto relative left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 opacity-10 md:opacity-15 transition-opacity duration-300"
           style={{
-            backgroundImage: "url('/assets/scene/odia-culture-desktop-panorama-cream.png')",
+            backgroundImage: "url('/assets/scene/odia-culture-panorama-clean.png')",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "bottom center",
             backgroundSize: "100% auto",

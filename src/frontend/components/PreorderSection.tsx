@@ -8,7 +8,7 @@ import { MockupSlider } from "@/frontend/components/MockupSlider";
 import { siteConfig, products, ProductId, TIERS, MAX_BOXES, boxPrice } from "@/config/site-config";
 import { startCheckout } from "@/frontend/lib/checkout";
 import { useStock } from "@/frontend/lib/useStock";
-import { openMail } from "@/frontend/lib/mailto";
+import { submitForm } from "@/frontend/lib/mailto";
 import { cta } from "@/frontend/components/ui/cta";
 
 export interface OrderData {
@@ -303,11 +303,13 @@ function Waitlist() {
   const [done, setDone] = useState(false);
   const valid = /^\d{10}$/.test(wa);
 
-  const submit = (e: React.FormEvent) => {
+  const [failed, setFailed] = useState(false);
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid) return;
-    openMail("Waitlist", wa, { WhatsApp: wa });
-    setDone(true);
+    const saved = await submitForm("Waitlist", { WhatsApp: wa });
+    setFailed(!saved);
+    setDone(saved);
   };
 
   return (
@@ -340,6 +342,7 @@ function Waitlist() {
           >
             Tell me first
           </button>
+          {failed && <p className="text-sm font-semibold text-chandua">That didn&apos;t go through. Please try again.</p>}
         </form>
       )}
     </>

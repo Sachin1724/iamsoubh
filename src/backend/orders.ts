@@ -16,7 +16,7 @@ type RzpOrderList = {
     id: string;
     status: string;
     amount: number;
-    amount_paid: number;
+    amount_paid: number | null;
     created_at: number;
     receipt?: string;
     notes?: Record<string, unknown>;
@@ -42,7 +42,9 @@ export async function listPaidOrders(force = false): Promise<AdminOrder[]> {
     if (items.length === 0) break;
 
     for (const item of items) {
-      if (item.status !== "paid" && item.amount_paid === 0) continue;
+      // Only money that arrived counts. Abandoned checkouts stay "created"/"attempted"
+      // with amount_paid null (not 0), so test for a positive amount, not for zero.
+      if (item.status !== "paid" && !((item.amount_paid ?? 0) > 0)) continue;
       out.push({
         ...mapOrder(item.id, item as Parameters<typeof mapOrder>[1]),
         createdAt: item.created_at * 1000,
@@ -65,7 +67,8 @@ export async function boxesSold(): Promise<number> {
 }
 
 const cell = (v: string | number | undefined) => {
-  const s = String(v ?? "");
+  // A leading = + - @ would make Excel/Sheets run customer text as a formula.
+  const s = typeof v === "string" && /^[=+\-@\t\r]/.test(v) ? `'${v}` : String(v ?? "");
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 

@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "motion/react";
 import { X, ArrowRight, ArrowLeft, Loader2, Check, CheckCircle2 } from "lucide-react";
 import { trackGA } from "@/frontend/lib/track";
-import { openMail, SUPPORT_EMAIL } from "@/frontend/lib/mailto";
+import { submitForm, SUPPORT_EMAIL } from "@/frontend/lib/mailto";
 
 const PLATFORMS = ["Instagram", "YouTube", "Facebook", "X", "LinkedIn"] as const;
 
@@ -135,13 +135,13 @@ export function CreatorGiftModal({
     isDragging.current = false;
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!ok[step] || status === "sending") return;
     if (!last) return go(1);
     setStatus("sending");
 
-    openMail("Creator", name, {
+    const saved = await submitForm("Creator", {
       Name: name,
       Phone: phone,
       Email: email,
@@ -153,6 +153,7 @@ export function CreatorGiftModal({
       "Content formats": plans.join(", "),
     });
 
+    if (!saved) return setStatus("error");
     trackGA("creator_application_submitted");
     setStatus("done");
   };
@@ -251,7 +252,7 @@ export function CreatorGiftModal({
               Thank you, {firstName}.
             </h4>
             <p className="mt-2 max-w-xs text-[0.95rem] leading-relaxed text-ink/65">
-              Gmail has your application filled in. Press Send and Soubh takes it from there. If approved,
+              Your application is in. Soubh reviews every one. If approved,
               tracking details come to <span className="font-semibold text-ink">{email}</span>.
             </p>
             <button
@@ -380,7 +381,7 @@ export function CreatorGiftModal({
                       <input
                         type="email"
                         autoComplete="email"
-                        placeholder="you@domain.com"
+                        placeholder="Your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className={inp}
@@ -428,7 +429,7 @@ export function CreatorGiftModal({
 
                 {status === "error" && (
                   <p className="mt-4 text-sm font-semibold text-chandua">
-                    That didn&apos;t open your mail app. Write to{" "}
+                    That didn&apos;t go through. Try again, or write to{" "}
                     <a href={`mailto:${SUPPORT_EMAIL}`} className="underline underline-offset-4">
                       {SUPPORT_EMAIL}
                     </a>{" "}
