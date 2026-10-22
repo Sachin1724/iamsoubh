@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
-import { lowestBoxPrice, siteConfig } from "@/config/site-config";
+import { siteConfig } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
 import { cta } from "@/frontend/components/ui/cta";
@@ -122,8 +122,8 @@ export function Hero() {
   return (
     <section
       ref={root}
-      id="hero"
-      className="relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-pipili-cream pt-14 sm:pt-20 md:pt-24 text-on-light"
+      id="hero" data-snap
+      className="relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-pipili-cream pt-[6.25rem] sm:pt-24 text-on-light"
     >
       {/* Phone-only photo background. Cards sit at ~58% of the image width, so the
           x position (78%) pulls them to the horizontal centre of a portrait screen. */}
@@ -158,7 +158,7 @@ export function Hero() {
       >
         <div data-hero-part className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E0A526]" />
-          <span className="font-mono text-[clamp(0.65rem,1.1vw,0.875rem)] uppercase tracking-[0.14em] text-white/85">Edition 2027</span>
+          <span className="font-mono text-[clamp(0.65rem,1.1vw,0.875rem)] uppercase tracking-[0.14em] text-white/85">The Odia calendar you feel · Edition 2027</span>
         </div>
         <h1 className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</h1>
         <Image
@@ -192,7 +192,7 @@ export function Hero() {
         </p>
         <div data-hero-part className="mt-6 flex flex-col items-end gap-2">
           <button type="button" onClick={() => scrollToTarget("#preorder")} className={cta("red")}>
-            <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
+            <span>{soldOut ? "Join batch 2" : "Let's Odia this"}</span>
             <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
           </button>
           <span className="inline-flex items-center gap-1.5 text-sm font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
@@ -210,7 +210,7 @@ export function Hero() {
         <div data-hero-part className="pt-1 flex items-center justify-center gap-2 text-center">
           <span className="h-1.5 w-1.5 rounded-full bg-[#8A1717] shrink-0" />
           <span className="font-mono text-xs uppercase tracking-[0.14em] text-on-light/80">
-            Edition 2027
+            The Odia calendar you feel · Edition 2027
           </span>
         </div>
 
@@ -268,9 +268,9 @@ export function Hero() {
             <button
               type="button"
               onClick={() => scrollToTarget("#preorder")}
-              className={cta("red")}
+              className={`w-full max-w-sm ${cta("red")}`}
             >
-              <span>{soldOut ? "Join batch 2" : `Pre-order · from ₹${lowestBoxPrice}`}</span>
+              <span>{soldOut ? "Join batch 2" : "Let's Odia this"}</span>
               <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
             </button>
             

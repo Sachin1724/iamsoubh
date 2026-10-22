@@ -29,7 +29,11 @@ import {
 } from "@/frontend/data/customer-reviews";
 import { StoryViewer } from "./StoryViewer";
 
-export function BuyerStories() {
+/** `embedded`: shown inside the pinned section 2 as its first scene, as a panel (no section of its own). */
+export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
+  // Embedded, the scene sits on the dark collage, so its text is white; standalone it is the page ink.
+  const ink = embedded ? "text-white" : "text-on-light";
+  const inkSoft = embedded ? "text-white/85" : "text-on-light/80";
   const [activeHighlightId, setActiveHighlightId] = useState<string>("hl-all");
   const [viewer, setViewer] = useState<{ stories: StoryItem[]; index: number } | null>(null);
   // Ring on the active bubble, driven straight from the phone's rAF loop —
@@ -210,11 +214,17 @@ export function BuyerStories() {
 
   return (
     <section
-      id="stories"
-      className="relative pt-24 sm:pt-36 pb-20 sm:pb-32 bg-pipili-cream text-on-light z-10 scroll-mt-28 overflow-clip"
+      id={embedded ? undefined : "stories"}
+      className={
+        embedded
+          ? "relative z-10 flex h-full min-h-0 flex-col text-white"
+          : "relative pt-24 sm:pt-36 pb-20 sm:pb-32 bg-pipili-cream text-on-light z-10 scroll-mt-28 overflow-clip"
+      }
     >
 
 
+      {!embedded && (
+      <>
       {/* 3. Subtle Odia Jhoti Mandala Accent in Background */}
       <div
         className="absolute top-1/2 -right-24 sm:-right-36 w-[360px] sm:w-[480px] h-[360px] sm:h-[480px] -translate-y-1/2 pointer-events-none select-none opacity-10 mix-blend-multiply z-0 animate-pulse-glow"
@@ -261,33 +271,36 @@ export function BuyerStories() {
         />
       </div>
 
+      </>
+      )}
+
       {/* 4. Main Section Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <div className={`${embedded ? "flex min-h-0 w-full flex-1 flex-col" : ""} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20`}>
         
         {/* Header + pinned callouts: two-column on desktop */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-10 mb-5 sm:mb-6">
+        <div className={`flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-10 ${embedded ? "mb-2 shrink-0" : "mb-5 sm:mb-6"}`}>
 
         {/* Header Block */}
         <div className="reveal max-w-3xl lg:flex-1">
           <div className="flex items-baseline gap-3 mb-2">
-            <span className="font-gazpacho text-on-light font-bold text-xl sm:text-2xl">
+            <span className={`font-gazpacho ${ink} font-bold text-xl sm:text-2xl`}>
               04
             </span>
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-on-light">
+            <span className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${embedded ? "text-turmeric" : "text-on-light"}`}>
               Stories
             </span>
           </div>
 
-          <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-on-light">
+          <h2 className={`font-gazpacho font-bold leading-[1.08] ${ink} ${embedded ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl lg:text-6xl"}`}>
             Last year, 2,000+ people loved it.
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-on-light/80 font-subtext font-normal leading-relaxed">
+          <p className={`${inkSoft} font-subtext font-normal leading-relaxed ${embedded ? "mt-1 text-sm sm:text-base" : "mt-3 text-base sm:text-lg"}`}>
             See what they said. Tap any card to watch the full story.
           </p>
         </div>
 
         {/* Pinned Callout Cards Row: Placed Left & Right, using horizontal empty space, NOT stacked */}
-        <div className="flex flex-row lg:flex-col items-center lg:items-end justify-between lg:justify-start gap-3 lg:gap-5 w-full lg:w-auto lg:shrink-0 lg:pt-10">
+        <div className={`${embedded ? "hidden" : "flex"} flex-row lg:flex-col items-center lg:items-end justify-between lg:justify-start gap-3 lg:gap-5 w-full lg:w-auto lg:shrink-0 lg:pt-10`}>
           {/* Card 1 on the LEFT: Yellow sticky note, pinned with up-down motion */}
           <div className="relative animate-pin-left shrink-0 max-w-[48%] sm:max-w-[280px]">
             <div
@@ -349,7 +362,7 @@ export function BuyerStories() {
         </div>
 
         {/* 6. Carousel Controls & Filter Tabs Bar */}
-        <div className="flex items-center justify-end gap-4 mb-4 pb-2 w-full min-w-0">
+        <div className={`flex items-center justify-end gap-4 w-full min-w-0 ${embedded ? "mb-2 shrink-0" : "mb-4 pb-2"}`}>
           
           {/* Action & Navigation Chevrons: Perfectly aligned on mobile and desktop */}
           <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto shrink-0">
@@ -358,8 +371,8 @@ export function BuyerStories() {
               onClick={() => handleOpenHighlightStories(activeHighlight)}
               className="px-3.5 py-1.5 rounded-full bg-turmeric text-ink border-2 border-ink font-bold text-xs flex items-center gap-1.5  hover:shadow-none transition-all cursor-pointer"
             >
-              <Play className="w-3 h-3 fill-current" />
-              <span>Watch {activeHighlight.name} ({activeStories.length})</span>
+              <InstagramIcon className="w-3.5 h-3.5" />
+              <span>Watch</span>
             </button>
 
             {/* Left / Right Chevron Arrows */}
@@ -393,7 +406,7 @@ export function BuyerStories() {
         </div>
 
         {/* 7. Smooth Scrolling Stories Carousel Track — full-bleed rail aligned to container */}
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+        <div className={`relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden ${embedded ? "min-h-0 flex-1" : ""}`}>
           <div
             ref={scrollRef}
             onMouseDown={handleMouseDown}
@@ -408,13 +421,13 @@ export function BuyerStories() {
             }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className="reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-8 sm:pb-6 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 [mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)]"
+            className={`${embedded ? "h-full " : ""}reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-3 sm:pb-4 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 [mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)]`}
           >
             {activeStories.map((story, idx) => (
               <div
                 key={story.id}
                 onClick={() => handleCardClick(idx)}
-                className="relative w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start"
+                className={`relative ${embedded ? "h-full" : "w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px]"} shrink-0 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start`}
               >
                 {/* Phone Speaker Notch */}
                 <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-1.5 bg-black/60 rounded-full z-20 pointer-events-none" />
@@ -472,7 +485,7 @@ export function BuyerStories() {
           </div>
 
           {/* Subtitle / Interaction Guide */}
-          <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-ink/70 px-1">
+          <div className={`${embedded ? "hidden" : "flex"} mt-2 flex-col sm:flex-row sm:items-center justify-between text-xs text-ink/70 px-1`}>
             <p className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-brand" />
               <span>

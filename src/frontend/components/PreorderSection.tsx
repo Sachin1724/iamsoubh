@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { ShieldCheck, MapPin, Truck, GraduationCap } from "lucide-react";
 import { MockupSlider } from "@/frontend/components/MockupSlider";
-import { siteConfig, products, ProductId, TIERS, MAX_BOXES, boxPrice } from "@/config/site-config";
+import { siteConfig, products, ProductId, MAX_BOXES, boxPrice } from "@/config/site-config";
 import { startCheckout } from "@/frontend/lib/checkout";
 import { useStock } from "@/frontend/lib/useStock";
 import { submitForm } from "@/frontend/lib/mailto";
@@ -25,15 +25,8 @@ interface PreorderSectionProps {
   onRequestQuote?: () => void;
 }
 
-// Shortcut buttons, one per price step, cheapest-per-box last.
-const STEPS = [...TIERS].reverse().map((t, i, all) => ({
-  from: t.from,
-  price: t.price,
-  label: i === all.length - 1 ? `${t.from}+` : t.from === all[i + 1].from - 1 ? `${t.from}` : `${t.from}–${all[i + 1].from - 1}`,
-}));
-
 export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
-  const { stock, soldOut } = useStock();
+  const { soldOut } = useStock();
   const reduceMotion = useReducedMotion();
 
   const morph = reduceMotion
@@ -81,87 +74,66 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
 
   return (
     <section
-      id="preorder"
-      className="relative bg-pipili-cream py-24 text-on-light scroll-mt-24 sm:py-36"
+      id="preorder" data-snap
+      className="relative flex h-svh flex-col bg-pipili-cream pb-3 pt-[5.25rem] text-on-light scroll-mt-0 sm:pb-6 lg:h-auto lg:min-h-svh lg:justify-center lg:py-24"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-2 flex items-baseline gap-3">
+      <div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-4 sm:px-6 lg:block lg:flex-none lg:px-8">
+        <div className="mb-1 hidden items-baseline gap-3 [@media(min-height:820px)]:flex lg:mb-2">
           <span className="font-gazpacho text-xl font-bold sm:text-2xl">06</span>
           <span className="text-xs font-bold uppercase tracking-wider sm:text-sm">Order now</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* The product, unframed, and it stays with you while you choose */}
-          <div className="lg:sticky lg:top-24 lg:self-start">
+        <div className="flex min-h-0 flex-1 flex-col gap-2 lg:grid lg:grid-cols-2 lg:gap-16">
+          {/* Product gallery, like a shop page: the real shots, swipeable, always in view */}
+          <div className="min-h-0 flex-1 lg:sticky lg:top-24 lg:flex-none lg:self-start">
             <MockupSlider
-              className="-mx-4 sm:mx-0"
-              imageClassName="aspect-4/3 lg:aspect-square"
+              className="-mx-4 flex h-full min-h-0 flex-col sm:mx-0 lg:block lg:h-auto"
+              railClassName="min-h-0 flex-1 lg:flex-none"
+              imageClassName="h-full lg:h-auto lg:aspect-square"
             />
-
-            <p className="text-center text-sm text-on-light/70 lg:text-left">
-              12 festival cards, a sealed 13th parba, a postcard, stickers and a note.
-            </p>
           </div>
 
           {/* The choices */}
-          <div className="lg:py-4">
+          <div className="shrink-0 lg:py-4">
             {soldOut ? (
               <Waitlist />
             ) : (
             <>
-            <h2 className="font-gazpacho text-[2rem] font-bold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
-              Get your 2027 calendar
+            <h2 className="font-gazpacho text-[1.4rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-4xl">
+              The Odia Viral Calendar 2027
             </h2>
-            <p className="mt-1.5 font-odia text-base text-pipili-red sm:text-lg">
-              {siteConfig.odiaTitle}
-            </p>
+            <p className="mt-1 font-odia text-base text-pipili-red sm:text-lg">{siteConfig.odiaTitle}</p>
 
-            {/* Live count, straight from Razorpay's paid orders (see /api/stock) */}
-            {stock && (
-              <div
-                className="mt-5 rounded-2xl bg-on-light/[0.04] p-3.5"
-                role="status"
-                aria-live="polite"
-              >
-                <div className="flex items-center justify-between gap-3 text-sm">
-                  <span className="inline-flex items-center gap-2 font-semibold text-on-light">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-parrot opacity-60" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-parrot" />
-                    </span>
-                    Batch 1 · live
-                  </span>
-                  <span className="font-gazpacho text-base font-bold tabular-nums text-pipili-red">
-                    {stock.remaining} of {stock.cap} left
-                  </span>
-                </div>
-                <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-on-light/10">
-                  <div
-                    className="h-full rounded-full bg-pipili-red transition-[width] duration-700"
-                    style={{ width: `${Math.round(((stock.cap - stock.remaining) / stock.cap) * 100)}%` }}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Price leads, the way a shop does it */}
-            <div className="mt-5 flex items-baseline gap-3">
+            {/* Price, the way a product page shows it */}
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-on-light/10 pt-2">
               <motion.span layout transition={morph} className="font-gazpacho text-4xl font-bold tracking-[-0.02em]">
                 ₹{total.toLocaleString("en-IN")}
               </motion.span>
-              {boxes > 1 && (
-                <span className="text-sm font-semibold text-on-light/65">
-                  ₹{perBox} a box
-                </span>
-              )}
+              <s className="text-base text-on-light/45">₹{(products.single.strikePrice * boxes).toLocaleString("en-IN")}</s>
+              <span className="rounded-md bg-parrot/15 px-2 py-0.5 text-xs font-bold text-parrot">Batch 1 price</span>
             </div>
             <p className="mt-1 text-sm text-on-light/70">
-              {boxes} {boxes === 1 ? "box" : "boxes"} · {siteConfig.freeDeliveryLabel}
+              Inclusive of all taxes · {boxes} {boxes === 1 ? "box" : "boxes"}
+              {boxes > 1 && <> · ₹{perBox} a box</>}
               {saving > 0 && <span className="font-semibold text-parrot"> · you save ₹{saving}</span>}
             </p>
 
+            {/* What is in the box, at a glance */}
+            <ul className="mt-3 hidden grid-cols-2 gap-x-3 gap-y-1.5 text-sm text-on-light/85 [@media(min-height:820px)]:grid lg:grid">
+              {["12 festival cards", "Wooden easel stand", "Sealed 13th parba", "Odia New Year postcard", "Surprise sticker set"].map((t) => (
+                <li key={t} className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-pipili-red" aria-hidden="true" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 flex items-center gap-1.5 text-[13px] font-semibold text-on-light sm:text-sm">
+              <Truck className="h-4 w-4 text-parrot" aria-hidden="true" />
+              Free delivery all over India · Ships first week of November
+            </p>
+
             {/* Step one: one grouped control. How many on top, the pack the page picked below. */}
-            <div className="mt-6 space-y-3 rounded-2xl bg-on-light/[0.04] p-3 sm:p-4">
+            <div className="mt-3 space-y-2 rounded-2xl bg-on-light/[0.04] p-2.5 sm:p-4">
               <div className="flex items-center justify-between px-1">
                 <span className="text-sm font-semibold">Boxes</span>
                 <div className="flex items-center gap-4">
@@ -188,18 +160,20 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               </div>
 
               <div className="grid grid-cols-3 gap-1 rounded-xl bg-on-light/[0.06] p-1">
-                {STEPS.map((o) => (
+                {[1, 2, 3].map((n) => (
                   <button
-                    key={o.from}
+                    key={n}
                     type="button"
-                    aria-pressed={perBox === o.price}
-                    onClick={() => setWanted(o.from)}
-                    className={`rounded-lg py-2.5 text-center transition-all active:scale-[0.97] ${
-                      perBox === o.price ? "bg-white shadow-sm" : "text-on-light/60"
+                    aria-pressed={wanted === n}
+                    onClick={() => setWanted(n)}
+                    className={`rounded-lg py-2 text-center transition-all active:scale-[0.97] ${
+                      wanted === n ? "bg-white shadow-sm" : "text-on-light/60"
                     }`}
                   >
-                    <span className="block text-sm font-semibold">{o.label} boxes</span>
-                    <span className="block font-gazpacho text-base font-bold">₹{o.price} each</span>
+                    <span className="block text-sm font-semibold">
+                      {n} {n === 1 ? "Box" : "Boxes"}
+                    </span>
+                    <span className="block font-gazpacho text-base font-bold">₹{(boxPrice(n) * n).toLocaleString("en-IN")}</span>
                   </button>
                 ))}
               </div>
@@ -215,8 +189,8 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
             )}
 
             {/* Step three: where it goes */}
-            <form onSubmit={handleSubmit} id="shipping-form" className="mt-10">
-              <div className="space-y-5">
+            <form onSubmit={handleSubmit} id="shipping-form" className="mt-3">
+              <div className="space-y-2">
                 <div>
                   <input
                     type="tel"
@@ -231,7 +205,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                     <span className="mt-1 block text-sm text-red-600">{errors.phone}</span>
                   )}
                 </div>
-                <p className="text-sm text-on-light/70">
+                <p className="hidden text-sm text-on-light/70 [@media(min-height:820px)]:block lg:block">
                   Just your mobile number. Razorpay sends an OTP to it and fills in your saved address.
                 </p>
               </div>
@@ -241,7 +215,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               )}
 
               {/* What the order gives, stated as the real number for this order */}
-              <div className="mt-8 flex items-start gap-3 rounded-2xl bg-parrot/10 p-4">
+              <div className="mt-3 hidden items-start gap-3 rounded-2xl bg-parrot/10 p-3 [@media(min-height:900px)]:flex lg:flex">
                 <GraduationCap className="mt-0.5 h-5 w-5 shrink-0 text-parrot" aria-hidden="true" />
                 <p className="text-sm leading-relaxed text-on-light">
                   <span className="font-bold">
@@ -254,13 +228,13 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               <button
                 type="submit"
                 disabled={paying}
-                className={`mt-8 w-full ${cta("red")}`}
+                className={`mt-4 w-full ${cta("red")}`}
               >
                 {paying ? "Opening Razorpay…" : `Buy Now · ₹${total.toLocaleString("en-IN")}`}
               </button>
 
               {/* The three things a buyer checks before paying, in one row */}
-              <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-semibold text-on-light/80">
+              <ul className="mt-3 hidden flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold text-on-light/80 [@media(min-height:900px)]:flex lg:flex">
                 <li className="inline-flex items-center gap-1.5">
                   <ShieldCheck className="h-4 w-4 shrink-0 text-parrot" aria-hidden="true" />
                   Secure payment by
@@ -282,7 +256,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                 </li>
               </ul>
 
-              <p className="mt-4 text-sm leading-relaxed text-on-light/70">
+              <p className="mt-3 hidden text-sm leading-relaxed text-on-light/70 [@media(min-height:1000px)]:block lg:block">
                 Razorpay collects your delivery address at checkout. Ships from the{" "}
                 {siteConfig.shipDateInline}. Not shipped by 15 November, full refund. Damaged in
                 transit, free replacement.

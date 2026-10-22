@@ -15,8 +15,8 @@ export function FaqSection() {
 
   return (
     <section
-      id="faq"
-      className="py-24 sm:py-36 bg-white text-on-light relative overflow-hidden scroll-mt-24"
+      id="faq" data-snap
+      className="flex h-svh flex-col pt-[5.25rem] pb-[5.5rem] md:pb-6 lg:h-auto lg:min-h-svh lg:justify-center lg:py-20 bg-white text-on-light relative overflow-hidden scroll-mt-24"
     >
 
       {/* Mandala on the top-right corner, slowly turning */}
@@ -36,14 +36,14 @@ export function FaqSection() {
       </div>
 
       {/* 4. Main Section Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <div className="flex min-h-0 w-full flex-1 flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:block lg:flex-none lg:px-8 relative z-20">
         
         {/* Header Block */}
-        <div className="reveal max-w-2xl mb-12 sm:mb-16">
+        <div className="reveal max-w-2xl mb-3 shrink-0 sm:mb-8 lg:mb-16">
           <span className="font-gazpacho text-on-light/60 text-xl sm:text-2xl font-bold block mb-1">
             08
           </span>
-          <h2 className="font-gazpacho text-4xl sm:text-6xl font-bold uppercase tracking-tight text-on-light leading-none">
+          <h2 data-scroll-rise className="font-gazpacho text-3xl sm:text-6xl font-bold uppercase tracking-tight text-on-light leading-none">
             QUESTIONS
           </h2>
           <p className="mt-3 text-sm sm:text-base text-on-light/80 font-subtext font-normal leading-relaxed">
@@ -52,7 +52,8 @@ export function FaqSection() {
         </div>
 
         {/* One row-wise grid, so the two columns stay on the same baselines */}
-        <div className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-x-12 items-start">
+        {/* Phones: the list scrolls inside its own panel, so the section stays one screen */}
+        <div data-lenis-prevent className="reveal-stagger min-h-0 flex-1 overflow-y-auto overscroll-contain lg:overflow-visible grid grid-cols-1 md:grid-cols-2 gap-x-12 content-start items-start">
           {faqs.map((faq) => {
             const isOpen = openId === faq.id;
             return (

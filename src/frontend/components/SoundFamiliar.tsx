@@ -1,4 +1,5 @@
 import { PinnedList } from "@/frontend/components/PinnedList";
+import { BuyerStories } from "@/frontend/components/BuyerStories";
 
 const COLLAGE = Array.from({ length: 15 }, (_, i) => `/assets/festival/f${String(i + 1).padStart(2, "0")}.webp`);
 
@@ -12,7 +13,7 @@ const LINES = [
 
 export function SoundFamiliar() {
   return (
-    <PinnedList id="sound-familiar" number={2} collage={COLLAGE}>
+    <PinnedList id="sound-familiar" number={2} collage={COLLAGE} intro={<BuyerStories embedded />}>
       <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-wider text-turmeric">Sound familiar?</p>
       <ul className="space-y-3 sm:space-y-5">
         {LINES.map((line) => (

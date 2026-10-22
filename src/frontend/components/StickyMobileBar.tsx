@@ -13,7 +13,7 @@ interface StickyMobileBarProps {
 
 export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
   const [visible, setVisible] = useState(false);
-  const { stock, soldOut, showCounter } = useStock();
+  const { soldOut } = useStock();
 
   const handleOrder = () => {
     if (onOrderClick) {
@@ -65,7 +65,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         ) : (
           <>
             <p className="truncate text-sm font-bold leading-tight text-ink">
-              {showCounter && stock ? `${stock.remaining} left` : "Batch 1"} · from ₹{lowestBoxPrice} a box
+              Batch 1 · from ₹{lowestBoxPrice} a box
             </p>
             <p className="mt-0.5 truncate text-xs text-ink/60">Free delivery all over India</p>
           </>
@@ -78,7 +78,7 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
         tabIndex={visible ? 0 : -1}
         className={`relative shrink-0 ${cta("red", "sm")}`}
       >
-        {soldOut ? "Join batch 2" : "Pre-order"}
+        {soldOut ? "Join batch 2" : "Buy Now"}
         <ArrowRight className="h-4 w-4" />
       </button>
     </aside>

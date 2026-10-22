@@ -31,11 +31,14 @@ export const MOCKUPS = [
 export function MockupSlider({
   className = "",
   imageClassName = "",
+  railClassName = "",
   sizes = "(max-width: 1024px) 100vw, 560px",
   priority = false,
 }: {
   className?: string;
   imageClassName?: string;
+  /** Lets the rail take the height its parent leaves (a one-screen product page). */
+  railClassName?: string;
   sizes?: string;
   priority?: boolean;
 }) {
@@ -91,7 +94,7 @@ export function MockupSlider({
         ref={railRef}
         onPointerDown={stop}
         onWheel={stop}
-        className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className={`flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${railClassName}`}
       >
         {MOCKUPS.map((m, i) => (
           <div key={m.src} className={`relative w-full shrink-0 snap-center overflow-hidden ${imageClassName}`}>
@@ -107,7 +110,7 @@ export function MockupSlider({
         ))}
       </div>
 
-      <div className="mt-3 flex items-center justify-center gap-2">
+      <div className="mt-1 flex shrink-0 items-center justify-center gap-1 sm:mt-3 sm:gap-2">
         {MOCKUPS.map((m, i) => (
           <button
             key={m.src}
@@ -115,7 +118,7 @@ export function MockupSlider({
             onClick={() => go(i)}
             aria-label={`View ${i + 1}`}
             aria-current={active === i}
-            className="flex h-8 w-8 items-center justify-center"
+            className="flex h-6 w-6 items-center justify-center sm:h-8 sm:w-8"
           >
             <span
               className={`block rounded-full transition-all ${

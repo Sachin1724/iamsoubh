@@ -230,7 +230,7 @@ export function StoryViewer({
             {/* Bottom bar */}
             <div className="pt-3 border-t-2 border-ink/15 text-center">
               <p className="text-xs text-muted font-semibold">
-                Tap anywhere to advance · 2027 Calendar Pre-orders Open
+                Tap anywhere to advance · 2027 Calendar On Sale
               </p>
             </div>
           </div>
@@ -261,7 +261,7 @@ export function StoryViewer({
           }}
           className="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-turmeric text-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] font-bold text-sm press cursor-pointer hover:bg-white transition-colors"
         >
-          <span>Pre-order 2027 Calendar</span>
+          <span>Buy the 2027 Calendar</span>
           <ArrowRight className="w-4 h-4 stroke-[2.5]" />
         </button>
       </div>

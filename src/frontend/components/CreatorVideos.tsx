@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Gift, ArrowRight } from "lucide-react";
 import { creators } from "@/frontend/data/creators";
 import { SectionArt } from "@/frontend/components/SectionArt";
 import { trackGA } from "@/frontend/lib/track";
@@ -103,8 +103,8 @@ export function CreatorVideos() {
 
   return (
     <section
-      id="creators"
-      className="halftone [--ht-at:0%_100%] relative py-24 sm:py-36 bg-ink text-on-dark scroll-mt-24 overflow-hidden"
+      id="creators" data-snap
+      className="halftone [--ht-at:0%_100%] relative flex h-svh flex-col pt-[5.25rem] pb-[5.5rem] md:pb-6 lg:h-auto lg:min-h-svh lg:justify-center lg:py-20 bg-ink text-on-dark scroll-mt-24 overflow-hidden"
     >
 
       {/* Folk pattern texture */}
@@ -118,9 +118,9 @@ export function CreatorVideos() {
       <SectionArt name="lotus" className="z-0 text-white opacity-[0.07]" />
 
       {/* 4. Main Section Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <div>
+      <div className="flex min-h-0 w-full min-w-0 max-w-7xl flex-1 flex-col mx-auto px-4 sm:px-6 lg:block lg:flex-none lg:px-8 relative z-20">
+        <div className="mb-3 flex shrink-0 flex-col justify-between gap-2 sm:mb-6 md:flex-row md:items-end">
+          <div className="min-w-0">
             <div className="flex items-baseline gap-3 mb-2">
               <span className="font-gazpacho text-turmeric font-bold text-xl sm:text-2xl">
                 05
@@ -130,10 +130,10 @@ export function CreatorVideos() {
               </span>
             </div>
 
-            <h2 className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-turmeric">
+            <h2 data-scroll-rise className="font-gazpacho text-[1.7rem] sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-turmeric">
               Hear it from the creators.
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-on-dark/90 max-w-xl font-subtext font-normal leading-relaxed">
+            <p className="mt-2 text-sm sm:mt-3 sm:text-lg text-on-dark/90 max-w-xl font-subtext font-normal leading-relaxed">
               Six creators opened the box on camera. Here&apos;s what they said.
             </p>
           </div>
@@ -161,7 +161,7 @@ export function CreatorVideos() {
         </div>
 
         {/* Video Carousel — aligned with edge bleed */}
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+        <div className="relative min-h-0 flex-1 -mx-4 sm:-mx-6 lg:flex-none lg:-mx-8 overflow-hidden">
           <div
             ref={scrollContainerRef}
             onPointerDown={handlePointerDown}
@@ -173,14 +173,14 @@ export function CreatorVideos() {
               isDragging.current = false;
               paused.current = false;
             }}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 no-scrollbar px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none relative z-20 [mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)]"
+            className="flex gap-4 sm:gap-6 overflow-x-auto [@media(pointer:coarse)]:snap-x [@media(pointer:coarse)]:snap-mandatory h-full pb-1 pt-1 lg:h-auto lg:pb-6 lg:pt-2 no-scrollbar px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none relative z-20 [mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)]"
             style={{
               WebkitOverflowScrolling: "touch",
               touchAction: "pan-x pan-y",
             }}
           >
             {[...creators, ...creators].map((c, i) => (
-              <div key={`${c.postId}-${i}`} className="shrink-0">
+              <div key={`${c.postId}-${i}`} className="h-full shrink-0 lg:h-auto">
                 <CreatorCard
                   creator={c}
                   unmuted={unmuted === c.postId}
@@ -194,7 +194,7 @@ export function CreatorVideos() {
         </div>
 
         {/* Short clickable line for creators */}
-        <div className="mt-5 sm:mt-7 text-center">
+        <div className="mt-2 shrink-0 text-center sm:mt-4 lg:mt-7">
           <button
             type="button"
             onClick={() => setCreatorModalOpen(true)}
@@ -258,9 +258,9 @@ function CreatorCard({
   return (
     <div
       ref={cardRef}
-      className="relative w-[260px] sm:w-[290px] shrink-0 rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric transition-all duration-300 group hover:-translate-y-1"
+      className="relative flex h-full flex-col lg:h-auto lg:w-[290px] shrink-0 snap-start rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric transition-all duration-300 group hover:-translate-y-1"
     >
-      <div className="relative aspect-[9/16] bg-[#0F0F0F]">
+      <div className="relative aspect-[9/16] h-[calc(100%-3.25rem)] lg:h-auto lg:w-full bg-[#0F0F0F]">
         {creator.video ? (
           <a
             href={postUrl}
@@ -338,7 +338,7 @@ function CreatorCard({
         href={postUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-between gap-3 bg-black/60 p-4 transition-colors hover:bg-black/80"
+        className="flex h-[3.25rem] w-0 min-w-full shrink-0 items-center justify-between gap-2 bg-black/60 px-3 transition-colors hover:bg-black/80 lg:h-auto lg:p-4"
       >
         <span className="min-w-0">
           {creator.pullLine && (
@@ -347,10 +347,17 @@ function CreatorCard({
             </span>
           )}
           <span className="block truncate text-xs font-bold text-turmeric">
-            {creator.handle ? `@${creator.handle.replace(/^@/, "")}` : "Watch on Instagram"}
+            {creator.handle ? `@${creator.handle.replace(/^@/, "")}` : "On Instagram"}
           </span>
         </span>
-        <ArrowUpRight className="h-4 w-4 shrink-0 text-turmeric" aria-hidden="true" />
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-turmeric px-3 py-1.5 text-xs font-bold text-ink">
+          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+          </svg>
+          Watch
+        </span>
       </a>
     </div>
   );

@@ -18,11 +18,6 @@ const InsideTheBox = dynamic(
   { ssr: true }
 );
 
-const BuyerStories = dynamic(
-  () => import("@/frontend/components/BuyerStories").then((m) => m.BuyerStories),
-  { ssr: true }
-);
-
 const CreatorVideos = dynamic(
   () => import("@/frontend/components/CreatorVideos").then((m) => m.CreatorVideos),
   { ssr: true }
@@ -39,11 +34,13 @@ export default function HomePage() {
       <Hero />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 02: Sound Familiar? (Pure Server Component) */}
+      {/* 02: one pinned section, three scrolls: Stories, then "Sound familiar?" (the lines) */}
       <SoundFamiliar />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 03: Inside the Box (Dynamic Client Island) */}
+      {/* 03: the buy page, then what you get inside */}
+      <PreorderSection />
+      <div className="strip strip-pattachitra" aria-hidden />
       <InsideTheBox />
       <div className="strip strip-pattachitra" aria-hidden />
 
@@ -51,23 +48,15 @@ export default function HomePage() {
       <FreeShipping />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 04: Stories (Dynamic Client Island) */}
-      <BuyerStories />
-      <div className="strip strip-pattachitra" aria-hidden />
-
-      {/* 05: From the creators (Dynamic Client Island) */}
+      {/* From the creators */}
       <CreatorVideos />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 06: Order Now */}
-      <PreorderSection />
-      <div className="strip strip-pattachitra" aria-hidden />
-
-      {/* 07: Bulk and Gifting with Lazy Quote Modal */}
+      {/* Bulk and Gifting with Lazy Quote Modal */}
       <BulkQuoteManager />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 08: Questions (FAQ) */}
+      {/* Questions (FAQ) */}
       <FaqSection />
       <div className="strip strip-pattachitra" aria-hidden />
 

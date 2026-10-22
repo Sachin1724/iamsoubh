@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
+import { registerSnaps } from "@/frontend/components/SmoothScroll";
 
 interface PinnedListProps {
   id: string;
@@ -9,6 +10,8 @@ interface PinnedListProps {
   number: number;
   /** Photos scattered behind the list; the strip drifts sideways in an endless loop. */
   collage: string[];
+  /** First scene: shown on arrival, lifts away as the children rise in (stays clickable while pinned). */
+  intro?: ReactNode;
   children: ReactNode;
 }
 
@@ -41,7 +44,7 @@ const SCATTER = [
  * collage fades in as the section arrives; the children rise over it as one
  * block. Reduced motion: static collage and list.
  */
-export function PinnedList({ id, number, collage, children }: PinnedListProps) {
+export function PinnedList({ id, number, collage, intro, children }: PinnedListProps) {
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -59,13 +62,14 @@ export function PinnedList({ id, number, collage, children }: PinnedListProps) {
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
 
+      let tl: ReturnType<typeof gsap.timeline> | undefined;
       const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
+        tl = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
             trigger: el,
             start: "top top",
-            end: "+=200%",
+            end: intro ? "+=280%" : "+=200%",
             pin: true,
             pinSpacing: true,
             refreshPriority: -number,
@@ -78,21 +82,43 @@ export function PinnedList({ id, number, collage, children }: PinnedListProps) {
           { opacity: 0 },
           { opacity: 0.9, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top top", scrub: true } }
         );
-        tl.to("[data-pl-hint]", { autoAlpha: 0, duration: 0.3 }, 0);
-        tl.fromTo("[data-pl-list]", { y: () => window.innerHeight }, { y: 0, duration: 1.3 })
+        if (!intro) tl.to("[data-pl-hint]", { autoAlpha: 0, duration: 0.3 }, 0);
+        // Two separate scenes, never on screen together: the stories hold, lift away and are
+        // gone; only then do the lines fade up from below.
+        if (intro) {
+          tl.to("[data-pl-scrim]", { autoAlpha: 0, duration: 0.6 }, 0.5);
+          tl.to("[data-pl-intro]", { yPercent: -30, autoAlpha: 0, duration: 0.6, ease: "power1.in" }, 0.5);
+        }
+        tl.fromTo(
+          "[data-pl-list]",
+          { y: () => (intro ? window.innerHeight * 0.25 : window.innerHeight), autoAlpha: intro ? 0 : 1 },
+          { y: 0, autoAlpha: 1, duration: intro ? 0.9 : 1.3 },
+          intro ? 1.2 : 0
+        )
           .to({}, { duration: 0.8 }); // hold: text rests at centre before the section unpins
       }, el);
 
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
-      cleanup = () => ctx.revert();
+
+      // Rest positions inside the pin: the first scene, and the lines once settled.
+      const linesDone = intro ? 2.1 : 1.3;
+      const unregister = registerSnaps(() => {
+        const trig = tl?.scrollTrigger;
+        if (!tl || !trig) return [];
+        return [trig.start, trig.start + ((trig.end - trig.start) * linesDone) / tl.duration()];
+      });
+      cleanup = () => {
+        unregister();
+        ctx.revert();
+      };
     })();
 
     return () => {
       cancelled = true;
       cleanup?.();
     };
-  }, [number]);
+  }, [number, intro]);
 
   return (
     <section id={id} ref={root} className="relative h-svh overflow-hidden bg-ink">
@@ -143,18 +169,30 @@ export function PinnedList({ id, number, collage, children }: PinnedListProps) {
         </div>
       </div>
       <div className="pointer-events-none absolute inset-0 bg-black/15" />
+      {/* Scrim for the stories scene: it fades out in place, so no edge ever travels across the collage */}
+      {intro && (
+        <div data-pl-scrim className="pointer-events-none absolute inset-0 z-[15] bg-black/60" aria-hidden="true" />
+      )}
+      {intro && (
+        <div id="stories" data-pl-intro className="absolute inset-0 z-20 flex px-3 motion-reduce:hidden">
+
+          <div className="mx-auto flex h-full w-full max-w-7xl flex-col pb-[5.5rem] pt-[5.25rem] md:pb-4">{intro}</div>
+        </div>
+      )}
       {/* Until the copy rises, the collage alone can read as the whole section. */}
+      {!intro && (
       <p
-        data-pl-hint
-        className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 flex-col items-center gap-1 text-sm font-medium uppercase tracking-[0.2em] text-white/80 [text-shadow:0_1px_8px_rgba(0,0,0,0.7)] motion-reduce:hidden"
-        aria-hidden="true"
-      >
-        <span className="animate-bounce text-lg">↑</span>
-        <span className="sm:hidden">Swipe up</span>
-        <span className="hidden sm:inline">Scroll</span>
-      </p>
+          data-pl-hint
+          className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 flex-col items-center gap-1 text-sm font-medium uppercase tracking-[0.2em] text-white/80 [text-shadow:0_1px_8px_rgba(0,0,0,0.7)] motion-reduce:hidden"
+          aria-hidden="true"
+        >
+          <span className="animate-bounce text-lg">↑</span>
+          <span className="sm:hidden">Swipe up</span>
+          <span className="hidden sm:inline">Scroll</span>
+        </p>
+      )}
       <div className="absolute inset-0 z-10 flex items-center px-4">
-        <div data-pl-list className="mx-auto w-full max-w-3xl rounded-2xl bg-black/75 p-5 [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] sm:p-8">
+        <div data-pl-list className={`${intro ? "motion-safe:invisible " : ""}mx-auto w-full max-w-3xl rounded-2xl bg-black/75 p-5 [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] sm:p-8`}>
           {children}
         </div>
       </div>

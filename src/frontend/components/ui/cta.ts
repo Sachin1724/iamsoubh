@@ -8,8 +8,8 @@ const tones = {
 } as const;
 
 const sizes = {
-  md: "min-h-[56px] px-8 text-base",
-  sm: "min-h-[44px] px-5 text-sm",
+  md: "h-[52px] min-h-[52px] px-7 text-base leading-none",
+  sm: "h-[52px] min-h-[52px] px-6 text-sm leading-none",
 } as const;
 
 export const cta = (tone: keyof typeof tones, size: keyof typeof sizes = "md") =>

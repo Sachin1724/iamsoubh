@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Mail, AtSign } from "lucide-react";
-import { siteConfig, lowestBoxPrice } from "@/config/site-config";
+import { siteConfig } from "@/config/site-config";
 import { trackGA } from "@/frontend/lib/track";
 import { cta } from "@/frontend/components/ui/cta";
 
@@ -248,12 +248,12 @@ const Navbar1 = ({
         {/* Mobile Action Cluster: Hamburger Toggle */}
         <div className="flex lg:hidden items-center shrink-0">
           <motion.button
-            className="flex items-center p-1.5 text-current transition-opacity hover:opacity-70 cursor-pointer"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/20 text-current transition-opacity hover:opacity-80 cursor-pointer"
             onClick={toggleMenu}
             whileTap={{ scale: 0.9 }}
             aria-label="Toggle Menu"
           >
-            <Menu className="h-6 w-6 text-current" />
+            <Menu className="h-5 w-5 text-current" />
           </motion.button>
         </div>
       </div>
@@ -331,7 +331,7 @@ const Navbar1 = ({
                   className={`w-full ${cta("red")}`}
                   onClick={handleCtaClick}
                 >
-                  {ctaText ?? "Pre-book now"} &middot; from &#8377;{lowestBoxPrice}
+                  {ctaText ?? "Buy Now"}
                 </a>
               </motion.div>
             </div>

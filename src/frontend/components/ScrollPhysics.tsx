@@ -9,6 +9,8 @@ import { useEffect } from "react";
  *   data-scroll-media   the element grows from 0.88 to 1 as it enters, then
  *                       darkens and fades as it leaves
  *   data-scroll-words   each word of the paragraph scrubs from faint to full
+ *   data-scroll-rise    headline words rise into place one after another, tied
+ *                       to the scroll (the Apple product-page reveal)
  *
  * Everything is gated behind gsap.matchMedia, so under
  * `prefers-reduced-motion: reduce` nothing is registered at all and every
@@ -95,6 +97,43 @@ export function ScrollPhysics() {
             }
           );
         });
+        // Headlines: each word starts a little low and clear, then rises and firms up in
+        // sequence as the heading comes in. Plain-text headings only (it rewrites text).
+        gsap.utils.toArray<HTMLElement>("[data-scroll-rise]").forEach((el) => {
+          if (el.dataset.split === "done") return;
+          const words = (el.textContent ?? "").split(/(\s+)/);
+          el.textContent = "";
+          const spans: HTMLSpanElement[] = [];
+          for (const word of words) {
+            if (!word.trim()) {
+              el.appendChild(document.createTextNode(word));
+              continue;
+            }
+            // The outer span clips, so each word slides up from behind a line.
+            const clip = document.createElement("span");
+            clip.className = "inline-block overflow-hidden align-bottom pb-[0.08em]";
+            const span = document.createElement("span");
+            span.className = "inline-block will-change-transform";
+            span.textContent = word;
+            clip.appendChild(span);
+            el.appendChild(clip);
+            spans.push(span);
+          }
+          el.dataset.split = "done";
+
+          gsap.fromTo(
+            spans,
+            { yPercent: 105, opacity: 0 },
+            {
+              yPercent: 0,
+              opacity: 1,
+              stagger: 0.08,
+              ease: "power2.out",
+              scrollTrigger: { trigger: el, start: "top 92%", end: "top 55%", scrub: 0.4 },
+            }
+          );
+        });
+
         // No kill-all here: mm.revert() already reverts what this context made,
         // and killing every trigger also took down the pinned story stages.
       });
