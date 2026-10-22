@@ -31,7 +31,9 @@ function snapPoints(): number[] {
 
 // True while a scroll we started ourselves (nav link, button, snap) is running.
 let steering = false;
-const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+/** Lets the header ignore scrolls we started ourselves (no flicker during a snap). */
+export const isSteering = () => steering;
+const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
 
 export function scrollToTarget(target: string | HTMLElement, options?: { offset?: number; duration?: number }) {
   if (typeof window === "undefined") return;
@@ -79,47 +81,78 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
     lenisRef.current = lenis;
     globalLenis = lenis;
 
-    // Magnet + flick limit. One gesture moves at most one section; when scrolling
-    // settles near a section top it eases onto it. Sections taller than the screen
-    // only snap at their top, so their insides still scroll freely.
-    let origin: number | null = null; // snap point the current gesture started from
+    // Magnet + flick limit.
+    // Wheel/trackpad: one gesture moves at most one section, and a stop near a
+    // section top eases onto it.
+    // Touch: the browser's own momentum is left alone (fighting it is what felt
+    // jumpy); only after the finger is up and the page has come to rest does it
+    // drift gently onto the nearest section, and any new touch cancels that drift.
+    // Sections taller than the screen snap only at their top.
+    const touch = window.matchMedia("(pointer: coarse)").matches;
+    let origin: number | null = null; // snap point the current wheel gesture started from
     let idle: ReturnType<typeof setTimeout> | undefined;
+    let fingerDown = false;
+    const nearest = (at: number) =>
+      snapPoints().reduce((a, b) => (Math.abs(b - at) < Math.abs(a - at) ? b : a), Infinity);
     const steer = (to: number, duration: number) => {
       steering = true;
       lenis.scrollTo(to, {
         duration,
-        easing: easeOutCubic,
-        lock: true,
+        easing: easeOutQuart,
+        lock: !touch,
         onComplete: () => {
           steering = false;
         },
       });
     };
+    const settle = () => {
+      clearTimeout(idle);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+      idle = setTimeout(
+        () => {
+          origin = null;
+          if (steering || fingerDown) return;
+          const at = lenis.scroll;
+          const near = nearest(at);
+          const reach = window.innerHeight * (touch ? 0.22 : 0.3);
+          if (Math.abs(near - at) > 2 && Math.abs(near - at) < reach) steer(near, touch ? 0.9 : 0.7);
+        },
+        touch ? 260 : 160
+      );
+    };
     const onScroll = () => {
       if (steering) return;
-      const y = lenis.scroll;
-      const pts = snapPoints();
-      if (!pts.length) return;
-      if (origin === null) origin = pts.reduce((a, b) => (Math.abs(b - y) < Math.abs(a - y) ? b : a));
-
-      // Flick limit: momentum aimed past the neighbouring point stops at that point.
-      const down = lenis.direction > 0;
-      const next = down ? pts.find((p) => p > origin! + 2) : [...pts].reverse().find((p) => p < origin! - 2);
-      if (next !== undefined && (down ? lenis.targetScroll > next : lenis.targetScroll < next)) {
-        origin = null;
-        steer(next, 0.7);
-        return;
+      if (!touch) {
+        const y = lenis.scroll;
+        const pts = snapPoints();
+        if (!pts.length) return;
+        if (origin === null) origin = nearest(y);
+        const down = lenis.direction > 0;
+        const next = down ? pts.find((p) => p > origin! + 2) : [...pts].reverse().find((p) => p < origin! - 2);
+        if (next !== undefined && (down ? lenis.targetScroll > next : lenis.targetScroll < next)) {
+          origin = null;
+          steer(next, 0.8);
+          return;
+        }
       }
-
-      clearTimeout(idle);
-      idle = setTimeout(() => {
-        origin = null;
-        if (steering) return;
-        const at = lenis.scroll;
-        const near = snapPoints().reduce((a, b) => (Math.abs(b - at) < Math.abs(a - at) ? b : a), Infinity);
-        if (Math.abs(near - at) > 2 && Math.abs(near - at) < window.innerHeight * 0.3) steer(near, 0.6);
-      }, 140);
+      settle();
     };
+    const onTouchStart = () => {
+      fingerDown = true;
+      clearTimeout(idle);
+      if (steering) {
+        // The visitor took over: drop our drift right where it is.
+        lenis.scrollTo(lenis.scroll, { immediate: true, force: true });
+        steering = false;
+      }
+    };
+    const onTouchEnd = () => {
+      fingerDown = false;
+      settle();
+    };
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
     lenis.on("scroll", onScroll);
 
     // Own rAF until GSAP arrives, then Lenis rides GSAP's ticker so the pinned
@@ -140,6 +173,9 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
       ]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
+      // Phone address bars show and hide while scrolling; recalculating every pin on
+      // that resize is what made sections jump. Heights are svh-based, so skip it.
+      ScrollTrigger.config({ ignoreMobileResize: true });
       cancelAnimationFrame(rafId);
       const tick = (t: number) => lenis.raf(t * 1000);
       gsap.ticker.add(tick);

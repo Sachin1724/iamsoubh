@@ -2,8 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import { Navbar1, NavItem, pageTop } from "@/frontend/components/ui/navbar-1";
-import { scrollToTarget } from "@/frontend/components/SmoothScroll";
+import { scrollToTarget, isSteering } from "@/frontend/components/SmoothScroll";
 
 interface HeaderProps {
   onOrderClick?: () => void;
@@ -32,14 +33,16 @@ const SECTION_LABEL: Record<string, string> = {
   faq: "Questions",
 };
 
-// One pane of liquid glass (same recipe as the sticky buy bar), shared by the
-// full bar and the minimised chip.
-const GLASS =
-  "border backdrop-blur-2xl backdrop-saturate-[1.8] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-1px_0_rgba(255,255,255,0.15),0_8px_28px_rgba(0,0,0,0.15)] [@media(prefers-reduced-transparency:reduce)]:bg-white/90 [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none";
+// Flat frosted glass in the site's 2D, brutalist voice: a plain blur, a solid ink
+// outline and a hard offset shadow. No sheen or reflections.
+const FROST_LIGHT = "border-[1.5px] border-ink bg-[#FAF6EE]/70 shadow-[3px_3px_0_0_#1B1B1B]";
+const FROST_DARK = "border-[1.5px] border-white/80 bg-[#1B1B1B]/45 shadow-[3px_3px_0_0_rgba(0,0,0,0.6)]";
 
 // The header has no bar of its own, so its marks take their colour from
 // whichever section is passing underneath.
 const DARK_SECTIONS = new Set(["sound-familiar", "creators", "bulk"]);
+
+type DOMRectLike = { x: number; y: number; width: number; height: number };
 
 export function Header({ onOrderClick }: HeaderProps) {
   const [onDark, setOnDark] = React.useState(false);
@@ -47,6 +50,31 @@ export function Header({ onOrderClick }: HeaderProps) {
   // Minimise on scroll down, come back on scroll up (Apple's floating-bar behaviour).
   const [compact, setCompact] = React.useState(false);
   const [section, setSection] = React.useState("hero");
+  // One frosted pane morphs between the full bar and the chip, so the shape
+  // change reads as one object reshaping rather than two things swapping.
+  const reduceMotion = useReducedMotion();
+  const shellRef = React.useRef<HTMLDivElement>(null);
+  const chipRef = React.useRef<HTMLButtonElement>(null);
+  const [geo, setGeo] = React.useState<{ bar: DOMRectLike; chip: DOMRectLike } | null>(null);
+  React.useLayoutEffect(() => {
+    const shell = shellRef.current;
+    const chip = chipRef.current;
+    const bar = shell?.querySelector<HTMLElement>("[data-navbar] > div");
+    if (!shell || !chip || !bar) return;
+    const measure = () => {
+      const o = shell.getBoundingClientRect();
+      const box = (el: HTMLElement) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left - o.left, y: r.top - o.top, width: r.width, height: r.height };
+      };
+      setGeo({ bar: box(bar), chip: box(chip) });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(shell);
+    ro.observe(chip);
+    return () => ro.disconnect();
+  }, [section]);
   React.useEffect(() => {
     const ids = [
       "hero",
@@ -61,6 +89,7 @@ export function Header({ onOrderClick }: HeaderProps) {
     ];
 
     let lastY = window.scrollY;
+    let travel = 0; // distance moved in the current direction
     const update = () => {
       // Sample the page at the header's own eye-line.
       const y = window.scrollY + 48;
@@ -74,11 +103,19 @@ export function Header({ onOrderClick }: HeaderProps) {
       setOnDark(DARK_SECTIONS.has(current) || darkHero);
       setAtTop(window.scrollY < 40);
       setSection(current);
+      // Only a deliberate scroll (60px one way) changes the bar, and never our own
+      // snaps or iOS edge bounce, so it doesn't flicker on small movements.
       const dy = window.scrollY - lastY;
-      if (window.scrollY < 120) setCompact(false);
-      else if (dy > 6) setCompact(true);
-      else if (dy < -6) setCompact(false);
       lastY = window.scrollY;
+      if (window.scrollY < 120) {
+        setCompact(false);
+        travel = 0;
+        return;
+      }
+      if (isSteering()) return;
+      travel = Math.sign(dy) === Math.sign(travel) ? travel + dy : dy;
+      if (travel > 60) setCompact(true);
+      else if (travel < -60) setCompact(false);
     };
 
     update();
@@ -110,16 +147,34 @@ export function Header({ onOrderClick }: HeaderProps) {
         <span className="sm:hidden">Shipping from 1st of November · Free delivery across India</span>
         <span className="hidden sm:inline">Free delivery all over India · Shipping from 1st of November</span>
       </div>
-      <div className="pointer-events-none relative mx-auto w-full max-w-7xl px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8">
+      <div ref={shellRef} className="pointer-events-none relative mx-auto w-full max-w-7xl px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8">
+        {geo && (
+          <motion.div
+            aria-hidden="true"
+            className={`pointer-events-none absolute left-0 top-0 backdrop-blur-xl transition-colors duration-500 [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none ${
+              onDark ? FROST_DARK : FROST_LIGHT
+            }`}
+            initial={false}
+            animate={{
+              x: (compact ? geo.chip : geo.bar).x,
+              y: (compact ? geo.chip : geo.bar).y,
+              width: (compact ? geo.chip : geo.bar).width,
+              height: (compact ? geo.chip : geo.bar).height,
+              borderRadius: compact ? 22 : 20,
+            }}
+            transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 32, mass: 0.9 }}
+          />
+        )}
         {/* Minimised chip: logo mark plus where you are. Tap it to bring the bar back. */}
         <button
           type="button"
           onClick={() => setCompact(false)}
           aria-label={`Show menu, current section: ${SECTION_LABEL[section] ?? ""}`}
           tabIndex={compact ? 0 : -1}
-          className={`absolute left-1/2 top-3 flex h-11 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-2.5 overflow-hidden rounded-full pl-4 pr-5 text-sm font-semibold transition-all duration-300 ease-out sm:top-4 ${GLASS} ${
-            onDark ? "border-white/25 bg-white/12 text-on-dark" : "border-white/50 bg-white/45 text-on-light"
-          } ${compact ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-90 opacity-0"}`}
+          ref={chipRef}
+          className={`absolute left-1/2 top-3 z-10 flex h-11 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-2.5 overflow-hidden rounded-full pl-4 pr-5 text-sm font-semibold transition-opacity duration-300 sm:top-4 ${
+            onDark ? "text-on-dark" : "text-on-light"
+          } ${compact ? "pointer-events-auto opacity-100 delay-150" : "pointer-events-none opacity-0"}`}
         >
           {/* Fixed box so the two-line lettering can never spill past the pill */}
           <span className="relative block h-6 w-12 shrink-0">
@@ -140,12 +195,10 @@ export function Header({ onOrderClick }: HeaderProps) {
         onCtaClick={handleCtaClick}
         ctaText="Buy Now"
         ctaHref="#preorder"
-        containerClassName="pointer-events-none w-full"
-        // One pane of liquid glass (same recipe as the sticky buy bar): clear saturated
-        // blur, a bright rim, a sheen over the top half, a soft lift. Fixed height and
-        // even padding so the logo and menu sit centred with room around them.
-        className={`${compact ? "pointer-events-none -translate-y-2 scale-95 opacity-0" : "pointer-events-auto opacity-100"} h-14 rounded-[20px] pl-4 pr-2 transition-all duration-300 ease-out sm:h-16 sm:pl-6 sm:pr-3 ${GLASS} before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:-z-10 before:h-1/2 before:rounded-t-[20px] before:bg-gradient-to-b before:from-white/40 before:to-transparent before:content-[''] ${
-          onDark ? "border-white/25 bg-white/12 text-on-dark" : "border-white/50 bg-white/45 text-on-light"
+        containerClassName="pointer-events-none relative z-10 w-full"
+        // The frosted pane behind (above) is the bar's surface; this only lays out the contents.
+        className={`${compact ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100 delay-150"} h-14 pl-4 pr-2 transition-opacity duration-300 sm:h-16 sm:pl-6 sm:pr-3 ${
+          onDark ? "text-on-dark" : "text-on-light"
         }`}
         brandLogo={
           <a

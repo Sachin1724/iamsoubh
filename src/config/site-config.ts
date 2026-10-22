@@ -40,9 +40,9 @@ export const siteConfig = {
 // Prices come from env (NEXT_PUBLIC_ so the page and the server agree). Each
 // reference is written out in full because Next only inlines literal names.
 // Changing one needs a rebuild/redeploy; the fallbacks are the batch 1 prices.
-const PRICE_1 = envNum(process.env.NEXT_PUBLIC_PRICE_1_BOX, 329);
-const PRICE_3 = envNum(process.env.NEXT_PUBLIC_PRICE_3_PLUS, 283);
-const PRICE_10 = envNum(process.env.NEXT_PUBLIC_PRICE_10_PLUS, 250);
+const PRICE_1 = envNum(process.env.NEXT_PUBLIC_PRICE_1_BOX, 359);
+const PRICE_3 = envNum(process.env.NEXT_PUBLIC_PRICE_3_PLUS, 329);
+const PRICE_10 = envNum(process.env.NEXT_PUBLIC_PRICE_10_PLUS, 299);
 
 export const products = {
   single: {

@@ -73,7 +73,7 @@ export function PinnedList({ id, number, collage, intro, children }: PinnedListP
             pin: true,
             pinSpacing: true,
             refreshPriority: -number,
-            scrub: 0.1,
+            scrub: 0.6, // a little catch-up, so scenes glide instead of snapping frame to frame
           },
         });
         // Fades in over the approach, so the collage is already there when it pins.

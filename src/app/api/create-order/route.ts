@@ -46,10 +46,10 @@ export async function POST(req: NextRequest) {
   const product = "single";
   const c = customer ?? {};
 
-  // Magic Checkout collects the delivery address itself, so the phone number is
-  // the only thing we need up front. Anything else the form sends is a bonus
-  // prefill; the authoritative address is read back off the paid order.
-  if (!/^\d{10}$/.test(c.phone ?? "")) {
+  // Magic Checkout collects the phone (with OTP) and the address itself, so nothing
+  // is required up front. A phone, if sent, is only a prefill and must be 10 digits;
+  // the authoritative contact and address are read back off the paid order.
+  if (c.phone && !/^\d{10}$/.test(c.phone)) {
     return NextResponse.json({ code: "BAD_PHONE" }, { status: 400 });
   }
 
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
         qty: String(quantity),
         boxes: String(boxes),
         name: c.name?.trim() ?? "",
-        phone: c.phone!,
+        phone: c.phone ?? "",
         email: c.email ?? "",
         pincode: c.pincode ?? "",
         city: c.city ?? "",
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
         "Order Id": rzpOrder.id,
         Status: "Unpaid",
         Created: new Date().toISOString(),
-        Phone: c.phone!,
+        Phone: c.phone ?? "",
         Boxes: boxes,
         "Amount (INR)": amount / 100,
       },

@@ -60,9 +60,7 @@ export async function startCheckout(
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         qty: order.boxes,
-        customer: {
-          phone: order.phone,
-        },
+        customer: order.phone ? { phone: order.phone } : {},
         utm: getUtm(),
       }),
     });
@@ -91,9 +89,8 @@ export async function startCheckout(
       show_coupons: false,
       name: "IAMSOUBH",
       description: label,
-      prefill: {
-        contact: `+91${order.phone}`,
-      },
+      // Magic Checkout asks for the number itself when there is no prefill.
+      ...(order.phone ? { prefill: { contact: `+91${order.phone}` } } : {}),
       theme: { color: "#C8221A" },
       timeout: 900,
       retry: { enabled: true },

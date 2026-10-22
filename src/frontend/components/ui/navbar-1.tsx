@@ -168,7 +168,7 @@ const Navbar1 = ({
   };
 
   return (
-    <div className={`flex justify-center w-full ${containerClassName}`}>
+    <div data-navbar className={`flex justify-center w-full ${containerClassName}`}>
       <div
         className={`relative z-10 flex w-full items-center justify-between ${className}`}
       >

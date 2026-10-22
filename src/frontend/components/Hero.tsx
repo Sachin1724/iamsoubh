@@ -6,7 +6,11 @@ import { ShoppingCart } from "lucide-react";
 import { siteConfig } from "@/config/site-config";
 import { useStock } from "@/frontend/lib/useStock";
 import { scrollToTarget } from "@/frontend/components/SmoothScroll";
-import { cta } from "@/frontend/components/ui/cta";
+
+// The hero's own call to action: a brand-red card with the line in white and a
+// struck-through "Order" under it. Flat and 2D, with the site's hard ink shadow.
+const HERO_CTA =
+  "inline-flex cursor-pointer select-none flex-col items-center justify-center rounded-2xl bg-[#8A1717] px-8 py-3 font-sans text-white shadow-[3px_3px_0_0_#1B1B1B] transition-transform hover:-translate-y-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_0_#1B1B1B]";
 
 export function Hero() {
   const { soldOut } = useStock();
@@ -156,10 +160,6 @@ export function Hero() {
         data-hero-copy
         className="absolute inset-y-0 right-[4vw] z-20 hidden w-[clamp(240px,40vw,540px)] flex-col items-end justify-center pt-16 text-right text-white sm:flex"
       >
-        <div data-hero-part className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E0A526]" />
-          <span className="font-mono text-[clamp(0.65rem,1.1vw,0.875rem)] uppercase tracking-[0.14em] text-white/85">The Odia calendar you feel · Edition 2027</span>
-        </div>
         <h1 className="sr-only">Bara Masa Tera Parba — the 2027 Odia calendar</h1>
         <Image
           data-hero-lettering
@@ -186,14 +186,21 @@ export function Hero() {
             `All ${siteConfig.batchCap} are gone. Thank you, Odisha.`
           ) : (
             <>
-              In <strong className="font-semibold">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
+              The Odia calendar you feel · Edition 2027
             </>
           )}
         </p>
         <div data-hero-part className="mt-6 flex flex-col items-end gap-2">
-          <button type="button" onClick={() => scrollToTarget("#preorder")} className={cta("red")}>
-            <span>{soldOut ? "Join batch 2" : "Let's Odia this"}</span>
-            <span className="font-mono text-sm leading-none text-[#E0A526]">→</span>
+          <button type="button" onClick={() => scrollToTarget("#preorder")} className={HERO_CTA}>
+            {soldOut ? (
+              <span className="text-xl font-medium">Join batch 2</span>
+            ) : (
+              <>
+                <span className="text-[1.6rem] font-medium leading-none tracking-[-0.02em] sm:text-3xl">Let&rsquo;s Odia This!</span>
+                {/* The joke: it isn't an "order", it's an Odia thing */}
+                <s className="mt-1 text-sm font-medium leading-none decoration-[1.5px]">Order</s>
+              </>
+            )}
           </button>
           <span className="inline-flex items-center gap-1.5 text-sm font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)]">
             <ShoppingCart className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
@@ -206,13 +213,6 @@ export function Hero() {
         data-hero-copy
         className="relative z-20 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 text-center sm:px-6 md:px-8 sm:hidden"
       >
-        {/* Edition 2027 and the red dot: stays right at the top */}
-        <div data-hero-part className="pt-1 flex items-center justify-center gap-2 text-center">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#8A1717] shrink-0" />
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-on-light/80">
-            The Odia calendar you feel · Edition 2027
-          </span>
-        </div>
 
         {/* Phones: logo sits just under the edition line, text + CTA drop to the bottom.
             sm+: one centered cluster as before. */}
@@ -258,7 +258,7 @@ export function Hero() {
               `All ${siteConfig.batchCap} are gone. Thank you, Odisha.`
             ) : (
               <>
-                In <strong className="font-normal sm:font-bold sm:text-on-light">1,500+ homes</strong> across 22 states &amp; the USA. The viral calendar is back for 2027.
+                The Odia calendar you feel · Edition 2027
               </>
             )}
           </p>
@@ -268,10 +268,17 @@ export function Hero() {
             <button
               type="button"
               onClick={() => scrollToTarget("#preorder")}
-              className={`w-full max-w-sm ${cta("red")}`}
+              className={`w-full max-w-sm ${HERO_CTA}`}
             >
-              <span>{soldOut ? "Join batch 2" : "Let's Odia this"}</span>
-              <span className="text-[#E0A526] font-mono text-sm leading-none">→</span>
+              {soldOut ? (
+              <span className="text-xl font-medium">Join batch 2</span>
+            ) : (
+              <>
+                <span className="text-[1.6rem] font-medium leading-none tracking-[-0.02em] sm:text-3xl">Let&rsquo;s Odia This!</span>
+                {/* The joke: it isn't an "order", it's an Odia thing */}
+                <s className="mt-1 text-sm font-medium leading-none decoration-[1.5px]">Order</s>
+              </>
+            )}
             </button>
             
             <span className="inline-flex items-center justify-center gap-1.5 text-xs font-medium italic text-[#F2C14E] [text-shadow:0_0_10px_rgba(224,165,38,0.65),0_0_22px_rgba(224,165,38,0.35)] sm:not-italic sm:text-on-light/75 sm:[text-shadow:none] text-center">
