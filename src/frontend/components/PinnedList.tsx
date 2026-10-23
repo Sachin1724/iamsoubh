@@ -121,7 +121,7 @@ export function PinnedList({ id, number, collage, intro, children }: PinnedListP
   }, [number, intro]);
 
   return (
-    <section id={id} ref={root} className="relative h-svh overflow-hidden bg-ink">
+    <section id={id} ref={root} className="relative h-svh overflow-hidden bg-ink [box-shadow:0_15svh_0_0_#1B1B1B]">
       <div
         data-pl-img
         className="absolute inset-0 opacity-90 [--s:0.6] sm:[--s:1] [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:18px_18px]"

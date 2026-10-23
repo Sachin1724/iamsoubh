@@ -114,8 +114,8 @@ export function Header({ onOrderClick }: HeaderProps) {
       }
       if (isSteering()) return;
       travel = Math.sign(dy) === Math.sign(travel) ? travel + dy : dy;
+      // Scrolling up never reopens it; only a tap on the chip (or the page top) does.
       if (travel > 60) setCompact(true);
-      else if (travel < -60) setCompact(false);
     };
 
     update();

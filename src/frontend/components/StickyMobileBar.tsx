@@ -47,15 +47,10 @@ export function StickyMobileBar({ onOrderClick }: StickyMobileBarProps) {
     <aside
       aria-label="Quick order"
       aria-hidden={!visible}
-      className={`md:hidden fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-3 overflow-hidden rounded-2xl border border-white/50 bg-white/50 py-2.5 pl-4 pr-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_0_rgba(255,255,255,0.25),0_10px_32px_rgba(40,10,10,0.22)] backdrop-blur-2xl backdrop-saturate-[1.8] transition-all duration-300 ease-out [padding-bottom:calc(0.625rem+env(safe-area-inset-bottom))] [@media(prefers-reduced-transparency:reduce)]:bg-white [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none ${
+      className={`md:hidden fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-3 rounded-2xl border-[1.5px] border-ink bg-[#FAF6EE] py-2.5 pl-4 pr-2.5 shadow-[3px_3px_0_0_#1B1B1B] transition-all duration-300 ease-out [padding-bottom:calc(0.625rem+env(safe-area-inset-bottom))] ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
       }`}
     >
-      {/* Glass sheen: light catching the top of the pane */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/55 via-white/10 to-transparent"
-      />
       <div className="relative min-w-0">
         {soldOut ? (
           <>
