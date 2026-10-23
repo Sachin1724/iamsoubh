@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
-import { registerSnaps } from "@/frontend/components/SmoothScroll";
 
 interface PinnedListProps {
   id: string;
@@ -50,6 +49,13 @@ export function PinnedList({ id, number, collage, intro, children }: PinnedListP
   useEffect(() => {
     const el = root.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // The drifting collage is one huge layer; stop it while the section is off screen.
+    const marquee = el.querySelector<HTMLElement>(".animate-marquee-x");
+    const io = new IntersectionObserver(([entry]) => {
+      if (marquee) marquee.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+    });
+    io.observe(el);
 
     let cleanup: (() => void) | undefined;
     let cancelled = false;
@@ -100,22 +106,12 @@ export function PinnedList({ id, number, collage, intro, children }: PinnedListP
 
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
-
-      // Rest positions inside the pin: the first scene, and the lines once settled.
-      const linesDone = intro ? 2.1 : 1.3;
-      const unregister = registerSnaps(() => {
-        const trig = tl?.scrollTrigger;
-        if (!tl || !trig) return [];
-        return [trig.start, trig.start + ((trig.end - trig.start) * linesDone) / tl.duration()];
-      });
-      cleanup = () => {
-        unregister();
-        ctx.revert();
-      };
+      cleanup = () => ctx.revert();
     })();
 
     return () => {
       cancelled = true;
+      io.disconnect();
       cleanup?.();
     };
   }, [number, intro]);
@@ -156,7 +152,6 @@ export function PinnedList({ id, number, collage, intro, children }: PinnedListP
                         alt=""
                         fill
                         sizes="25svh"
-                        unoptimized
                         priority={row === 0 && copy === 0 && i < 4}
                         className="object-cover"
                       />
@@ -171,7 +166,7 @@ export function PinnedList({ id, number, collage, intro, children }: PinnedListP
       <div className="pointer-events-none absolute inset-0 bg-black/15" />
       {/* Scrim for the stories scene: it fades out in place, so no edge ever travels across the collage */}
       {intro && (
-        <div data-pl-scrim className="pointer-events-none absolute inset-0 z-[15] bg-black/60" aria-hidden="true" />
+        <div data-pl-scrim className="pointer-events-none absolute inset-0 z-[15] bg-black/35" aria-hidden="true" />
       )}
       {intro && (
         <div id="stories" data-pl-intro className="absolute inset-0 z-20 flex px-3 motion-reduce:hidden">

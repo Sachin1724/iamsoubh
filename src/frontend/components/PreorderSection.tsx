@@ -69,7 +69,6 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
     >
       <div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-4 sm:px-6 lg:block lg:flex-none lg:px-8">
         <div className="mb-1 hidden items-baseline gap-3 [@media(min-height:960px)]:flex lg:mb-2">
-          <span className="font-gazpacho text-xl font-bold sm:text-2xl">06</span>
           <span className="text-xs font-bold uppercase tracking-wider sm:text-sm">Order now</span>
         </div>
 

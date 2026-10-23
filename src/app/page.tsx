@@ -38,10 +38,10 @@ export default function HomePage() {
       <SoundFamiliar />
       <div className="strip strip-pattachitra" aria-hidden />
 
-      {/* 03: the buy page, then what you get inside */}
-      <PreorderSection />
-      <div className="strip strip-pattachitra" aria-hidden />
+      {/* 03: what you get inside, then the buy page */}
       <InsideTheBox />
+      <div className="strip strip-pattachitra" aria-hidden />
+      <PreorderSection />
       <div className="strip strip-pattachitra" aria-hidden />
 
       {/* Free shipping, all of India */}

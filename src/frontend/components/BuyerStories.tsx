@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { highlightCentre } from "@/frontend/lib/highlightCentre";
 import {
   ChevronLeft,
   ChevronRight,
@@ -79,6 +80,13 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
         window.removeEventListener("resize", checkScroll);
       };
     }
+  }, [activeStories]);
+
+  // The card nearest the middle of the screen is the highlighted one.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    return highlightCentre(el);
   }, [activeStories]);
 
   // Continuous horizontal auto-scroll (paused when off-screen to save CPU/battery)
@@ -283,9 +291,6 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
         {/* Header Block */}
         <div className="reveal max-w-3xl lg:flex-1">
           <div className="flex items-baseline gap-3 mb-2">
-            <span className={`font-gazpacho ${ink} font-bold text-xl sm:text-2xl`}>
-              04
-            </span>
             <span className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${embedded ? "text-turmeric" : "text-on-light"}`}>
               Stories
             </span>
@@ -406,7 +411,7 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
         </div>
 
         {/* 7. Smooth Scrolling Stories Carousel Track — full-bleed rail aligned to container */}
-        <div className={`relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden ${embedded ? "min-h-0 flex-1" : ""}`}>
+        <div className={`relative mx-[calc(50%-50vw)] overflow-hidden ${embedded ? "min-h-0 flex-1" : ""}`}>
           <div
             ref={scrollRef}
             onMouseDown={handleMouseDown}
@@ -421,13 +426,13 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
             }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className={`${embedded ? "h-full " : ""}reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-3 sm:pb-4 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 [mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)]`}
+            className={`${embedded ? "h-full " : ""}reveal-stagger flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-3 sm:pb-4 pt-2 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8`}
           >
             {activeStories.map((story, idx) => (
               <div
                 key={story.id}
                 onClick={() => handleCardClick(idx)}
-                className={`relative ${embedded ? "h-full" : "w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px]"} shrink-0 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] hover:-translate-y-2 transition-all duration-300 cursor-pointer group shrink-0 snap-start`}
+                className={`relative ${embedded ? "h-full lg:h-auto lg:self-center lg:w-[calc((100vw-7.5rem)/6)]" : "w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px]"} shrink-0 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] scale-95 opacity-60 data-[active]:scale-105 data-[active]:opacity-100 data-[active]:border-turmeric transition-all duration-300 cursor-pointer group shrink-0 snap-start`}
               >
                 {/* Phone Speaker Notch */}
                 <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-1.5 bg-black/60 rounded-full z-20 pointer-events-none" />
@@ -460,7 +465,7 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
                     </div>
                   </div>
 
-                  <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold backdrop-blur-md">
+                  <span className="shrink-0 rounded-full bg-black/45 px-2 py-0.5 text-xs font-semibold">
                     {idx + 1}/{activeStories.length}
                   </span>
                 </div>

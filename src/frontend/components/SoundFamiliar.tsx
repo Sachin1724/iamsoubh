@@ -6,10 +6,7 @@ const COLLAGE = Array.from({ length: 15 }, (_, i) => `/assets/festival/f${String
 const LINES = [
   "For everyone who misses Odisha without saying it.",
   "Raja came and went. You found out from someone's story.",
-  "You watched Rath Yatra on reels. From 1,000 km away. Again.",
-  "Maa asked, \"Pitha khailu?\" You said yes. Your last pitha was months ago.",
-  "You wished Maa for Pana Sankranti. A day late.",
-];
+  "You watched Rath Yatra on reels. From 1,000 km away. Again.",];
 
 export function SoundFamiliar() {
   return (

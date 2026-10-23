@@ -7,6 +7,8 @@ import { creators } from "@/frontend/data/creators";
 import { SectionArt } from "@/frontend/components/SectionArt";
 import { trackGA } from "@/frontend/lib/track";
 import { CreatorGiftModal } from "@/frontend/components/CreatorGiftModal";
+import { highlightCentre } from "@/frontend/lib/highlightCentre";
+import { cta } from "@/frontend/components/ui/cta";
 
 const SPEED_PX_PER_SEC = 25;
 
@@ -26,6 +28,13 @@ export function CreatorVideos() {
   const hold = (ms = 4000) => {
     holdUntil.current = performance.now() + ms;
   };
+
+  // The card nearest the middle of the screen is the highlighted one.
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    return highlightCentre(el);
+  }, []);
 
   useEffect(() => {
     const el = scrollContainerRef.current;
@@ -122,9 +131,6 @@ export function CreatorVideos() {
         <div className="mb-3 flex shrink-0 flex-col justify-between gap-2 sm:mb-6 md:flex-row md:items-end">
           <div className="min-w-0">
             <div className="flex items-baseline gap-3 mb-2">
-              <span className="font-gazpacho text-turmeric font-bold text-xl sm:text-2xl">
-                05
-              </span>
               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-turmeric/85">
                 From the creators
               </span>
@@ -161,7 +167,7 @@ export function CreatorVideos() {
         </div>
 
         {/* Video Carousel — aligned with edge bleed */}
-        <div className="relative min-h-0 flex-1 -mx-4 sm:-mx-6 lg:flex-none lg:-mx-8 overflow-hidden">
+        <div className="relative min-h-0 flex-1 mx-[calc(50%-50vw)] lg:flex-none overflow-hidden">
           <div
             ref={scrollContainerRef}
             onPointerDown={handlePointerDown}
@@ -173,14 +179,17 @@ export function CreatorVideos() {
               isDragging.current = false;
               paused.current = false;
             }}
-            className="flex gap-4 sm:gap-6 overflow-x-auto h-full pb-1 pt-1 lg:h-auto lg:pb-6 lg:pt-2 no-scrollbar px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing select-none relative z-20 [mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_8px,black_calc(100%-8px),transparent_100%)]"
+            className="flex gap-4 sm:gap-6 overflow-x-auto h-full py-3 lg:h-auto lg:py-6 no-scrollbar cursor-grab active:cursor-grabbing select-none relative z-20"
             style={{
               WebkitOverflowScrolling: "touch",
               touchAction: "pan-x pan-y",
             }}
           >
             {[...creators, ...creators].map((c, i) => (
-              <div key={`${c.postId}-${i}`} className="h-full shrink-0 lg:h-auto">
+              <div
+                key={`${c.postId}-${i}`}
+                className="h-full shrink-0 scale-95 opacity-60 transition duration-300 data-[active]:scale-105 data-[active]:opacity-100 lg:h-auto lg:w-[calc((100vw-7.5rem)/6)]"
+              >
                 <CreatorCard
                   creator={c}
                   unmuted={unmuted === c.postId}
@@ -235,20 +244,33 @@ function CreatorCard({
     const video = videoRef.current;
     if (!el || !video) return;
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-          trackGA("video_play", { creator: creator.handle || creator.postId });
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
+    // Only the highlighted card plays: decoding six videos at once dropped frames.
+    const slot = el.parentElement;
+    if (!slot) return;
+    let onScreen = false;
+    let playing = false;
+    const sync = () => {
+      const want = onScreen && slot.hasAttribute("data-active");
+      if (want === playing) return;
+      playing = want;
+      if (want) {
+        video.play().catch(() => {});
+        trackGA("video_play", { creator: creator.handle || creator.postId });
+      } else {
+        video.pause();
+      }
+    };
+    const io = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      sync();
+    });
+    const mo = new MutationObserver(sync);
     io.observe(el);
-    return () => io.disconnect();
+    mo.observe(slot, { attributes: true, attributeFilter: ["data-active"] });
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
   }, [creator.handle, creator.postId]);
 
   useEffect(() => {
@@ -258,9 +280,9 @@ function CreatorCard({
   return (
     <div
       ref={cardRef}
-      className="relative flex h-full flex-col lg:h-auto lg:w-[290px] shrink-0 snap-start rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric transition-all duration-300 group hover:-translate-y-1"
+      className="relative flex h-full flex-col lg:h-auto lg:w-full shrink-0 rounded-2xl overflow-hidden bg-ink border border-turmeric/40 hover:border-turmeric in-data-active:border-2 in-data-active:border-turmeric transition-all duration-300 group"
     >
-      <div className="relative aspect-[9/16] h-[calc(100%-3.25rem)] lg:h-auto lg:w-full bg-[#0F0F0F]">
+      <div className="relative aspect-[9/16] h-full lg:h-auto lg:w-full bg-[#0F0F0F]">
         {creator.video ? (
           <a
             href={postUrl}
@@ -331,34 +353,27 @@ function CreatorCard({
             )}
           </button>
         )}
-      </div>
 
-      {/* Only what is true: a line and handle if we have them, and always the real reel. */}
-      <a
-        href={postUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex h-[3.25rem] w-0 min-w-full shrink-0 items-center justify-between gap-2 bg-black/60 px-3 transition-colors hover:bg-black/80 lg:h-auto lg:p-4"
-      >
-        <span className="min-w-0">
-          {creator.pullLine && (
-            <span className="mb-1 block line-clamp-1 text-xs font-semibold text-cream sm:text-sm">
-              {creator.pullLine}
-            </span>
-          )}
-          <span className="block truncate text-xs font-bold text-turmeric">
+        {/* Handle and the real reel, sitting on the video itself */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 to-transparent px-3 pb-3 pt-10">
+          <span className="mb-2 block truncate text-xs font-bold text-turmeric">
             {creator.handle ? `@${creator.handle.replace(/^@/, "")}` : "On Instagram"}
           </span>
-        </span>
-        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-turmeric px-3 py-1.5 text-xs font-bold text-ink">
-          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-          </svg>
-          Watch
-        </span>
-      </a>
+          <a
+            href={postUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`pointer-events-auto ${cta("gold", "sm")} h-9! min-h-9! gap-1.5! px-3! text-xs!`}
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+            Watch
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

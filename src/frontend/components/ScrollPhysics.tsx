@@ -123,8 +123,7 @@ export function ScrollPhysics() {
           }
           el.dataset.split = "done";
 
-          // Timed, not scrubbed: the page snaps a whole section per swipe, which would
-          // burn through a scrubbed range in one frame. An IntersectionObserver reads
+          // Timed, not scrubbed, so it plays the same at any scroll speed. An IntersectionObserver reads
           // where the heading really is, so the pinned section's spacer can't throw it off.
           const tween = gsap.fromTo(
             spans,

@@ -18,7 +18,6 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
     >
       <div className="reveal relative mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <div className="mb-3 flex items-baseline justify-center gap-3 text-turmeric">
-          <span className="font-gazpacho text-xl font-bold sm:text-2xl">07</span>
           <span className="text-xs font-bold uppercase tracking-wider sm:text-sm">Bulk and gifting</span>
         </div>
 

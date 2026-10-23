@@ -10,30 +10,10 @@ export function getLenis(): Lenis | null {
   return globalLenis;
 }
 
-// ── Section snapping ─────────────────────────────────────────
-// Snap points are the tops of [data-snap] sections, plus extra points that pinned
-// sections register (their scene rest positions, which no element top marks).
-const extraSnaps = new Set<() => number[]>();
-export function registerSnaps(fn: () => number[]) {
-  extraSnaps.add(fn);
-  return () => {
-    extraSnaps.delete(fn);
-  };
-}
-
-function snapPoints(): number[] {
-  const tops = Array.from(document.querySelectorAll<HTMLElement>("[data-snap]")).map(
-    (el) => el.getBoundingClientRect().top + window.scrollY
-  );
-  extraSnaps.forEach((fn) => tops.push(...fn()));
-  return tops.map(Math.round).sort((a, b) => a - b);
-}
-
-// True while a scroll we started ourselves (nav link, button, snap) is running.
+// True while a scroll we started ourselves (nav link, button) is running.
 let steering = false;
-/** Lets the header ignore scrolls we started ourselves (no flicker during a snap). */
+/** Lets the header ignore scrolls we started ourselves. */
 export const isSteering = () => steering;
-const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
 
 export function scrollToTarget(target: string | HTMLElement, options?: { offset?: number; duration?: number }) {
   if (typeof window === "undefined") return;
@@ -80,80 +60,6 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
 
     lenisRef.current = lenis;
     globalLenis = lenis;
-
-    // Magnet + flick limit.
-    // Wheel/trackpad: one gesture moves at most one section, and a stop near a
-    // section top eases onto it.
-    // Touch: the browser's own momentum is left alone (fighting it is what felt
-    // jumpy); only after the finger is up and the page has come to rest does it
-    // drift gently onto the nearest section, and any new touch cancels that drift.
-    // Sections taller than the screen snap only at their top.
-    const touch = window.matchMedia("(pointer: coarse)").matches;
-    let origin: number | null = null; // snap point the current wheel gesture started from
-    let idle: ReturnType<typeof setTimeout> | undefined;
-    let fingerDown = false;
-    const nearest = (at: number) =>
-      snapPoints().reduce((a, b) => (Math.abs(b - at) < Math.abs(a - at) ? b : a), Infinity);
-    const steer = (to: number, duration: number) => {
-      steering = true;
-      lenis.scrollTo(to, {
-        duration,
-        easing: easeOutQuart,
-        lock: !touch,
-        onComplete: () => {
-          steering = false;
-        },
-      });
-    };
-    const settle = () => {
-      clearTimeout(idle);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
-      idle = setTimeout(
-        () => {
-          origin = null;
-          if (steering || fingerDown) return;
-          const at = lenis.scroll;
-          const near = nearest(at);
-          const reach = window.innerHeight * (touch ? 0.22 : 0.3);
-          if (Math.abs(near - at) > 2 && Math.abs(near - at) < reach) steer(near, touch ? 0.9 : 0.7);
-        },
-        touch ? 260 : 160
-      );
-    };
-    const onScroll = () => {
-      if (steering) return;
-      if (!touch) {
-        const y = lenis.scroll;
-        const pts = snapPoints();
-        if (!pts.length) return;
-        if (origin === null) origin = nearest(y);
-        const down = lenis.direction > 0;
-        const next = down ? pts.find((p) => p > origin! + 2) : [...pts].reverse().find((p) => p < origin! - 2);
-        if (next !== undefined && (down ? lenis.targetScroll > next : lenis.targetScroll < next)) {
-          origin = null;
-          steer(next, 0.8);
-          return;
-        }
-      }
-      settle();
-    };
-    const onTouchStart = () => {
-      fingerDown = true;
-      clearTimeout(idle);
-      if (steering) {
-        // The visitor took over: drop our drift right where it is.
-        lenis.scrollTo(lenis.scroll, { immediate: true, force: true });
-        steering = false;
-      }
-    };
-    const onTouchEnd = () => {
-      fingerDown = false;
-      settle();
-    };
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-    lenis.on("scroll", onScroll);
 
     // Own rAF until GSAP arrives, then Lenis rides GSAP's ticker so the pinned
     // story stages and Lenis read the same scroll position on the same frame.
@@ -209,7 +115,6 @@ export function SmoothScroll({ children }: { children?: React.ReactNode }) {
 
     return () => {
       document.removeEventListener("click", handleAnchorClick);
-      clearTimeout(idle);
       cancelled = true;
       cancelAnimationFrame(rafId);
       stopTicker?.();

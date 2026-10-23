@@ -14,8 +14,9 @@ interface HeaderProps {
 // Five destinations: a floating pill stops working beyond about that many.
 const navItems: NavItem[] = [
   { name: "Stories", href: "#stories" },
-  { name: "Buy", href: "#preorder" },
   { name: "Inside the box", href: "#inside-calendar" },
+  { name: "Buy", href: "#preorder" },
+  { name: "Creators", href: "#creators" },
   { name: "Bulk", href: "#bulk" },
   { name: "Questions", href: "#faq" },
 ];
@@ -80,9 +81,9 @@ export function Header({ onOrderClick }: HeaderProps) {
       "hero",
       "stories",
       "sound-familiar",
-      "preorder",
       "inside-calendar",
       "inside-list",
+      "preorder",
       "creators",
       "bulk",
       "faq",
