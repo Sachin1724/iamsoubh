@@ -109,8 +109,8 @@ export function PinnedList({ id, collage, intro, children }: PinnedListProps) {
       {/* Foreground layers: plain page flow, scrolling over the collage */}
       <div className="relative z-10">
         {intro && (
-          <div id="stories" className="flex h-svh px-3">
-            <div className="mx-auto flex h-full w-full max-w-7xl flex-col pb-[5.5rem] pt-[5.25rem] md:pb-4">{intro}</div>
+          <div id="stories" className="flex min-h-svh px-3">
+            <div className="mx-auto flex h-full w-full max-w-7xl flex-col justify-center pb-[5.5rem] pt-[5.25rem] md:pb-4">{intro}</div>
           </div>
         )}
         <div className="flex min-h-svh items-center px-4 py-24">

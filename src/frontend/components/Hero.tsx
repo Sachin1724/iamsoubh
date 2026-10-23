@@ -127,7 +127,7 @@ export function Hero() {
     <section
       ref={root}
       id="hero" data-snap
-      className="relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-pipili-cream pt-[6.25rem] sm:pt-24 text-on-light"
+      className="relative flex h-svh min-h-svh sm:h-auto sm:min-h-screen flex-col justify-between overflow-hidden bg-pipili-cream pt-[6.25rem] sm:pt-24 text-on-light"
     >
       {/* Phone-only photo background. Cards sit at ~58% of the image width, so the
           x position (78%) pulls them to the horizontal centre of a portrait screen. */}

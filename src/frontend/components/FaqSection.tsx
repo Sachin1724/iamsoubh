@@ -40,8 +40,8 @@ export function FaqSection() {
         
         {/* Header Block */}
         <div className="reveal max-w-2xl mb-3 shrink-0 sm:mb-8 lg:mb-16">
-          <h2 data-scroll-rise className="font-gazpacho text-3xl sm:text-6xl font-bold uppercase tracking-tight text-on-light leading-none">
-            QUESTIONS
+          <h2 data-scroll-rise className="font-gazpacho text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-on-light">
+            Questions.
           </h2>
           <p className="mt-3 text-sm sm:text-base text-on-light/80 font-subtext font-normal leading-relaxed">
             The short answers to the long ones.
