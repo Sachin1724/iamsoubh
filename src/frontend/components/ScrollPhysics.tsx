@@ -30,6 +30,7 @@ export function ScrollPhysics() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const observers: IntersectionObserver[] = [];
         const media = gsap.utils.toArray<HTMLElement>("[data-scroll-media]");
 
         media.forEach((el) => {
@@ -99,8 +100,9 @@ export function ScrollPhysics() {
         });
         // Headlines: each word starts a little low and clear, then rises and firms up in
         // sequence as the heading comes in. Plain-text headings only (it rewrites text).
-        gsap.utils.toArray<HTMLElement>("[data-scroll-rise]").forEach((el) => {
-          if (el.dataset.split === "done") return;
+        // Every section heading gets it too, as long as it holds only text.
+        gsap.utils.toArray<HTMLElement>("[data-scroll-rise], section h2").forEach((el) => {
+          if (el.dataset.split === "done" || el.childElementCount > 0) return;
           const words = (el.textContent ?? "").split(/(\s+)/);
           el.textContent = "";
           const spans: HTMLSpanElement[] = [];
@@ -121,21 +123,29 @@ export function ScrollPhysics() {
           }
           el.dataset.split = "done";
 
-          gsap.fromTo(
+          // Timed, not scrubbed: the page snaps a whole section per swipe, which would
+          // burn through a scrubbed range in one frame. An IntersectionObserver reads
+          // where the heading really is, so the pinned section's spacer can't throw it off.
+          const tween = gsap.fromTo(
             spans,
             { yPercent: 105, opacity: 0 },
-            {
-              yPercent: 0,
-              opacity: 1,
-              stagger: 0.08,
-              ease: "power2.out",
-              scrollTrigger: { trigger: el, start: "top 92%", end: "top 55%", scrub: 0.4 },
-            }
+            { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.09, ease: "power3.out", paused: true }
           );
+          const io = new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting) tween.play();
+              // Rewind only once it drops off the bottom, so scrolling back up replays it.
+              else if (entry.boundingClientRect.top > 0) tween.reverse();
+            },
+            { threshold: 0.2 }
+          );
+          io.observe(el);
+          observers.push(io);
         });
 
         // No kill-all here: mm.revert() already reverts what this context made,
         // and killing every trigger also took down the pinned story stages.
+        return () => observers.forEach((io) => io.disconnect());
       });
 
       cleanup = () => mm.revert();
