@@ -10,7 +10,7 @@ const LINES = [
 
 export function SoundFamiliar() {
   return (
-    <PinnedList id="sound-familiar" number={2} collage={COLLAGE} intro={<BuyerStories embedded />}>
+    <PinnedList id="sound-familiar" collage={COLLAGE} intro={<BuyerStories embedded />}>
       <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-wider text-turmeric">Sound familiar?</p>
       <ul className="space-y-3 sm:space-y-5">
         {LINES.map((line) => (

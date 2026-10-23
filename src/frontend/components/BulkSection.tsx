@@ -14,7 +14,7 @@ export function BulkSection({ onRequestQuote }: { onRequestQuote: () => void }) 
   return (
     <section
       id="bulk" data-snap
-      className="halftone relative flex min-h-[100dvh] items-center overflow-clip bg-pipili-red pb-[5.5rem] pt-[5.25rem] text-on-dark scroll-mt-0 md:pb-16 sm:pt-24"
+      className="halftone relative overflow-clip bg-pipili-red py-16 text-on-dark scroll-mt-0 sm:py-24"
     >
       <div className="reveal relative mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <div className="mb-3 flex items-baseline justify-center gap-3 text-turmeric">

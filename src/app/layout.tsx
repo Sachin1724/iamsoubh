@@ -131,7 +131,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${akshar.variable} ${jaya.variable} ${hatalekha.variable} ${lohitOriya.variable} ${gazpacho.variable} ${bigdream.variable} ${bricolage.variable}`}
     >
-      <body className="min-h-screen overflow-x-hidden bg-rice text-ink font-sans antialiased selection:bg-turmeric selection:text-ink">
+      <body className="min-h-screen overflow-x-clip bg-rice text-ink font-sans antialiased selection:bg-turmeric selection:text-ink">
         <SmoothScroll>{children}</SmoothScroll>
         <RevealObserver />
         <Analytics />

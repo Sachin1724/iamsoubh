@@ -113,7 +113,7 @@ export function CreatorVideos() {
   return (
     <section
       id="creators" data-snap
-      className="halftone [--ht-at:0%_100%] relative flex h-svh flex-col pt-[5.25rem] pb-[5.5rem] md:pb-6 lg:h-auto lg:min-h-svh lg:justify-center lg:py-20 bg-ink text-on-dark scroll-mt-24 overflow-hidden"
+      className="halftone [--ht-at:0%_100%] relative flex h-svh flex-col pt-[5.25rem] pb-[5.5rem] md:pb-6 lg:h-auto lg:py-20 bg-ink text-on-dark scroll-mt-24 overflow-hidden"
     >
 
       {/* Folk pattern texture */}

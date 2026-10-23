@@ -16,7 +16,7 @@ export function FaqSection() {
   return (
     <section
       id="faq" data-snap
-      className="flex min-h-svh flex-col justify-center pt-[5.25rem] pb-[5.5rem] md:pb-6 lg:py-20 bg-white text-on-light relative overflow-hidden scroll-mt-24"
+      className="py-16 sm:py-24 bg-white text-on-light relative overflow-hidden scroll-mt-24"
     >
 
       {/* Mandala on the top-right corner, slowly turning */}

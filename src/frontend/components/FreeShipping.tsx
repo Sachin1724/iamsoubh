@@ -7,7 +7,7 @@ export function FreeShipping() {
   return (
     <section data-snap
       id="free-shipping"
-      className="halftone relative flex min-h-svh items-center overflow-hidden bg-pipili-red pb-[5.5rem] pt-[5.25rem] text-on-dark md:pb-16 sm:pt-24"
+      className="halftone relative overflow-hidden bg-pipili-red py-16 text-on-dark sm:py-24"
     >
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <h2 data-scroll-rise className="max-w-[16ch] font-gazpacho text-[2.4rem] [@media(max-height:740px)]:text-[1.9rem] font-bold leading-[1.05] tracking-[-0.02em] sm:text-6xl lg:text-7xl">

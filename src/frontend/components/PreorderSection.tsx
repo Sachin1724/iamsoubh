@@ -65,7 +65,7 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
   return (
     <section
       id="preorder" data-snap
-      className="relative flex h-svh flex-col bg-pipili-cream pb-3 pt-[5.25rem] text-on-light scroll-mt-0 sm:pb-6 lg:h-auto lg:min-h-svh lg:justify-center lg:py-24"
+      className="relative flex h-svh flex-col bg-pipili-cream pb-3 pt-[5.25rem] text-on-light scroll-mt-0 sm:pb-6 lg:h-auto lg:py-16"
     >
       <div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-4 sm:px-6 lg:block lg:flex-none lg:px-8">
         <div className="mb-1 hidden items-baseline gap-3 [@media(min-height:960px)]:flex lg:mb-2">
@@ -158,7 +158,8 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
               </div>
 
               <div className="grid grid-cols-3 gap-1 rounded-xl bg-on-light/[0.06] p-1">
-                {[1, 2, 3].map((n) => (
+                {/* One option per price tier, so each shows a different per-box price */}
+                {[1, 3, 10].map((n) => (
                   <button
                     key={n}
                     type="button"
@@ -172,6 +173,10 @@ export function PreorderSection({ onRequestQuote }: PreorderSectionProps) {
                       {n} {n === 1 ? "Box" : "Boxes"}
                     </span>
                     <span className="block font-gazpacho text-base font-bold">₹{(boxPrice(n) * n).toLocaleString("en-IN")}</span>
+                    {/* One short line: the saving against the single-box price (blank for 1 box, same height) */}
+                    <span className={`block text-[11px] font-semibold leading-tight text-[#2E7D32] ${n === 1 ? "invisible" : ""}`}>
+                      Save ₹{((boxPrice(1) - boxPrice(n)) * n).toLocaleString("en-IN")}
+                    </span>
                   </button>
                 ))}
               </div>

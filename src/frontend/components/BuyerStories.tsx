@@ -197,18 +197,12 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
   const handleTouchStart = () => {
     isPaused.current = true;
     if (touchTimeout.current) clearTimeout(touchTimeout.current);
-    if (scrollRef.current) {
-      scrollRef.current.style.scrollSnapType = "x mandatory";
-    }
   };
 
   const handleTouchEnd = () => {
     if (touchTimeout.current) clearTimeout(touchTimeout.current);
     touchTimeout.current = setTimeout(() => {
       isPaused.current = false;
-      if (scrollRef.current) {
-        scrollRef.current.style.scrollSnapType = "none";
-      }
     }, 1800);
   };
 
@@ -432,7 +426,7 @@ export function BuyerStories({ embedded = false }: { embedded?: boolean }) {
               <div
                 key={story.id}
                 onClick={() => handleCardClick(idx)}
-                className={`relative ${embedded ? "h-full lg:h-auto lg:self-center lg:w-[calc((100vw-7.5rem)/6)]" : "w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px]"} shrink-0 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] scale-95 opacity-60 data-[active]:scale-105 data-[active]:opacity-100 data-[active]:border-turmeric transition-all duration-300 cursor-pointer group shrink-0 snap-start`}
+                className={`relative ${embedded ? "h-full lg:h-auto lg:self-center lg:w-[calc((100vw-7.5rem)/6)]" : "w-[76vw] sm:w-[280px] md:w-[310px] max-w-[320px]"} shrink-0 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-ink border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] scale-95 opacity-60 data-[active]:scale-105 data-[active]:opacity-100 data-[active]:border-turmeric transition-all duration-300 cursor-pointer group shrink-0`}
               >
                 {/* Phone Speaker Notch */}
                 <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-1.5 bg-black/60 rounded-full z-20 pointer-events-none" />
