@@ -7,33 +7,6 @@ import { siteConfig } from "@/config/site-config";
 export function Footer() {
   return (
     <footer data-snap className="halftone [--ht-at:100%_100%] [--ht-dot:rgba(255,255,255,0.07)] bg-pipili-red text-on-dark pt-16 pb-28 sm:pb-20 md:pt-20 md:pb-16 lg:pb-20 border-t-2 border-ink relative z-20 overflow-hidden">
-      {/* Subtle Odia Folk Pattern Texture with Crimson Red Tint */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none bg-repeat z-0"
-        style={{
-          backgroundImage: "url('/assets/folk-pattern-tile.png')",
-          backgroundSize: "180px",
-        }}
-      />
-
-      {/* Hand-sketched Odia Culture Panorama (Boita Maritime Ship -> Konark Sun Temple & Wheel -> Odissi Dancers -> Mukteshvara Torana -> Lingaraj & Puri Jagannath Temple) */}
-      <div
-        className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none select-none z-0"
-        aria-hidden="true"
-      >
-        <div
-          className="w-[200%] sm:w-[150%] md:w-full min-w-[900px] md:min-w-0 h-[220px] sm:h-[280px] md:h-[340px] lg:h-[380px] xl:h-[420px] mx-auto relative left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 opacity-10 md:opacity-15 transition-opacity duration-300"
-          style={{
-            backgroundImage: "url('/assets/scene/odia-culture-panorama-clean.png')",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "bottom center",
-            backgroundSize: "100% auto",
-            maskImage: "linear-gradient(to top, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
-            WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
-          }}
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main Footer Row: [Left Quote] | [Center Brand & Socials] | [Right Legal Links] */}

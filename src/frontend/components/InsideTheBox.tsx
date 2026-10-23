@@ -44,7 +44,10 @@ export function InsideTheBox() {
                 </span>
               </div>
               <div className="hidden p-4 md:block">
-                <span className="block font-gazpacho text-lg font-bold leading-tight text-ink">{it.title}</span>
+                <span className="block font-gazpacho text-lg font-bold leading-tight text-ink">
+                  {/* The leading count in theme red */}
+                  <span className="text-pipili-red">{it.title.split(" ", 1)[0]}</span> {it.title.slice(it.title.indexOf(" ") + 1)}
+                </span>
                 <span className={`mt-1 block text-sm leading-snug text-ink/65 ${SYSTEM_FONT}`}>{it.body}</span>
               </div>
             </li>

@@ -64,7 +64,7 @@ export function PinnedList({ id, collage, intro, children }: PinnedListProps) {
       {/* Background layer: holds still while the content passes over it. The
           negative margin lets the content start at its top instead of below it. */}
       <div className="sticky top-0 -mb-[100svh] h-svh overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-0 opacity-90 [--s:0.6] sm:[--s:1] [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:18px_18px]">
+        <div className="absolute inset-0 opacity-45 [--s:0.6] sm:[--s:1] [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:18px_18px]">
           {/* Two copies of the scatter, stacked: the lower half is filled too. Only
               transform animates, on its own layer, so it runs at the display's frame rate. */}
           <div className="flex h-full w-max animate-marquee-x flex-col [backface-visibility:hidden] will-change-transform">
