@@ -5,9 +5,11 @@ import { listPaidOrders, toTable } from "@/backend/orders";
 export const dynamic = "force-dynamic";
 
 /** Same rows as the CSV, as a real Excel file. Generated per request, stored nowhere. */
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const orders = await listPaidOrders(true);
+    const all = await listPaidOrders(true);
+    const complete = new URL(req.url).searchParams.get("only") === "complete";
+    const orders = complete ? all.filter((o) => o.address || o.city || o.pincode) : all;
     const stamp = new Date().toISOString().slice(0, 10);
 
     const wb = new ExcelJS.Workbook();

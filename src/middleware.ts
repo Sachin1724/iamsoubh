@@ -16,6 +16,21 @@ function unauthorised() {
 }
 
 export function middleware(req: NextRequest) {
+  // Basic auth has no real logout: answering 401 makes the browser drop its cached login.
+  if (req.nextUrl.pathname === "/admin/logout") {
+    return new NextResponse(
+      '<p style="font-family:sans-serif;padding:2rem">Logged out. <a href="/admin">Log in again</a></p>',
+      {
+        status: 401,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "WWW-Authenticate": 'Basic realm="IAMSOUBH admin", charset="UTF-8"',
+          "X-Robots-Tag": "noindex, nofollow",
+        },
+      }
+    );
+  }
+
   const user = process.env.ADMIN_USER;
   const pass = process.env.ADMIN_PASS;
 
