@@ -33,10 +33,10 @@ export default async function AdminPage() {
             </p>
           </div>
           <a
-            href="/api/admin/csv"
+            href="/api/admin/xls"
             className="rounded-full bg-[#8E1B1B] px-6 py-3 text-sm font-bold text-[#FFF4E2]"
           >
-            Download CSV for Shiprocket
+            Download Excel for Shiprocket
           </a>
         </header>
 
@@ -122,7 +122,7 @@ export default async function AdminPage() {
         </div>
 
         <p className="mt-6 text-xs text-black/50">
-          Save every CSV you download. Those files are the only copy outside Razorpay.
+          Save every Excel file you download. Those files are the only copy outside Razorpay.
         </p>
       </div>
     </main>

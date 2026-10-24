@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
   }
 
   const amount = unit * boxes * 100;
-  const receipt = crypto.randomUUID();
+  const receipt = `ovc27_${crypto.randomUUID().replace(/-/g, "").slice(0, 24)}`;
 
   try {
     const site = process.env.NEXT_PUBLIC_SITE_URL || "https://iamsoubh.com";
@@ -104,6 +104,7 @@ export async function POST(req: NextRequest) {
       // Razorpay is the only order store now, so everything the admin mail and
       // the thank-you screen read has to live in the notes.
       notes: {
+        project: "odia_calendar_2027",
         product,
         qty: String(quantity),
         boxes: String(boxes),

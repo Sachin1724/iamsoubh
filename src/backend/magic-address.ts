@@ -54,7 +54,28 @@ export async function fetchPaidOrder(
   razorpayOrderId: string,
   paymentId?: string
 ): Promise<PaidOrder> {
-  const order = (await getRazorpay().orders.fetch(razorpayOrderId)) as unknown as RzpOrder;
+  const rzp = getRazorpay();
+  const order = (await rzp.orders.fetch(razorpayOrderId)) as unknown as RzpOrder;
+
+  // If paymentId is present and contact/email wasn't on the order, try payment entity
+  if (paymentId && (!order.customer_details?.contact || !order.customer_details?.email)) {
+    try {
+      const pay = (await rzp.payments.fetch(paymentId)) as unknown as {
+        contact?: string;
+        email?: string;
+      };
+      if (pay) {
+        order.customer_details = {
+          ...order.customer_details,
+          contact: order.customer_details?.contact || pay.contact,
+          email: order.customer_details?.email || pay.email,
+        };
+      }
+    } catch {
+      // Non-fatal, use whatever order had
+    }
+  }
+
   return mapOrder(razorpayOrderId, order, paymentId);
 }
 
@@ -66,10 +87,27 @@ export function mapOrder(
 ): PaidOrder {
   const n = order.notes ?? {};
   const d = order.customer_details;
-  const ship = d?.shipping_address;
+  const anyOrder = order as unknown as {
+    customer_details?: {
+      billing_address?: RzpAddress;
+      shipping_address?: RzpAddress;
+    };
+  };
+  const ship = d?.shipping_address || anyOrder.customer_details?.billing_address;
 
-  const shipAddress = [ship?.line1, ship?.line2].filter(Boolean).join(", ").slice(0, 250);
-  const shipPhone = (ship?.contact ?? d?.contact ?? "").replace(/\D/g, "").slice(-10);
+  const rawLine1 = ship?.line1 || (ship as Record<string, unknown>)?.address;
+  const rawLine2 = ship?.line2 || (ship as Record<string, unknown>)?.street;
+  const shipAddress = [rawLine1, rawLine2].filter(Boolean).join(", ").slice(0, 250);
+
+  const rawPhone = ship?.contact ?? d?.contact ?? (n.phone as string) ?? "";
+  const shipPhone = String(rawPhone).replace(/\D/g, "").slice(-10);
+
+  const rawPin =
+    ship?.zipcode ||
+    (ship as Record<string, unknown>)?.postal_code ||
+    (ship as Record<string, unknown>)?.pincode ||
+    s(n.pincode);
+  const pincode = String(rawPin ?? "").replace(/\D/g, "").slice(0, 6);
 
   // The address Razorpay captured wins; the form prefill is only the fallback.
   return {
@@ -80,13 +118,13 @@ export function mapOrder(
     product: s(n.product) || "single",
     qty: Number(s(n.qty)) || 1,
     boxes: Number(s(n.boxes)) || 1,
-    name: ship?.name || d?.name || s(n.name),
-    email: d?.email || s(n.email),
+    name: String(ship?.name || d?.name || s(n.name) || "").trim(),
+    email: String(d?.email || s(n.email) || "").trim(),
     phone: shipPhone.length === 10 ? shipPhone : s(n.phone),
     address: shipAddress || s(n.address),
-    city: ship?.city || s(n.city),
-    state: ship?.state || s(n.state),
-    pincode: (ship?.zipcode || s(n.pincode)).replace(/\D/g, "").slice(0, 6),
+    city: String(ship?.city || s(n.city) || "").trim(),
+    state: String(ship?.state || s(n.state) || "").trim(),
+    pincode,
     landmark: s(n.landmark),
     giftNote: s(n.gift_note),
     utm: s(n.utm),

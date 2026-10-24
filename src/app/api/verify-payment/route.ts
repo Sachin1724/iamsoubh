@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
+import { fetchPaidOrder } from "@/backend/magic-address";
+import { logToSheet } from "@/backend/sheet";
 
 /**
- * Confirms the browser's success callback really came from Razorpay. The
- * webhook is what mails the order through; this only decides whether the
- * thank-you screen is allowed to celebrate.
+ * Confirms the browser's success callback really came from Razorpay.
+ * Also immediately syncs the paid order and shipping address to Google Sheet,
+ * ensuring no dependency solely on external webhooks.
  */
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
@@ -28,5 +30,36 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ code: "BAD_SIGNATURE" }, { status: 400 });
   }
 
+  // Instant sync: fetch the completed order (with address from Razorpay) and write to Sheet
+  try {
+    const order = await fetchPaidOrder(orderId, paymentId);
+    await logToSheet(
+      "Orders",
+      {
+        "Order Id": order.razorpayOrderId,
+        Status: "Paid",
+        Paid: new Date().toISOString(),
+        "Payment Id": order.paymentId ?? "",
+        Name: order.name,
+        Phone: order.phone,
+        Email: order.email,
+        Address: order.address,
+        Landmark: order.landmark,
+        City: order.city,
+        State: order.state,
+        Pincode: order.pincode,
+        Boxes: order.boxes,
+        "Amount (INR)": order.amountInr,
+        "Gift Note": order.giftNote,
+        Source: order.utm,
+      },
+      order.razorpayOrderId
+    );
+  } catch (err) {
+    // Non-fatal for the browser response; webhook will also attempt sync
+    console.error(`verify-payment sheet sync error for ${orderId}:`, err);
+  }
+
   return NextResponse.json({ ok: true });
 }
+

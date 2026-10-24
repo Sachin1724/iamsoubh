@@ -26,6 +26,20 @@ type RzpOrderList = {
 
 export type AdminOrder = PaidOrder & { createdAt: number };
 
+/** Distinguishes this calendar product from other websites using the same Razorpay account */
+export function isCalendarOrder(item: {
+  receipt?: string;
+  notes?: Record<string, unknown>;
+}): boolean {
+  const n = item.notes;
+  if (!n) return false;
+  if (n.project === "odia_calendar_2027") return true;
+  if (n.boxes !== undefined && n.boxes !== "") return true;
+  if (n.gift_note !== undefined) return true;
+  if (typeof item.receipt === "string" && item.receipt.startsWith("ovc27_")) return true;
+  return false;
+}
+
 export async function listPaidOrders(force = false): Promise<AdminOrder[]> {
   if (!force && cache && Date.now() - cache.at < TTL_MS) {
     return cache.orders as AdminOrder[];
@@ -45,6 +59,10 @@ export async function listPaidOrders(force = false): Promise<AdminOrder[]> {
       // Only money that arrived counts. Abandoned checkouts stay "created"/"attempted"
       // with amount_paid null (not 0), so test for a positive amount, not for zero.
       if (item.status !== "paid" && !((item.amount_paid ?? 0) > 0)) continue;
+
+      // Filter out orders belonging to other websites / stores on this Razorpay account
+      if (!isCalendarOrder(item)) continue;
+
       out.push({
         ...mapOrder(item.id, item as Parameters<typeof mapOrder>[1]),
         createdAt: item.created_at * 1000,
@@ -77,7 +95,7 @@ const cell = (v: string | number | undefined) => {
 const WEIGHT_KG: Record<number, number> = { 1: 0.25, 3: 0.65, 10: 2.1 };
 const DIMENSIONS: Record<number, string> = { 1: "14x10x3", 3: "16x12x5", 10: "24x18x10" };
 
-export function toCsv(orders: AdminOrder[]): string {
+export function toTable(orders: AdminOrder[]): (string | number | undefined)[][] {
   const head = [
     "Order Id",
     "Order Date",
@@ -101,8 +119,7 @@ export function toCsv(orders: AdminOrder[]): string {
     "Source",
   ];
 
-  const rows = orders.map((o) =>
-    [
+  const rows = orders.map((o) => [
       o.razorpayOrderId,
       new Date(o.createdAt).toISOString().slice(0, 10),
       o.name,
@@ -123,10 +140,13 @@ export function toCsv(orders: AdminOrder[]): string {
       DIMENSIONS[o.boxes] ?? "14x10x3",
       o.giftNote,
       o.utm,
-    ]
-      .map(cell)
-      .join(",")
-  );
+  ]);
 
-  return [head.join(","), ...rows].join("\n");
+  return [head, ...rows];
+}
+
+export function toCsv(orders: AdminOrder[]): string {
+  return toTable(orders)
+    .map((r) => r.map(cell).join(","))
+    .join("\n");
 }
